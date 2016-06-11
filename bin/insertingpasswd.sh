@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=insertingpasswd
+UTIL_INSERTINGPASSWD=insertingpasswd
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -22,20 +22,24 @@ UTIL_LOG=$UTIL/log
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __insertingpasswd "$PASSWD"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __insertingpasswd() {
-    PASSWD="$1"
-    TMP_PASSWD=""
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[Inserting password]"
-	fi
+    local PASSWD="$1"
+    local TMP_PASSWD=""
+    local MSG=""
+    local FUNC=${FUNCNAME[0]}
     stty -echo
     printf "%s" "Enter password: "
     read TMP_PASSWD
@@ -43,13 +47,11 @@ function __insertingpasswd() {
     stty echo
     if [ -n "$PASSWD" ]; then
 		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+			printf "$DEND" "$UTIL_INSERTINGPASSWD" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n\n" "[Error] empty password"
-	fi
+	MSG="Empty password"
+	printf "$SEND" "$UTIL_INSERTINGPASSWD" "$MSG"
     return $NOT_SUCCESS
 }
-

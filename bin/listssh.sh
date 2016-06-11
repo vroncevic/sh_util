@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=listssh
+UTIL_LISTSSH=listssh
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -21,26 +21,36 @@ UTIL_LOG=$UTIL/log
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __listssh "$DIR_PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # notify admin | user
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __listssh() {
-    TTY=$(tty | cut -f3- -d/)
+    local TTY=$(tty | cut -f3- -d/)
     if [ -n "$TTY" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[List SSH sessions]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="List SSH sessions"
+			printf "$DSTA" "$UTIL_LISTSSH" "$FUNC" "$MSG"
 		fi
-        ps -o pid= -o command= -C sshd | grep sshd:.*@ | grep -v "@$TTY" | sed "s/ sshd.*//"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		PS_CMD="ps -o pid= -o command= -C sshd"
+		GREP_CMD="grep sshd:.*@ | grep -v "@$TTY""
+		SED_CMD="sed \"s/ sshd.*//\""
+		eval "$PS_CMD | $GREP_CMD | $SED_CMD"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_LISTSSH" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
     return $NOT_SUCCESS
 }
-

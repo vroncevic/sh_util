@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=bytetraf
+UTIL_BYTETRAF=bytetraf
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A BYTETRAF_USAGE=(
+    [TOOL_NAME]="__$UTIL_BYTETRAF"
     [ARG1]="[TEST_STRUCTURE] Time and name of interface"
     [EX-PRE]="# Display network traffic on an interface"
-    [EX]="__$UTIL_NAME \"enp0s25\""	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_BYTETRAF \"enp0s25\""
 )
 
 #
@@ -37,12 +29,18 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# BYTE_COUNT=$(__byte_count $INTERFACE $OPTION)
+# local BYTE_COUNT=$(__byte_count $INTERFACE $OPTION)
 #
 function __byte_count() {
-    INTERFACE=$1
-    DIRECTION=$2
+    local INTERFACE=$1
+    local DIRECTION=$2
     if [ -n "$INTERFACE" ] && [ -n "$DIRECTION" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Counting bytes from interface [$INTERFACE]"
+			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
+		fi
         while read line
         do
             if [[ $line == $INTERFACE:* ]];then
@@ -54,8 +52,9 @@ function __byte_count() {
 }
 
 #
-# @brief Delimit some string
-# @param Value required some string text to delimit
+# @brief  Delimit some string
+# @param  Value required some string text to delimit
+# @retval None
 #
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -63,10 +62,11 @@ function __byte_count() {
 # __string_intdelim SOME_STRING
 #
 function __string_intdelim() {
-    VAR_STRING2DELIM=\$"$1"
-    STRING2DELIM=`eval "expr \"$VAR_STRING2DELIM\" "`
+    local VAR_STRING2DELIM=\$"$1"
+    local STRING2DELIM=`eval "expr \"$VAR_STRING2DELIM\" "`
     echo $1=$STRING2DELIM
-    DELIMITED=$(echo $STRING2DELIM | sed '{ s/$/@/; : loop; s/\(...\)@/@.\1/; t loop; s/@//; s/^\.//; }')
+    local DELIMITED=$(echo $STRING2DELIM | \
+		sed '{ s/$/@/; : loop; s/\(...\)@/@.\1/; t loop; s/@//; s/^\.//; }')
     eval "$1=\"$DELIMITED\""
 }
 
@@ -78,22 +78,37 @@ function __string_intdelim() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __interface_check "enp0s25"
-# STATUS=$?
+# local interface="enp0s25"
+# __interface_check "$interface"
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# interface is up and running
 # else
 #   # false
+#	# missing argument | interface isn't up
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __interface_check() {
-    INTERFACE=$1
+    local INTERFACE=$1
     if [ -n "$INTERFACE" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking interface [$INTERFACE]"
+			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
+		fi
         grep "$INTERFACE" /proc/net/dev &>/dev/null
-        STATUS=$?
+        local STATUS=$?
         if [ "$STATUS" -ne "$SUCCESS" ]; then
-            printf "%s\n" "$INTERFACE is not up, can't find it in /proc/net/dev ..."
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="$INTERFACE is not up, can't find it in /proc/net/dev"
+				printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
+			fi
             return $NOT_SUCCESS
         fi
         return $SUCCESS
@@ -110,59 +125,73 @@ function __interface_check() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __bytetraf $TIME $INTERFACE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# interface is ok, you can see speed
 # else
 #   # false
+#	# missing argument(s) | interface is down
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __bytetraf() {
-	TEST_STRUCTURE=$1
-    TIME=${TEST_STRUCTURE[TIME]}
-    INTERFACE=${TEST_STRUCTURE[INTERFACE]}
+	local TEST_STRUCTURE=$1
+    local TIME=${TEST_STRUCTURE[TIME]}
+    local INTERFACE=${TEST_STRUCTURE[INTERFACE]}
     if [ -n "$TIME" ] && [ -n "$INTERFACE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Display network traffic on an interface]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Display network traffic on an interface [$INTERFACE]"
+			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
 		fi
         case "$TIME" in
             +([0-9])[smhd] )
                 __interface_check "$INTERFACE"
-                intg=${TIME%[s|m|h|d]*}
-                unit=${TIME##*[!s|m|h|d]}
-                [[ $unit == s ]] && div=1
-                [[ $unit == m ]] && div=60
-                [[ $unit == h ]] && div=3600
-                [[ $unit == d ]] && div=86400
-                while grep "$INTERFACE" < /proc/net/dev &>/dev/null 
-                do
-                    received=$(__byte_count "$INTERFACE" r)
-                    transmit=$(__byte_count "$INTERFACE" t)
-                    sleep $1
-                    nreceived=$(__byte_count "$INTERFACE" r)
-                    ntransmit=$(__byte_count "$INTERFACE" t)
-                    rdiff=$((($nreceived - $received)))
-                    tdiff=$((($ntransmit - $transmit)))
-                    rate=$(((($rdiff + $tdiff)/( $div * $intg ))))
-                    __string_intdelim received
-                    __string_intdelim transmit
-                    printf "%s %s %s %s %s %s %s\n" "$(date +%H:%M:%S) int: $INTERFACE recv: [+${rdiff}] $received tran: [+${tdiff}] $transmit rate: ${rate} b/s"
-                done 
+                local STATUS=$?
+                if [ "$STATUS" -eq "$SUCCESS" ]; then
+					local intg=${TIME%[s|m|h|d]*}
+					local unit=${TIME##*[!s|m|h|d]}
+					[[ $unit == s ]] && div=1
+					[[ $unit == m ]] && div=60
+					[[ $unit == h ]] && div=3600
+					[[ $unit == d ]] && div=86400
+					while grep "$INTERFACE" < /proc/net/dev &>/dev/null 
+					do
+						local received=$(__byte_count "$INTERFACE" r)
+						local transmit=$(__byte_count "$INTERFACE" t)
+						sleep $1
+						local nreceived=$(__byte_count "$INTERFACE" r)
+						local ntransmit=$(__byte_count "$INTERFACE" t)
+						local rdiff=$((($nreceived - $received)))
+						local tdiff=$((($ntransmit - $transmit)))
+						local rate=$(((($rdiff + $tdiff)/( $div * $intg ))))
+						__string_intdelim received
+						__string_intdelim transmit
+						printf "%s %s %s %s %s %s %s\n" \
+								"$(date +%H:%M:%S)" \
+								"int: $INTERFACE " \
+								"recv: [+${rdiff}] $received " \
+								"tran: [+${tdiff}] $transmit " \
+								"rate: ${rate} b/s"
+					done 
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "$DEND" "$UTIL_BYTETRAF" "$FUNC" "Done"
+					fi
+					return $SUCCESS
+                fi
                 ;;
             *) 
-                LOG[MSG]="Wrong argument"
-				if [ "$TOOL_DEBUG" == "true" ]; then
-					printf "%s\n" "[Error] ${LOG[MSG]}"
-				fi
-                __logging $LOG
-                return $NOT_SUCCESS
+				MSG="Wrong argument [$TIME]"
+				printf "$SSTA" "$UTIL_BYTETRAF" "$MSG"
                 ;;
         esac
-        printf "%s\n\n" "[Done]"
-        return $SUCCESS
+		return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $BYTETRAF_USAGE
     return $NOT_SUCCESS
 }
-

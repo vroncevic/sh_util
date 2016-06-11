@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=symlinks
+UTIL_SYMLINKS=symlinks
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A SYMLINKS_USAGE=(
+    [TOOL_NAME]="__$UTIL_SYMLINKS"
     [ARG1]="[DIRECTORY] Directory path"
     [EX-PRE]="# Example listing symlinks"
-    [EX]="__$UTIL_NAME /etc"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_SYMLINKS /etc"	
 )
 
 #
@@ -38,47 +30,51 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __symlinks "$DIRECTORY"
-# STATUS=$?
+# local local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __symlinks() {
-    DIRECTORY=$1
+    local DIRECTORY=$1
     if [ -n "$DIRECTORY" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[List symbolic links in a directory]"
-            printf "%s\n" "Checking directory [$DIRECTORY]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+            MSG="Checking dir [$DIRECTORY/]"
+			printf "$DQUE" "$UTIL_SYMLINKS" "$FUNC" "$MSG"
 		fi
         if [ -d "$DIRECTORY" ]; then
-            printf "%s\n" "Symbolic links in directory \"$DIRECTORY\""
+            MSG="Symbolic links in dir [$DIRECTORY]"
+			printf "$DSTA" "$UTIL_SYMLINKS" "$FUNC" "$MSG"
             for listedfile in "$(find $DIRECTORY -type l)"
             do
                 printf "%s\n" " $listedfile"
             done | sort
-            printf "%s\n" "Symbolic links in directory \"$DIRECTORY\""
-            OLDIFS=$IFS
+            printf "%s\n" "Symbolic links in dir [$DIRECTORY/]"
+            local OLDIFS=$IFS
             IFS=:
             for listedfile in $(find "$DIRECTORY" -type l -printf "%p$IFS")
             do
                 printf "%s\n" "$listedfile"
             done | sort
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_SYMLINKS" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Check directory [$DIRECTORY]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check dir [$DIRECTORY/]"
+		printf "$SEND" "$UTIL_SYMLINKS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $SYMLINKS_USAGE
     return $NOT_SUCCESS
 }
-

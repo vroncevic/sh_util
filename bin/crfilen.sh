@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=crfilen
+UTIL_CRFILEN=crfilen
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
-. $UTIL/bin/logging.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A CRFILEN_USAGE=(
+    [TOOL_NAME]="__$UTIL_CRFILEN"
     [ARG1]="[CREATE_STRUCTURE] Number of bytes, file name and Character"
     [EX-PRE]="# Example creating a file n bytes large"
-    [EX]="__$UTIL_NAME \$CREATE_STRUCTURE"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_CRFILEN \$CREATE_STRUCTURE"	
 )
 
 #
@@ -37,58 +29,68 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A CREATE_STRUCTURE=()
 # CREATE_STRUCTURE[NB]=8
 # CREATE_STRUCTURE[FN]="test.ini"
 # CREATE_STRUCTURE[CH]="D"
 #
 # __crfilen $CREATE_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __crfilen() {
-    CREATE_STRUCTURE=$1
-    NBYTES=${CREATE_STRUCTURE[NB]}
-    FILENAME=${CREATE_STRUCTURE[FN]}
-    CHARACHTER=${CREATE_STRUCTURE[CH]}
+    local CREATE_STRUCTURE=$1
+    local NBYTES=${CREATE_STRUCTURE[NB]}
+    local FILENAME=${CREATE_STRUCTURE[FN]}
+    local CHARACHTER=${CREATE_STRUCTURE[CH]}
     if [ -n "$FILENAME" ] && [ -n "$NBYTES" ] && [ -n "$CHARACHTER" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Create a file n bytes size]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Create a file n bytes size"
+			printf "$DSTA" "$UTIL_CRFILEN" "$FUNC" "$MSG"
 		fi
         case $NBYTES in
             *[!0-9]*) 
-                __usage $TOOL_USAGE
+                __usage $CRFILEN_USAGE
                 return $NOT_SUCCESS
                 ;;
             *)
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s" "Generating file"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Generating file [$FILENAME]"
+					printf "$DSTA" "$UTIL_CRFILEN" "$FUNC" "$MSG"
 				fi
 				:
                 ;;
         esac
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "Write to file"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Write to file [$FILENAME]"
+			printf "$DSTA" "$UTIL_CRFILEN" "$FUNC" "$MSG"
 		fi
-        COUNTER=0
+        local COUNTER=0
         while(($COUNTER != $NBYTES))
         do
             echo -n "$CHARACHTER" >> "$FILENAME"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
+			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "%s" "."
 			fi
             ((COUNTER++))
         done
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "\n%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	printf "$DEND" "$UTIL_CRFILEN" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $CRFILEN_USAGE
     return $NOT_SUCCESS
 }
-

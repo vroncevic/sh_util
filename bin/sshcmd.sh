@@ -7,27 +7,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=sshcmd
+UTIL_SSHCMD=sshcmd
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A SSHCMD_USAGE=(
+    [TOOL_NAME]="__$UTIL_SSHCMD"
     [ARG1]="[SSH_STRUCTURE] Username, server name and path to script"
     [EX-PRE]="# Example running script on remote server"
-    [EX]="__$UTIL_NAME \$SSH_STRUCTURE"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_SSHCMD \$SSH_STRUCTURE"	
 )
 
 #
@@ -39,45 +31,49 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A SSH_STRUCTURE=() 
 # SSH_STRUCTURE[UN]="rmuller"
 # SSH_STRUCTURE[SN]="fronss1"
 # SSH_STRUCTURE[SC]="test.sh"
 #
 # __sshcmd $SSH_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing script file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __sshcmd() {
-    SSH_STRUCTURE=$1
-    USER_NAME=${SSH_STRUCTURE[UN]}
-    SERVER_NAME=${SSH_STRUCTURE[SN]}
-    SCRIPT_NAME=${SSH_STRUCTURE[SC]}
-    if [ -n "$USER_NAME" ] && [ -n "$SERVER_NAME" ] && [ -n "$SCRIPT_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Run a local shell script on a remote server without copying it there]"
-			printf "%s\n" "Checking script file [$SCRIPT_NAME]"
+    local SSH_STRUCTURE=$1
+    local USER_NAME=${SSH_STRUCTURE[UN]}
+    local SERVER_NAME=${SSH_STRUCTURE[SN]}
+    local SCRIPT_NAME=${SSH_STRUCTURE[SC]}
+    if [ -n "$USER_NAME" ] && [ -n "$SERVER_NAME" ] && 
+	   [ -n "$SCRIPT_NAME" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking script file [$SCRIPT_NAME]"
+			printf "$DQUE" "$UTIL_SSHCMD" "$FUNC" "$MSG"
 		fi
         if [ -f "$SCRIPT_NAME" ]; then
             ssh $USER_NAME@$SERVER_NAME bash < $SCRIPT_NAME
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_SSHCMD" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Check file [$SCRIPT_NAME]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
-        return $NOT_SUCCESS
-    else
-        __usage $TOOL_USAGE
+        MSG="Check file [$SCRIPT_NAME]"
+		printf "$SEND" "$UTIL_SSHCMD" "$MSG"
         return $NOT_SUCCESS
     fi
+	__usage $SSHCMD_USAGE
+	return $NOT_SUCCESS
 }
-

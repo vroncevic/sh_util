@@ -7,28 +7,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=unpack2dir
+UTIL_UNPACK2DIR=unpack2dir
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/dirutils.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A UNPACK2DIR_USAGE=(
+    [TOOL_NAME]="__$UTIL_UNPACK2DIR"
     [ARG1]="[FILE] Path to the target"
-    [EX-PRE]="# Example running __$UTIL_NAME"
-    [EX]="__$UTIL_NAME test.ar.gz"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX-PRE]="# Example running __$UTIL_UNPACK2DIR"
+    [EX]="__$UTIL_UNPACK2DIR test.ar.gz"	
 )
 
 #
@@ -40,33 +32,42 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __unpack2dir $FILES
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s)
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __unpack2dir() {
     shift $(($OPTIND - 1))
-    start_dir=$(pwd)
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[Unpack archive to dir archive]"
+    local start_dir=$(pwd)
+    local FUNC=${FUNCNAME[0]}
+    local MSG=""
+	if [ "$TOOL_DBG" == "true" ]; then
+		MSG="Unpack archive to dir archive"
+		printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 	fi
     for a in "$@"
     do
         cd $start_dir
-        fname=$(__getbasename $a)
-        dir=$(__getdirname $a)
+        local fname=$(__getbasename $a)
+        local dir=$(__getdirname $a)
         cd $dir
         a=$fname
         case $a in
             # zip 
             *.[zZ][iI][pP])
                             mkdirf ${a/.[zZ][iI][pP]/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then
-                            	printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then
+                            	MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             unzip -qq $a -d ${a/.[zZ][iI][pP]/}
                             clean $? ${a/.[zZ][iI][pP]/}
@@ -74,8 +75,9 @@ function __unpack2dir() {
             # tar
             *.[tT][aA][rR])
                             mkdirf ${a/.[tT][aA][rR]/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then
-                            	printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then
+                            	MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             tar -xf $a -C ${a/.[tT][aA][rR]/}/
                             clean $? ${a/.[tT][aA][rR]/}
@@ -83,8 +85,9 @@ function __unpack2dir() {
             # tgz
             *.[tT][gG][zZ])
                             mkdirf ${a/.[tT][gG][zZ]/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then                            
-								printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then                            
+								MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             tar -xzf $a -C ${a/.[tT][gG][zZ]/}
                             clean $? ${a/.[tT][gG][zZ]/}
@@ -92,8 +95,9 @@ function __unpack2dir() {
             # tar.gz 
             *.[tT][aA][rR].[gG][zZ])
                             mkdirf ${a/.[tT][aA][rR].[gG][zZ]/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then                            
-								printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then                            
+								MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             tar -xzf $a -C ${a/.[tT][aA][rR].[gG][zZ]/}/
                             clean $? ${a/.[tT][aA][rR].[gG][zZ]/}
@@ -101,8 +105,9 @@ function __unpack2dir() {
             # tar.bz2
             *.[tT][aA][rR].[bB][zZ]2)
                             mkdirf ${a/.[tT][aA][rR].[bB][zZ]2/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then
-                            	printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then
+                            	MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             tar -xjf $a -C ${a/.[tT][aA][rR].[bB][zZ]2/}/
                             clean $? ${a/.[tT][aA][rR].[bB][zZ]2/}
@@ -110,23 +115,22 @@ function __unpack2dir() {
             # tar.z
             *.[tT][aA][rR].[zZ])
                             mkdirf ${a/.[tT][aA][rR].[zZ]/} $a
-							if [ "$TOOL_DEBUG" == "true" ]; then                            
-								printf "%s\n" "Extract archive [$a]"
+							if [ "$TOOL_DBG" == "true" ]; then                            
+								MSG="Extract archive [$a]"
+								printf "$DSTA" "$UTIL_UNPACK2DIR" "$FUNC" "$MSG"
 							fi
                             tar -xZf $a -C ${a/.[tT][aA][rR].[zZ]/}/
                             clean $? ${a/.[tT][aA][rR].[zZ]/}
                             ;;
-            *) 
-							if [ "$TOOL_DEBUG" == "true" ]; then                            
-								printf "%s\n" "[$a] not a compressed file or lacks proper suffix"
-							fi
-							: 
+            *)
+							MSG="[$a] not a compressed file|lacks proper suffix"
+							printf "$SEND" "$UTIL_UNPACK2DIR" "$MSG"
+							return $NOT_SUCCESS
                             ;;
         esac
     done
-	if [ "$TOOL_DEBUG" == "true" ]; then
-    	printf "%s\n\n" "[Done]"
+	if [ "$TOOL_DBG" == "true" ]; then
+    	printf "$DEND" "$UTIL_UNPACK2DIR" "$FUNC" "Done"
 	fi
     return $SUCCESS
 }
-

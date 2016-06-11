@@ -6,49 +6,41 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=dirutils
+UTIL_DIRUTILS=dirutils
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE_MKDIRF=(
+declare -A MKDIRF_USAGE=(
     [TOOL_NAME]="__mkdirf"
     [ARG1]="[DIR_PATH] Directory path"
     [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"	
+    [EX]="__mkdirf /opt/test/"
 ) 
 
-declare -A TOOL_USAGE_DIRNAME=(
+declare -A DIRNAME_USAGE=(
     [TOOL_NAME]="__getdirname"
     [ARG1]="[DIR_PATH] Directory path"
     [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"	
+    [EX]="__mkdirf /opt/test/"
 ) 
 
-declare -A TOOL_USAGE_BASENAME=(
+declare -A BASENAME_USAGE=(
     [TOOL_NAME]="__getbasename"
     [ARG1]="[DIR_PATH] Directory path"
     [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"	
+    [EX]="__mkdirf /opt/test/"
 ) 
 
-declare -A TOOL_USAGE_CLEAN=(
+declare -A CLEANDIR_USAGE=(
     [TOOL_NAME]="__clean"
     [ARG1]="[DIR_PATH] Directory path"
     [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"	
+    [EX]="__mkdirf /opt/test/"
 ) 
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
 
 #
 # @brief  Creating Directory 
@@ -59,32 +51,43 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __mkdirf "$DIR_PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | failed to create dir (already exist)
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __mkdirf() {
-    DIR_PATH=$1
-    if [ -n "$DIR_PATH" ]; then 
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[DIR Utilities: creating directory]"
+    local DIR_PATH=$1
+    if [ -n "$DIR_PATH" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Check dir [$DIR_PATH/]"
+			printf "$DQUE" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
 		fi
         if [ -d "$DIR_PATH" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n\n" "Directory [$DIR_PATH] already exist"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "%s\n" "[already exist]"
 			fi 
+			MSG="Dir [$DIR_PATH/] already exist"
+			printf "$SEND" "$UTIL_DIRUTILS" "$MSG"
             return $NOT_SUCCESS
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "Creating directory"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Creating dir [$DIR_PATH/]"
+			printf "$DSTA" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
 		fi
         mkdir "$DIR_PATH"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	printf "$DEND" "$UTIL_DIRUTILS" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
@@ -100,23 +103,26 @@ function __mkdirf() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# DIRNAME=$(__getdirname $FILE)
+# local DIRNAME=$(__getdirname $FILE)
 #
 function __getdirname() {
     if [ -n "$1" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[DIR Utilities: get name of directory]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Get name of dir"
+			printf "$DSTA" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
 		fi
         local _dir="${1%${1##*/}}"
         if [ "${_dir:=./}" != "/" ]; then
             _dir="${_dir%?}"
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_DIRUTILS" "$FUNC" "Done"
 		fi
         echo "$_dir"
     fi
-    __usage $TOOL_USAGE_DIRNAME
+    __usage $DIRNAME_USAGE
 }
 
 #
@@ -127,20 +133,23 @@ function __getdirname() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# BASENAME=$(__getbasename $FILE)
+# local BASENAME=$(__getbasename $FILE)
 #
 function __getbasename() {
     if [ -n "$1" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[DIR Utilities: get basename of file]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Get basename of file"
+			printf "$DSTA" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
 		fi
         local _name="${1##*/}"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_DIRUTILS" "$FUNC" "Done"
 		fi
         echo "${_name%$2}"
     fi
-    __usage $TOOL_USAGE_BASENAME
+    __usage $BASENAME_USAGE
 }
 
 #
@@ -152,43 +161,45 @@ function __getbasename() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __clean "$DIRECTORY"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | failed to clean dir
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __clean() {
-    DIRNAME=$1
+    local DIRNAME=$1
     if [ -n "$DIRNAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[DIR Utilities: remove directory]"
-        	printf "%s" "Checking directory "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking dir [${config[TOOLS]}/]"
+			printf "$DQUE" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
 		fi
         if [ -d "$DIRNAME" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
 		        printf "%s\n" "[ok]"
-		        printf "%s\n" "Removing empty dir"
 			fi
             rm -rf "$DIRNAME"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+		    	printf "$DEND" "$UTIL_DIRUTILS" "$FUNC" "Done"
 			fi
 			return $SUCCESS
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
         	printf "%s\n" "[not ok]"
 		fi
-		LOG[MSG]="Check directory [$DIRNAME]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check dir [$DIRNAME]"
+		printf "$SEND" "$UTIL_DIRUTILS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE_CLEAN
+    __usage $CLEANDIR_USAGE
     return $NOT_SUCCESS
 }
-

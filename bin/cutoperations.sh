@@ -6,34 +6,26 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=cutoperations
+UTIL_CUTOPERATIONS=cutoperations
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE_COL=(
+declare -A COLUMN_USAGE=(
     [TOOL_NAME]="__cutcolumns"
     [ARG1]="[CUT_STRUCTURE] Columns for cuting and path"
     [EX-PRE]="# Example for cuting columns from file"
     [EX]="__cutcolumns \$CUT_STRUCTURE"	
 )
 
-declare -A TOOL_USAGE_CHA=(
+declare -A CHARACTER_USAGE=(
     [TOOL_NAME]="__cutchars"
     [ARG1]="[CUT_STRUCTURE] Characters and path"
     [EX-PRE]="# Example for cuting characters from file"
     [EX]="__cutchars \$CUT_STRUCTURE"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
 )
 
 #
@@ -44,46 +36,53 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A CUT_STRUCTURE=()
 # CUT_STRUCTURE[COL]=1,3,5
 # CUT_STRUCTURE[FILE]="file.ini"
 #
 # __cutcolumns $CUT_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __cutcolumns() {
-	CUT_STRUCTURE=$1
-    COLUMNS=${CUT_STRUCTURE[COL]}
-    FILE=${CUT_STRUCTURE[FILE]}
+	local CUT_STRUCTURE=$1
+    local COLUMNS=${CUT_STRUCTURE[COL]}
+    local FILE=${CUT_STRUCTURE[FILE]}
     if [ -n "$COLUMNS" ] && [ -n "$FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Cut columns from file]"
-        	printf "%s" "Checking file [$FILE] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking file [$FILE]"
+			printf "$DQUE" "$UTIL_CUTOPERATIONS" "$FUNC" "$MSG"
 		fi
         if [ -e "$FILE" ] && [ -f "$FILE" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
         		printf "%s\n" "[ok]"
 			fi
             cut -d -f "$COLUMNS" "$FILE"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-        		printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+        		printf "$DEND" "$UTIL_CUTOPERATIONS" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Check file [$FILE]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
 		fi
-        __logging $LOG
+		MSG="Check file [$FILE]"
+		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE_COL
+    __usage $COLUMN_USAGE
     return $NOT_SUCCESS
 } 
 
@@ -95,46 +94,52 @@ function __cutcolumns() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A CUT_STRUCTURE=()
 # CUT_STRUCTURE[CHARS]=$chars
 # CUT_STRUCTURE[FILE]=$file
 #
 # __cutchars $CUT_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __cutchars() {
-	CUT_STRUCTURE=$1
-    CHARS=${CUT_STRUCTURE[CHARS]}
-    FILE=${CUT_STRUCTURE[FILE]}
+	local CUT_STRUCTURE=$1
+    local CHARS=${CUT_STRUCTURE[CHARS]}
+    local FILE=${CUT_STRUCTURE[FILE]}
     if [ -n "$CHARS" ] && [ -n "$FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Diplay characters of every line in a file]"
-        	printf "%s" "Checking file [$FILE] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking file [$FILE]"
+			printf "$DQUE" "$UTIL_CUTOPERATIONS" "$FUNC" "$MSG"
 		fi
         if [ -e "$FILE" ] && [ -f "$FILE" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
         		printf "%s\n" "[ok]"
 			fi
             cut -c "$CHARS" "$FILE"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-        		printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+        		printf "$DEND" "$UTIL_CUTOPERATIONS" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Check file [$FILE]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
 		fi
-        __logging $LOG
+		MSG="Check file [$FILE]"
+		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE_CHA
+    __usage $CHARACTER_USAGE
     return $NOT_SUCCESS
 }
-

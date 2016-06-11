@@ -6,35 +6,27 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=sortcopy
+UTIL_SORTCOPY=sortcopy
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE_LCP=(
+declare -A LCP_USAGE=(
     [TOOL_NAME]="__lcp"
-    [ARG1]="[EXSTENSION]  File extension."
+    [ARG1]="[EXSTENSION]  File extension"
     [ARG2]="[DESTINATION] Final destination for copy process"
     [EX-PRE]="# Copy all *.jpg files to directory /opt/"
     [EX]="__lcp jpg /opt/"	
 )
 
-declare -A TOOL_USAGE_DUP=(
+declare -A DUP_USAGE=(
     [TOOL_NAME]="__duplicatescounter"
     [ARG1]="[FILE_PATH] Sort and count duplicates"
     [EX-PRE]="# Sort and count duplicates"
     [EX]="__duplicatescounter /opt/test.txt"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
 )
 
 #
@@ -46,41 +38,45 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __lcp "jpg" "/opt/"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | missing dir
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __lcp() {
-    EXSTENSION=$1
-    DESTINATION=$2
-    if [ -n "$DESTINATION" ] && [ -n "$DESTINATION" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[List and copy files by extension]"
-			printf "%s" "Checking directory [$DESTINATION] "
+    local EXSTENSION=$1
+    local DESTINATION=$2
+    if [ -n "$EXSTENSION" ] && [ -n "$DESTINATION" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking dir [$DESTINATION/]"
+			printf "$DQUE" "$UTIL_SORTCOPY" "$FUNC" "$MSG"
 		fi
         if [ -d "$DESTINATION" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
 				printf "%s\n" "[ok]"
 			fi
             ls *.$EXSTENSION | xargs -n1 -i cp {} "$DESTINATION"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_SORTCOPY" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Check destination [$DESTINATION]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[not exist]"
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+        printf "%s\n" "[not ok]"
+		MSG="Check dir [$DESTINATION/]"
+		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE_LCP
+    __usage $LCP_USAGE
     return $NOT_SUCCESS
 }
 
@@ -94,40 +90,43 @@ function __lcp() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __duplicatescounter "/opt/test.txt"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __duplicatescounter() {
-    FILE_PATH=$1
+    local FILE_PATH=$1
     if [ -n "$FILE_PATH" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Count duplicates]"
-			printf "%s" "Checking directory [$FILE_PATH] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking dir [$FILE_PATH/]"
+			printf "$DQUE" "$UTIL_SORTCOPY" "$FUNC" "$MSG"
 		fi
         if [ -d "$FILE_PATH" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
 				printf "%s\n" "[ok]"
 			fi
             sort "$FILE_PATH" | uniq -c
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_SORTCOPY" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Check path [$FILE_PATH]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[not exist]"
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+        printf "%s\n" "[not ok]"
+		MSG="Check path [$FILE_PATH]"
+		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $TOOL_USAGE_DUP
+    __usage $DUP_USAGE
     return $NOT_SUCCESS
 }
-

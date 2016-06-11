@@ -2,35 +2,29 @@
 #
 # @brief   Display an X window message when it's time to take a break
 # @version ver.1.0
-# @date    Fri Okt 02 09:59:32 2015
+# @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=xbreak
+UTIL_XBREAK=xbreak
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checkx.sh
+. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A XBREAK_USAGE=(
+    [TOOL_NAME]="__$UTIL_XBREAK"
     [ARG1]="[TIME] Life time"
-    [EX-PRE]="# Example running __$UTIL_NAME"
-    [EX]="__$UTIL_NAME 5s"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX-PRE]="# Example running __$UTIL_XBREAK"
+    [EX]="__$UTIL_XBREAK 5s"	
 )
 
 #
-# @brief  Show window message when it's time to take a break
+# @brief  Display an X window message when it's time to take a break
 # @papram Value required time
 # @retval Success return 0, else return 1
 #
@@ -38,44 +32,51 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __xbreak $TIME
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __xbreak() {
-    TIME=$1
+    local TIME=$1
     if [ -n "$TIME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Show window message when it's time to take a break]"
-		fi
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local XINIT="/usr/bin/xinit"
+		local XMSG="/usr/bin/xmessage"
         case $TIME in
             +([0-9]))
                 while :
                 do
-                    __checkx "xinit"
-                    STATUS=$?
+                    __checkx "$XMSG"
+                    local STATUS=$?
                     if [ "$STATUS" -eq "$SUCCESS" ]; then
-                        xmessage -center "Time's up! Session will be closed"
+                        MSG="Time's up! Session will be closed"
+                        eval "$XMSG -center $MSG"
                     else
-                        printf "%s\n" "Time's up! Session will be closed"
+                        MSG="Time's up! Session will be closed"
+						printf "$DSTA" "$UTIL_XBREAK" "$FUNC" "$MSG"
                     fi
                 done 
-				if [ "$TOOL_DEBUG" == "true" ]; then
-					printf "%s\n\n" "[Done]"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_XBREAK" "$FUNC" "Done"
 				fi
                 return $SUCCESS
                 ;;
             *) 
-                __usage $TOOL_USAGE
+                __usage $XBREAK_USAGE
                 ;;
         esac
         return $NOT_SUCCESS 
     fi
-    __usage $TOOL_USAGE
+    __usage $XBREAK_USAGE
     return $NOT_SUCCESS
 }
-

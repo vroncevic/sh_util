@@ -6,28 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=recordmic
+UTIL_RECORDMIC=recordmic
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A RECORDMIC_USAGE=(
+    [TOOL_NAME]="__$UTIL_RECORDMIC"
     [ARG1]="[FILE_NAME] Name of media file"
     [EX-PRE]="# Recording from microfon to test.mp3"
-    [EX]="__$UTIL_NAME test.mp3"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_RECORDMIC test.mp3"	
 )
 
 #
@@ -39,37 +31,52 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __recordmic "test.mp3"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __recordmic() {
-    FILE_NAME=$1
+    local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Record audio from microphone or sound input from the console]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local SOX="/usr/bin/sox"
+		local LAME="/usr/bin/lame"
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Record audio from microphone or sound input from the console"
+			printf "$DSTA" "$UTIL_RECORDMIC" "$FUNC" "$MSG"
 		fi
-        __checktool "/usr/bin/sox"
-        STATUS=$?
+        __checktool "$SOX"
+        local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
-            sox -t ossdsp -w -s -r 44100 -c 2 /dev/dsp -t raw - | lame -x -m s - $FILE_NAME
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			__checktool "$LAME"
+			STATUS=$?
+			if [ "$STATUS" -eq "$SUCCESS" ]; then
+				local C1="$SOX -t ossdsp -w -s -r 44100 -c 2 /dev/dsp -t raw -"
+				local C2="$LAME -x -m s - $FILE_NAME"
+				eval "$C1 | $C2"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_RECORDMIC" "$FUNC" "Done"
+				fi
+				return $SUCCESS
 			fi
-            return $SUCCESS
+			MSG="Check tool [$LAME]"
+			printf "$SEND" "$UTIL_RECORDMIC" "$MSG"
+			return $NOT_SUCCESS
         fi
-        LOG[MSG]="Check tool sox"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check tool [$SOX]"
+		printf "$SEND" "$UTIL_RECORDMIC" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $RECORDMIC_USAGE
     return $NOT_SUCCESS
 }
-

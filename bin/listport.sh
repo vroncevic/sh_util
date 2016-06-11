@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=listport
+UTIL_LISTPORT=listport
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -14,11 +14,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A LISTPORT_USAGE=(
+    [TOOL_NAME]="__$UTIL_LISTPORT"
     [ARG1]="[PORT] Which you need to check"
     [EX-PRE]="# Example check port 1734"
-    [EX]="__$UTIL_NAME 1734"	
+    [EX]="__$UTIL_LISTPORT 1734"	
 )
 
 #
@@ -30,27 +30,34 @@ declare -A TOOL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __listport "1734"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __listport {
-    TARGET_PORT=$1
+    local TARGET_PORT=$1
+    local MSG=""
     if [ -n "$TARGET_PORT" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Checking port]"
+		local FUNC=${FUNCNAME[0]}
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking port [$TARGET_PORT]"
+			printf "$DSTA" "$UTIL_LISTPORT" "$FUNC" "$MSG"
 		fi
         netstat -lpdn | grep $TARGET_PORT
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_LISTPORT" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi 
-    __usage $TOOL_USAGE
+    __usage $LISTPORT_USAGE
     return $NOT_SUCCESS
 }
-

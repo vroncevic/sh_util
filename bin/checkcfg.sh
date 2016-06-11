@@ -1,77 +1,72 @@
 #!/bin/bash
 #
-# @brief   Checking configuration file of App/Tool/Script
+# @brief   Checking config file of App/Tool/Script
 # @version ver.1.0
 # @date    Wed Sep 16 10:22:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=checkcfg
+UTIL_CHECKCFG=checkcfg
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
-    [ARG1]="[TOOL_CFG] Name of configuration file"
-    [EX-PRE]="# Example checking CFG file"
-    [EX]="__$UTIL_NAME /etc/test.cfg"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+declare -A CHECKCFG_USAGE=(
+    [TOOL_NAME]="__$UTIL_CHECKCFG"
+    [ARG1]="[TOOL_CFG] Path to config file"
+    [EX-PRE]="# Example checking config file"
+    [EX]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
 )
 
 #
-# @brief  Check configuration file exist/regular/noempty
+# @brief  Check config file exist/regular/noempty
 # @param  Value required path to configuration file  
 # @retval Success return 0, else return 1
 #
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# local CFG_FILE="/opt/sometool.cfg"
 # __checkcfg "$CFG_FILE"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
-#   # false
+# 	# false
+#	# missing argument | config file doesn't exist
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __checkcfg() {
-    CFG_FILE=$1
+    local CFG_FILE=$1
     if [ -n "$CFG_FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Checking configuration file of App/Tool/Script]"
-        	printf "%s" "Checking CFG file [$CFG_FILE] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking config file [$CFG_FILE]"
+        	printf "$DQUE" "$UTIL_CHECKCFG" "$FUNC" "$MSG"
 		fi
         if [ -e "$CFG_FILE" ] && [ -f "$CFG_FILE" ] && [ -s "$CFG_FILE" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
             	printf "%s\n" "[ok]"
-				printf "%s\n" "[Done]"
+				printf "$DEND" "$UTIL_CHECKCFG" "$FUNC" "Done"
 			fi
             return $SUCCESS
-        else
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "[not ok]"
-			fi
-			LOG[MSG]="Check file [$CFG_FILE]"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Error] ${LOG[MSG]}"
-			fi
-            __logging $LOG
-            return $NOT_SUCCESS
         fi
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "%s\n" "[not ok]"
+		fi
+		MSG="Check config file [$CFG_FILE]"
+		printf "$SEND" "$UTIL_CHECKCFG" "$MSG"
+		return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $CHECKCFG_USAGE
     return $NOT_SUCCESS
 }
-

@@ -6,28 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=avi2mp4
+UTIL_AVI2MP4=avi2mp4
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A AVI2MP4_USAGE=(
+    [TOOL_NAME]="__$UTIL_AVI2MP4"
     [ARG1]="[FILE_NAME] Path to AVI file"
     [EX-PRE]="# Example converting AVI file"
-    [EX]="__$UTIL_NAME test.avi"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_AVI2MP4 test.avi"	
 )
 
 #
@@ -38,49 +30,57 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __avi2mp4 "$TOOL_NAME"
-# STATUS=$?
+# local AVI="/home/vroncevic/Music/test.avi"
+# __avi2mp4 "$AVI"
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# notify admin | user
 # else
 #   # false
+#	# missing argument | failed to convert file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __avi2mp4() {
-    FILE_NAME=$1
+    local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Converting avi file to mp4 format]"
-        	printf "%s" "Checking file [$FILE_NAME] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local FFMPEG="/usr/bin/ffmpeg"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking file [$FILE_NAME]"
+			printf "$DQUE" "$UTIL_AVI2MP4" "$FUNC" "$MSG"
 		fi
-        if [ -f "$FILE_NAME" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
+        if [ -e "$FILE_NAME" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
 		    	printf "%s\n" "[ok]"
 			fi
-            __checktool "/usr/bin/ffmpeg"
-            STATUS=$?
+            __checktool "$FFMPEG"
+            local STATUS=$?
             if [ "$STATUS" -eq "$SUCCESS" ]; then
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n" "Converting [$FILE_NAME] to MP4 format"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Converting [$FILE_NAME] to MP4 format"
+					printf "$DSTA" "$UTIL_AVI2MP4" "$FUNC" "$MSG"
 				fi
-                ffmpeg -i "$FILE_NAME" "$FILE_NAME.mp4"
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n\n" "[Done]"
+                eval "$FFMPEG -i \"$FILE_NAME\" \"$FILE_NAME.mp4\""
+				if [ "$TOOL_DBG" == "true" ]; then
+                	printf "$DEND" "$UTIL_AVI2MP4" "$FUNC" "Done"
 				fi
                 return $SUCCESS
             fi
             return $NOT_SUCCESS
         fi
-		LOG[MSG]="Check file [$FILE_NAME]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
 		fi
-        __logging $LOG
+		MSG="Check file [$FILE_NAME]"
+		printf "$SEND" "$UTIL_AVI2MP4" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $AVI2MP4_USAGE
     return $NOT_SUCCESS
 }
-

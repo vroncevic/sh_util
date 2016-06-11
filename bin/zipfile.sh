@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=zipfile
+UTIL_ZIPFILE=zipfile
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A ZIPFILE_USAGE=(
+    [TOOL_NAME]="__$UTIL_ZIPFILE"
     [ARG1]="[FILE] Name of file"
     [EX-PRE]="# Example zipping a file"
-    [EX]="__$UTIL_NAME freshtool.txt"
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_ZIPFILE freshtool.txt"
 )
 
 #
@@ -38,33 +30,34 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __zipfile "$FILES"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __zipfile() {
     shift $(($OPTIND - 1))
-    FILES=$@
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[zip a single file]"
-	fi
+    local FILES=$@
     if [ -n "$FILES" ]; then
-        rm_input=
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+        local rm_input=
         while getopts hlr OPTIONS 
         do
             case $OPTIONS in
                 r)  rm_input=on 
                     ;;
                 \?) 
-                    LOG[MSG]="Wrong argument"
-					if [ "$TOOL_DEBUG" == "true" ]; then
-						printf "%s\n\n" "[Error] ${LOG[MSG]}"
-					fi
-                    __logging $LOG
+					MSG="Wrong argument"
+					printf "$SEND" "$UTIL_ZIPFILE" "$MSG"
                     return $NOT_SUCCESS
                     ;;
             esac
@@ -72,30 +65,32 @@ function __zipfile() {
         for a in "${FILES[@]}" 
         do
             if [ -f ${a}.[zZ][iI][pP] ] || [[ ${a##*.} == [zZ][iI][pP] ]]; then
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n"  "Skipping file [$a] - already zipped"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Skipping file [$a] - already zipped"
+					printf "$DSTA" "$UTIL_ZIPFILE" "$FUNC" "$MSG"
 				fi
                 continue
             else
                 if [ ! -f $a ]; then
-					if [ "$TOOL_DEBUG" == "true" ]; then                    
-						printf "%s\n" "File [$a] does not exist"
+					if [ "$TOOL_DBG" == "true" ]; then                    
+						MSG="File [$a] does not exist"
+						printf "$DSTA" "$UTIL_ZIPFILE" "$FUNC" "$MSG"
 					fi
                     continue 
                 fi
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n" "Zipping file [$a]"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Zipping file [$a]"
+					printf "$DSTA" "$UTIL_ZIPFILE" "$FUNC" "$MSG"
 				fi                
 				zip -9 ${a}.zip $a 
                 [[ $rm_input ]] && rm -f -- $a
             fi
         done
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	printf "$DEND" "$UTIL_ZIPFILE" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $ZIPFILE_USAGE
     return $NOT_SUCCESS
 }
-

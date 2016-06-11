@@ -6,30 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=word2txt
+UTIL_WORD2TXT=word2txt
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-CAT_DOC="/usr/bin/catdoc"
-
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A WORD2TXT_USAGE=(
+    [TOOL_NAME]="__$UTIL_WORD2TXT"
     [ARG1]="[DOC_FILE] Name of Document to be extracted"
     [EX-PRE]="# Display ms word doc file in ascii format"
-    [EX]="__$UTIL_NAME test.doc"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_WORD2TXT test.doc"	
 )
 
 #
@@ -41,51 +31,48 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __word2txt "$DOC_FILE"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __word2txt() {
-    DOC_FILES=$@
+    local DOC_FILES=$@
     if [ -n "$DOC_FILES" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Display ms word doc file in ascii format]"
-		fi
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local CAT_DOC="/usr/bin/catdoc"
         __checktool "$CAT_DOC"
-        STATUS=$?
+        local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Extracting doc file [$DOC_FILES]"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Extracting doc file [$DOC_FILES]"
+				printf "$DSTA" "$UTIL_WORD2TXT" "$FUNC" "$MSG"
 			fi
             for a in $DOC_FILES
             do
                 if [ -f "$a" ]; then
-                    catdoc -b -s cp1252 -d 8859-1 -a $a
+                    eval "$CAT_DOC -b -s cp1252 -d 8859-1 -a $a"
                 else
-                    LOG[MSG]="Check file [$a]"
-					if [ "$TOOL_DEBUG" == "true" ]; then
-						printf "%s\n\n" "[Error] ${LOG[MSG]}"					
-					fi
-                    __logging $LOG
+					MSG="Check file [$a]"
+					printf "$SEND" "$UTIL_WORD2TXT" "$MSG"
                 fi
             done
-			if [ "$TOOL_DEBUG" == "true" ]; then 
-            	printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then 
+            	printf "$DEND" "$UTIL_WORD2TXT" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Missing catdoc tool"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $WORD2TXT_USAGE
     return $NOT_SUCCESS
 }
-

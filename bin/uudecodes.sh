@@ -6,19 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=uudecodes
+UTIL_UUDECODES=uudecodes
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
+. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A UUDECODES_USAGE=(
+    [TOOL_NAME]="__$UTIL_UUDECODES"
     [ARG1]="[FILE_NAME] Path to binary file"
     [EX-PRE]="# Example decode thunderbird binary"
-    [EX]="__$UTIL_NAME thunderbird-bin"	
+    [EX]="__$UTIL_UUDECODES thunderbird-bin"	
 )
 
 #
@@ -29,40 +30,55 @@ declare -A TOOL_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __uudecodes $FILE_PATH (optional)
-# STATUS=$?
+# __uudecodes $FILE_PATH
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing file | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __uudecodes() {
-    FILE_PATH=$1
+    local FILE_PATH=$1
 	if [ -n "$FILE_PATH" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Decode a binary representation]"
-			printf "%s" "Check file path [$FILE_PATH] "
-		fi
-		if [ -f "$FILE_PATH" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n" "[ok]"
-		    	printf "%s\n" "Decoding [$FILE_PATH]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local UUDEC="/usr/bin/uudecode"
+		__checktool "$UUDEC"
+		local STATUS=$?
+		if [ "$STATUS" -eq "$SUCCESS" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="Checking file [$FILE_PATH]"
+				printf "$DQUE" "$UTIL_UUDECODES" "$FUNC" "$MSG"
 			fi
-		    uudecode $FILE_PATH
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ -e "$FILE_PATH" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[ok]"
+					MSG="Decoding [$FILE_PATH]"
+					printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
+				fi
+				eval "$UUDEC $FILE_PATH"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_UUDECODES" "$FUNC" "Done"
+				fi
+				return $SUCCESS
 			fi
-		    return $SUCCESS
-		fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[not ok]"
-			printf "%s\n\n" "[Error] Check file path [$FILE_PATH]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "%s\n" "[not ok]"
+			fi
+			MSG="Check file path [$FILE_PATH]"
+			printf "$SEND" "$UTIL_UUDECODES" "$MSG"
+			return $NOT_SUCCESS
 		fi
 		return $NOT_SUCCESS
 	fi
-    __usage $TOOL_USAGE
+    __usage $UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 
@@ -75,38 +91,53 @@ function __uudecodes() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __uudecodes_all "$FILE_PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing file | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __uudecodes_all() {
+	local FILE_PATH=$1
     if [ -z "$FILE_PATH" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Decode a binary representations in folder]"
-		fi
-        for filedecode in *
-        do
-            search1=`head -$lines $filedecode | grep begin | wc -w`
-            search2=`tail -$lines $filedecode | grep end | wc -w`
-            if [ "$search1" -gt 0 ]; then
-                if [ "$search2" -gt 0 ]; then
-					if [ "$TOOL_DEBUG" == "true" ]; then
-                    	printf "%s\n" "Decoding [$filedecode]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local UUDEC="/usr/bin/uudecode"
+		__checktool "$UUDEC"
+		local STATUS=$?
+		if [ "$STATUS" -eq "$SUCCESS" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="Decode a binary representations at [$FILE_PATH/]"
+				printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
+			fi
+			for filedecode in *
+			do
+				local search1=`head -$lines $filedecode | grep begin | wc -w`
+				local search2=`tail -$lines $filedecode | grep end | wc -w`
+				if [ "$search1" -gt 0 ]; then
+					if [ "$search2" -gt 0 ]; then
+						if [ "$TOOL_DBG" == "true" ]; then
+							MSG="Decoding [$filedecode]"
+							printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
+						fi
+						eval "$UUDEC $filedecode"
 					fi
-                    uudecode $filedecode
-                fi
-            fi
-        done
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Done]"
-		fi
-        return $SUCCESS
+				fi
+			done
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_UUDECODES" "$FUNC" "Done"
+			fi
+			return $SUCCESS
+        fi
+        return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $UUDECODES_USAGE
     return $NOT_SUCCESS
 }
-

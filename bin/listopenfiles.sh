@@ -6,19 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=listopenfiles
+UTIL_LISTOPENFILES=listopenfiles
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
+. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A LISTOPENFILES_USAGE=(
+    [TOOL_NAME]="__$UTIL_LISTOPENFILES"
     [ARG1]="[USER_NAME] System username"
     [EX-PRE]="# Example list all opened files by user"
-    [EX]="__$UTIL_NAME rmuller"	
+    [EX]="__$UTIL_LISTOPENFILES vroncevic"
 )
 
 #
@@ -29,28 +30,42 @@ declare -A TOOL_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# local USER_NAME="vroncevic"
 # __listopenfiles "$USER_NAME"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __listopenfiles() {
-    USER_NAME=$1
+    local USER_NAME=$1
     if [ -n "$USER_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "treu" ]; then
-			printf "%s\n" "[List opened files by specific user]"
-		fi
-        lsof -u $USER_NAME
-		if [ "$TOOL_DEBUG" == "treu" ]; then
-			printf "%s\n\n" "[Done]"
-		fi
-        return $SUCCESS
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local LSOF="/usr/bin/lsof"
+		__checktool "$LSOF"
+		local STATUS=$?
+		if [ "$STATUS" -eq "$SUCCESS" ];
+			if [ "$TOOL_DBG" == "treu" ]; then
+				MSG="List opened files by [$USER_NAME]"
+				printf "$DSTA" "$UTIL_LISTOPENFILES" "$FUNC" "$MSG"
+			fi
+			eval "$LSOF -u $USER_NAME"
+			if [ "$TOOL_DBG" == "treu" ]; then
+				printf "$DEND" "$UTIL_LISTOPENFILES" "$FUNC" "Done"
+			fi
+			return $SUCCESS
+        fi
+        return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $LISTOPENFILES_USAGE
     return $NOT_SUCCESS
 }
-

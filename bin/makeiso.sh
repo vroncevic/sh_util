@@ -6,61 +6,61 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=makeiso
+UTIL_MAKEISO=makeiso
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A MAKEISO_USAGE=(
+    [TOOL_NAME]="__$UTIL_MAKEISO"
     [ARG1]="[SOURCE]       Target media for cloning or restoring"
     [ARG2]="[DESTINATION]  Final destination"
     [EX-PRE]="# Creates an ISO disk image from a CD-ROM"
-    [EX]="__$UTIL_NAME /dev/sr0 myCD.iso"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
 )
 
 #
 # @brief  Check is media disk in disk reader
+# @param  None
 # @retval Success return 0, else return 1
 #
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __checkrom
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # expected iso9660 format
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __checkrom() {
-    STATUS=$(blkid /dev/sr0)
-    MATCH_SUBSTRING="TYPE=\"iso9660\""
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[Check is media disk in disk reader]"
+    local STATUS=$(blkid /dev/sr0)
+    local MATCH_SUBSTRING="TYPE=\"iso9660\""
+    local FUNC=${FUNCNAME[0]}
+    local MSG=""
+	if [ "$TOOL_DBG" == "true" ]; then
+		MSG="Check is media disk in disk reader /dev/sr0"
+		printf "$DSTA" "$UTIL_MAKEISO" "$FUNC" "$MSG"
 	fi
     if [ $STATUS == *"$MATCH_SUBSTRING"* ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_MAKEISO" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n\n" "Check type of disk, expected iso9660"
-	fi
+	MSG="Check type of disk, expected iso9660"
+	printf "$SEND" "$UTIL_MAKEISO" "$MSG"
     return $NOT_SUCCESS
 }
 
@@ -73,44 +73,48 @@ function __checkrom() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __make_iso "/dev/sr0" "myCD.iso"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | media is empty
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __makeiso {
-    SOURCE=$1
-    DESTINATION=$2
+    local SOURCE=$1
+    local DESTINATION=$2
     if [ -n "$DESTINATION" ] && [ -n "$SOURCE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Create ISO disk from direcotry source]"
-        	printf "%s" "Checking media disk "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Checking media disk"
+			printf "$DQUE" "$UTIL_MAKEISO" "$FUNC" "$MSG"
 		fi
-        DISKEMPTY=$(__checkrom)
-        if [ $DISKEMPTY -eq 0 ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then            
+        __checkrom
+        local STATUS=$?
+        if [ "$STATUS" -eq "$SUCCESS" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "%s\n" "[ok]"
 			fi
             dd if="$SOURCE" of="$DESTINATION"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DEND" "$UTIL_MAKEISO" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi 
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
         	printf "%s\n" "[not ok]"
-		fi
-		LOG[MSG]="Insert media disk"
-		if [ "$TOOL_DEBUG" == "true" ]; then        
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG        
+		fi       
+		MSG="Insert media disk"
+		printf "$SEND" "$UTIL_MAKEISO" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $TOOL_USAGE
+    __usage $MAKEISO_USAGE
     return $NOT_SUCCESS
 }
-

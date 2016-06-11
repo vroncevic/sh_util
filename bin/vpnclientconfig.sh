@@ -1,41 +1,28 @@
 #!/bin/bash
 #
 # @brief   Generate Client VPN config file at
-#          /home/<username>/company/openvpn/
+#          /home/<username>/<company>/openvpn/
 # @version ver.1.0
 # @date    Mon Jun 07 21:12:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=vpnclientconfig
+UTIL_VPNCLCONFIG=vpnclientconfig
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CFG_VPNCLIENTCFG=$UTIL/conf/$UTIL_VPNCLCONFIG.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/devel.sh 
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A VPNCLIENTCONFIG_USAGE=(
+    [TOOL_NAME]="__$UTIL_VPNCLCONFIG"
     [ARG1]="[VPN_STRUCTURE] Username, group, first and last name"
-    [EX-PRE]="# Generate openvpn configuration"
-    [EX]="__$UTIL_NAME \$VPN_STRUCTURE"	
+    [EX-PRE]="# Generate openVPN configuration"
+    [EX]="__$UTIL_VPNCLCONFIG vroncevic users Vladimir Roncevic"
 )
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
-
-COMPANY=company
-PROTO=tcp
-CIPHER=AES-128-CBC
-VPN_SERVER=$COMPANY.com
-VPN_PORT=1723
-CA=$COMPANY.crt
 
 #
 # @brief  Generating VPN client config file at home dir
@@ -45,88 +32,95 @@ CA=$COMPANY.crt
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A VPN_STRUCTURE=()
 # VPN_STRUCTURE[UN]="vroncevic"
-# VPN_STRUCTURE[DN]="it"
+# VPN_STRUCTURE[DN]="users"
 # VPN_STRUCTURE[FN]="Vladimir"
 # VPN_STRUCTURE[LN]="Roncevic"
 #
-# __makevpnconfig $VPN_STRUCTURE
-# STATUS=$?
+# __vpnclientconfig $VPN_STRUCTURE
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | missing home structure
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __vpnclientconfig() {
-    VPN_STRUCTURE=$1
-    USERNAME=${VPN_STRUCTURE[UN]}
-    DEPARTMENT=${VPN_STRUCTURE[DN]}
-    FIRSTNAME=${VPN_STRUCTURE[FN]}
-    LASTNAME=${VPN_STRUCTURE[LN]}
-    if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ] && [ -n "$FIRSTNAME" ] && [ -n "$LASTNAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Generating VPN client config file at home dir]"
-		fi
-        if [ -d "/home/$USERNAME/" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s" "Checking directory [/home/$USERNAME/]"
+    local VPN_STRUCTURE=$1
+    local UNAME=${VPN_STRUCTURE[UN]}
+    local DEPART=${VPN_STRUCTURE[DN]}
+    local FIRSTNAME=${VPN_STRUCTURE[FN]}
+    local LASTNAME=${VPN_STRUCTURE[LN]}
+    if [ -n "$UNAME" ] && [ -n "$DEPART" ] && 
+       [ -n "$FIRSTNAME" ] && [ -n "$LASTNAME" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		declare -A cfgvpnclient=()
+		__loadutilconf $UTIL_CFG_VPNCLIENTCFG cfgvpnclient
+		local STATUS=$?
+		if [ "$STATUS" -eq "$SUCCESS" ]; then
+			local USER_HOME="/home/$UNAME"
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="Checking dir [$USER_HOME/]"
+				printf "$DQUE" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 			fi
-            if [ ! -d "/home/$USERNAME/$COMPANY/" ]; then
-				if [ "$TOOL_DEBUG" == "true" ]; then                
-					printf "%s\n" "[not exist]"
-                	printf "%s\n" "Creating frobas home directory"
+			if [ -d "$USER_HOME/" ]; then
+				printf "%s\n" "[ok]"
+				local USER_VPN="$USER_HOME/$UTIL_FROM_COMPANY"
+				if [ "$TOOL_DBG" == "true" ]; then
+					MSG="Checking dir [$USER_VPN/]"
+					printf "$DQUE" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 				fi
-                mkdir "/home/$USERNAME/$COMPANY/"
-				if [ "$TOOL_DEBUG" == "true" ]; then                
-					printf "%s\n" "Set owner"
+				if [ ! -d "$USER_VPN/" ]; then
+					if [ "$TOOL_DBG" == "true" ]; then                
+						printf "%s\n" "[not ok]"
+						MSG="Creating at home dir [$UTIL_FROM_COMPANY/]"
+						printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
+					fi
+					mkdir "$USER_VPN/"
 				fi
-                chown -R "$USERNAME.$DEPARTMENT" "/home/$USERNAME/$COMPANY/"
-				if [ "$TOOL_DEBUG" == "true" ]; then                
-					printf "%s\n" "Set permission"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[ok]"
+					MSG="Checking dir [$USER_VPN/openvpn/]"
+					printf "$DQUE" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 				fi
-                chmod -R 700 "/home/$USERNAME/$COMPANY/"
-            fi
-			if [ "$TOOL_DEBUG" == "true" ]; then
-	            printf "%s\n" "[ok]"
-	            printf "%s" "Checking openvpn directory "
-			fi
-            if [ ! -d "/home/$USERNAME/$COMPANY/openvpn/" ]; then
-            	if [ "$TOOL_DEBUG" == "true" ]; then
-					printf "%s\n" "[not exist]"
-                	printf "%s\n" "Create openvon directory"
+				if [ ! -d "$USER_VPN/openvpn/" ]; then
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "%s\n" "[not ok]"
+						MSG="Creating dir [$USER_VPN/openvpn/]"
+						printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
+					fi
+					mkdir "$USER_VPN/openvpn/"
 				fi
-                mkdir "/home/$USERNAME/$COMPANY/openvpn/"
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n" "Set owner"
+				local co=$(echo $UTIL_FROM_COMPANY | tr '[:upper:]' '[:lower:]')
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[ok]"
+					MSG="Generating config file [$USER_VPN/openvpn/$co.ovpn]"
+					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 				fi
-                chown -R "$USERNAME.$DEPARTMENT" "/home/$USERNAME/$COMPANY/openvpn/"
-				if [ "$TOOL_DEBUG" == "true" ]; then                
-					printf "%s\n" "Set permission"
-				fi                
-				chmod -R 700 "/home/$USERNAME/$COMPANY/openvpn/"
-            fi
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "[ok]"
-            	printf "%s\n" "Generating VPN config file [/home/$USERNAME/$COMPANY/openvpn/$COMPANY.ovpn]"
-			fi
-            cat<<EOF>>"/home/$USERNAME/$COMPANY/openvpn/$COMPANY.ovpn"
+				cat<<EOF>>"$USER_VPN/openvpn/$co.ovpn"
 #
-# NS $COMPANY IT
-# VPN configuration $COMPANY network
+# NS Frobas IT
+# VPN configuration NSFROBAS network
 #
 client
 	auth-nocache
 	dev tun
-	proto $PROTO
-	cipher $CIPHER
+	proto ${cfgvpnclient[PROTO]}
+	cipher ${cfgvpnclient[CIPHER]}
 	comp-lzo
 	resolv-retry infinite
 	persist-key
 	persist-tun
-	remote $VPN_SERVER $VPN_PORT
-	ca $CA
+	remote ${cfgvpnclient[VPN_SERVER]} ${cfgvpnclient[VPN_PORT]}
+	ca ${cfgvpnclient[CA]}
 	cert $FIRSTNAME.$LASTNAME.crt
 	key $FIRSTNAME.$LASTNAME.key
 
@@ -134,28 +128,25 @@ client
 	float 
  
 EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Set owner"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "Set owner"
+				fi
+				chown -R "$UNAME.$DEPART" "$USER_HOME/$UTIL_FROM_COMPANY/"
+				if [ "$TOOL_DBG" == "true" ]; then            
+					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "Set permission"
+				fi
+				chmod -R 700 "$USER_HOME/$UTIL_FROM_COMPANY/"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_VPNCLCONFIG" "$FUNC" "Done"
+				fi
+				return $SUCCESS
 			fi
-            chown -R "$USERNAME.$DEPARTMENT" "/home/$USERNAME/$COMPANY/openvpn/$COMPANY.ovpn"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n" "Set permission"
-			fi
-            chmod -R 700 "/home/$USERNAME/$COMPANY/openvpn/$COMPANY.ovpn"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n\n" "[Done]"
-			fi
-            return $SUCCESS
-        else
-            LOG[MSG]="Missing /home/$USERNAME/ directory"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Error] ${LOG[MSG]}"
-			fi
-            __logging $LOG
-            return $NOT_SUCCESS
-        fi
+			printf "%s\n" "[not ok]"
+			MSG="Check dir [$USER_HOME/]"
+			printf "$SEND" "$UTIL_VPNCLCONFIG" "$MSG"
+			return $NOT_SUCCESS
+		fi
     fi 
-    __usage $TOOL_USAGE
+    __usage $VPNCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
-

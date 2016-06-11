@@ -7,28 +7,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=makesshconfig
+UTIL_MAKESSHCONFIG=makesshconfig
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A MAKESSHCONFIG_USAGE=(
+    [TOOL_NAME]="__$UTIL_MAKESSHCONFIG"
     [ARG1]="[USERNAME]   System username"
     [ARG2]="[DEPARTMENT] System group"
     [EX-PRE]="# Generate SSH configuration"
-    [EX]="__$UTIL_NAME rmuller ds"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_MAKESSHCONFIG vroncevic users"	
 )
 
 #
@@ -39,84 +31,87 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __makesshconfig vroncevic it
-# STATUS=$?
+# __makesshconfig "vroncevic" "users"
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | check home dir
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __makesshconfig() {
-    USERNAME=$1
-    DEPARTMENT=$2
+    local USERNAME=$1
+    local DEPARTMENT=$2
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Generating SSH client config file at home dir]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Generating SSH client config file at $USERNAME home dir"
+			printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 		fi
-        if [ -d "/home/$USERNAME/" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s" "Checking dir /home/$USERNAME/.ssh/ "
+		local UHOME="/home/$USERNAME"
+        if [ -d "$UHOME/" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Checking dir [$UHOME/.ssh/]"
+				printf "$DQUE" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 			fi
-            if [ ! -d "/home/$USERNAME/.ssh/" ]; then
-				if [ "$TOOL_DEBUG" == "true" ]; then
+            if [ ! -d "$UHOME/.ssh/" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then
 		            printf "%s\n" "[not ok]"
-		            printf "%s\n" "Create SSH configuration directory"
+		            MSG="Creating dir [$UHOME/.ssh/]"
+					printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 				fi
-                mkdir "/home/$USERNAME/.ssh/"
+                mkdir "$UHOME/.ssh/"
             else
-				if [ "$TOOL_DEBUG" == "true" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then
                 	printf "%s\n" "[ok]"
 				fi
 				:
             fi
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Generating SSH config file [/home/$USERNAME/.ssh/config]"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Generating SSH config file [$UHOME/.ssh/config]"
+				printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 			fi
-            cat<<EOF>>"/home/$USERNAME/.ssh/config"
+            cat<<EOF>>"$UHOME/.ssh/config"
 #
-# NS Frobas IT
-# SSH sessions
+# NS $UTIL_FROM_COMPANY IT
+# SSH session to host1, host2
 #
 
 Host host1
-    HostName host1comp
-    Port 5000
+    HostName host1
+    Port 5555
     User $USERNAME
  
 Host host2
-    HostName host2comp
-    Port 6000
-    User $USERNAME
-
-Host host3
-    HostName host3comp
-    Port 7000
+    HostName host2
+    Port 7777
     User $USERNAME
     
 EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Set owner"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "Set owner"
 			fi
-            chown -R "$USERNAME.$DEPARTMENT" "/home/$USERNAME/.ssh/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n" "Set permission"
+            chown -R "$USERNAME.$DEPARTMENT" "$UHOME/.ssh/"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "Set permission"
 			fi
-            chmod -R 700 "/home/$USERNAME/.ssh/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n\n" "[Done]"
+            chmod -R 700 "$UHOME/.ssh/"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DEND" "$UTIL_MAKESSHCONFIG" "$FUNC" "Done"
 			fi
             return $SUCCESS
-        fi 
-        LOG[MSG]="Check home [/home/$USERNAME/]"
-		if [ "$TOOL_DEBUG" == "true" ]; then            
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+        fi          
+		MSG="Check dir [$UHOME/]"
+		printf "$SEND" "$UTIL_MAKESSHCONFIG" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $MAKESSHCONFIG_USAGE
     return $NOT_SUCCESS
 }
-

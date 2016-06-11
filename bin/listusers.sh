@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=listusers
+UTIL_LISTUSERS=listusers
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -14,11 +14,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A LISTUSERS_USAGE=(
+    [TOOL_NAME]="__$UTIL_LISTUSERS"
     [ARG1]="[ID] Minimal user id"
     [EX-PRE]="# Example print all common user names"
-    [EX]="__$UTIL_NAME 500"	
+    [EX]="__$UTIL_LISTUSERS 500"	
 )
 
 #
@@ -29,28 +29,36 @@ declare -A TOOL_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# local ID=1000
 # __listusers "$ID"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __listusers() {
-    ID=$1
+    local ID=$1
     if [ -n "$ID" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Print all common user names]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Print all common user names started from id [$ID]"
+			printf "$DSTA" "$UTIL_LISTUSERS" "$FUNC" "$MSG"
 		fi
         awk -F: '$3 >= '$ID' {print $1}' /etc/passwd
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_LISTUSERS" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $LISTUSERS_USAGE
     return $NOT_SUCCESS
 }
-

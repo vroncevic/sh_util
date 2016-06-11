@@ -6,32 +6,22 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=sendmail
+UTIL_SENDMAIL=sendmail
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A SENDMAIL_USAGE=(
+    [TOOL_NAME]="__$UTIL_SENDMAIL"
     [ARG1]="[MSG]         Email text body"
     [ARG2]="[EMAIL2ADMIN] Full email address"
     [EX-PRE]="# Example sending simple message"
-    [EX]="__$UTIL_NAME \"test\" \"vladimir.roncevic@frobas.com\""	
+    [EX]="__$UTIL_SENDMAIL \"test\" \"vladimir.roncevic@frobas.com\""	
 )
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
-
-HOST=$(hostname)
 
 #
 # @brief  Send an email to admin
@@ -42,45 +32,49 @@ HOST=$(hostname)
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __sendemail "$MESSAGE" "$ADMIN_EMAIL"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# notify admin | user
 # else
 #   # false
+#	# missing argument | missing tool 
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __sendmail() {
-    MESSAGE=$1
-    ADMIN_EMAIL=$2
+    local MESSAGE=$1
+    local ADMIN_EMAIL=$2
     if [ -n "$MESSAGE" ] && [ -n "$ADMIN_EMAIL" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Send an email to admin]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local SENDMAIL="/usr/sbin/sendmail"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Send an email to admin"
+        	printf "$DSTA" "$UTIL_SENDMAIL" "$FUNC" "$MSG"
 		fi
-        __checktool "/usr/sbin/sendmail"
-        STATUS=$?
+        __checktool "$SENDMAIL"
+        local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
+			local HOST=$(hostname)
             cat <<EOF | sendmail -t
 To: $ADMIN_EMAIL
-Subject: [CHECK] root@$HOST
+Subject: [IT $UTIL_FROM_COMPANY] root@$HOST
 From: root@$HOST
 
 $MESSAGE
 EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n" "Email sent"
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DSTA" "$UTIL_SENDMAIL" "$FUNC" "Email sent"
+				printf "$DEND" "$UTIL_SENDMAIL" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi 
-        LOG[MSG]="Check tool sendmail"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $SENDMAIL_USAGE
     return $NOT_SUCCESS
 }
-

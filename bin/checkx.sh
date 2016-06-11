@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=checkx
+UTIL_CHECKX=checkx
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -14,11 +14,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A CHECKX_USAGE=(
+    [TOOL_NAME]="__$UTIL_CHECKX"
     [ARG1]="[XINIT] Instance of tool for running X session"
     [EX-PRE]="# Example checking X Server"
-    [EX]="__$UTIL_NAME \"xinit\""
+    [EX]="__$UTIL_CHECKX \"xinit\""
 )
 
 #
@@ -30,36 +30,43 @@ declare -A TOOL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __checkx "xinit"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | X server isn't running
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __checkx() {
-    X=$1
+    local X=$1
     if [ -n "$X" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Checking X Server on $HOSTNAME]"
-        	printf "%s" "X Server "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking X Server on [$HOSTNAME]"
+        	printf "$DQUE" "$UTIL_CHECKX" "$FUNC" "$MSG"
 		fi
-        XINIT=$(ps aux | grep -q $X)
+        local XINIT=$(ps aux | grep -q $X)
         if [ "$XINIT" -eq "$SUCCESS" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then            
+			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "%s\n" "[up and running]"
-				printf "%s\n\n" "[Done]"
+				printf "$DEND" "$UTIL_CHECKX" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
         	printf "%s\n" "[down]"
-			printf "%s\n\n" "[Done]"
 		fi
+		MSG="Check X Server on [$HOSTNAME]"
+		printf "$SEND" "$UTIL_CHECKX" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $CHECKX_USAGE
     return $NOT_SUCCESS
 }
-

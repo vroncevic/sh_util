@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=whichbin
+UTIL_WHICHBIN=whichbin
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A WHICHBIN_USAGE=(
+    [TOOL_NAME]="__$UTIL_WHICHBIN"
     [ARG1]="[PATH] Path to destionation"
-    [EX-PRE]="# Example running __$UTIL_NAME"
-    [EX]="__$UTIL_NAME /data/"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX-PRE]="# Example running __$UTIL_WHICHBIN"
+    [EX]="__$UTIL_WHICHBIN /data/"
 )
 
 #
@@ -38,41 +30,46 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __follow_link "$PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | not an executable file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __follow_link() {
-    SRC_FILE=$1
-    FILE=$(which "$SRC_FILE")
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[Show links]"
-	fi
-    if [ "$FILE" -eq "$NOT_SUCCESS" ]; then
-		LOG[MSG]="[$FILE] not an executable"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Error] ${LOG[MSG]}"
+    local FILE=$1
+    if [ -n "$FILE" ]; then
+		local FILE=$(which "$FILE")
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$FILE" -eq "$NOT_SUCCESS" ]; then
+			MSG="[$FILE] not an executable"
+			printf "$SEND" "$UTIL_WHICHBIN" "$MSG"
+			return $NOT_SUCCESS
 		fi
-        __logging $LOG
-        return $NOT_SUCCESS
-    fi
-    if [ -L "$FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then        
-			printf "%s\n" "Symbolic Link [$FILE]"
+		if [ -L "$FILE" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then        
+				MSG="Symbolic Link [$FILE]"
+				printf "$DSTA" "$UTIL_WHICHBIN" "$FUNC" "$MSG"
+			fi
+			cd $(dirname "$FILE")
+			__follow_link $(set -- $(ls -l "$FILE"); shift 10; echo "$FILE")
+		else
+			ls -l $FILE
 		fi
-        cd $(dirname "$FILE")
-        __follow_link $(set -- $(ls -l "$SRC_FILE"); shift 10; echo "$SRC_FILE")
-    else
-        ls -l $FILE
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_WHICHBIN" "$FUNC" "Done"
+		fi
+		return $SUCCESS
     fi
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n\n" "[Done]"
-	fi
-    return $SUCCESS
+    return $NOT_SUCCESS
 }
 
 #
@@ -84,30 +81,37 @@ function __follow_link() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __whichbin "$PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __whichbin() {
-    FILES=$@
-    if [ -n "$FILES" ]; then 
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Show links and path to executable]"
+    local FILES=$@
+    if [ -n "$FILES" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Locate bin"
+			printf "$DSTA" "$UTIL_WHICHBIN" "$FUNC" "$MSG"
 		fi
         for a in ${FILES[@]}
         do
             __follow_link "$a"
         done 
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_WHICHBIN" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $WHICHBIN_USAGE
     return $NOT_SUCCESS
 }
-

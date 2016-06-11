@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=testhdd
+UTIL_TESTHDD=testhdd
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -14,11 +14,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A TESTHDD_USAGE=(
+    [TOOL_NAME]="__$UTIL_TESTHDD"
     [ARG1]="[TIME_COUNT] Time count"
     [EX-PRE]="# Creating zerofile and test hdd"
-    [EX]="__$UTIL_NAME 500"	
+    [EX]="__$UTIL_TESTHDD 500"	
 )
 
 #
@@ -29,28 +29,35 @@ declare -A TOOL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __testhdd $TIME_COUNT
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __testhdd() {
-    TIME_COUNT=$1
+    local TIME_COUNT=$1
     if [ -n "$TIME_COUNT" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Test hard drive speed]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Test hard drive speed"
+			printf "$DSTA" "$UTIL_TESTHDD" "$FUNC" "$MSG"
 		fi
         time (dd if=/dev/zero of=zerofile bs=1M count=$TIME_COUNT;sync);
         rm zerofile
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_TESTHDD" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $TESTHDD_USAGE
     return $NOT_SUCCESS
 }
-

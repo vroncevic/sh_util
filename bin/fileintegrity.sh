@@ -6,34 +6,27 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=fileintegrity
+UTIL_FILEINTEGRITY=fileintegrity
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
+. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE_SEDB=(
+declare -A SETDB_USAGE=(
     [TOOL_NAME]="__setupdb"
     [ARG1]="[DB_STRUCTURE] DB file and path"
     [EX-PRE]="# Example set database"
     [EX]="__setupdb \$DB_STRUCTURE"	
 )
 
-declare -A TOOL_USAGE_CHDB=(
+declare -A CHECKDB_USAGE=(
     [TOOL_NAME]="__checkdb"
     [ARG1]="[DB_FILE] Database file"
     [EX-PRE]="# Example checking database"
     [EX]="__checkdb test.db"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
 )
 
 #
@@ -44,49 +37,53 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A DB_STRUCTURE=()
 # DB_STRUCTURE[FILE]="info.db"
 # DB_STRUCTURE[DIR]="/data/"
 #
 # __setupdb $DB_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __setupdb() {
-	DB_STRUCTURE=$1
-    DB_FILE=${DB_STRUCTURE[FILE]}
-    DIR=${DB_STRUCTURE[DIR]}
+	local DB_STRUCTURE=$1
+    local DB_FILE=${DB_STRUCTURE[FILE]}
+    local DIR=${DB_STRUCTURE[DIR]}
     if [ -n "$DB_FILE" ] && [ -n "$DIR" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Setup db file]"
-		fi
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local MD5SUM="/usr/bin/md5sum"
         if [ -f "$DB_FILE" ];
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		        printf "%s\n" "Setup db"
-		        printf "%s\n" "Write directory name to first line of file"
+			if [ "$TOOL_DBG" == "true" ]; then
+		        MSG="Write directory name to first line of file"
+				printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 			fi
             echo ""$DIR"" > "$DB_FILE"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Append md5 checksums and filenames"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Append md5 checksums and filenames"
+				printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 			fi
-            md5sum "$DIR"/* >> "$DB_FILE"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n\n" "[Done]" 
+            eval "$MD5SUM $DIR/* >> $DB_FILE"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Check file [$DB_FILE]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check file [$DB_FILE]"
+		printf "$SEND" "$UTIL_FILEINTEGRITY" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE_SEDB
+    __usage $SETDB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -98,64 +95,73 @@ function __setupdb() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# local DB_FILE="/opt/somedb.db"
 # __checkdb "$DB_FILE"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __checkdb() {
-    DB_FILE=$1
+    local DB_FILE=$1
     local n=0
     local filename
     local checksum
     if [ -n "$DB_FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Checking db file]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking db file [$DB_FILE]"
+			printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 		fi
         if [ ! -r "$DB_FILE" ]; then
-			LOG[MSG]="Unable to read checksum database file"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n\n" "[Error] ${LOG[MSG]}"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Unable to read checksum database file"
+				printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 			fi
-            __logging $LOG
             return $NOT_SUCCESS
         fi
         while read record[n]
         do
             directory_checked="${record[0]}"
             if [ "$directory_checked" != "$directory" ]; then
-				LOG[MSG]="Directories do not match up"
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n\n" "[Error] ${LOG[MSG]}"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Directories do not match up"
+                	printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 				fi
-                __logging $LOG
                 return $NOT_SUCCESS
             fi
             if [ "$n" -gt 0 ]; then
-                filename[n]=$(echo ${record[$n]} | awk '{ print $2 }')
-                checksum[n]=$(md5sum "${filename[n]}")
+                local filename[n]=$(echo ${record[$n]} | awk '{ print $2 }')
+                local checksum[n]=$(md5sum "${filename[n]}")
                 if [ "${record[n]}" = "${checksum[n]}" ]; then
-					if [ "$TOOL_DEBUG" == "true" ]; then
-                    	printf "%s\n" "${filename[n]} UNCHANGED"
+					if [ "$TOOL_DBG" == "true" ]; then
+                    	MSG="${filename[n]} UNCHANGED"
+						printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 					fi
-                elif [ "`basename ${filename[n]}`" != "$DB_FILE" ]; then.
-					if [ "$TOOL_DEBUG" == "true" ]; then                    
-						printf "%s\n" "${filename[n]} CHECKSUM ERROR"
+                elif [ "`basename ${filename[n]}`" != "$DB_FILE" ]; then
+					if [ "$TOOL_DBG" == "true" ]; then
+						MSG="${filename[n]} CHECKSUM ERROR"
+						printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 					fi
                 fi
             fi
             let "n+=1"
         done < "$DB_FILE"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE_CHDB
+    __usage $CHECKDB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -167,42 +173,51 @@ function __checkdb() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# local DIR="/opt/"
 # __fileintegrity "$DIR"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# check db file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __fileintegrity() {
+	local DIR=""
     if [ -z  "$1" ]; then
         DIR="$PWD"
     else
         DIR="$1"
     fi
-	if [ "$TOOL_DEBUG" == "true" ]; then
-		printf "%s\n" "[Checking whether files in a given directory have been tampered]"
-    	printf "%s\n" "Running file integrity check on [$DIR]"
+    local FUNC=${FUNCNAME[0]}
+    local MSG=""
+	if [ "$TOOL_DBG" == "true" ]; then
+    	MSG="Running file integrity check on [$DIR]"
+		printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 	fi
     if [ ! -r "$DB_FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "Setting up database file, \""$DIR"/"$DB_FILE"\""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Setting up database file, \""$DIR"/"$DB_FILE"\""
+			printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
 		fi
         __setupdb "$DB_FILE" "$DIR"
     fi
     __checkdb "$DB_FILE"
-    STATUS=$?
+    local STATUS=$?
     if [ "$STATUS" -eq "$SUCCESS" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then        
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then        
+			printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-	if [ "$TOOL_DEBUG" == "true" ]; then
-    	printf "%s\n\n" "Force exit"
+	if [ "$TOOL_DBG" == "true" ]; then
+    	printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Force exit"
 	fi
     return $NOT_SUCCESS
 }
-

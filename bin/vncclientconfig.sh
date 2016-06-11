@@ -7,27 +7,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=vncclientconfig
+UTIL_VNCCLIENTCONFIG=vncclientconfig
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A VNCCLIENTCONFIG_USAGE=(
+    [TOOL_NAME]="__$UTIL_VNCCLIENTCONFIG"
     [ARG1]="[VNC_STRUCTURE]   System username and group"
     [EX-PRE]="# Example generating VNC config file"
-    [EX]="__$UTIL_NAME rmuller ds"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_VNCCLIENTCONFIG rmuller ds"	
 )
 
 #
@@ -38,52 +30,65 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# VNC_STRUCTURE[UN]="rmuller"
-# VNC_STRUCTURE[DN]="ds"
+# declare -A VNC_STRUCTURE=()
+# VNC_STRUCTURE[UN]="vroncevic"
+# VNC_STRUCTURE[DN]="users"
 #
 # __vncclientconfig $VNC_STRUCTURE 
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | missing user home dir
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __vncclientconfig() {
-	VNC_STRUCTURE=$1
-    USERNAME=${VNC_STRUCTURE[UN]}
-    DEPARTMENT=${VNC_STRUCTURE[DN]}
-    if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then 
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Generating VNC client config file at home dir]"
-            printf "%s" "Checking directory [/home/$USERNAME/]"
+	local VNC_STRUCTURE=$1
+    local USERNAME=${VNC_STRUCTURE[UN]}
+    local DEPARTMENT=${VNC_STRUCTURE[DN]}
+    if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local UHOME="/home/$USERNAME"
+		if [ "$TOOL_DBG" == "true" ]; then
+            MSG="Checking dir [$UHOME/]"
+			printf "$DQUE" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 		fi
-        if [ -d "/home/$USERNAME/" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s" "Checking VNC configuration dir "
+        if [ -d "$UHOME/" ]; then
+			local VHOME="$UHOME/.vnc"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "%s\n" "[ok]"
+            	MSG="Checking vnc config dir [$VHOME/]"
+				printf "$DQUE" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 			fi
-            if [ ! -d "/home/$USERNAME/.vnc/" ]; then
-				if [ "$TOOL_DEBUG" == "true" ]; then                
-					printf "%s\n" "[not exist]"
-                	printf "%s\n" "Create VNC config directory"
+            if [ ! -d "$VHOME/" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then                
+					printf "%s\n" "[not ok]"
+                	MSG="Create VNC config dir [$VHOME/]"
+					printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 				fi
-                mkdir "/home/$USERNAME/.vnc/"
+                mkdir "$VHOME/"
             else
-				if [ "$TOOL_DEBUG" == "true" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then
 					printf "%s\n" "[ok]"
 				fi
 				:
             fi
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Generating VNC config file [/home/$USERNAME/.vnc/]"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Generating VNC config file [$VHOME/xstartup]"
+				printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 			fi
-            cat <<EOF>>"/home/$USERNAME/.vnc/xstartup"
+            cat <<EOF>>"$VHOME/xstartup"
 
 #!/bin/sh
 #
-# NS Frobas IT
-# VNC session to NSFROBAS network
+# $UTIL_FROM_COMPANY IT
 #
 [ -r /etc/sysconfig/i18n ] && . /etc/sysconfig/i18n
 export LANG
@@ -113,29 +118,25 @@ xsetroot -solid grey
 xterm -geometry 80x24+10+10 -ls -title "\$VNCDESKTOP Desktop" &
 twm &
 EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Set owner"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "Set owner"
 			fi
-            chown -R "$USERNAME.$DEPARTMENT" "/home/$USERNAME/.vnc/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n" "Set permission"
+            chown -R "$USERNAME.$DEPARTMENT" "$VHOME/"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "Set permission"
 			fi
-            chmod -R 755 "/home/$USERNAME/.vnc/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n\n" "[Done]"
+            chmod -R 755 "$VHOME/"
+			if [ "$TOOL_DBG" == "true" ]; then            
+				printf "$DEND" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "Done"
 			fi
             return $SUCCESS
-        else
-            LOG[MSG]="Missing /home/$USERNAME/ directory"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n" "[not ok]"
-				printf "%s\n\n" "[Error] ${LOG[MSG]}"
-			fi
-            __logging $LOG
-            return $NOT_SUCCESS
         fi
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "%s\n" "[not ok]"
+		fi
+		MSG="Check dir [$UHOME/]"
+		return $NOT_SUCCESS
     fi 
-    __usage $TOOL_USAGE
+    __usage $VNCCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
-

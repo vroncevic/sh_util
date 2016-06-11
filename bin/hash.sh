@@ -6,28 +6,12 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-#
-UTIL_NAME=hash
+UTIL_HASH=hash
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
-
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
-    [EX-PRE]="# Load additional configuration"
-    [EX]="__$UTIL_NAME \$HASH_STRUCTURE_CFG capitals"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
 
 #
 # @brief  Set key, value to hash structure
@@ -51,7 +35,7 @@ function __hset() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# ELEMENT_BY_KEY=$(__hget "Serbia" capitals)
+# local ELEMENT_BY_KEY=$(__hget "Serbia" capitals)
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
 function __hget() {
@@ -67,18 +51,20 @@ function __hget() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __set_item $key $value $HASH_STRUCT
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notif admin | user
 # else
 #   # false
+#   # notify admin | user
 # fi
 #
 function __set_item() {
-	KEY=$1
-	VALUE=$2
-	HASH_STRUCT=$3
+	local KEY=$1
+	local VALUE=$2
+	local HASH_STRUCT=$3
 	if [ -n "$KEY" ]  && [ -n "$VALUE" ]; then
 		__hset $HASH_STRUCT $KEY $VALUE
 		return $SUCCESS
@@ -94,13 +80,13 @@ function __set_item() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
+# local ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
 function __get_item() {
-	KEY=$1
-	HASH_STRUCT=$2
-	VALUE="None"
+	local KEY=$1
+	local HASH_STRUCT=$2
+	local VALUE="None"
 	if [ -n "$KEY" ]; then
 		VALUE=$(__hget $HASH_STRUCT "$KEY")
 	fi
@@ -116,20 +102,20 @@ function __get_item() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A capitals=() 
-#
-# HASH_STRUCTURE_CFG="`pwd`/hash_values.conf"
+# local HASH_STRUCTURE_CFG="`pwd`/hash_values.conf"
 # __get_configuration $HASH_STRUCTURE_CFG capitals
-# STATUS=$?
+# local STATUS=$?
+#
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
-# 	 ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
+# 	 local ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
 #	 printf "%s\n" "$ELEMENT_BY_KEY"
-#	 ELEMENT_BY_KEY=$(__get_item "Serbia" capitals)
+#	 local ELEMENT_BY_KEY=$(__get_item "Serbia" capitals)
 #	 printf "%s\n" "$ELEMENT_BY_KEY"
 # fi
 #
 function __get_configuration() {
-	CFG_FILE=$1
-	HASH_STRUCT=$2
+	local CFG_FILE=$1
+	local HASH_STRUCT=$2
 	if [ -n "$CFG_FILE" ] && [ -n "$HASH_STRUCT" ]; then
 		IFS="="
 		while read -r key value
@@ -140,4 +126,3 @@ function __get_configuration() {
 	fi
 	return $NOT_SUCCESS
 }
-

@@ -6,20 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=slof
+UTIL_SLOF=slof
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A SLOF_USAGE=(
+    [TOOL_NAME]="__$UTIL_SLOF"
     [ARG1]="[SIZE] LIst in GB/MB"
     [EX-PRE]="# Show 10 Largest Open Files in GB"
-    [EX]="__$UTIL_NAME large"	
+    [EX]="__$UTIL_SLOF large"	
 )
 
 #
@@ -31,31 +30,40 @@ declare -A TOOL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __slof 10
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __slof() {
-    SIZE=$1
+    local SIZE=$1
     if [ -n "$SIZE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Show 10 Largest Open Files]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Show 10 Largest Open Files"
+			printf "$DSTA" "$UTIL_SLOF" "$FUNC" "$MSG"
 		fi
+		local AWK_CMD_G='{if($7 > 1048576) print $7/1048576 "GB" " " $9 " " $1}'
+		local AWK_CMD_M='{if($7 > 1048576) print $7/1048576 "MB" " " $9 " " $1}'
         if [ "$SIZE" == "large" ]; then
-            lsof / | awk '{ if($7 > 1048576) print $7/1048576 "GB" " " $9 " " $1 }' | sort -n -u | tail
+            eval "lsof / | awk $AWK_CMD_G | sort -n -u | tail"
         else
-            lsof / | awk '{ if($7 > 1048576) print $7/1048576 "MB" " " $9 " " $1 }' | sort -n -u | tail
+            eval "lsof / | awk $AWK_CMD_M | sort -n -u | tail"
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_SLOF" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $SLOF_USAGE
     return $NOT_SUCCESS
 }
-

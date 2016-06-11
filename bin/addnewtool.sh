@@ -1,39 +1,30 @@
 #!/bin/bash
 #
-# @brief   Add info for new tool, at tool location
+# @brief   Add info, manual and xtools config for new App/Tool/Script
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=addnewtool
+UTIL_ADDNEWTOOL=addnewtool
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CFG_ADDNEWTOOL=$UTIL/conf/$UTIL_ADDNEWTOOL.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A ADDNEWTOOL_USAGE=(
+    [TOOL_NAME]="__$UTIL_ADDNEWTOOL"
     [ARG1]="[TOOL_NAME] Name of App/Tool/Script"
     [EX-PRE]="# Example adding info for Thunderbird"
-    [EX]="__$UTIL_NAME thunderbird"	
+    [EX]="__$UTIL_ADDNEWTOOL thunderbird"
 )
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
-
-IT_TOOLS=/opt
-COMPANY=company
 
 #
-# @brief  Create file-structure-support for new App/Tool/Script
+# @brief  Create file-structure for new App/Tool/Script
 # @param  Value required name of App/Tool/Script
 # @retval Success return 0, else return 1
 #
@@ -41,90 +32,110 @@ COMPANY=company
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __addnewtool "$TOOL_NAME"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# notify admin | user 
 # else
 #   # false
+#	# missing argument | missing config file | tool already exist
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __addnewtool() {
-    TOOL_NAME=$1
+    local TOOL_NAME=$1
     if [ -n "$TOOL_NAME" ]; then
-        TOOL_DIR=$IT_TOOLS/$TOOL_NAME
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Add $TOOL_NAME to [$IT_TOOLS/]]"
-        	printf "%s" "Checking tool directory "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		declare -A cfgnewtool=()
+		__loadutilconf $UTIL_CFG_ADDNEWTOOL cfgnewtool
+		local STATUS=$?
+		if [ "$STATUS" -eq "$SUCCESS" ]; then
+			local TOOL_DIR="${cfgnewtool[TOOLS]}/$TOOL_NAME"
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="Checking dir [${cfgnewtool[TOOLS]}/]"
+				printf "$DQUE" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
+			fi
+			if [ ! -d "$TOOL_DIR/" ]; then 
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[not exist]"
+					MSG="Creating dir [$TOOL_DIR/]"
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
+				fi
+				mkdir "$TOOL_DIR/"
+				local DATE=$(date)
+				local T_INFO="$TOOL_DIR/$TOOL_NAME-info.txt"
+				local T_MANUAL="$TOOL_DIR/$TOOL_NAME-install-manual.txt"
+				local T_XTOOLS="$TOOL_DIR/$TOOL_NAME-install-xtools.cfg"
+				if [ "$TOOL_DBG" == "true" ]; then
+					MSG="Creating file [$T_INFO]"
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
+				fi
+				cat <<EOF>>"$T_INFO"
+################################################################################
+#
+# @tool    $TOOL_NAME
+# @company $UTIL_FROM_COMPANY
+# @date    $DATE
+# @brief   Info
+#
+################################################################################
+
+EOF
+				if [ "$TOOL_DBG" == "true" ]; then
+					MSG="Creating file [$T_MANUAL]"
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
+				fi
+				cat <<EOF>>"$T_MANUAL"
+################################################################################
+#
+# @tool    $TOOL_NAME
+# @company $UTIL_FROM_COMPANY
+# @date    $DATE
+# @brief   Manual
+#
+################################################################################
+
+EOF
+				if [ "$TOOL_DBG" == "true" ]; then
+					MSG="Creating file [$T_XTOOLS]"
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
+				fi
+				cat <<EOF>>"$T_XTOOLS"
+################################################################################
+#
+# @tool    $TOOL_NAME
+# @company $UTIL_FROM_COMPANY
+# @date    $DATE
+# @brief   Xtools config
+#
+################################################################################
+
+EOF
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "Set owner"
+				fi
+				chown -R $cfgnewtool[UNAME].$cfgnewtool[GROUP] "$TOOL_DIR/"
+				if [ "$TOOL_DBG" == "true" ]; then            
+					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "Set permission"
+				fi
+				chmod -R 770 "$TOOL_DIR/"
+				if [ "$TOOL_DBG" == "true" ]; then            
+					printf "$DEND" "$UTIL_ADDNEWTOOL" "$FUNC" "Done"
+				fi
+				return $SUCCESS
+			fi
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "%s\n" "[already exist]"
+			fi
+			MSG="File-structure for [$TOOL_NAME] already exist"
+			printf "$SEND" "$UTIL_ADDNEWTOOL" "$MSG"
 		fi
-        if [ ! -d "$TOOL_DIR/" ]; then 
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		        printf "%s" "[not exist]"
-		        printf "%s\n" "Creating tool directory [$TOOL_DIR/]"
-			fi
-            mkdir  "$TOOL_DIR/"
-            DATE=$(date +"%m-%d-%Y")
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n" "Creating file [$TOOL_DIR/$TOOL_NAME-info.txt]"
-			fi
-            cat <<EOF>>"$TOOL_DIR/$TOOL_NAME-info.txt"
-
-################################################################
-#
-# $TOOL_NAME Info
-# $COMPANY $DATE
-#
-################################################################
-
-EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n" "Creating file [$TOOL_DIR/$TOOL_NAME-install-manual.txt]"
-			fi
-            cat <<EOF>>"$TOOL_DIR/$TOOL_NAME-install-manual.txt"
-
-################################################################
-#
-# $TOOL_NAME Install Manual
-# $COMPANY $DATE
-#
-################################################################
-
-EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n" "Creating file [$TOOL_DIR/$TOOL_NAME-install-xtools.cfg]"
-			fi
-            cat <<EOF>>"$TOOL_DIR/$TOOL_NAME-install-xtools.cfg"
-
-################################################################
-#
-# $TOOL_NAME Install xtools
-# NS Frobas IT $DATE
-#
-################################################################
-
-EOF
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Set owner"
-			fi
-            chown -R root.root "$TOOL_DIR/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n" "Set permission"
-			fi
-            chmod -R 770 "$TOOL_DIR/"
-			if [ "$TOOL_DEBUG" == "true" ]; then            
-				printf "%s\n\n" "[Done]"
-			fi
-            return $SUCCESS
-        else
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n\n" "[already exist]"
-			fi
-            LOG[MSG]="App/Tool/Script already exist"
-            __logging $LOG
-            return $NOT_SUCCESS
-        fi
+		return $NOT_SUCCESS
     fi 
-    __usage $TOOL_USAGE
+    __usage $ADDNEWTOOL_USAGE
     return $NOT_SUCCESS
 }
-

@@ -6,19 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=spamlookup
+UTIL_SPAMLOOKUP=spamlookup
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
+. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A SPAMLOOKUP_USAGE=(
+    [TOOL_NAME]="__$UTIL_SPAMLOOKUP"
     [ARG1]="[DOMAIN_NAME] Domain name"
     [EX-PRE]="# Example check www.domain.cc"
-    [EX]="__$UTIL_NAME www.domain.cc"	
+    [EX]="__$UTIL_SPAMLOOKUP www.domain.cc"	
 )
 
 #
@@ -30,27 +31,40 @@ declare -A TOOL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __spamlookup "$DOMAIN_NAME"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __spamlookup() {
-    DOMAIN_NAME=$1
+    local DOMAIN_NAME=$1
     if [ -n "$DOMAIN_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Look up abuse contact to report a spammer]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local DIG="/usr/bin/dig"
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Look up abuse contact to report a spammer"
+			printf "$DSTA" "$UTIL_SPAMLOOKUP" "$FUNC" "$MSG"
 		fi
-        dig +short $DOMAIN_NAME.contacts.abuse.net -c in -t txt
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Done]"
+		__checktool "$DIG"
+		local STATUS=$?
+		if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
+			return $NOT_SUCCESS
+		fi
+		eval "$DIG +short $DOMAIN_NAME.contacts.abuse.net -c in -t txt"
+		if [ "$TOOL_DBG" == "true" ]; then
+			printf "$DEND" "$UTIL_SPAMLOOKUP" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $SPAMLOOKUP_USAGE
     return $NOT_SUCCESS
 }
-

@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=rmdups
+UTIL_RMDUPS=rmdups
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A RMDUPS_USAGE=(
+    [TOOL_NAME]="__$UTIL_RMDUPS"
     [ARG1]="[STREAM] stdin or file path"
     [EX-PRE]="# Remove duplicate lines from file or stdin"
-    [EX]="__$UTIL_NAME /data/test.txt"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_RMDUPS /data/test.txt"	
 )
 
 #
@@ -38,37 +30,41 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __rmdups "$FILE_PATH"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __rmdups() {
-    FILES=$@
+    local FILES=$@
     if [ -n "$FILES" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Remove duplicate lines from file or stdin]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Remove duplicate lines from file or stdin"
+			printf "$DSTA" "$UTIL_RMDUPS" "$FUNC" "$MSG"
 		fi
         if [ -f "$FILES" ]; then
-            cat "${FILES[@]}" | { 
+            cat "${FILES[@]}" | {
                 awk '!x[$0]++'
             }
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_RMDUPS" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-        LOG[MSG]="Check file(s) [$FILES]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check file(s) [$FILES]"
+		printf "$SEND" "$UTIL_RMDUPS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $RMDUPS_USAGE
     return $NOT_SUCCESS
 }
-

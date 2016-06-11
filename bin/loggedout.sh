@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=loggedout
+UTIL_LOGGEDOUT=loggedout
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -14,11 +14,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A LOGGEDOUT_USAGE=(
+    [TOOL_NAME]="__$UTIL_LOGGEDOUT"
     [ARG1]="[LOGOUT_STRUCTURE] System username and time"
     [EX-PRE]="# Checking user to log out"
-    [EX]="__$UTIL_NAME \$LOGOUT_STRUCTURE"	
+    [EX]="__$UTIL_LOGGEDOUT \$LOGOUT_STRUCTURE"	
 )
 
 #
@@ -29,44 +29,54 @@ declare -A TOOL_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# declare -A LOGOUT_STRUCTURE=()
 # LOGOUT_STRUCTURE[USERNAME]="rmuller"
 # LOGOUT_STRUCTURE[TIME]=$time
 #
 # __loggedout $LOGOUT_STRUCTURE
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s)
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __loggedout() {
-	LOGOUT_STRUCTURE=$1
-    USER_NAME=${LOGOUT_STRUCTURE[USERNAME]}
-    TIME=${LOGOUT_STRUCTURE[TIME]}
+	local LOGOUT_STRUCTURE=$1
+    local USER_NAME=${LOGOUT_STRUCTURE[USERNAME]}
+    local TIME=${LOGOUT_STRUCTURE[TIME]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Notify when a particular user has logged out]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Notify when a particular user has logged out"
+			printf "$DQUE" "$UTIL_LOGGEDOUT" "$FUNC" "$MSG"
 		fi
         who | grep "^$1 " 2>&1 > /dev/null 
         if [[ $? != 0 ]]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "User [$USER_NAME] is not logged in"
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="User [$USER_NAME] is not logged in"
+				printf "$DQUE" "$UTIL_LOGGEDOUT" "$FUNC" "$MSG"
+				printf "$DEND" "$UTIL_LOGGEDOUT" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
         while who | grep "^$1 "; do
             sleep $TIME
         done
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "User [$USER_NAME] just logged out"
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="User [$USER_NAME] just logged out"
+			printf "$DQUE" "$UTIL_LOGGEDOUT" "$FUNC" "$MSG"
+			printf "$DEND" "$UTIL_LOGGEDOUT" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $LOGGEDOUT_USAGE
     return $NOT_SUCCESS
 }
-

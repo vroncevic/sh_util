@@ -6,28 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=openterminals
+UTIL_OPENTERMINALS=openterminals
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/chectool.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A OPENTERMINALS_USAGE=(
+    [TOOL_NAME]="__$UTIL_OPENTERMINALS"
     [ARG1]="[NUM_TERMINALS] number of terminal windows"
     [EX-PRE]="# Open 4 terminal windows"
-    [EX]="__$UTIL_NAME 4"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_OPENTERMINALS 4"	
 )
 
 #
@@ -39,42 +31,47 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __openterminals "$NUM_TERMINALS"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | missing tool
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __openterminals() {
-    NUM_TERMINALS=$1
+    local NUM_TERMINALS=$1
     if [ -n "$NUM_TERMINALS" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Opens n terminal windows]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local TERM="/usr/bin/terminator"
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Opens n terminal windows"
+			printf "$DSTA" "$UTIL_OPENTERMINALS" "$FUNC" "$MSG"
 		fi
-        __checktool "/usr/bin/terminator"
-        STATUS=$?
+        __checktool "$TERM"
+        local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
-            i=0
+            local i=0
             while [ $i -lt $NUM_TERMINALS ]
             do
-                terminator &
+                eval "$TERM &"
                 i=$[$i+1]
             done
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_OPENTERMINALS" "$FUNC" "Done"
 			fi
 			return $SUCCESS
         fi
-        LOG[MSG]="Check tool terminator"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $TOOL_LOG
+		MSG="Check tool terminator"
+		printf "$SEND" "$UTIL_OPENTERMINALS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $OPENTERMINALS_USAGE
     return $NOT_SUCCESS
 }
-

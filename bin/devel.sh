@@ -7,8 +7,17 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 
-TOOL_DEBUG="false"
+UTIL_FROM_COMPANY="Frobas"
+
+DSTA="[@Module %s.sh @Func %s] %s\n"
+DEND="[@Module %s.sh @Func %s] %s\n\n"
+DQUE="[@Module %s.sh @Func %s] %s "
+
+TOOL_DBG="false"
+
+SSTA="[%s] %s\n"
+SEND="[%s] %s\n\n"
+SQUE="[%s] %s "
 
 SUCCESS=0
 NOT_SUCCESS=1
- 

@@ -6,27 +6,19 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=isspammer
+UTIL_ISSPAMMER=isspammer
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A ISSPAMMER_USAGE=(
+    [TOOL_NAME]="__$UTIL_ISSPAMMER"
     [ARG1]="[DOMAIN_NAME] Domain name"
     [EX-PRE]="# Example checking domain"
-    [EX]="__$UTIL_NAME domain.cc"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_ISSPAMMER domain.cc"	
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return
@@ -46,14 +38,14 @@ ADR_IFS=${No_WSP}'.'
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# TXT=$(__get_txt $ERROR_CODE $LIST_QUERY)
+# local TXT=$(__get_txt $ERROR_CODE $LIST_QUERY)
 #
 function __get_txt() {
-    ERROR_CODE=$1
-    LIST_QUERY=$2
+    local ERROR_CODE=$1
+    local LIST_QUERY=$2
     local -a dns
     IFS=$ADR_IFS
-    dns=($ERROR_CODE)
+    local dns=($ERROR_CODE)
     IFS=$WSP_IFS
     if [ "${dns[0]}" == '127' ]; then
         echo $(dig +short $LIST_QUERY -t txt)
@@ -69,17 +61,18 @@ function __get_txt() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __checkaddress "$REV_DNS" "$LIST_SERVER"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
 # fi
 #
 function __checkaddress() {
-    REV_DNS=$1
-    LIST_SERVER=$2
+    local REV_DNS=$1
+    local LIST_SERVER=$2
     local reply
     local server
     local reason
@@ -104,61 +97,66 @@ function __checkaddress() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __isspammer "$DOMAIN_NAME"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __isspammer(){
-    DOMAIN_NAME=$1
+    local DOMAIN_NAME=$1
+    local MSG=""
     if [ -n "$DOMAIN_NAME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Identifying spam domains]"
-        	printf "%s\n" "Get address of [$1]"
+		local FUNC=${FUNCNAME[0]}
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Get address of [$1]"
+			printf "$DSTA" "$UTIL_ISSPAMMER" "$FUNC" "$MSG"
 		fi
-        ip_adr=$(dig +short $1)
-        dns_reply=${ip_adr:-' no answer '}
-		if [ "$TOOL_DEBUG" == "true" ]; then        
-			printf "%s\n" "Found address [${dns_reply}]"
+        local ip_adr=$(dig +short $1)
+        local dns_reply=${ip_adr:-' no answer '}
+		if [ "$TOOL_DBG" == "true" ]; then        
+			MSG="Found address [${dns_reply}]"
+			printf "$DSTA" "$UTIL_ISSPAMMER" "$FUNC" "$MSG"
 		fi
         if [ ${#ip_adr} -gt 6 ]; then
+			printf "%s\n" "Identifying spam domains"
             declare query
             declare -a dns
             IFS=$ADR_IFS
-            dns=(${ip_adr})
+            local dns=(${ip_adr})
             IFS=$WSP_IFS
-            rev_dns="${dns[3]}"'.'"${dns[2]}"'.'"${dns[1]}"'.'"${dns[0]}"'.'
+            local r_dns="${dns[3]}"'.'"${dns[2]}"'.'"${dns[1]}"'.'"${dns[0]}"'.'
             printf "%s" " spamhaus.org says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'sbl-xbl.spamhaus.org')"
+            printf "%s" " $(__checkaddress ${r_dns} 'sbl-xbl.spamhaus.org')"
             printf "%s" " ordb.org  says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'relays.ordb.org')"
+            printf "%s" " $(__checkaddress ${r_dns} 'relays.ordb.org')"
             printf "%s" " spamcop.net says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'bl.spamcop.net')"
+            printf "%s" " $(__checkaddress ${r_dns} 'bl.spamcop.net')"
             printf "%s" " abuseat.org says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'cbl.abuseat.org')"
+            printf "%s" " $(__checkaddress ${r_dns} 'cbl.abuseat.org')"
             printf "%s" " Distributed Server Listings"
             printf "%s" " list.dsbl.org says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'list.dsbl.org')"
+            printf "%s" " $(__checkaddress ${r_dns} 'list.dsbl.org')"
             printf "%s" " multihop.dsbl.org says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'multihop.dsbl.org')"
+            printf "%s" " $(__checkaddress ${r_dns} 'multihop.dsbl.org')"
             printf "%s" " unconfirmed.dsbl.org says "
-            printf "%s" " $(__checkaddress ${rev_dns} 'unconfirmed.dsbl.org')"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-				printf "%s\n\n" "[Done]"
+            printf "%s" " $(__checkaddress ${r_dns} 'unconfirmed.dsbl.org')"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_ISSPAMMER" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Could not use that address"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Could not use that address"
+		printf "$SEND" "$UTIL_ISSPAMMER" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $ISSPAMMER_USAGE
     return $NOT_SUCCESS
 }
-

@@ -6,28 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=rmlines
+UTIL_RMLINES=rmlines
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
-    [ARG1]="[INPUT_FILE] Name of tool or Application"
-    [ARG2]="[OUTPUT_FILE] Name of tool or Application"
+declare -A RMLINES_USAGE=(
+    [TOOL_NAME]="__$UTIL_RMLINES"
+    [ARG1]="[INPUT_FILE]  Name of file for operation"
+    [ARG2]="[OUTPUT_FILE] Name of the resulting file"
     [EX-PRE]="# Create a file n bytes large"
-    [EX]="__$UTIL_NAME freshtool"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
 )
 
 #
@@ -39,41 +31,44 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __rmlines "$IN_FILE" "$OUT_FILE"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __rmlines() {
-    INPUT_FILE=$1
-    OUTPUT_FILE=$2
+    local INPUT_FILE=$1
+    local OUTPUT_FILE=$2
     if [ -n "$INPUT_FILE" ] && [ -n "$OUTPUT_FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Remove lines that contain words stored in a list]"
-			printf "%s\n" "Checking file [$INPUT_FILE]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking file [$INPUT_FILE]"
+			printf "$DQUE" "$UTIL_RMLINES" "$FUNC" "$MSG"
 		fi
         if [ -f "$INPUT_FILE" ]; then
-            tmp_1=/tmp/tmp.${RANDOM}$$
-            trap 'rm -f $tmp_1 >/dev/null 2>&1' 0
+            local tmp1=/tmp/tmp.${RANDOM}$$
+            trap 'rm -f $tmp1 >/dev/null 2>&1' 0
             trap "exit 1" 1 2 3 15
-            sed -e 's/ //g' -e 's-^-/-g' -e 's-$-/d-' $INPUT_FILE > $tmp_1
-            sed -f "$tmp_1" "$OUTPUT_FILE"
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n\n" "[Done]"
+            sed -e 's/ //g' -e 's-^-/-g' -e 's-$-/d-' $INPUT_FILE > $tmp1
+            sed -f "$tmp1" "$OUTPUT_FILE"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	printf "$DEND" "$UTIL_RMLINES" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Check file [$INPUT_FILE]"
-		if [ "$TOOL_DEBUG" == "true" ]; then        
-			printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
+		MSG="Check file [$INPUT_FILE]"
+		printf "$SEND" "$UTIL_RMLINES" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $RMLINES_USAGE
     return $NOT_SUCCESS
 }
-

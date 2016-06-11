@@ -1,32 +1,27 @@
 #!/bin/bash
 #
-# @brief   Load App/Tool/Script Configuration
+# @brief   Load App/Tool/Script configuration
 # @version ver.1.0
 # @date    Mon Sep 20 21:00:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 #
-UTIL_NAME=loadconf
+UTIL_LOADCONF=loadconf
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
+. $UTIL/bin/checkcfg.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A LOADCONF_USAGE=(
+    [TOOL_NAME]="__$UTIL_LOADCONF"
+    [ARG1]="[TOOL_CFG]      Path to config file"
+    [ARG2]="[CONFIGURATION] Hash structure for config"
     [EX-PRE]="# Example load configuration"
-    [EX]="__$UTIL_NAME \$TOOL_CFG configuration"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    [EX]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
 )
 
 #
@@ -37,25 +32,35 @@ declare -A LOG=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __loadconf $TOOL_CFG $configuration
-# STATUS=$?
+# local TOOL_CFG="/opt/sometool.cfg"
+# declare -A configuration=()
+# __loadconf $TOOL_CFG configuration
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#	# missing argument | missing file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __loadconf() {
-    TOOL_CFG=$1
-    CONFIGURATION="$2"
+    local TOOL_CFG=$1
+    local CONFIGURATION="$2"
     if [ -n "$TOOL_CFG" ] && [ -n "$CONFIGURATION" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "[Load App/Tool/Script configuration from file]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Load App/Tool/Script configuration"
+			printf "$DSTA" "$UTIL_LOADCONF" "$FUNC" "$MSG"
 		fi
-        __checkcfg $TOOL_CFG
-        CHECK_CFG=$?
-        if [ "$CHECK_CFG" -eq "$SUCCESS" ]; then
+        __checkcfg "$TOOL_CFG"
+        local STATUS=$?
+        if [ "$STATUS" -eq "$SUCCESS" ]; then
             IFS="="
             while read -r key value
             do
@@ -66,19 +71,13 @@ function __loadconf() {
                     eval "$CONFIGURATION[$key]=$(printf "'%s' " "$value")"
                 fi
             done < $TOOL_CFG
-			if [ "$TOOL_DEBUG" == "true" ]; then
-		    	printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+		    	printf "$DEND" "$UTIL_LOADCONF" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		LOG[MSG]="Check configuration file [$TOOL_CFG]"
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
-		fi
-        __logging $LOG
         return $NOT_SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $LOADCONF_USAGE
     return $NOT_SUCCESS
 }
-

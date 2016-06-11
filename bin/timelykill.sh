@@ -6,7 +6,7 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=timelykill
+UTIL_TIMELYKILL=timelykill
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
@@ -15,16 +15,16 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A TIMELYKILL_USAGE=(
+    [TOOL_NAME]="__$UTIL_TIMELYKILL"
     [ARG1]="[PID]  Process ID"
     [ARG2]="[TIME] Time <n>s|m|h|d"
     [EX-PRE]="# Destroy process in <n>s|m|h|d"
-    [EX]="__$UTIL_NAME freshtool 5s"	
+    [EX]="__$UTIL_TIMELYKILL freshtool 5s"	
 )
 
 declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
+    [TOOL]="$UTIL_TIMELYKILL"
     [FLAG]="error"
     [PATH]="$UTIL_LOG"
     [MSG]=""
@@ -39,31 +39,41 @@ declare -A LOG=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __checkpid "$PID"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | bad signal
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __checkpid() {
-    PID=$1
+    local PID=$1
     if [ -n "$PID" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Check process id]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Check process id [$PID]"
+			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         kill -0 $PID &>/dev/null 
-        STATUS=$?
+        local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
-			if [ "$TOOL_DEBUG" == "true" ]; then
-            	printf "%s\n" "Receive signal [ok]"
-				printf "%s\n\n" "[Done]"
+			if [ "$TOOL_DBG" == "true" ]; then
+            	MSG="Receive signal [ok]"
+            	printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
+				printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "Receive signal [not ok]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="Receive signal [not ok]"
+			printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         return $NOT_SUCCESS
     fi
@@ -79,31 +89,38 @@ function __checkpid() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __time_validatesleep $TIME
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __time_validatesleep() {
-    TIME=$1
-    if [ -n "$TIME" ]; then 
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Validation of time argument]"
+    local TIME=$1
+    if [ -n "$TIME" ]; then
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Validation of time argument [$TIME]"
+			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
-        case $1 in
+        case $TIME in
             +([0-9])[smhd] ) 
-					if [ "$TOOL_DEBUG" == "true" ]; then
-						printf "%s\n\n" "[Done]"
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
 					fi
                     return $SUCCESS
                     ;;
             *) 
-					if [ "$TOOL_DEBUG" == "true" ]; then
-						printf "%s\n\n" "[Error] Wrong argument"
-					fi
+					MSG="Wrong argument"
+					printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
                     return $NOT_SUCCESS
                     ;;
         esac
@@ -120,27 +137,35 @@ function __time_validatesleep() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __timelykill $PID $TIME
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#   # notify admin | user
 # else
 #   # false
+#   # missing argument(s) | wrong argument
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __timelykill() {
-    PID=$1
-    TIME=$2
+    local PID=$1
+    local TIME=$2
     if [ -n "$PID" ] && [ -n "$TIME" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Kill process pid after n time]"
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Kill process pid [$PID] after [$TIME]"
+			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         case $PID in
             +([0-9])) 
                 __time_validatesleep $TIME
-                STATUS=$?
+                local STATUS=$?
                 if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
-                    __usage $TOOL_USAGE
+                    __usage $TIMELYKILL_USAGE
                     return $NOT_SUCCESS
                 fi
                 sleep $TIME
@@ -161,29 +186,24 @@ function __timelykill() {
                     STATUS=$?
                     if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
 						LOG[MSG]="Faild to kill process [$PID]"
-						if [ "$TOOL_DEBUG" == "true" ]; then
-                        	printf "%s\n\n" "[Error] ${LOG[MSG]}"
-						fi
+						MSG="${LOG[MSG]}"
+						printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
                         __logging $LOG
                         return $NOT_SUCCESS
                     fi
                 done
                 ;;
-            *) 
-                LOG[MSG]="Wrong argument"
-				if [ "$TOOL_DEBUG" == "true" ]; then
-					printf "%s\n\n" "${LOG[MSG]}"
-				fi
-                __logging $LOG
+            *)
+                MSG="Wrong argument"
+				printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
                 return $NOT_SUCCESS
                 ;;
         esac
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $TIMELYKILL_USAGE
     return $NOT_SUCCESS
 }
-

@@ -6,31 +6,20 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_NAME=blotout
+UTIL_BLOTOUT=blotout
 UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
-declare -A TOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_NAME"
+declare -A BLOTOUT_USAGE=(
+    [TOOL_NAME]="__$UTIL_BLOTOUT"
     [ARG1]="[FILE_NAME] Name of file"
     [EX-PRE]="# Example delete file with high security"
-    [EX]="__$UTIL_NAME /opt/test.ini"	
+    [EX]="__$UTIL_BLOTOUT /opt/test.ini"	
 )
-
-declare -A LOG=(
-    [TOOL]="$UTIL_NAME"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
-)
-
-PASSES=7
-BLOCKSIZE=1
 
 #
 # @brief  Blot out some file
@@ -41,51 +30,62 @@ BLOCKSIZE=1
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # __blotout "$FILE_NAME"
-# STATUS=$?
+# local STATUS=$?
 #
 # if [ "$STATUS" -eq "$SUCCESS" ]; then
 #   # true
+#	# notify admin | user
 # else
 #   # false
+#	# missing argument | break | failed to delete file
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
 # fi
 #
 function __blotout() {
-    FILE=$1
+    local FILE=$1
     if [ -n "$FILE" ]; then
-		if [ "$TOOL_DEBUG" == "true" ]; then
-			printf "%s\n" "[Blot out file]"
-			printf "%s" "Checking file [$FILE] "
+		local FUNC=${FUNCNAME[0]}
+		local MSG=""
+		local PASSES=7
+		local BLOCKSIZE=1
+		if [ "$TOOL_DBG" == "true" ]; then
+			MSG="Checking file [$FILE]"
+			printf "$DQUE" "$UTIL_BLOTOUT" "$FUNC" "$MSG"
 		fi
         if [ ! -e "$FILE" ]; then
-			LOG[MSG]="Check file [$FILE]"
-			if [ "$TOOL_DEBUG" == "true" ]; then
+			if [ "$TOOL_DBG" == "true" ]; then
 				printf "%s\n" "[not ok]"
-            	printf "%s\n\n" "[Error] ${LOG[MSG]}"
 			fi
-            __logging $LOG
+			MSG="Check file [$FILE]"
+			printf "$SEND" "$UTIL_BLOTOUT" "$MSG"
             return $NOT_SUCCESS
         fi
-		if [ "$TOOL_DEBUG" == "true" ]; then
+		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[ok]"
 		fi
-        printf "%s\n" "Are you absolutely sure you want to blot out [$FILE] (y/n)? "
+        printf "\n%s\n" "Are you sure you want to blot out [$FILE] (y/n)? "
         read answer
         case "$answer" in
             [nN]) 
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n" "Changed your mind, huh?"
+				if [ "$TOOL_DBG" == "true" ]; then
+                	printf "%s\n" ""
+                	MSG="Changed your mind, huh?"
+                	printf "$DSTA" "$UTIL_BLOTOUT" "$FUNC" "$MSG"
 				fi
                 return $NOT_SUCCESS
                 ;;
             *)
-				if [ "$TOOL_DEBUG" == "true" ]; then
-                	printf "%s\n" "Blotting out file \"$FILE\""
+				if [ "$TOOL_DBG" == "true" ]; then
+                	MSG="Blotting out file \"$FILE\""
+                	printf "$DSTA" "$UTIL_BLOTOUT" "$FUNC" "$MSG" 
 				fi
 				:
                 ;;
         esac
-        flength=$(ls -l "$FILE" | awk '{print $5}')
-        pass_count=1
+        local flength=$(ls -l "$FILE" | awk '{print $5}')
+        local pass_count=1
         chmod u+w "$FILE"
         while [ "$pass_count" -le "$PASSES" ]
         do
@@ -99,13 +99,13 @@ function __blotout() {
         done
         rm -f $FILE
         sync
-		if [ "$TOOL_DEBUG" == "true" ]; then
-        	printf "%s\n" "File [$FILE] blotted out and deleted"
-			printf "%s\n\n" "[Done]"
+		if [ "$TOOL_DBG" == "true" ]; then
+        	MSG="File [$FILE] blotted out and deleted"
+        	printf "$DSTA" "$UTIL_BLOTOUT" "$FUNC" "$MSG"
+			printf "$DEND" "$UTIL_BLOTOUT" "$FUNC" "Done"
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_USAGE
+    __usage $BLOTOUT_USAGE
     return $NOT_SUCCESS
 }
-
