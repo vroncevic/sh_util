@@ -1,4 +1,4 @@
-shutil (Bash scripts) version 1.0
+Shell Utilities (Bash scripts)
 ================================================================================
 
 The README is used to introduce the modules and provide instructions on
@@ -32,3 +32,5 @@ This tool is free software; you can redistribute it and/or modify
 it under the same terms as Bash itself, either Bash version 4.2.47 or,
 at your option, any later version of Bash 4 you may have available.
 
+![alt tag](https://raw.githubusercontent.com/vroncevic/shutil/master/bash_logo_255_113.png)
+![alt tag](https://raw.githubusercontent.com/vroncevic/shutil/master/linux_logo_327_215.jpg)
