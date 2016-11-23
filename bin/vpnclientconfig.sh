@@ -105,7 +105,7 @@ function __vpnclientconfig() {
 					MSG="Generating config file [$USER_VPN/openvpn/$co.ovpn]"
 					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 				fi
-				VPN_FILE="
+				local VPN_FILE="
 #
 # NS Frobas IT
 # VPN configuration NSFROBAS network

@@ -84,7 +84,7 @@ function __vncclientconfig() {
             	MSG="Generating VNC config file [$VHOME/xstartup]"
 				printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 			fi
-			XSTARTUP_SCRIPT="
+			local XSTARTUP_SCRIPT="
 #!/bin/sh
 #
 # $UTIL_FROM_COMPANY IT

@@ -71,7 +71,7 @@ function __appshortcut() {
 					MSG="Creating [$SHCUT]"
 					printf "$DSTA" "$UTIL_APPSHORTCUT" "$FUNC" "$MSG"
 				fi
-				SHORTCUT_FILE="
+				local SHORTCUT_FILE="
 #
 # @tool    $APPNAME
 # @company $UTIL_FROM_COMPANY

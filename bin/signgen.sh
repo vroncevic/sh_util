@@ -74,7 +74,7 @@ function __signgen() {
 				printf "$DQUE" "$UTIL_SIGNGEN" "$FUNC" "$MSG"
 			fi
 			if [ -d "$cfgsigngen[COMPANY_EMPLOYEE]" ]; then
-				SIGNATURE_FILE="
+				local SIGNATURE_FILE="
 <html>
 
     <head>
@@ -208,7 +208,7 @@ function __signgen() {
 				fi
 				return $SUCCESS
 			fi
-			MSG="Check dir [$FROBAS_EMPLOYEE]"
+			MSG="Please check dir [$FROBAS_EMPLOYEE]"
 			printf "$SEND" "$UTIL_SIGNGEN" "$MSG"
 			return $NOT_SUCCESS
 		fi
@@ -217,3 +217,4 @@ function __signgen() {
     __usage $SIGNGEN_USAGE
     return $NOT_SUCCESS
 } 
+

@@ -78,7 +78,7 @@ function __makesshconfig() {
             	MSG="Generating SSH config file [$UHOME/.ssh/config]"
 				printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 			fi
-            SSH_CONFIG_FILE="
+            local SSH_CONFIG_FILE="
 #
 # $UTIL_FROM_COMPANY IT
 # SSH session to host1, host2

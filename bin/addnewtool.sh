@@ -104,7 +104,7 @@ function __addnewtool() {
 					MSG="Creating file [$T_XTOOLS]"
 					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
 				fi
-				XTOOLS_FILE="
+				local XTOOLS_FILE="
 ################################################################################
 #
 # @tool    $TOOL_NAME
