@@ -78,7 +78,7 @@ function __cutcolumns() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check file [$FILE]"
+		MSG="Please check file [$FILE]"
 		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
@@ -136,10 +136,11 @@ function __cutchars() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check file [$FILE]"
+		MSG="Please check file [$FILE]"
 		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $CHARACTER_USAGE
     return $NOT_SUCCESS
 }
+

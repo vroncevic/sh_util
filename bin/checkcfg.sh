@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Checking config file of App/Tool/Script
+# @brief   Checking configuration file of App/Tool/Script
 # @version ver.1.0
 # @date    Wed Sep 16 10:22:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -22,7 +22,7 @@ declare -A CHECKCFG_USAGE=(
 )
 
 #
-# @brief  Check config file exist/regular/noempty
+# @brief  Checking configuration file exist/regular/noempty
 # @param  Value required path to configuration file  
 # @retval Success return 0, else return 1
 #
@@ -50,7 +50,7 @@ function __checkcfg() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Checking config file [$CFG_FILE]"
+			MSG="Checking configuration file [$CFG_FILE]"
         	printf "$DQUE" "$UTIL_CHECKCFG" "$FUNC" "$MSG"
 		fi
         if [ -e "$CFG_FILE" ] && [ -f "$CFG_FILE" ] && [ -s "$CFG_FILE" ]; then
@@ -63,10 +63,11 @@ function __checkcfg() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check config file [$CFG_FILE]"
+		MSG="Please check config file [$CFG_FILE]"
 		printf "$SEND" "$UTIL_CHECKCFG" "$MSG"
 		return $NOT_SUCCESS
     fi
     __usage $CHECKCFG_USAGE
     return $NOT_SUCCESS
 }
+

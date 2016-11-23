@@ -105,7 +105,7 @@ function __vpnclientconfig() {
 					MSG="Generating config file [$USER_VPN/openvpn/$co.ovpn]"
 					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "$MSG"
 				fi
-				cat<<EOF>>"$USER_VPN/openvpn/$co.ovpn"
+				VPN_FILE="
 #
 # NS Frobas IT
 # VPN configuration NSFROBAS network
@@ -126,8 +126,8 @@ client
 
 	verb 3
 	float 
- 
-EOF
+"
+				echo -e "$VPN_FILE" > "$USER_VPN/openvpn/$co.ovpn"
 				if [ "$TOOL_DBG" == "true" ]; then
 					printf "$DSTA" "$UTIL_VPNCLCONFIG" "$FUNC" "Set owner"
 				fi
@@ -142,7 +142,7 @@ EOF
 				return $SUCCESS
 			fi
 			printf "%s\n" "[not ok]"
-			MSG="Check dir [$USER_HOME/]"
+			MSG="Please check dir [$USER_HOME/]"
 			printf "$SEND" "$UTIL_VPNCLCONFIG" "$MSG"
 			return $NOT_SUCCESS
 		fi
@@ -150,3 +150,4 @@ EOF
     __usage $VPNCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
+

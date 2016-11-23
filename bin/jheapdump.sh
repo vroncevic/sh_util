@@ -74,3 +74,4 @@ function __jheapdump() {
     __usage $JHEAPDUMP_USAGE
     return $NOT_SUCCESS
 }
+

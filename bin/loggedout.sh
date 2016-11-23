@@ -80,3 +80,4 @@ function __loggedout() {
     __usage $LOGGEDOUT_USAGE
     return $NOT_SUCCESS
 }
+

@@ -59,7 +59,7 @@ function __checkrom() {
 		fi
         return $SUCCESS
     fi
-	MSG="Check type of disk, expected iso9660"
+	MSG="Please check type of disk, expected iso9660"
 	printf "$SEND" "$UTIL_MAKEISO" "$MSG"
     return $NOT_SUCCESS
 }
@@ -118,3 +118,4 @@ function __makeiso {
     __usage $MAKEISO_USAGE
     return $NOT_SUCCESS
 }
+

@@ -58,21 +58,21 @@ function __checkpid() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Check process id [$PID]"
+			MSG="Checking process id [$PID]"
 			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         kill -0 $PID &>/dev/null 
         local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
-            	MSG="Receive signal [ok]"
+            	MSG="Received signal [ok]"
             	printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 				printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
 			fi
             return $SUCCESS
         fi
 		if [ "$TOOL_DBG" == "true" ]; then
-        	MSG="Receive signal [not ok]"
+        	MSG="Received signal [not ok]"
 			printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         return $NOT_SUCCESS

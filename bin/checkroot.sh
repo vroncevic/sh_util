@@ -14,7 +14,7 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 # 
-# @brief  Check root permission
+# @brief  Check root permission for current session
 # @param  None
 # @retval Success return 0, else return 1
 #
@@ -30,6 +30,8 @@ UTIL_LOG=$UTIL/log
 # else
 #   # false
 #	# you don't have root permission
+#	# return $NOT_SUCCESS
+#	# or
 #	# exit 127
 # fi
 #
@@ -37,14 +39,14 @@ function __checkroot() {
 	local FUNC=${FUNCNAME[0]}
 	local MSG=""
 	if [ "$TOOL_DBG" == "true" ]; then
-		MSG="Check permission"
+		MSG="Check permission for current session"
     	printf "$DQUE" "$UTIL_CHECKROOT" "$FUNC" "$MSG"
 	fi
     if [ "$(id -u)" != "0" ] || [ "$EUID" -ne "$SUCCESS" ]; then
 		if [ "$TOOL_DBG" == "true" ]; then
 		    printf "%s\n" "[not ok]"
 		fi
-		MSG="App/Tool/Script need to run as [root] user"
+		MSG="Run App/Tool/Script as [root] user"
 		printf "$SEND" "$UTIL_CHECKROOT" "$MSG"
         return $NOT_SUCCESS
     fi
@@ -54,3 +56,4 @@ function __checkroot() {
 	fi
     return $SUCCESS
 }
+

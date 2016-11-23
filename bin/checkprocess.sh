@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Check process, is running or not
+# @brief   Checking process, is running or not
 # @version ver.1.0
 # @date    Wed Sep 16 17:41:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -22,7 +22,7 @@ declare -A CHECKPROCESS_USAGE=(
 )
 
 #
-# @brief  Check process (is running or not)
+# @brief  Checking process (is running or not)
 # @param  Value required process name
 # @retval Success return 0, else return 1
 #
@@ -71,4 +71,5 @@ function __checkprocess() {
     fi 
     __usage $CHECKPROCESS_USAGE
     return $NOT_SUCCESS
-} 
+}
+

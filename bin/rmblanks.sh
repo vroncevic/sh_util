@@ -78,7 +78,7 @@ function __rmblanks() {
                 fi
             else
 				printf "%s\n" "[not ok]"
-				MSG="Check file [$a]"
+				MSG="Please check file [$a]"
 				printf "$SEND" "$UTIL_RMBLANKS" "$MSG"
             fi
             :
@@ -91,3 +91,4 @@ function __rmblanks() {
     __usage $RMBLANKS_USAGE
     return $NOT_SUCCESS
 }
+

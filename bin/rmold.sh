@@ -42,3 +42,4 @@ function __rmold() {
 		printf "$DEND" "$UTIL_RMOLD" "$FUNC" "Done"
 	fi
 }
+

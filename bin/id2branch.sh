@@ -70,7 +70,7 @@ function __id2branch() {
 					return $SUCCESS
 				fi
 			done
-			MSG="Check ID [$ID]"
+			MSG="Please check ID [$ID]"
 			printf "$SEND" "$UTIL_ID2BRANCH" "$MSG"
 			return $NOT_SUCCESS
 		fi
@@ -79,3 +79,4 @@ function __id2branch() {
     __usage $ID2BRANCH_USAGE
     return $NOT_SUCCESS
 }
+

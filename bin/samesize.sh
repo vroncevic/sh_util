@@ -68,10 +68,11 @@ function __samesize() {
 			fi
             return $SUCCESS
         fi
-		MSG="Check dir [$DIR_PATH/]"
+		MSG="Please check dir [$DIR_PATH/]"
 		printf "$SEND" "$UTIL_SAMESIZE" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $SAMESIZE_USAGE
     return $NOT_SUCCESS
 }
+

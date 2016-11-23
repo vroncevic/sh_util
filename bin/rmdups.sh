@@ -61,10 +61,11 @@ function __rmdups() {
 			fi
             return $SUCCESS
         fi
-		MSG="Check file(s) [$FILES]"
+		MSG="Please check file(s) [$FILES]"
 		printf "$SEND" "$UTIL_RMDUPS" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $RMDUPS_USAGE
     return $NOT_SUCCESS
 }
+

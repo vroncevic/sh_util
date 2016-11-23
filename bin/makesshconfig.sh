@@ -78,9 +78,9 @@ function __makesshconfig() {
             	MSG="Generating SSH config file [$UHOME/.ssh/config]"
 				printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
 			fi
-            cat<<EOF>>"$UHOME/.ssh/config"
+            SSH_CONFIG_FILE="
 #
-# NS $UTIL_FROM_COMPANY IT
+# $UTIL_FROM_COMPANY IT
 # SSH session to host1, host2
 #
 
@@ -93,8 +93,8 @@ Host host2
     HostName host2
     Port 7777
     User $USERNAME
-    
-EOF
+"
+			echo -e "$SSH_CONFIG_FILE" > "$UHOME/.ssh/config"
 			if [ "$TOOL_DBG" == "true" ]; then
             	printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "Set owner"
 			fi
@@ -108,10 +108,11 @@ EOF
 			fi
             return $SUCCESS
         fi          
-		MSG="Check dir [$UHOME/]"
+		MSG="Please check dir [$UHOME/]"
 		printf "$SEND" "$UTIL_MAKESSHCONFIG" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $MAKESSHCONFIG_USAGE
     return $NOT_SUCCESS
 }
+

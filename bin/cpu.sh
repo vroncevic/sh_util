@@ -75,3 +75,4 @@ function __cpu() {
     __usage $CPU_USAGE
     return $NOT_SUCCESS
 }
+

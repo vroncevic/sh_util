@@ -74,7 +74,7 @@ function __addnewtool() {
 					MSG="Creating file [$T_INFO]"
 					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
 				fi
-				cat <<EOF>>"$T_INFO"
+				local INFO_FILE="
 ################################################################################
 #
 # @tool    $TOOL_NAME
@@ -83,13 +83,13 @@ function __addnewtool() {
 # @brief   Info
 #
 ################################################################################
-
-EOF
+"
+				echo -e $INFO_FILE > "$T_INFO"
 				if [ "$TOOL_DBG" == "true" ]; then
 					MSG="Creating file [$T_MANUAL]"
 					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
 				fi
-				cat <<EOF>>"$T_MANUAL"
+				local MANUAL_FILE="
 ################################################################################
 #
 # @tool    $TOOL_NAME
@@ -98,13 +98,13 @@ EOF
 # @brief   Manual
 #
 ################################################################################
-
-EOF
+"				
+				echo -e "$MANUAL_FILE" >"$T_MANUAL"
 				if [ "$TOOL_DBG" == "true" ]; then
 					MSG="Creating file [$T_XTOOLS]"
 					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "$MSG"
 				fi
-				cat <<EOF>>"$T_XTOOLS"
+				XTOOLS_FILE="
 ################################################################################
 #
 # @tool    $TOOL_NAME
@@ -113,8 +113,8 @@ EOF
 # @brief   Xtools config
 #
 ################################################################################
-
-EOF
+"
+				echo -e "$XTOOLS_FILE" >"$T_XTOOLS"
 				if [ "$TOOL_DBG" == "true" ]; then
 					printf "$DSTA" "$UTIL_ADDNEWTOOL" "$FUNC" "Set owner"
 				fi
@@ -139,3 +139,4 @@ EOF
     __usage $ADDNEWTOOL_USAGE
     return $NOT_SUCCESS
 }
+

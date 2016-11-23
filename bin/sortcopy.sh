@@ -72,7 +72,7 @@ function __lcp() {
             return $SUCCESS
         fi
         printf "%s\n" "[not ok]"
-		MSG="Check dir [$DESTINATION/]"
+		MSG="Please check dir [$DESTINATION/]"
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi
@@ -123,10 +123,11 @@ function __duplicatescounter() {
             return $SUCCESS
         fi
         printf "%s\n" "[not ok]"
-		MSG="Check path [$FILE_PATH]"
+		MSG="Please check path [$FILE_PATH]"
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi 
     __usage $DUP_USAGE
     return $NOT_SUCCESS
 }
+

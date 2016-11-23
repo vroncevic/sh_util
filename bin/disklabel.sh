@@ -86,3 +86,4 @@ function __disklabel() {
     __usage $DISKLABEL_USAGE
     return $NOT_SUCCESS
 }
+

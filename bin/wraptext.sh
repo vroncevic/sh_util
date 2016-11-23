@@ -70,3 +70,4 @@ function __wraptext() {
     __usage $WRAPTEXT_USAGE
     return $NOT_SUCCESS
 }
+

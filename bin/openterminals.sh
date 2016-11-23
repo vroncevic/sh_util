@@ -68,10 +68,9 @@ function __openterminals() {
 			fi
 			return $SUCCESS
         fi
-		MSG="Check tool terminator"
-		printf "$SEND" "$UTIL_OPENTERMINALS" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $OPENTERMINALS_USAGE
     return $NOT_SUCCESS
 }
+

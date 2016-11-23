@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Make a zip archive with single file
+# @brief   Make a zip archive with single target file
 # @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -94,3 +94,4 @@ function __zipfile() {
     __usage $ZIPFILE_USAGE
     return $NOT_SUCCESS
 }
+

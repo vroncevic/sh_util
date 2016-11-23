@@ -81,3 +81,4 @@ function __loggedin() {
     __usage $LOGGEDIN_USAGE
     return $NOT_SUCCESS
 }
+

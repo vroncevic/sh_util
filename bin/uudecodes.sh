@@ -72,7 +72,7 @@ function __uudecodes() {
 			if [ "$TOOL_DBG" == "true" ]; then
 				printf "%s\n" "[not ok]"
 			fi
-			MSG="Check file path [$FILE_PATH]"
+			MSG="Please check file path [$FILE_PATH]"
 			printf "$SEND" "$UTIL_UUDECODES" "$MSG"
 			return $NOT_SUCCESS
 		fi
@@ -141,3 +141,4 @@ function __uudecodes_all() {
     __usage $UUDECODES_USAGE
     return $NOT_SUCCESS
 }
+

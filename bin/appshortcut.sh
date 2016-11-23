@@ -71,7 +71,7 @@ function __appshortcut() {
 					MSG="Creating [$SHCUT]"
 					printf "$DSTA" "$UTIL_APPSHORTCUT" "$FUNC" "$MSG"
 				fi
-				cat <<EOF>>"$SHCUT"
+				SHORTCUT_FILE="
 #
 # @tool    $APPNAME
 # @company $UTIL_FROM_COMPANY
@@ -91,7 +91,8 @@ TerminalOptions=
 Type=Application
 X-KDE-SubstituteUID=false
 X-KDE-Username=
-EOF
+"
+				echo -e "$SHORTCUT_FILE" >"$SHCUT"
 				if [ "$TOOL_DBG" == "true" ]; then
 					printf "$DSTA" "$UTIL_APPSHORTCUT" "$FUNC" "Set permission"
 				fi
@@ -112,3 +113,4 @@ EOF
     __usage $APPSHORTCUT_USAGE
     return $NOT_SUCCESS
 }
+

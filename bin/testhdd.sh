@@ -48,7 +48,7 @@ function __testhdd() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Test hard drive speed"
+			MSG="Testing hard drive speed"
 			printf "$DSTA" "$UTIL_TESTHDD" "$FUNC" "$MSG"
 		fi
         time (dd if=/dev/zero of=zerofile bs=1M count=$TIME_COUNT;sync);
@@ -61,3 +61,4 @@ function __testhdd() {
     __usage $TESTHDD_USAGE
     return $NOT_SUCCESS
 }
+

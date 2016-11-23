@@ -84,8 +84,7 @@ function __vncclientconfig() {
             	MSG="Generating VNC config file [$VHOME/xstartup]"
 				printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "$MSG"
 			fi
-            cat <<EOF>>"$VHOME/xstartup"
-
+			XSTARTUP_SCRIPT="
 #!/bin/sh
 #
 # $UTIL_FROM_COMPANY IT
@@ -98,7 +97,7 @@ unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 OS=\`uname -s\`
 if [ \$OS = 'Linux' ]; then
-  case "\$WINDOWMANAGER" in
+  case \"\$WINDOWMANAGER\" in
     *gnome*)
       if [ -e /etc/SuSE-release ]; then
         PATH=\$PATH:/opt/gnome/bin
@@ -115,9 +114,10 @@ if [ -f /etc/X11/xinit/xinitrc ]; then
 fi
 [ -r \$HOME/.Xresources ] && xrdb \$HOME/.Xresources
 xsetroot -solid grey
-xterm -geometry 80x24+10+10 -ls -title "\$VNCDESKTOP Desktop" &
+xterm -geometry 80x24+10+10 -ls -title \"\$VNCDESKTOP Desktop\" &
 twm &
-EOF
+"
+			echo "$XSTARTUP_SCRIPT" > "$VHOME/xstartup"
 			if [ "$TOOL_DBG" == "true" ]; then
             	printf "$DSTA" "$UTIL_VNCCLIENTCONFIG" "$FUNC" "Set owner"
 			fi
@@ -134,9 +134,10 @@ EOF
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check dir [$UHOME/]"
+		MSG="Please check dir [$UHOME/]"
 		return $NOT_SUCCESS
     fi 
     __usage $VNCCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
+

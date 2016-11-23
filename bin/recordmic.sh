@@ -69,12 +69,8 @@ function __recordmic() {
 				fi
 				return $SUCCESS
 			fi
-			MSG="Check tool [$LAME]"
-			printf "$SEND" "$UTIL_RECORDMIC" "$MSG"
 			return $NOT_SUCCESS
         fi
-		MSG="Check tool [$SOX]"
-		printf "$SEND" "$UTIL_RECORDMIC" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $RECORDMIC_USAGE

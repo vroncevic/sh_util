@@ -68,10 +68,11 @@ function __gz2bz2() {
             fi
             return $NOT_SUCCESS
         fi
-		MSG="Check file [$FILE_NAME]"
+		MSG="Please check file [$FILE_NAME]"
 		printf "$SEND" "$UTIL_GZ2BZ2" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $GZ2BZ2_USAGE
     return $NOT_SUCCESS
 }
+

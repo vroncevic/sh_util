@@ -78,3 +78,4 @@ EOF
     __usage $SENDMAIL_USAGE
     return $NOT_SUCCESS
 }
+

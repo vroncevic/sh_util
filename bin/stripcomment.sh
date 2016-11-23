@@ -72,10 +72,11 @@ function __stripcomment() {
 			fi
             return $SUCCESS
         fi
-        MSG="Check file [$FILE]"
+        MSG="Please check file [$FILE]"
 		printf "$SEND" "$UTIL_STRIPCOMMENT" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $STRIPCOMMENT_USAGE
     return $NOT_SUCCESS
 }
+

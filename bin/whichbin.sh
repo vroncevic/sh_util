@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Locate binary executable
+# @brief   Locate binary executable file 
 # @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -50,7 +50,7 @@ function __follow_link() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$FILE" -eq "$NOT_SUCCESS" ]; then
-			MSG="[$FILE] not an executable"
+			MSG="[$FILE] is not an executable"
 			printf "$SEND" "$UTIL_WHICHBIN" "$MSG"
 			return $NOT_SUCCESS
 		fi
@@ -115,3 +115,4 @@ function __whichbin() {
     __usage $WHICHBIN_USAGE
     return $NOT_SUCCESS
 }
+

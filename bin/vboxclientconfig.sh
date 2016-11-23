@@ -101,7 +101,7 @@ function __vboxclientconfig() {
 				return $SUCCESS
 			fi
 			printf "%s\n" "[not ok]"
-			MSG="Check dir [$VBOX_CONF/]"
+			MSG="Please check dir [$VBOX_CONF/]"
 			printf "$SEND" "$UTIL_VBOXCLIENTCONFIG" "$MSG"
 			return $NOT_SUCCESS
         fi
@@ -110,3 +110,4 @@ function __vboxclientconfig() {
     __usage $VBOXCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
+

@@ -66,7 +66,7 @@ function __vminfo() {
 		if [ "$TOOL_DBG" == "true" ]; then   
 			printf "%s\n" "[not ok]"         
 		fi
-		LOG[MSG]="Check dir [$VM_DISK_PATH]"
+		LOG[MSG]="Please check dir [$VM_DISK_PATH]"
 		MSG="${LOG[MSG]}"
 		printf "$SEND" "$UTIL_VMINFO" "$MSG"
 		__logging $LOG

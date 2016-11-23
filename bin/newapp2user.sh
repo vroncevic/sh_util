@@ -114,7 +114,7 @@ function __newapp2user() {
 				printf "$SEND" "$UTIL_APP2USER" "$MSG"
 				return $NOT_SUCCESS
 			fi
-			MSG="Check directory [$APPLICATION_SHORTCUT]"
+			MSG="Please check directory [$APPLICATION_SHORTCUT]"
 			printf "$SEND" "$UTIL_APP2USER" "$MSG"
 			return $NOT_SUCCESS
         fi
@@ -123,3 +123,4 @@ function __newapp2user() {
     __usage $NEWAPP2USER_USAGE
     return $NOT_SUCCESS
 }
+

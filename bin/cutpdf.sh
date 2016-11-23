@@ -85,7 +85,7 @@ function __cutpdf() {
 			if [ "$TOOL_DBG" == "true" ]; then
 				printf "%s\n" "[not ok]"
 			fi
-			MSG="Check file [$INPUT_PDF_FILE]"
+			MSG="Please check file [$INPUT_PDF_FILE]"
 			printf "$SEND" "$UTIL_CUTPDF" "$MSG"
 		fi
         return $NOT_SUCCESS
@@ -93,3 +93,4 @@ function __cutpdf() {
     __usage $CUTPDF_USAGE
     return $NOT_SUCCESS
 }
+

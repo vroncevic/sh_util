@@ -62,7 +62,7 @@ function __word2txt() {
                 if [ -f "$a" ]; then
                     eval "$CAT_DOC -b -s cp1252 -d 8859-1 -a $a"
                 else
-					MSG="Check file [$a]"
+					MSG="Please check file [$a]"
 					printf "$SEND" "$UTIL_WORD2TXT" "$MSG"
                 fi
             done
@@ -76,3 +76,4 @@ function __word2txt() {
     __usage $WORD2TXT_USAGE
     return $NOT_SUCCESS
 }
+

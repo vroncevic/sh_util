@@ -65,10 +65,11 @@ function __rmlines() {
 			fi
             return $SUCCESS
         fi
-		MSG="Check file [$INPUT_FILE]"
+		MSG="Please check file [$INPUT_FILE]"
 		printf "$SEND" "$UTIL_RMLINES" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $RMLINES_USAGE
     return $NOT_SUCCESS
 }
+

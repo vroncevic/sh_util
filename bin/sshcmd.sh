@@ -70,10 +70,11 @@ function __sshcmd() {
 			fi
             return $SUCCESS
         fi
-        MSG="Check file [$SCRIPT_NAME]"
+        MSG="Please check file [$SCRIPT_NAME]"
 		printf "$SEND" "$UTIL_SSHCMD" "$MSG"
         return $NOT_SUCCESS
     fi
 	__usage $SSHCMD_USAGE
 	return $NOT_SUCCESS
 }
+

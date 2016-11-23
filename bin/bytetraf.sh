@@ -195,3 +195,4 @@ function __bytetraf() {
     __usage $BYTETRAF_USAGE
     return $NOT_SUCCESS
 }
+

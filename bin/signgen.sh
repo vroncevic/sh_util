@@ -74,7 +74,7 @@ function __signgen() {
 				printf "$DQUE" "$UTIL_SIGNGEN" "$FUNC" "$MSG"
 			fi
 			if [ -d "$cfgsigngen[COMPANY_EMPLOYEE]" ]; then
-				cat <<EOF>>"$cfgsigngen[COMPANY_EMPLOYEE]/$NAME"
+				SIGNATURE_FILE="
 <html>
 
     <head>
@@ -145,63 +145,64 @@ function __signgen() {
         </style>
     </head>
     
-    <body bgcolor="#FFFFFF" text="#000000" >
-        <table class="table-params">
-            <tr class="tr">
-                <td colspan="2"><strong>$NAME</strong></td>
+    <body bgcolor=\"#FFFFFF\" text=\"#000000\" >
+        <table class=\"table-params\">
+            <tr class=\"tr\">
+                <td colspan=\"2\"><strong>$NAME</strong></td>
             </tr>
-            <tr class="tr">
-                <td colspan="2">$WORKPOSITION</td>
+            <tr class=\"tr\">
+                <td colspan=\"2\">$WORKPOSITION</td>
             </tr>
-            <tr class="tr">
-                <td colspan="2">$DEPARTMENT</td>
+            <tr class=\"tr\">
+                <td colspan=\"2\">$DEPARTMENT</td>
             </tr>
-            <tr class="tr">
-                <td colspan="2"><br/></td>
+            <tr class=\"tr\">
+                <td colspan=\"2\"><br/></td>
             </tr>
-            <tr class="tr">
-                <td width="18%">Phone: </td>
-                <td class="td-padding-left">$IP</td>
+            <tr class=\"tr\">
+                <td width=\"18%\">Phone: </td>
+                <td class=\"td-padding-left\">$IP</td>
             </tr>
-            <tr class="tr">
+            <tr class=\"tr\">
                 <td >Mobile: </td>
-                <td class="td-padding-left">$MOBILE</td>
+                <td class=\"td-padding-left\">$MOBILE</td>
             </tr>
-            <tr class="tr">
+            <tr class=\"tr\">
                 <td >E-mail:</td>
-                <td class="td-padding-left">$EMAIL</td>
+                <td class=\"td-padding-left\">$EMAIL</td>
             </tr>
-            <tr class="tr">
-                <td colspan="2"><br/></td>
+            <tr class=\"tr\">
+                <td colspan=\"2\"><br/></td>
             </tr>
 			<tr>
-				<td colspan="2" class="td-com">$cfgsigngen[COMPANY_NAME]</td>
+				<td colspan=\"2\" class=\"td-com\">$cfgsigngen[COMPANY_NAME]</td>
 			</tr>
-			<tr class="tr">
+			<tr class=\"tr\">
 				<td>Web </td>
-				<td class="td-padding-left">$cfgsigngen[COMPANY_SITE]</td>
+				<td class=\"td-padding-left\">$cfgsigngen[COMPANY_SITE]</td>
 			</tr>
 			<tr>
-				<td class="td-com-address-label">Address</td>
-				<td class="td-com-address">$cfgsigngen[COMPANY_ADDRESS]</td>
+				<td class=\"td-com-address-label\">Address</td>
+				<td class=\"td-com-address\">$cfgsigngen[COMPANY_ADDRESS]</td>
 			</tr>
 			<tr>
-				<td class="td-com-address-label">State</td>
-				<td class="td-com-address">$cfgsigngen[COMPANY_STATE]</td>
+				<td class=\"td-com-address-label\">State</td>
+				<td class=\"td-com-address\">$cfgsigngen[COMPANY_STATE]</td>
 			</tr>
 			<tr>
-				<td class="td-com-phone-label">Tel</td>
-				<td class="td-com-phone">$cfgsigngen[COMPANY_PHONE]</td>
+				<td class=\"td-com-phone-label\">Tel</td>
+				<td class=\"td-com-phone\">$cfgsigngen[COMPANY_PHONE]</td>
 			</tr>
 			<tr>
-				<td class="td-com-phone-label">Fax</td>
-				<td class="td-com-phone">$cfgsigngen[COMPANY_FAX]</td>
+				<td class=\"td-com-phone-label\">Fax</td>
+				<td class=\"td-com-phone\">$cfgsigngen[COMPANY_FAX]</td>
 			</tr>
         </table>
     </body>
     
 </html>
-EOF
+"
+				echo -e "$SIGNATURE_FILE" > "$cfgsigngen[COMPANY_EMPLOYEE]/$NAME"
 				if [ "$TOOL_DBG" == "true" ]; then
 					printf "$DEND" "$UTIL_SIGNGEN" "$FUNC" "Done"
 				fi

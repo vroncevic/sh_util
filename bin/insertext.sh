@@ -98,3 +98,4 @@ function __insertext() {
     __usage $INSERTEXT_USAGE
     return $NOT_SUCCESS
 }
+

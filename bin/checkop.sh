@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Check operation to be done
+# @brief   Checking operation to be done
 # @version ver.1.0
 # @date    Thu Apr 28 20:40:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
@@ -23,7 +23,7 @@ declare -A CHECKOP_USAGE=(
 )
 
 #
-# @brief  Check operation
+# @brief  Checking operation to be done
 # @params Values required operation and list of operations
 # @retval Success return 0, else 1
 #
@@ -71,10 +71,11 @@ function __checkop() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check operation [$OPERATION]"
+		MSG="Please check operation [$OPERATION]"
 		printf "$SEND" "$UTIL_CHECKOP" "$MSG"
 		return $NOT_SUCCESS
 	fi
 	__usage $CHECKOP_USAGE
 	return $NOT_SUCCESS
 }
+

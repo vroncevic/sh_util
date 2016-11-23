@@ -160,3 +160,4 @@ function __isspammer(){
     __usage $ISSPAMMER_USAGE
     return $NOT_SUCCESS
 }
+

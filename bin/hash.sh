@@ -126,3 +126,4 @@ function __get_configuration() {
 	fi
 	return $NOT_SUCCESS
 }
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Checking X Server
+# @brief   Checking X Server instance 
 # @version ver.1.0
 # @date    Fri Okt 04 17:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -63,10 +63,11 @@ function __checkx() {
 		if [ "$TOOL_DBG" == "true" ]; then
         	printf "%s\n" "[down]"
 		fi
-		MSG="Check X Server on [$HOSTNAME]"
+		MSG="Please check X Server on [$HOSTNAME]"
 		printf "$SEND" "$UTIL_CHECKX" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $CHECKX_USAGE
     return $NOT_SUCCESS
 }
+

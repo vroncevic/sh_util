@@ -55,19 +55,22 @@ function __loadconf() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-        	MSG="Load App/Tool/Script configuration"
+        	MSG="Loading App/Tool/Script configuration"
 			printf "$DSTA" "$UTIL_LOADCONF" "$FUNC" "$MSG"
 		fi
         __checkcfg "$TOOL_CFG"
         local STATUS=$?
         if [ "$STATUS" -eq "$SUCCESS" ]; then
             IFS="="
-            while read -r key value
+            while read -r key value 
             do
                 if [ "$key" == "ADMIN_EMAIL" ]; then
                     eval "$CONFIGURATION[$key]=$(printf "'%s' " "$value")"
                 fi
                 if [ "$key" == "LOGGING" ]; then
+                    eval "$CONFIGURATION[$key]=$(printf "'%s' " "$value")"
+                fi
+				if [ "$key" == "EMAILING" ]; then
                     eval "$CONFIGURATION[$key]=$(printf "'%s' " "$value")"
                 fi
             done < $TOOL_CFG
@@ -81,3 +84,4 @@ function __loadconf() {
     __usage $LOADCONF_USAGE
     return $NOT_SUCCESS
 }
+

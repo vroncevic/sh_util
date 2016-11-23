@@ -60,7 +60,7 @@ function __xcopy() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-        	MSG="Check dir [$APPPATH/]"
+        	MSG="Checking dir [$APPPATH/]"
 			printf "$DQUE" "$UTIL_XCOPY" "$FUNC" "$MSG"
 		fi
         if [ -d "$APPPATH" ]; then
@@ -101,10 +101,11 @@ function __xcopy() {
 			fi
             return $SUCCESS
 		fi
-		MSG="Check directory [$DEVPATH/]"
+		MSG="Please check directory [$DEVPATH/]"
 		printf "$SEND" "$UTIL_XCOPY" "$MSG"
 		return $NOT_SUCCESS
     fi
     __usage $XCOPY_USAGE
     return $NOT_SUCCESS
 }
+

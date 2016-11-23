@@ -71,10 +71,11 @@ function __symlinks() {
 			fi
             return $SUCCESS
         fi
-		MSG="Check dir [$DIRECTORY/]"
+		MSG="Please check dir [$DIRECTORY/]"
 		printf "$SEND" "$UTIL_SYMLINKS" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $SYMLINKS_USAGE
     return $NOT_SUCCESS
 }
+

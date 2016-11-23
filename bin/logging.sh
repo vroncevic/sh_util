@@ -97,10 +97,11 @@ function __logging() {
 			fi
             return $SUCCESS
         fi
-		MSG="Check log path [$LTP]"
+		MSG="Please check log path [$LTP]"
 		printf "$SEND" "$UTIL_LOGGING" "$MSG"
         return $NOT_SUCCESS
     fi 
     __usage $LOGGING_USAGE
     return $NOT_SUCCESS
 }
+

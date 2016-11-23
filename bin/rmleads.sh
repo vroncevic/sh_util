@@ -76,7 +76,7 @@ function __rmleads() {
 					:
                 fi
             else
-				MSG="Check file [$a]"
+				MSG="Please check file [$a]"
 				printf "$SEND" "$UTIL_RMLEADS" "$MSG"
             fi
         done
@@ -88,3 +88,4 @@ function __rmleads() {
     __usage $RMLEADS_USAGE
     return $NOT_SUCCESS
 }
+

@@ -68,3 +68,4 @@ function __spamlookup() {
     __usage $SPAMLOOKUP_USAGE
     return $NOT_SUCCESS
 }
+

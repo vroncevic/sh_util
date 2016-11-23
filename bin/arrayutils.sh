@@ -276,4 +276,5 @@ function __count() {
     fi
     local v=${1}
     eval echo \${\#${1}[@]}
-} 
+}
+

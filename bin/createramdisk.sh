@@ -92,3 +92,4 @@ function __createramdisk() {
     __usage $CREATERAMDISK_USAGE
     return $NOT_SUCCESS
 }
+

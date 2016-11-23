@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Check tool (does exist and, is executable)
+# @brief   Checking tool (does exist and, is executable)
 # @version ver.1.0
 # @date    Mon Jul 15 20:57:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -22,8 +22,8 @@ declare -A CHECKTOOL_USAGE=(
 )
 
 #
-# @brief  Check tool (does exist and, is executable)
-# @param  Value required App/Tool/Script name
+# @brief  Checking tool (does exist and, is executable)
+# @param  Value required path to App/Tool/Script file
 # @retval Success return 0, else return 1
 #
 # @usage
@@ -63,10 +63,11 @@ function __checktool() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Check tool [$APP_TOOL_NAME]"
+		MSG="Please check tool [$APP_TOOL_NAME]"
 		printf "$SEND" "$UTIL_CHECKTOOL" "$MSG"
         return $NOT_SUCCESS
     fi
     __usage $CHECKTOOL_USAGE
     return $NOT_SUCCESS
 }
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Set debug option
+# @brief   Debug options, print formats
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -21,3 +21,4 @@ SQUE="[%s] %s "
 
 SUCCESS=0
 NOT_SUCCESS=1
+

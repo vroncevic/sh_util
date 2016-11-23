@@ -87,7 +87,7 @@ function __vdeploy() {
 				return $SUCCESS
 			fi
 			printf "%s\n" "[not ok]"
-			MSG="Check dirs [$SRC/ver.${VERSION}.0/] [$DIST/]"
+			MSG="Please check dirs [$SRC/ver.${VERSION}.0/] [$DIST/]"
 			printf "$SEND" "$UTIL_VDEPLOY" "$MSG"
 			return $NOT_SUCCESS
         fi
@@ -96,3 +96,4 @@ function __vdeploy() {
     __usage $VDEPLOY_USAGE
     return $NOT_SUCCESS
 }
+
