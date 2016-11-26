@@ -7,9 +7,9 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_DEP2GROUP=dep2group
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
-UTIL_CFG_DEP2GROUP=$UTIL/conf/$UTIL_DEP2GROUP.cfg
+UTIL_DEP2GROUP_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_DEP2GROUP_VERSION
+UTIL_DEP2GROUP_CFG=$UTIL/conf/$UTIL_DEP2GROUP.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/loadutilconf.sh
@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A DEP2GROUP_USAGE=(
-    [TOOL_NAME]="__$UTIL_DEP2GROUP"
-    [ARG1]="[DEPARTMENT] Department name"
-    [EX-PRE]="# Example converting \"Management\" to \"me\""
-    [EX]="__$UTIL_DEP2GROUP \"Management\""
+    ["TOOL"]="__$UTIL_DEP2GROUP"
+    ["ARG1"]="[DEPARTMENT] Department name"
+    ["EX-PRE"]="# Example converting \"Management\" to \"me\""
+    ["EX"]="__$UTIL_DEP2GROUP \"Management\""
 )
 
 #
@@ -36,7 +36,7 @@ declare -A DEP2GROUP_USAGE=(
 # __dep2group $DEPARTMENT GROUP
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -52,17 +52,17 @@ function __dep2group() {
     if [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		declare -A cfgid2group=()
-		__loadutilconf $UTIL_CFG_DEP2GROUP cfgid2group
+		declare -A configdep2group=()
+		__loadutilconf $UTIL_DEP2GROUP_CFG configdep2group
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
 				MSG="Convert name of department to group"
 				printf "$DSTA" "$UTIL_DEP2GROUP" "$FUNC" "$MSG"
 			fi
-			for i in "${!cfgid2group[@]}"
+			for i in "${!configdep2group[@]}"
 			do
-				if [ "$DEPARTMENT" == "${cfgid2group[$i]}" ]; then
+				if [ "$DEPARTMENT" == "${configdep2group[$i]}" ]; then
 					eval "$2=$(printf "'%s' " "$i")"
 				fi
 			done
@@ -73,7 +73,7 @@ function __dep2group() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $DEP2GROUP_USAGE
+    __usage "$(declare -p DEP2GROUP_USAGE)"
     return $NOT_SUCCESS
 }
 

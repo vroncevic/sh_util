@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_BYTETRAF=bytetraf
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_BYTETRAF_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_BYTETRAF_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A BYTETRAF_USAGE=(
-    [TOOL_NAME]="__$UTIL_BYTETRAF"
-    [ARG1]="[TEST_STRUCTURE] Time and name of interface"
-    [EX-PRE]="# Display network traffic on an interface"
-    [EX]="__$UTIL_BYTETRAF \"enp0s25\""
+    ["TOOL"]="__$UTIL_BYTETRAF"
+    ["ARG1"]="[TEST_STRUCTURE] Time and name of interface"
+    ["EX-PRE"]="# Display network traffic on an interface"
+    ["EX"]="__$UTIL_BYTETRAF \"enp0s25\""
 )
 
 #
@@ -82,7 +82,7 @@ function __string_intdelim() {
 # __interface_check "$interface"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# interface is up and running
 # else
@@ -124,10 +124,14 @@ function __interface_check() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __bytetraf $TIME $INTERFACE
+# declare -A TEST_STRUCTURE=()
+# TEST_STRUCTURE["TIME"]=$TIME
+# TEST_STRUCTURE["INTERFACE"]=$INTERFACE
+#
+# __bytetraf "$(declare -p TEST_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# interface is ok, you can see speed
 # else
@@ -139,7 +143,7 @@ function __interface_check() {
 # fi
 #
 function __bytetraf() {
-	local TEST_STRUCTURE=$1
+	eval "declare -A TEST_STRUCTURE="${1#*=}
     local TIME=${TEST_STRUCTURE[TIME]}
     local INTERFACE=${TEST_STRUCTURE[INTERFACE]}
     if [ -n "$TIME" ] && [ -n "$INTERFACE" ]; then
@@ -153,7 +157,7 @@ function __bytetraf() {
             +([0-9])[smhd] )
                 __interface_check "$INTERFACE"
                 local STATUS=$?
-                if [ "$STATUS" -eq "$SUCCESS" ]; then
+                if [ $STATUS -eq $SUCCESS ]; then
 					local intg=${TIME%[s|m|h|d]*}
 					local unit=${TIME##*[!s|m|h|d]}
 					[[ $unit == s ]] && div=1
@@ -192,7 +196,7 @@ function __bytetraf() {
         esac
 		return $NOT_SUCCESS
     fi
-    __usage $BYTETRAF_USAGE
+    __usage "$(declare -p BYTETRAF_USAGE)"
     return $NOT_SUCCESS
 }
 

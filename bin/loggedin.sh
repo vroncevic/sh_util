@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGEDIN=loggedin
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LOGGEDIN_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LOGGEDIN_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A LOGGEDIN_USAGE=(
-    [TOOL_NAME]="__$UTIL_LOGGEDIN"
-    [ARG1]="[LOGIN_STRUCTURE] System username and time"
-    [EX-PRE]="# Create a file n bytes large"
-    [EX]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
+    ["TOOL"]="__$UTIL_LOGGEDIN"
+    ["ARG1"]="[LOGIN_STRUCTURE] System username and time"
+    ["EX-PRE"]="# Create a file n bytes large"
+    ["EX"]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
 )
 
 #
@@ -30,13 +30,13 @@ declare -A LOGGEDIN_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGIN_STRUCTURE=()
-# LOGIN_STRUCTURE[USERNAME]="rmuller"
-# LOGIN_STRUCTURE[TIME]=$time
+# LOGIN_STRUCTURE["USERNAME"]="rmuller"
+# LOGIN_STRUCTURE["TIME"]=$time
 #
-# __loggedin $LOGIN_STRUCTURE
+# __loggedin "$(declare -p LOGIN_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -48,9 +48,9 @@ declare -A LOGGEDIN_USAGE=(
 # fi
 #
 function __loggedin() {
-	local LOGIN_STRUCTURE=$1
-    local USER_NAME=${LOGIN_STRUCTURE[USERNAME]}
-    local TIME=${LOGIN_STRUCTURE[TIME]}
+	eval "declare -A LOGIN_STRUCTURE="${1#*=}
+    local USER_NAME=${LOGIN_STRUCTURE["USERNAME"]}
+    local TIME=${LOGIN_STRUCTURE["TIME"]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -78,7 +78,7 @@ function __loggedin() {
 		fi
         return $SUCCESS
     fi
-    __usage $LOGGEDIN_USAGE
+    __usage "$(declare -p LOGGEDIN_USAGE)"
     return $NOT_SUCCESS
 }
 

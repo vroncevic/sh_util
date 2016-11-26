@@ -7,19 +7,21 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_OPENTERMINALS=openterminals
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_OPENTERMINALS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_OPENTERMINALS_VERSION
+UTIL_OPENTERMINALS_CFG=$UTIL/conf/$UTIL_OPENTERMINALS.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/chectool.sh
 . $UTIL/bin/devel.sh
 
 declare -A OPENTERMINALS_USAGE=(
-    [TOOL_NAME]="__$UTIL_OPENTERMINALS"
-    [ARG1]="[NUM_TERMINALS] number of terminal windows"
-    [EX-PRE]="# Open 4 terminal windows"
-    [EX]="__$UTIL_OPENTERMINALS 4"	
+    ["TOOL"]="__$UTIL_OPENTERMINALS"
+    ["ARG1"]="[NUM_TERMINALS] number of terminal windows"
+    ["EX-PRE"]="# Open 4 terminal windows"
+    ["EX"]="__$UTIL_OPENTERMINALS 4"	
 )
 
 #
@@ -33,7 +35,7 @@ declare -A OPENTERMINALS_USAGE=(
 # __openterminals "$NUM_TERMINALS"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -49,28 +51,34 @@ function __openterminals() {
     if [ -n "$NUM_TERMINALS" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local TERM="/usr/bin/terminator"
-		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Opens n terminal windows"
-			printf "$DSTA" "$UTIL_OPENTERMINALS" "$FUNC" "$MSG"
-		fi
-        __checktool "$TERM"
-        local STATUS=$?
-        if [ "$STATUS" -eq "$SUCCESS" ]; then
-            local i=0
-            while [ $i -lt $NUM_TERMINALS ]
-            do
-                eval "$TERM &"
-                i=$[$i+1]
-            done
+		declare -A configopenterminalsutil=()
+		__loadutilconf "$UTIL_OPENTERMINALS_CFG" configopenterminalsutil
+		local STATUS=$?
+		if [ $STATUS -eq $SUCCESS ]; then
+			local term=${configopenterminalsutil[TERM]}
 			if [ "$TOOL_DBG" == "true" ]; then
-				printf "$DEND" "$UTIL_OPENTERMINALS" "$FUNC" "Done"
+				MSG="Opens n terminal windows"
+				printf "$DSTA" "$UTIL_OPENTERMINALS" "$FUNC" "$MSG"
 			fi
-			return $SUCCESS
-        fi
-        return $NOT_SUCCESS
+		    __checktool "$term"
+		    STATUS=$?
+		    if [ $STATUS -eq $SUCCESS ]; then
+		        local i=0
+		        while [ $i -lt $NUM_TERMINALS ]
+		        do
+		            eval "$term &"
+		            i=$[$i+1]
+		        done
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_OPENTERMINALS" "$FUNC" "Done"
+				fi
+				return $SUCCESS
+		    fi
+		    return $NOT_SUCCESS
+		fi
+		return $NOT_SUCCESS
     fi
-    __usage $OPENTERMINALS_USAGE
+    __usage "$(declare -p OPENTERMINALS_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RMDUPS=rmdups
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_RMDUPS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_RMDUPS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A RMDUPS_USAGE=(
-    [TOOL_NAME]="__$UTIL_RMDUPS"
-    [ARG1]="[STREAM] stdin or file path"
-    [EX-PRE]="# Remove duplicate lines from file or stdin"
-    [EX]="__$UTIL_RMDUPS /data/test.txt"	
+    ["TOOL"]="__$UTIL_RMDUPS"
+    ["ARG1"]="[STREAM] stdin or file path"
+    ["EX-PRE"]="# Remove duplicate lines from file or stdin"
+    ["EX"]="__$UTIL_RMDUPS /data/test.txt"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A RMDUPS_USAGE=(
 # __rmdups "$FILE_PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -65,7 +65,7 @@ function __rmdups() {
 		printf "$SEND" "$UTIL_RMDUPS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $RMDUPS_USAGE
+    __usage "$(declare -p RMDUPS_USAGE)"
     return $NOT_SUCCESS
 }
 

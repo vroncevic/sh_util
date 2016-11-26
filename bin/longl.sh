@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LONGL=longl
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LONGL_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LONGL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A LONGL_USAGE=(
-    [TOOL_NAME]="__$UTIL_LONGL"
-    [ARG1]="[NUMCHARS] an integer referring to minimum characters per line"
-    [EX-PRE]="# Print file name, that contain lines longer then 45 chars"
-    [EX]="__$UTIL_LONGL 45"	
+    ["TOOL"]="__$UTIL_LONGL"
+    ["ARG1"]="[NUMCHARS] an integer referring to minimum characters per line"
+    ["EX-PRE"]="# Print file name, that contain lines longer then 45 chars"
+    ["EX"]="__$UTIL_LONGL 45"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A LONGL_USAGE=(
 # __longl $NUMCHARS ${FILES[@]}
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -82,7 +82,7 @@ function __longl() {
 			printf "$DEND" "$UTIL_LONGL" "$FUNC" "Done"
 		fi
     fi
-    __usage $LONGL_USAGE
+    __usage "$(declare -p LONGL_USAGE)"
     return $NOT_SUCCESS
 }
 

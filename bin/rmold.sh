@@ -8,8 +8,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RMOLD=rmold
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_RMOLD_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_RMOLD_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/devel.sh
@@ -32,11 +32,11 @@ function __rmold() {
 		MSG="Remove files, dirs whose name is timestamp older than certain time"
 		printf "$DSTA" "$UTIL_RMOLD" "$FUNC" "$MSG"
 	fi
-	LS_CMD="ls"
-	GREP_CMD="grep '....-..-..-......'"
-	XARG_CMD="xargs -I {} bash -c"
-	BASH_CMD="[[ x{} < x$(date -d '3 days ago' +%Y-%m-%d-%H%M%S) ]]"
-	RM_CMD="rm -rfv {}"
+	local LS_CMD="ls"
+	local GREP_CMD="grep '....-..-..-......'"
+	local XARG_CMD="xargs -I {} bash -c"
+	local BASH_CMD="[[ x{} < x$(date -d '3 days ago' +%Y-%m-%d-%H%M%S) ]]"
+	local RM_CMD="rm -rfv {}"
     eval "$LS_CMD | $GREP_CMD | $XARG_CMD \"$BASH_CMD && $RM_CMD\""
 	if [ "$TOOL_DBG" == "true" ]; then
 		printf "$DEND" "$UTIL_RMOLD" "$FUNC" "Done"

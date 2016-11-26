@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SAMESIZE=samesize
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_SAMESIZE_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_SAMESIZE_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A SAMESIZE_USAGE=(
-    [TOOL_NAME]="__$UTIL_SAMESIZE"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# List files of same size in dir"
-    [EX]="__$UTIL_SAMESIZE /data/"	
+    ["TOOL"]="__$UTIL_SAMESIZE"
+    ["ARG1"]="[DIR_PATH] Directory path"
+    ["EX-PRE"]="# List files of same size in dir"
+    ["EX"]="__$UTIL_SAMESIZE /data/"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A SAMESIZE_USAGE=(
 # __samesize $DIR_PATH
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -72,7 +72,7 @@ function __samesize() {
 		printf "$SEND" "$UTIL_SAMESIZE" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $SAMESIZE_USAGE
+    __usage "$(declare -p SAMESIZE_USAGE)"
     return $NOT_SUCCESS
 }
 

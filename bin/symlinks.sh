@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SYMLINKS=symlinks
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_SYMLINKS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_SYMLINKS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A SYMLINKS_USAGE=(
-    [TOOL_NAME]="__$UTIL_SYMLINKS"
-    [ARG1]="[DIRECTORY] Directory path"
-    [EX-PRE]="# Example listing symlinks"
-    [EX]="__$UTIL_SYMLINKS /etc"	
+    ["TOOL"]="__$UTIL_SYMLINKS"
+    ["ARG1"]="[DIRECTORY] Directory path"
+    ["EX-PRE"]="# Example listing symlinks"
+    ["EX"]="__$UTIL_SYMLINKS /etc"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A SYMLINKS_USAGE=(
 # __symlinks "$DIRECTORY"
 # local local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -75,7 +75,7 @@ function __symlinks() {
 		printf "$SEND" "$UTIL_SYMLINKS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $SYMLINKS_USAGE
+    __usage "$(declare -p SYMLINKS_USAGE)"
     return $NOT_SUCCESS
 }
 

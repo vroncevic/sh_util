@@ -7,26 +7,26 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SORTCOPY=sortcopy
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_SORTCOPY_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_SORTCOPY_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A LCP_USAGE=(
-    [TOOL_NAME]="__lcp"
-    [ARG1]="[EXSTENSION]  File extension"
-    [ARG2]="[DESTINATION] Final destination for copy process"
-    [EX-PRE]="# Copy all *.jpg files to directory /opt/"
-    [EX]="__lcp jpg /opt/"	
+    ["TOOL"]="__lcp"
+    ["ARG1"]="[EXSTENSION]  File extension"
+    ["ARG2"]="[DESTINATION] Final destination for copy process"
+    ["EX-PRE"]="# Copy all *.jpg files to directory /opt/"
+    ["EX"]="__lcp jpg /opt/"	
 )
 
 declare -A DUP_USAGE=(
-    [TOOL_NAME]="__duplicatescounter"
-    [ARG1]="[FILE_PATH] Sort and count duplicates"
-    [EX-PRE]="# Sort and count duplicates"
-    [EX]="__duplicatescounter /opt/test.txt"	
+    ["TOOL"]="__duplicatescounter"
+    ["ARG1"]="[FILE_PATH] Sort and count duplicates"
+    ["EX-PRE"]="# Sort and count duplicates"
+    ["EX"]="__duplicatescounter /opt/test.txt"	
 )
 
 #
@@ -40,7 +40,7 @@ declare -A DUP_USAGE=(
 # __lcp "jpg" "/opt/"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -76,7 +76,7 @@ function __lcp() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $LCP_USAGE
+    __usage "$(declare -p LCP_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -92,7 +92,7 @@ function __lcp() {
 # __duplicatescounter "/opt/test.txt"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -127,7 +127,7 @@ function __duplicatescounter() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $DUP_USAGE
+    __usage "$(declare -p DUP_USAGE)"
     return $NOT_SUCCESS
 }
 

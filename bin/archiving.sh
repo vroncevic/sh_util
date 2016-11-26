@@ -7,25 +7,25 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ARCHIVING=archiving
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_ARCHIVING_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_ARCHIVING_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A TAR_ARCHIVING_USAGE=(
-    [TOOL_NAME]="__makeartar"
-    [ARG1]="[ARCHIVE_STRUCTURE]  Path and file extension"
-    [EX-PRE]="# Example create tar archive with png files"
-    [EX]="__makeartar \$ARCHIVE_STRUCTURE"	
+    ["TOOL"]="__makeartar"
+    ["ARG1"]="[ARCHIVE_STRUCTURE]  Path and file extension"
+    ["EX-PRE"]="# Example create tar archive with png files"
+    ["EX"]="__makeartar \$ARCHIVE_STRUCTURE"	
 )
 
 declare -A GZ_ARCHIVING_USAGE=(
-    [TOOL_NAME]="__makeartargz"
-    [ARG1]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
-    [EX-PRE]="# Example create tar gz archive with gif images"
-    [EX]="__makeartargz \$ARCHIVE_STRUCTURE"	
+    ["TOOL"]="__makeartargz"
+    ["ARG1"]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
+    ["EX-PRE"]="# Example create tar gz archive with gif images"
+    ["EX"]="__makeartargz \$ARCHIVE_STRUCTURE"	
 )
 
 #
@@ -36,14 +36,14 @@ declare -A GZ_ARCHIVING_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A ARCHIVE_STRUCTURE=()
-# ARCHIVE_STRUCTURE[PATH]="/some-path/" 
-# ARCHIVE_STRUCTURE[FILE]="*.png"
+# declare -A ARCHIVE_STRUCTURE_TAR=()
+# ARCHIVE_STRUCTURE_TAR["PATH"]="/some-path/" 
+# ARCHIVE_STRUCTURE_TAR["FILE"]="*.png"
 #
-# __makeartar $ARCHIVE_STRUCTURE 
+# __makeartar "$(declare -p ARCHIVE_STRUCTURE_TAR)" 
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# notify admin | user
 # else
@@ -55,9 +55,9 @@ declare -A GZ_ARCHIVING_USAGE=(
 # fi
 #
 function __makeartar() {
-	local ARCHIVE_STRUCTURE=$1
-    local LOCATION=${ARCHIVE_STRUCTURE[PATH]}
-    local FILE_NAME=${ARCHIVE_STRUCTURE[FILE]}
+	eval "declare -A ARCHIVE_STRUCTURE_TAR="${1#*=}
+    local LOCATION=${ARCHIVE_STRUCTURE_TAR["PATH"]}
+    local FILE_NAME=${ARCHIVE_STRUCTURE_TAR["FILE"]}
     if [ -n "$LOCATION" ] && [ -n $FILE_NAME ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -74,7 +74,7 @@ function __makeartar() {
 		fi
         return $SUCCESS
     fi 
-    __usage $TAR_ARCHIVING_USAGE
+    __usage "$(declare -p TAR_ARCHIVING_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -86,15 +86,15 @@ function __makeartar() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A ARCHIVE_STRUCTURE=()
-# ARCHIVE_STRUCTURE[PATH]="/some-path/" 
-# ARCHIVE_STRUCTURE[FILE]="*.png"
-# ARCHIVE_STRUCTURE[ARCH]="pngimages"
+# declare -A ARCHIVE_STRUCTURE_GZ=()
+# ARCHIVE_STRUCTURE_GZ["PATH"]="/some-path/" 
+# ARCHIVE_STRUCTURE_GZ["FILE"]="*.png"
+# ARCHIVE_STRUCTURE_GZ["ARCH"]="pngimages"
 #
-# __makeartargz $ARCHIVE_STRUCTURE
+# __makeartargz "$(declare -p ARCHIVE_STRUCTURE_GZ)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# notify admin | user
 # else
@@ -106,10 +106,10 @@ function __makeartar() {
 # fi
 #
 function __makeartargz() {
-	local ARCHIVE_STRUCTURE=$1
-    local LOCATION=${ARCHIVE_STRUCTURE[PATH]}
-    local FILE_NAME=${ARCHIVE_STRUCTURE[FILE]}
-    local ARCHIVE_NAME=${ARCHIVE_STRUCTURE[ARCH]}
+	eval "declare -A ARCHIVE_STRUCTURE_GZ="${1#*=}
+    local LOCATION=${ARCHIVE_STRUCTURE["PATH"]}
+    local FILE_NAME=${ARCHIVE_STRUCTURE["FILE"]}
+    local ARCHIVE_NAME=${ARCHIVE_STRUCTURE["ARCH"]}
     if [ -n "$LOCATION" ] && [ -n "$FILE_NAME" ] && [ -n "$ARCHIVE_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -126,7 +126,7 @@ function __makeartargz() {
 		fi
         return $SUCCESS
     fi 
-    __usage $GZ_ARCHIVING_USAGE
+    __usage "$(declare -p GZ_ARCHIVING_USAGE)"
     return $NOT_SUCCESS
 }
 

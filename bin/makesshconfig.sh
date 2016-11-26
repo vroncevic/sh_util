@@ -8,19 +8,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_MAKESSHCONFIG=makesshconfig
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_MAKESSHCONFIG_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_MAKESSHCONFIG_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A MAKESSHCONFIG_USAGE=(
-    [TOOL_NAME]="__$UTIL_MAKESSHCONFIG"
-    [ARG1]="[USERNAME]   System username"
-    [ARG2]="[DEPARTMENT] System group"
-    [EX-PRE]="# Generate SSH configuration"
-    [EX]="__$UTIL_MAKESSHCONFIG vroncevic users"	
+    ["TOOL"]="__$UTIL_MAKESSHCONFIG"
+    ["ARG1"]="[USERNAME]   System username"
+    ["ARG2"]="[DEPARTMENT] System group"
+    ["EX-PRE"]="# Generate SSH configuration"
+    ["EX"]="__$UTIL_MAKESSHCONFIG vroncevic users"	
 )
 
 #
@@ -31,10 +31,10 @@ declare -A MAKESSHCONFIG_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __makesshconfig "vroncevic" "users"
+# __makesshconfig "vroncevic" "vroncevic"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -98,7 +98,9 @@ Host host2
 			if [ "$TOOL_DBG" == "true" ]; then
             	printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "Set owner"
 			fi
-            chown -R "$USERNAME.$DEPARTMENT" "$UHOME/.ssh/"
+			local PRFX_CMD="chown -R"
+			local OWNER="$USERNAME.$DEPARTMENT"
+            eval "$PRFX_CMD $OWNER $UHOME/.ssh/"
 			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "Set permission"
 			fi
@@ -112,7 +114,7 @@ Host host2
 		printf "$SEND" "$UTIL_MAKESSHCONFIG" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $MAKESSHCONFIG_USAGE
+    __usage "$(declare -p MAKESSHCONFIG_USAGE)"
     return $NOT_SUCCESS
 }
 

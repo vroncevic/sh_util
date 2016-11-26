@@ -7,9 +7,9 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ID2BRANCH=id2branch
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
-UTIL_CFG_ID2BRANCH=$UTIL/conf/$UTIL_ID2BRANCH.cfg
+UTIL_ID2BRANCH_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_ID2BRANCH_VERSION
+UTIL_ID2BRANCH_CFG=$UTIL/conf/$UTIL_ID2BRANCH.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ID2BRANCH_USAGE=(
-    [TOOL_NAME]="__$UTIL_ID2BRANCH"
-    [ARG1]="[ID] Name of town or country"
-    [EX-PRE]="# Example convert ns to ns-frobas-employee"
-    [EX]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
+    ["TOOL"]="__$UTIL_ID2BRANCH"
+    ["ARG1"]="[ID] Name of town or country"
+    ["EX-PRE"]="# Example convert ns to ns-frobas-employee"
+    ["EX"]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
 )
 
 #
@@ -36,7 +36,7 @@ declare -A ID2BRANCH_USAGE=(
 # __id2branch $ID BRANCH
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -52,18 +52,18 @@ function __id2branch() {
     if [ -n "$ID" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		declare -A cfgid2branch=()
-		__loadutilconf $UTIL_CFG_ID2BRANCH cfgid2branch
+		declare -A configid2branch=()
+		__loadutilconf $UTIL_ID2BRANCH_CFG configid2branch
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DEBUG" == "true" ]; then
-				MSG="Convert [$ID] to branch name"
+				MSG="Converting [$ID] to branch name"
 				printf "$DSTA" "$UTIL_ID2BRANCH" "$FUNC" "$MSG"
 			fi
-			for K in "${!cfgid2branch[@]}"
+			for K in "${!configid2branch[@]}"
 			do
 				if [ "$K" == "$ID" ]; then
-					eval "$2=$(printf "'%s' " "${cfgid2branch[$K]}")"
+					eval "$2=$(printf "'%s' " "${configid2branch[$K]}")"
 					if [ "$TOOL_DEBUG" == "true" ]; then
 						printf "$DEND" "$UTIL_ID2BRANCH" "$FUNC" "Done"
 					fi
@@ -76,7 +76,7 @@ function __id2branch() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $ID2BRANCH_USAGE
+    __usage "$(declare -p ID2BRANCH_USAGE)"
     return $NOT_SUCCESS
 }
 

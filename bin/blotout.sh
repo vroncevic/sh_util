@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_BLOTOUT=blotout
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_BLOTOUT_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_BLOTOUT_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A BLOTOUT_USAGE=(
-    [TOOL_NAME]="__$UTIL_BLOTOUT"
-    [ARG1]="[FILE_NAME] Name of file"
-    [EX-PRE]="# Example delete file with high security"
-    [EX]="__$UTIL_BLOTOUT /opt/test.ini"	
+    ["TOOL"]="__$UTIL_BLOTOUT"
+    ["ARG1"]="[FILE_NAME] Name of file"
+    ["EX-PRE"]="# Example delete file with high security"
+    ["EX"]="__$UTIL_BLOTOUT /opt/test.ini"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A BLOTOUT_USAGE=(
 # __blotout "$FILE_NAME"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# notify admin | user
 # else
@@ -106,7 +106,7 @@ function __blotout() {
 		fi
         return $SUCCESS
     fi
-    __usage $BLOTOUT_USAGE
+    __usage "$(declare -p BLOTOUT_USAGE)"
     return $NOT_SUCCESS
 }
 

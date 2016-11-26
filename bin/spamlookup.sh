@@ -7,19 +7,21 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SPAMLOOKUP=spamlookup
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_SPAMLOOKUP_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_SPAMLOOKUP_VERSION
+UTIL_SPAMLOOKUP_CFG=$UTIL/conf/$UTIL_SPAMLOOKUP.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
 declare -A SPAMLOOKUP_USAGE=(
-    [TOOL_NAME]="__$UTIL_SPAMLOOKUP"
-    [ARG1]="[DOMAIN_NAME] Domain name"
-    [EX-PRE]="# Example check www.domain.cc"
-    [EX]="__$UTIL_SPAMLOOKUP www.domain.cc"	
+    ["TOOL"]="__$UTIL_SPAMLOOKUP"
+    ["ARG1"]="[DOMAIN_NAME] Domain name"
+    ["EX-PRE"]="# Example check www.domain.cc"
+    ["EX"]="__$UTIL_SPAMLOOKUP www.domain.cc"	
 )
 
 #
@@ -33,7 +35,7 @@ declare -A SPAMLOOKUP_USAGE=(
 # __spamlookup "$DOMAIN_NAME"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -49,23 +51,29 @@ function __spamlookup() {
     if [ -n "$DOMAIN_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local DIG="/usr/bin/dig"
-		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Look up abuse contact to report a spammer"
-			printf "$DSTA" "$UTIL_SPAMLOOKUP" "$FUNC" "$MSG"
-		fi
-		__checktool "$DIG"
+		declare -A configspamlookuputil=()
+		__loadutilconf "$UTIL_SPAMLOOKUP_CFG" configspamlookuputil
 		local STATUS=$?
-		if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
-			return $NOT_SUCCESS
+		if [ $STATUS -eq $SUCCESS ]; then
+			local dig=${configspamlookuputil[DIG]}
+			if [ "$TOOL_DBG" == "true" ]; then
+				MSG="Look up abuse contact to report a spammer"
+				printf "$DSTA" "$UTIL_SPAMLOOKUP" "$FUNC" "$MSG"
+			fi
+			__checktool "$dig"
+			STATUS=$?
+			if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
+				return $NOT_SUCCESS
+			fi
+			eval "$dig +short $DOMAIN_NAME.contacts.abuse.net -c in -t txt"
+			if [ "$TOOL_DBG" == "true" ]; then
+				printf "$DEND" "$UTIL_SPAMLOOKUP" "$FUNC" "Done"
+			fi
+		    return $SUCCESS
 		fi
-		eval "$DIG +short $DOMAIN_NAME.contacts.abuse.net -c in -t txt"
-		if [ "$TOOL_DBG" == "true" ]; then
-			printf "$DEND" "$UTIL_SPAMLOOKUP" "$FUNC" "Done"
-		fi
-        return $SUCCESS
+		return $NOT_SUCCESS
     fi
-    __usage $SPAMLOOKUP_USAGE
+    __usage "$(declare -p SPAMLOOKUP_USAGE)"
     return $NOT_SUCCESS
 }
 

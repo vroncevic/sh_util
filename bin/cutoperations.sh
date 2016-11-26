@@ -7,25 +7,25 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CUTOPERATIONS=cutoperations
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CUTOPERATIONS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CUTOPERATIONS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A COLUMN_USAGE=(
-    [TOOL_NAME]="__cutcolumns"
-    [ARG1]="[CUT_STRUCTURE] Columns for cuting and path"
-    [EX-PRE]="# Example for cuting columns from file"
-    [EX]="__cutcolumns \$CUT_STRUCTURE"	
+    ["TOOL"]="__cutcolumns"
+    ["ARG1"]="[CUT_STRUCTURE] Columns for cuting and path"
+    ["EX-PRE"]="# Example for cuting columns from file"
+    ["EX"]="__cutcolumns \$CUT_STRUCTURE"	
 )
 
 declare -A CHARACTER_USAGE=(
-    [TOOL_NAME]="__cutchars"
-    [ARG1]="[CUT_STRUCTURE] Characters and path"
-    [EX-PRE]="# Example for cuting characters from file"
-    [EX]="__cutchars \$CUT_STRUCTURE"	
+    ["TOOL"]="__cutchars"
+    ["ARG1"]="[CUT_STRUCTURE] Characters and path"
+    ["EX-PRE"]="# Example for cuting characters from file"
+    ["EX"]="__cutchars \$CUT_STRUCTURE"	
 )
 
 #
@@ -37,13 +37,13 @@ declare -A CHARACTER_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A CUT_STRUCTURE=()
-# CUT_STRUCTURE[COL]=1,3,5
-# CUT_STRUCTURE[FILE]="file.ini"
+# CUT_STRUCTURE["COL"]=1,3,5
+# CUT_STRUCTURE["FILE"]="file.ini"
 #
-# __cutcolumns $CUT_STRUCTURE
+# __cutcolumns "$(declare -p CUT_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -55,9 +55,9 @@ declare -A CHARACTER_USAGE=(
 # fi
 #
 function __cutcolumns() {
-	local CUT_STRUCTURE=$1
-    local COLUMNS=${CUT_STRUCTURE[COL]}
-    local FILE=${CUT_STRUCTURE[FILE]}
+	eval "declare -A CUT_STRUCTURE="${1#*=}
+    local COLUMNS=${CUT_STRUCTURE["COL"]}
+    local FILE=${CUT_STRUCTURE["FILE"]}
     if [ -n "$COLUMNS" ] && [ -n "$FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -82,7 +82,7 @@ function __cutcolumns() {
 		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $COLUMN_USAGE
+    __usage "$(declare -p COLUMN_USAGE)"
     return $NOT_SUCCESS
 } 
 
@@ -95,13 +95,13 @@ function __cutcolumns() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A CUT_STRUCTURE=()
-# CUT_STRUCTURE[CHARS]=$chars
-# CUT_STRUCTURE[FILE]=$file
+# CUT_STRUCTURE["CHARS"]=$chars
+# CUT_STRUCTURE["FILE"]=$file
 #
-# __cutchars $CUT_STRUCTURE
+# __cutchars "$(declare -p CUT_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -113,9 +113,9 @@ function __cutcolumns() {
 # fi
 #
 function __cutchars() {
-	local CUT_STRUCTURE=$1
-    local CHARS=${CUT_STRUCTURE[CHARS]}
-    local FILE=${CUT_STRUCTURE[FILE]}
+	eval "declare -A CUT_STRUCTURE="${1#*=}
+    local CHARS=${CUT_STRUCTURE["CHARS"]}
+    local FILE=${CUT_STRUCTURE["FILE"]}
     if [ -n "$CHARS" ] && [ -n "$FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -140,7 +140,7 @@ function __cutchars() {
 		printf "$SEND" "$UTIL_CUTOPERATIONS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CHARACTER_USAGE
+    __usage "$(declare -p CHARACTER_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -7,19 +7,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_MAKEISO=makeiso
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_MAKEISO_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_MAKEISO_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A MAKEISO_USAGE=(
-    [TOOL_NAME]="__$UTIL_MAKEISO"
-    [ARG1]="[SOURCE]       Target media for cloning or restoring"
-    [ARG2]="[DESTINATION]  Final destination"
-    [EX-PRE]="# Creates an ISO disk image from a CD-ROM"
-    [EX]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
+    ["TOOL"]="__$UTIL_MAKEISO"
+    ["ARG1"]="[SOURCE]       Target media for cloning or restoring"
+    ["ARG2"]="[DESTINATION]  Final destination"
+    ["EX-PRE"]="# Creates an ISO disk image from a CD-ROM"
+    ["EX"]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A MAKEISO_USAGE=(
 # __checkrom
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -75,7 +75,7 @@ function __checkrom() {
 # __make_iso "/dev/sr0" "myCD.iso"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -98,7 +98,7 @@ function __makeiso {
 		fi
         __checkrom
         local STATUS=$?
-        if [ "$STATUS" -eq "$SUCCESS" ]; then
+        if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "%s\n" "[ok]"
 			fi
@@ -115,7 +115,7 @@ function __makeiso {
 		printf "$SEND" "$UTIL_MAKEISO" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $MAKEISO_USAGE
+    __usage "$(declare -p MAKEISO_USAGE)"
     return $NOT_SUCCESS
 }
 

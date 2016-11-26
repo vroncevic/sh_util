@@ -7,19 +7,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RMLINES=rmlines
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_RMLINES_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_RMLINES_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A RMLINES_USAGE=(
-    [TOOL_NAME]="__$UTIL_RMLINES"
-    [ARG1]="[INPUT_FILE]  Name of file for operation"
-    [ARG2]="[OUTPUT_FILE] Name of the resulting file"
-    [EX-PRE]="# Create a file n bytes large"
-    [EX]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
+    ["TOOL"]="__$UTIL_RMLINES"
+    ["ARG1"]="[INPUT_FILE]  Name of file for operation"
+    ["ARG2"]="[OUTPUT_FILE] Name of the resulting file"
+    ["EX-PRE"]="# Create a file n bytes large"
+    ["EX"]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A RMLINES_USAGE=(
 # __rmlines "$IN_FILE" "$OUT_FILE"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -69,7 +69,7 @@ function __rmlines() {
 		printf "$SEND" "$UTIL_RMLINES" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $RMLINES_USAGE
+    __usage "$(declare -p RMLINES_USAGE)"
     return $NOT_SUCCESS
 }
 

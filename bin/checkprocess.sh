@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #  
 UTIL_CHECKPROCESS=checkprocess
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CHECKPROCESS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKPROCESS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CHECKPROCESS_USAGE=(
-    [TOOL_NAME]="__$UTIL_CHECKPROCESS"
-    [ARG1]="[PROCESS_NAME] Process name"
-    [EX-PRE]="# Example check ddclient process"
-    [EX]="__$UTIL_CHECKPROCESS ddclient"	
+    ["TOOL"]="__$UTIL_CHECKPROCESS"
+    ["ARG1"]="[PROCESS_NAME] Process name"
+    ["EX-PRE"]="# Example check ddclient process"
+    ["EX"]="__$UTIL_CHECKPROCESS ddclient"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A CHECKPROCESS_USAGE=(
 # __checkprocess "$PROCESS"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# process is not running
 #	# notify admin | user
@@ -69,7 +69,7 @@ function __checkprocess() {
 		fi
         return $NOT_SUCCESS
     fi 
-    __usage $CHECKPROCESS_USAGE
+    __usage "$(declare -p CHECKPROCESS_USAGE)"
     return $NOT_SUCCESS
 }
 

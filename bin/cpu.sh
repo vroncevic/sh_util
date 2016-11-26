@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CPU=cpu
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CPU_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CPU_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CPU_USAGE=(
-    [TOOL_NAME]="__$UTIL_CPU"
-    [ARG1]="[CPU_SPEED] Show in GHz | MHz CPU speed"
-    [EX-PRE]="# Example show in GHz CPU speed"
-    [EX]="__$UTIL_CPU ghz"	
+    ["TOOL"]="__$UTIL_CPU"
+    ["ARG1"]="[CPU_SPEED] Show in GHz | MHz CPU speed"
+    ["EX-PRE"]="# Example show in GHz CPU speed"
+    ["EX"]="__$UTIL_CPU ghz"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A CPU_USAGE=(
 # __cpu $CPU_SPEED
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -72,7 +72,7 @@ function __cpu() {
 		fi
 		return $SUCCESS
     fi
-    __usage $CPU_USAGE
+    __usage "$(declare -p CPU_USAGE)"
     return $NOT_SUCCESS
 }
 

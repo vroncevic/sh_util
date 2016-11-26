@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGEDOUT=loggedout
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LOGGEDOUT_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LOGGEDOUT_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A LOGGEDOUT_USAGE=(
-    [TOOL_NAME]="__$UTIL_LOGGEDOUT"
-    [ARG1]="[LOGOUT_STRUCTURE] System username and time"
-    [EX-PRE]="# Checking user to log out"
-    [EX]="__$UTIL_LOGGEDOUT \$LOGOUT_STRUCTURE"	
+    ["TOOL"]="__$UTIL_LOGGEDOUT"
+    ["ARG1"]="[LOGOUT_STRUCTURE] System username and time"
+    ["EX-PRE"]="# Checking user to log out"
+    ["EX"]="__$UTIL_LOGGEDOUT \$LOGOUT_STRUCTURE"	
 )
 
 #
@@ -30,13 +30,13 @@ declare -A LOGGEDOUT_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGOUT_STRUCTURE=()
-# LOGOUT_STRUCTURE[USERNAME]="rmuller"
-# LOGOUT_STRUCTURE[TIME]=$time
+# LOGOUT_STRUCTURE["USERNAME"]="rmuller"
+# LOGOUT_STRUCTURE["TIME"]=$time
 #
-# __loggedout $LOGOUT_STRUCTURE
+# __loggedout "$(declare -p LOGOUT_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -48,9 +48,9 @@ declare -A LOGGEDOUT_USAGE=(
 # fi
 #
 function __loggedout() {
-	local LOGOUT_STRUCTURE=$1
-    local USER_NAME=${LOGOUT_STRUCTURE[USERNAME]}
-    local TIME=${LOGOUT_STRUCTURE[TIME]}
+	eval "declare -A LOGOUT_STRUCTURE="${1#*=}
+    local USER_NAME=${LOGOUT_STRUCTURE["USERNAME"]}
+    local TIME=${LOGOUT_STRUCTURE["TIME"]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -77,7 +77,7 @@ function __loggedout() {
 		fi
         return $SUCCESS
     fi
-    __usage $LOGGEDOUT_USAGE
+    __usage "$(declare -p LOGGEDOUT_USAGE)"
     return $NOT_SUCCESS
 }
 

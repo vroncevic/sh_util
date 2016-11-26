@@ -8,18 +8,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VNCCLIENTCONFIG=vncclientconfig
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_VNCCLIENTCONFIG_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_VNCCLIENTCONFIG_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A VNCCLIENTCONFIG_USAGE=(
-    [TOOL_NAME]="__$UTIL_VNCCLIENTCONFIG"
-    [ARG1]="[VNC_STRUCTURE]   System username and group"
-    [EX-PRE]="# Example generating VNC config file"
-    [EX]="__$UTIL_VNCCLIENTCONFIG rmuller ds"	
+    ["TOOL"]="__$UTIL_VNCCLIENTCONFIG"
+    ["ARG1"]="[VNC_STRUCTURE]   System username and group"
+    ["EX-PRE"]="# Example generating VNC config file"
+    ["EX"]="__$UTIL_VNCCLIENTCONFIG rmuller ds"	
 )
 
 #
@@ -31,13 +31,13 @@ declare -A VNCCLIENTCONFIG_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VNC_STRUCTURE=()
-# VNC_STRUCTURE[UN]="vroncevic"
-# VNC_STRUCTURE[DN]="users"
+# VNC_STRUCTURE["UN"]="vroncevic"
+# VNC_STRUCTURE["DN"]="vroncevic"
 #
-# __vncclientconfig $VNC_STRUCTURE 
+# __vncclientconfig "$(declare -p VNC_STRUCTURE)" 
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -49,9 +49,9 @@ declare -A VNCCLIENTCONFIG_USAGE=(
 # fi
 #
 function __vncclientconfig() {
-	local VNC_STRUCTURE=$1
-    local USERNAME=${VNC_STRUCTURE[UN]}
-    local DEPARTMENT=${VNC_STRUCTURE[DN]}
+	eval "declare -A VNC_STRUCTURE="${1#*=}
+    local USERNAME=${VNC_STRUCTURE["UN"]}
+    local DEPARTMENT=${VNC_STRUCTURE["DN"]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -137,7 +137,7 @@ twm &
 		MSG="Please check dir [$UHOME/]"
 		return $NOT_SUCCESS
     fi 
-    __usage $VNCCLIENTCONFIG_USAGE
+    __usage "$(declare -p VNCCLIENTCONFIG_USAGE)"
     return $NOT_SUCCESS
 }
 

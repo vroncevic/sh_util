@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SLOF=slof
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_SLOF_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_SLOF_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A SLOF_USAGE=(
-    [TOOL_NAME]="__$UTIL_SLOF"
-    [ARG1]="[SIZE] LIst in GB/MB"
-    [EX-PRE]="# Show 10 Largest Open Files in GB"
-    [EX]="__$UTIL_SLOF large"	
+    ["TOOL"]="__$UTIL_SLOF"
+    ["ARG1"]="[SIZE] LIst in GB/MB"
+    ["EX-PRE"]="# Show 10 Largest Open Files in GB"
+    ["EX"]="__$UTIL_SLOF large"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A SLOF_USAGE=(
 # __slof 10
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -64,7 +64,7 @@ function __slof() {
 		fi
         return $SUCCESS
     fi
-    __usage $SLOF_USAGE
+    __usage "$(declare -p SLOF_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_WRAPTEXT=wraptext
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_WRAPTEXT_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_WRAPTEXT_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A WRAPTEXT_USAGE=(
-    [TOOL_NAME]="__$UTIL_WRAPTEXT"
-    [ARG1]="[PATH] Path to the target(s)"
-    [EX-PRE]="# Example running __$UTIL_WRAPTEXT"
-    [EX]="__$UTIL_WRAPTEXT /data/"	
+    ["TOOL"]="__$UTIL_WRAPTEXT"
+    ["ARG1"]="[PATH] Path to the target(s)"
+    ["EX-PRE"]="# Example running __$UTIL_WRAPTEXT"
+    ["EX"]="__$UTIL_WRAPTEXT /data/"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A WRAPTEXT_USAGE=(
 # __wraptext "$FILES"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -67,7 +67,7 @@ function __wraptext() {
 		fi
         return $SUCCESS
     fi
-    __usage $WRAPTEXT_USAGE
+    __usage "$(declare -p WRAPTEXT_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_WHICHBIN=whichbin
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_WHICHBIN_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_WHICHBIN_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A WHICHBIN_USAGE=(
-    [TOOL_NAME]="__$UTIL_WHICHBIN"
-    [ARG1]="[PATH] Path to destionation"
-    [EX-PRE]="# Example running __$UTIL_WHICHBIN"
-    [EX]="__$UTIL_WHICHBIN /data/"
+    ["TOOL"]="__$UTIL_WHICHBIN"
+    ["ARG1"]="[PATH] Path to destionation"
+    ["EX-PRE"]="# Example running __$UTIL_WHICHBIN"
+    ["EX"]="__$UTIL_WHICHBIN /data/"
 )
 
 #
@@ -32,7 +32,7 @@ declare -A WHICHBIN_USAGE=(
 # __follow_link "$PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -83,7 +83,7 @@ function __follow_link() {
 # __whichbin "$PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -112,7 +112,7 @@ function __whichbin() {
 		fi
         return $SUCCESS
     fi
-    __usage $WHICHBIN_USAGE
+    __usage "$(declare -p WHICHBIN_USAGE)"
     return $NOT_SUCCESS
 }
 

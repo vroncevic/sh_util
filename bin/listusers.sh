@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LISTUSERS=listusers
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LISTUSERS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LISTUSERS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A LISTUSERS_USAGE=(
-    [TOOL_NAME]="__$UTIL_LISTUSERS"
-    [ARG1]="[ID] Minimal user id"
-    [EX-PRE]="# Example print all common user names"
-    [EX]="__$UTIL_LISTUSERS 500"	
+    ["TOOL"]="__$UTIL_LISTUSERS"
+    ["ARG1"]="[ID] Minimal user id"
+    ["EX-PRE"]="# Example print all common user names"
+    ["EX"]="__$UTIL_LISTUSERS 500"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A LISTUSERS_USAGE=(
 # __listusers "$ID"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -59,7 +59,7 @@ function __listusers() {
 		fi
         return $SUCCESS
     fi
-    __usage $LISTUSERS_USAGE
+    __usage "$(declare -p LISTUSERS_USAGE)"
     return $NOT_SUCCESS
 }
 

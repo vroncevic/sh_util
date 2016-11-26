@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECKTOOL=checktool
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CHECKTOOL_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKTOOL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CHECKTOOL_USAGE=(
-    [TOOL_NAME]="__$UTIL_CHECKTOOL"
-    [ARG1]="[TOOL_NAME] Path to App/Tool/Script"
-    [EX-PRE]="# Example checking java tool"
-    [EX]="__$UTIL_CHECKTOOL /usr/share/java"
+    ["TOOL"]="__$UTIL_CHECKTOOL"
+    ["ARG1"]="["TOOL"] Path to App/Tool/Script"
+    ["EX-PRE"]="# Example checking java tool"
+    ["EX"]="__$UTIL_CHECKTOOL /usr/share/java"
 )
 
 #
@@ -33,7 +33,7 @@ declare -A CHECKTOOL_USAGE=(
 # __checktool "$TOOL"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -45,15 +45,15 @@ declare -A CHECKTOOL_USAGE=(
 # fi
 #
 function __checktool() {
-    local APP_TOOL_NAME=$1
-    if [ -n "$APP_TOOL_NAME" ]; then
+    local APP_TOOL=$1
+    if [ -n "$APP_TOOL" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		if [ "$TOOL_DBG" == "true" ]; then
-        	MSG="Checking tool [$APP_TOOL_NAME]"
+        	MSG="Checking tool [$APP_TOOL]"
         	printf "$DQUE" "$UTIL_CHECKTOOL" "$FUNC" "$MSG"
 		fi
-        if [ -e "$APP_TOOL_NAME" ] && [ -x "$APP_TOOL_NAME" ]; then
+        if [ -e "$APP_TOOL" ] && [ -x "$APP_TOOL" ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
             	printf "%s\n" "[ok]"
 				printf "$DEND" "$UTIL_CHECKTOOL" "$FUNC" "Done"
@@ -63,11 +63,11 @@ function __checktool() {
 		if [ "$TOOL_DBG" == "true" ]; then
 			printf "%s\n" "[not ok]"
 		fi
-		MSG="Please check tool [$APP_TOOL_NAME]"
+		MSG="Please check tool [$APP_TOOL]"
 		printf "$SEND" "$UTIL_CHECKTOOL" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CHECKTOOL_USAGE
+    __usage "$(declare -p CHECKTOOL_USAGE)"
     return $NOT_SUCCESS
 }
 

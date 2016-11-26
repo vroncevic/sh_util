@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_STRIPCOMMENT=stripcomment
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_STRIPCOMMENT_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_STRIPCOMMENT_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A STRIPCOMMENT_USAGE=(
-    [TOOL_NAME]="__$UTIL_STRIPCOMMENT"
-    [ARG1]="[FILE] Path to C file code"
-    [EX-PRE]="# Strips comments from C code"
-    [EX]="__$UTIL_STRIPCOMMENT /opt/test.c"	
+    ["TOOL"]="__$UTIL_STRIPCOMMENT"
+    ["ARG1"]="[FILE] Path to C file code"
+    ["EX-PRE"]="# Strips comments from C code"
+    ["EX"]="__$UTIL_STRIPCOMMENT /opt/test.c"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A STRIPCOMMENT_USAGE=(
 # __stripcomment "$FILE"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -76,7 +76,7 @@ function __stripcomment() {
 		printf "$SEND" "$UTIL_STRIPCOMMENT" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $STRIPCOMMENT_USAGE
+    __usage "$(declare -p STRIPCOMMENT_USAGE)"
     return $NOT_SUCCESS
 }
 

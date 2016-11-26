@@ -7,28 +7,20 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VMINFO=vminfo
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
-UTIL_CFG_VOFFICELIST=$UTIL/conf/$UTIL_VMINFO.cfg
+UTIL_VMINFO_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_VMINFO_VERSION
+UTIL_VMINFO_CFG=$UTIL/conf/$UTIL_VMINFO.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/devel.sh
 
 declare -A VMINFO_USAGE=(
-    [TOOL_NAME]="__$UTIL_VMINFO"
-    [ARG1]="[VM_DISK]  Path to lock file"
-    [EX-PRE]="# Example running __$UTIL_VMINFO"
-    [EX]="__$UTIL_VMINFO \$VM_DISK"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_VMINFO"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    ["TOOL"]="__$UTIL_VMINFO"
+    ["ARG1"]="[VM_DISK]  Path to lock file"
+    ["EX-PRE"]="# Example running __$UTIL_VMINFO"
+    ["EX"]="__$UTIL_VMINFO \$VM_DISK"	
 )
 
 #
@@ -66,13 +58,9 @@ function __vminfo() {
 		if [ "$TOOL_DBG" == "true" ]; then   
 			printf "%s\n" "[not ok]"         
 		fi
-		LOG[MSG]="Please check dir [$VM_DISK_PATH]"
-		MSG="${LOG[MSG]}"
-		printf "$SEND" "$UTIL_VMINFO" "$MSG"
-		__logging $LOG
 		return $NOT_SUCCESS
     fi 
-    __usage $VMINFO_USAGE
+    __usage "$(declare -p VMINFO_USAGE)"
 	return $NOT_SUCCESS
 }
 
@@ -87,7 +75,7 @@ function __vminfo() {
 # __vofficelist
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -105,29 +93,29 @@ function __vofficelist() {
 		MSG="Checking voffice system"
 		printf "$DSTA" "$UTIL_VMINFO" "$FUNC" "$MSG"
 	fi
-	declare -A cfgvofficelist=()
-	__loadutilconf $UTIL_CFG_VOFFICELIST cfgvofficelist
+	declare -A configvofficelistutil=()
+	__loadutilconf $UTIL_VMINFO_CFG configvofficelistutil
 	local STATUS=$?
-	if [ "$STATUS" -eq "$SUCCESS" ]; then
-		__vminfo $cfgvofficelist[VO1_DISK_PATH]
+	if [ $STATUS -eq $SUCCESS ]; then
+		__vminfo $configvofficelistutil[VO1_DISK_PATH]
 		local STATUS_VO1=$?
 		if [ "$STATUS_VO1" -eq "$NOT_SUCCESS" ]; then
 			MSG="voffice status [$STATUS_VO1]"
 			printf "$SSTA" "$UTIL_VMINFO" "$FUNC" "$MSG"
 		fi
-		__vminfo $cfgvofficelist[VO2_DISK_PATH]
+		__vminfo $configvofficelistutil[VO2_DISK_PATH]
 		local STATUS_VO2=$?
 		if [ "$STATUS_VO2" -eq "$NOT_SUCCESS" ]; then
 			MSG="voffice2 status [$STATUS_VO2]"
 			printf "$SSTA" "$UTIL_VMINFO" "$FUNC" "$MSG"
 		fi
-		__vminfo $cfgvofficelist[VO3_DISK_PATH]
+		__vminfo $configvofficelistutil[VO3_DISK_PATH]
 		local STATUS_VO3=$?
 		if [ "$STATUS_VO3" -eq "$NOT_SUCCESS" ]; then
 			MSG="voffice3 status [$STATUS_VO3]"
 			printf "$SSTA" "$UTIL_VMINFO" "$FUNC" "$MSG"
 		fi
-		__vminfo $cfgvofficelist[VO4_DISK_PATH]
+		__vminfo $configvofficelistutil[VO4_DISK_PATH]
 		local STATUS_VO4=$?
 		if [ "$STATUS_VO4" -eq "$NOT_SUCCESS" ]; then
 			MSG="voffice4 status [$STATUS_VO4]"
@@ -148,3 +136,4 @@ function __vofficelist() {
 	fi
 	return $NOT_SUCCESS
 } 
+

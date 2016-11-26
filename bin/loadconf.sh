@@ -8,8 +8,8 @@
 #
 #
 UTIL_LOADCONF=loadconf
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LOADCONF_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LOADCONF_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
@@ -17,11 +17,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOADCONF_USAGE=(
-    [TOOL_NAME]="__$UTIL_LOADCONF"
-    [ARG1]="[TOOL_CFG]      Path to config file"
-    [ARG2]="[CONFIGURATION] Hash structure for config"
-    [EX-PRE]="# Example load configuration"
-    [EX]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
+    ["TOOL"]="__$UTIL_LOADCONF"
+    ["ARG1"]="[TOOL_CFG]      Path to config file"
+    ["ARG2"]="[CONFIGURATION] Hash structure for config"
+    ["EX-PRE"]="# Example load configuration"
+    ["EX"]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
 )
 
 #
@@ -37,7 +37,7 @@ declare -A LOADCONF_USAGE=(
 # __loadconf $TOOL_CFG configuration
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -60,7 +60,7 @@ function __loadconf() {
 		fi
         __checkcfg "$TOOL_CFG"
         local STATUS=$?
-        if [ "$STATUS" -eq "$SUCCESS" ]; then
+        if [ $STATUS -eq $SUCCESS ]; then
             IFS="="
             while read -r key value 
             do
@@ -81,7 +81,7 @@ function __loadconf() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage $LOADCONF_USAGE
+    __usage "$(declare -p LOADCONF_USAGE)"
     return $NOT_SUCCESS
 }
 

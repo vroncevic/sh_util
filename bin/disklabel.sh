@@ -7,18 +7,20 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_DISKLABEL=disklabel
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_DISKLABEL_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_DISKLABEL_VERSION
+UTIL_DISKLABEL_CFG=$UTIL/conf/$UTIL_DISKLABEL.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A DISKLABEL_USAGE=(
-    [TOOL_NAME]="__$UTIL_DISKLABEL"
-    [ARG1]="[DISK_STRUCTURE] Disk drive and disk label"
-    [EX-PRE]="# Set label name for mounted disk"
-    [EX]="__$UTIL_DISKLABEL \$DISK_STRUCTURE"	
+    ["TOOL"]="__$UTIL_DISKLABEL"
+    ["ARG1"]="[DISK_STRUCTURE] Disk drive and disk label"
+    ["EX-PRE"]="# Set label name for mounted disk"
+    ["EX"]="__$UTIL_DISKLABEL \$DISK_STRUCTURE"	
 )
 
 #
@@ -30,13 +32,13 @@ declare -A DISKLABEL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A DISK_STRUCTURE=()
-# DISK_STRUCTURE[DISK]=$DISK_DRIVE
-# DISK_STRUCTURE[LABEL]=$DISK_LABEL
+# DISK_STRUCTURE["DISK"]=$DISK_DRIVE
+# DISK_STRUCTURE["LABEL"]=$DISK_LABEL
 #
-# __disklabel $DISK_STRUCTURE
+# __disklabel "$(declare -p DISK_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# notify admin | user
 # else
@@ -48,42 +50,47 @@ declare -A DISKLABEL_USAGE=(
 # fi
 #
 function __disklabel() {
-	local DISK_STRUCTURE=$1
-    local DISK_DRIVE=${DISK_STRUCTURE[DISK]}
-    local DISK_LABEL=${DISK_STRUCTURE[LABEL]}
+	eval "declare -A DISK_STRUCTURE="${1#*=}
+    local DISK_DRIVE=${DISK_STRUCTURE["DISK"]}
+    local DISK_LABEL=${DISK_STRUCTURE["LABEL"]}
     if [ -n "$DISK_DRIVE" ] && [ -n "$DISK_LABEL" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local MLAB="/usr/bin/mlabel"
-		__checktool "$MLAB"
+		declare -A configdisklabelutil=()
+		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configdisklabelutil
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
-			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking disk drive"
-				printf "$DQUE" "$UTIL_DISKLABEL" "$FUNC" "$MSG"
-			fi
-			if [ $(mount | grep -c /mnt/$DISK_LABEL) != 0 ] && 
-			[ $(grep -qs /mnt/$DISK_LABEL /proc/mounts) ]; then 
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "%s\n" "[ok]"
-					MSG="Set label"
-					printf "$DSTA" "$UTIL_DISKLABEL" "$FUNC" "$MSG"
-				fi
-				eval "$MLAB -i /dev/$DISK_DRIVE ::${LABEL_NAME}"
+		if [ $STATUS -eq $SUCCESS ]; then
+			local mlab=${configdisklabelutil[MLAB]}
+			__checktool "$mlab"
+			local STATUS=$?
+			if [ $STATUS -eq $SUCCESS ]; then
 				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DEND" "$UTIL_DISKLABEL" "$FUNC" "Done"
+					MSG="Checking disk drive"
+					printf "$DQUE" "$UTIL_DISKLABEL" "$FUNC" "$MSG"
 				fi
-				return $SUCCESS
+				if [ $(mount | grep -c /mnt/$DISK_LABEL) != 0 ] && 
+				[ $(grep -qs /mnt/$DISK_LABEL /proc/mounts) ]; then 
+					if [ "$TOOL_DBG" == "true" ]; then            
+						printf "%s\n" "[ok]"
+						MSG="Set label"
+						printf "$DSTA" "$UTIL_DISKLABEL" "$FUNC" "$MSG"
+					fi
+					eval "$mlab -i /dev/$DISK_DRIVE ::${LABEL_NAME}"
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "$DEND" "$UTIL_DISKLABEL" "$FUNC" "Done"
+					fi
+					return $SUCCESS
+				fi
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[not ok]" 
+				fi
+				MSG="Disk drive [$DISK_DRIVE] is not mounted"
+				printf "$SEND" "$UTIL_DISKLABEL" "$MSG"
 			fi
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "%s\n" "[not ok]" 
-			fi
-			MSG="Disk drive [$DISK_DRIVE] is not mounted"
-			printf "$SEND" "$UTIL_DISKLABEL" "$MSG"
 		fi
         return $NOT_SUCCESS
     fi
-    __usage $DISKLABEL_USAGE
+    __usage "$(declare -p DISKLABEL_USAGE)"
     return $NOT_SUCCESS
 }
 

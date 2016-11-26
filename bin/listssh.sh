@@ -7,8 +7,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LISTSSH=listssh
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LISTSSH_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LISTSSH_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/devel.sh
@@ -23,7 +23,7 @@ UTIL_LOG=$UTIL/log
 # __listssh "$DIR_PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else

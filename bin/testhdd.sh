@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_TESTHDD=testhdd
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_TESTHDD_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_TESTHDD_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A TESTHDD_USAGE=(
-    [TOOL_NAME]="__$UTIL_TESTHDD"
-    [ARG1]="[TIME_COUNT] Time count"
-    [EX-PRE]="# Creating zerofile and test hdd"
-    [EX]="__$UTIL_TESTHDD 500"	
+    ["TOOL"]="__$UTIL_TESTHDD"
+    ["ARG1"]="[TIME_COUNT] Time count"
+    ["EX-PRE"]="# Creating zerofile and test hdd"
+    ["EX"]="__$UTIL_TESTHDD 500"	
 )
 
 #
@@ -31,7 +31,7 @@ declare -A TESTHDD_USAGE=(
 # __testhdd $TIME_COUNT
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -58,7 +58,7 @@ function __testhdd() {
 		fi
         return $SUCCESS
     fi
-    __usage $TESTHDD_USAGE
+    __usage "$(declare -p TESTHDD_USAGE)"
     return $NOT_SUCCESS
 }
 

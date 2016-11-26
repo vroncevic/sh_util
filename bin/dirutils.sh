@@ -7,39 +7,39 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_DIRUTILS=dirutils
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_DIRUTILS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_DIRUTILS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A MKDIRF_USAGE=(
-    [TOOL_NAME]="__mkdirf"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    ["TOOL"]="__mkdirf"
+    ["ARG1"]="[DIR_PATH] Directory path"
+    ["EX-PRE"]="# Example creating directory"
+    ["EX"]="__mkdirf /opt/test/"
 ) 
 
 declare -A DIRNAME_USAGE=(
-    [TOOL_NAME]="__getdirname"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    ["TOOL"]="__getdirname"
+    ["ARG1"]="[DIR_PATH] Directory path"
+    ["EX-PRE"]="# Example creating directory"
+    ["EX"]="__mkdirf /opt/test/"
 ) 
 
 declare -A BASENAME_USAGE=(
-    [TOOL_NAME]="__getbasename"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    ["TOOL"]="__getbasename"
+    ["ARG1"]="[DIR_PATH] Directory path"
+    ["EX-PRE"]="# Example creating directory"
+    ["EX"]="__mkdirf /opt/test/"
 ) 
 
 declare -A CLEANDIR_USAGE=(
-    [TOOL_NAME]="__clean"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    ["TOOL"]="__clean"
+    ["ARG1"]="[DIR_PATH] Directory path"
+    ["EX-PRE"]="# Example creating directory"
+    ["EX"]="__mkdirf /opt/test/"
 ) 
 
 #
@@ -53,7 +53,7 @@ declare -A CLEANDIR_USAGE=(
 # __mkdirf "$DIR_PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -91,7 +91,7 @@ function __mkdirf() {
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_MKDIR_USAGE
+    __usage "$(declare -p TOOL_MKDIR_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -122,7 +122,7 @@ function __getdirname() {
 		fi
         echo "$_dir"
     fi
-    __usage $DIRNAME_USAGE
+    __usage "$(declare -p DIRNAME_USAGE)"
 }
 
 #
@@ -149,7 +149,7 @@ function __getbasename() {
 		fi
         echo "${_name%$2}"
     fi
-    __usage $BASENAME_USAGE
+    __usage "$(declare -p BASENAME_USAGE)"
 }
 
 #
@@ -163,7 +163,7 @@ function __getbasename() {
 # __clean "$DIRECTORY"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -196,11 +196,11 @@ function __clean() {
 		if [ "$TOOL_DBG" == "true" ]; then
         	printf "%s\n" "[not ok]"
 		fi
-		MSG="Check dir [$DIRNAME]"
+		MSG="Please check dir [$DIRNAME]"
 		printf "$SEND" "$UTIL_DIRUTILS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CLEANDIR_USAGE
+    __usage "$(declare -p CLEANDIR_USAGE)"
     return $NOT_SUCCESS
 }
 

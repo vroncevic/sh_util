@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ISSPAMMER=isspammer
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_ISSPAMMER_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_ISSPAMMER_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A ISSPAMMER_USAGE=(
-    [TOOL_NAME]="__$UTIL_ISSPAMMER"
-    [ARG1]="[DOMAIN_NAME] Domain name"
-    [EX-PRE]="# Example checking domain"
-    [EX]="__$UTIL_ISSPAMMER domain.cc"	
+    ["TOOL"]="__$UTIL_ISSPAMMER"
+    ["ARG1"]="[DOMAIN_NAME] Domain name"
+    ["EX-PRE"]="# Example checking domain"
+    ["EX"]="__$UTIL_ISSPAMMER domain.cc"	
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return
@@ -63,7 +63,7 @@ function __get_txt() {
 # __checkaddress "$REV_DNS" "$LIST_SERVER"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -99,7 +99,7 @@ function __checkaddress() {
 # __isspammer "$DOMAIN_NAME"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -157,7 +157,7 @@ function __isspammer(){
 		printf "$SEND" "$UTIL_ISSPAMMER" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $ISSPAMMER_USAGE
+    __usage "$(declare -p ISSPAMMER_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -8,8 +8,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_UNPACK2DIR=unpack2dir
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_UNPACK2DIR_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_UNPACK2DIR_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A UNPACK2DIR_USAGE=(
-    [TOOL_NAME]="__$UTIL_UNPACK2DIR"
-    [ARG1]="[FILE] Path to the target"
-    [EX-PRE]="# Example running __$UTIL_UNPACK2DIR"
-    [EX]="__$UTIL_UNPACK2DIR test.ar.gz"	
+    ["TOOL"]="__$UTIL_UNPACK2DIR"
+    ["ARG1"]="[FILE] Path to the target"
+    ["EX-PRE"]="# Example running __$UTIL_UNPACK2DIR"
+    ["EX"]="__$UTIL_UNPACK2DIR test.ar.gz"	
 )
 
 #
@@ -34,7 +34,7 @@ declare -A UNPACK2DIR_USAGE=(
 # __unpack2dir $FILES
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else

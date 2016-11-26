@@ -8,18 +8,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RMLEADS=rmleads
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_RMLEADS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_RMLEADS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A RMLEADS_USAGE=(
-    [TOOL_NAME]="__$UTIL_RMLEADS"
-    [ARG1]="[FILES] Name of file"
-    [EX-PRE]="# Remove empty leading spaces from an ascii file"
-    [EX]="__$UTIL_RMLEADS /data/test.txt"	
+    ["TOOL"]="__$UTIL_RMLEADS"
+    ["ARG1"]="[FILES] Name of file"
+    ["EX-PRE"]="# Remove empty leading spaces from an ascii file"
+    ["EX"]="__$UTIL_RMLEADS /data/test.txt"	
 )
 
 #
@@ -34,7 +34,7 @@ declare -A RMLEADS_USAGE=(
 # __rmleads "$FILE_PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -66,7 +66,7 @@ function __rmleads() {
             if [ -f "$a" ]; then 
                 file "$a" | grep -q text
                 local STATUS=$?
-                if [ "$STATUS" -eq "$SUCCESS" ]; then
+                if [ $STATUS -eq $SUCCESS ]; then
                     sed 's/^[ 	]*//' < "$a" > "$tmp1" && mv "$tmp1" "$a"
                 else
 					if [ "$TOOL_DBG" == "true" ]; then
@@ -85,7 +85,7 @@ function __rmleads() {
 		fi
         return $SUCCESS        
     fi
-    __usage $RMLEADS_USAGE
+    __usage "$(declare -p RMLEADS_USAGE)"
     return $NOT_SUCCESS
 }
 

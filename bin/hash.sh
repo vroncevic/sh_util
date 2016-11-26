@@ -53,7 +53,7 @@ function __hget() {
 # __set_item $key $value $HASH_STRUCT
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notif admin | user
 # else
@@ -106,7 +106,7 @@ function __get_item() {
 # __get_configuration $HASH_STRUCTURE_CFG capitals
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 # 	 local ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
 #	 printf "%s\n" "$ELEMENT_BY_KEY"
 #	 local ELEMENT_BY_KEY=$(__get_item "Serbia" capitals)

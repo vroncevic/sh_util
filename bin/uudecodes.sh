@@ -7,19 +7,21 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_UUDECODES=uudecodes
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_UUDECODES_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_UUDECODES_VERSION
+UTIL_UUDECODES_CFG=$UTIL/conf/$UTIL_UUDECODES.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
 declare -A UUDECODES_USAGE=(
-    [TOOL_NAME]="__$UTIL_UUDECODES"
-    [ARG1]="[FILE_NAME] Path to binary file"
-    [EX-PRE]="# Example decode thunderbird binary"
-    [EX]="__$UTIL_UUDECODES thunderbird-bin"	
+    ["TOOL"]="__$UTIL_UUDECODES"
+    ["ARG1"]="[FILE_NAME] Path to binary file"
+    ["EX-PRE"]="# Example decode thunderbird binary"
+    ["EX"]="__$UTIL_UUDECODES thunderbird-bin"	
 )
 
 #
@@ -33,7 +35,7 @@ declare -A UUDECODES_USAGE=(
 # __uudecodes $FILE_PATH
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -49,36 +51,42 @@ function __uudecodes() {
 	if [ -n "$FILE_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local UUDEC="/usr/bin/uudecode"
-		__checktool "$UUDEC"
+		declare -A configuudecodesutil=()
+		__loadutilconf "$UTIL_UUDECODES_CFG" configuudecodesutil
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
-			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking file [$FILE_PATH]"
-				printf "$DQUE" "$UTIL_UUDECODES" "$FUNC" "$MSG"
-			fi
-			if [ -e "$FILE_PATH" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
+			local uudec=${configuudecodesutil[UUDEC]}
+			__checktool "$uudec"
+			STATUS=$?
+			if [ $STATUS -eq $SUCCESS ]; then
 				if [ "$TOOL_DBG" == "true" ]; then
-					printf "%s\n" "[ok]"
-					MSG="Decoding [$FILE_PATH]"
-					printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
+					MSG="Checking file [$FILE_PATH]"
+					printf "$DQUE" "$UTIL_UUDECODES" "$FUNC" "$MSG"
 				fi
-				eval "$UUDEC $FILE_PATH"
+				if [ -e "$FILE_PATH" ]; then
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "%s\n" "[ok]"
+						MSG="Decoding [$FILE_PATH]"
+						printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
+					fi
+					eval "$uudec $FILE_PATH"
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "$DEND" "$UTIL_UUDECODES" "$FUNC" "Done"
+					fi
+					return $SUCCESS
+				fi
 				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DEND" "$UTIL_UUDECODES" "$FUNC" "Done"
+					printf "%s\n" "[not ok]"
 				fi
-				return $SUCCESS
+				MSG="Please check file path [$FILE_PATH]"
+				printf "$SEND" "$UTIL_UUDECODES" "$MSG"
+				return $NOT_SUCCESS
 			fi
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "%s\n" "[not ok]"
-			fi
-			MSG="Please check file path [$FILE_PATH]"
-			printf "$SEND" "$UTIL_UUDECODES" "$MSG"
 			return $NOT_SUCCESS
 		fi
 		return $NOT_SUCCESS
 	fi
-    __usage $UUDECODES_USAGE
+    __usage "$(declare -p UUDECODES_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -93,7 +101,7 @@ function __uudecodes() {
 # __uudecodes_all "$FILE_PATH"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -109,10 +117,10 @@ function __uudecodes_all() {
     if [ -z "$FILE_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local UUDEC="/usr/bin/uudecode"
-		__checktool "$UUDEC"
+		local uudec=${configuudecodesutil[UUDEC]}
+		__checktool "$uudec"
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
 				MSG="Decode a binary representations at [$FILE_PATH/]"
 				printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
@@ -127,7 +135,7 @@ function __uudecodes_all() {
 							MSG="Decoding [$filedecode]"
 							printf "$DSTA" "$UTIL_UUDECODES" "$FUNC" "$MSG"
 						fi
-						eval "$UUDEC $filedecode"
+						eval "$uudec $filedecode"
 					fi
 				fi
 			done
@@ -138,7 +146,7 @@ function __uudecodes_all() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage $UUDECODES_USAGE
+    __usage "$(declare -p UUDECODES_USAGE)"
     return $NOT_SUCCESS
 }
 

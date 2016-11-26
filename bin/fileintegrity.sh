@@ -7,26 +7,28 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_FILEINTEGRITY=fileintegrity
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_FILEINTEGRITY_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_FILEINTEGRITY_VERSION
+UTIL_FILEINTEGRITY_CFG=$UTIL/conf/$UTIL_FILEINTEGRITY.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
 declare -A SETDB_USAGE=(
-    [TOOL_NAME]="__setupdb"
-    [ARG1]="[DB_STRUCTURE] DB file and path"
-    [EX-PRE]="# Example set database"
-    [EX]="__setupdb \$DB_STRUCTURE"	
+    ["TOOL"]="__setupdb"
+    ["ARG1"]="[DB_STRUCTURE] DB file and path"
+    ["EX-PRE"]="# Example set database"
+    ["EX"]="__setupdb \$DB_STRUCTURE"	
 )
 
 declare -A CHECKDB_USAGE=(
-    [TOOL_NAME]="__checkdb"
-    [ARG1]="[DB_FILE] Database file"
-    [EX-PRE]="# Example checking database"
-    [EX]="__checkdb test.db"	
+    ["TOOL"]="__checkdb"
+    ["ARG1"]="[DB_FILE] Database file"
+    ["EX-PRE"]="# Example checking database"
+    ["EX"]="__checkdb test.db"	
 )
 
 #
@@ -41,10 +43,10 @@ declare -A CHECKDB_USAGE=(
 # DB_STRUCTURE[FILE]="info.db"
 # DB_STRUCTURE[DIR]="/data/"
 #
-# __setupdb $DB_STRUCTURE
+# __setupdb "$(declare -p DB_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -56,34 +58,40 @@ declare -A CHECKDB_USAGE=(
 # fi
 #
 function __setupdb() {
-	local DB_STRUCTURE=$1
-    local DB_FILE=${DB_STRUCTURE[FILE]}
-    local DIR=${DB_STRUCTURE[DIR]}
+	eval "declare -A DB_STRUCTURE="${1#*=}
+    local DB_FILE=${DB_STRUCTURE["FILE"]}
+    local DIR=${DB_STRUCTURE["DIR"]}
     if [ -n "$DB_FILE" ] && [ -n "$DIR" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local MD5SUM="/usr/bin/md5sum"
-        if [ -f "$DB_FILE" ];
-			if [ "$TOOL_DBG" == "true" ]; then
-		        MSG="Write directory name to first line of file"
-				printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
-			fi
-            echo ""$DIR"" > "$DB_FILE"
-			if [ "$TOOL_DBG" == "true" ]; then
-            	MSG="Append md5 checksums and filenames"
-				printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
-			fi
-            eval "$MD5SUM $DIR/* >> $DB_FILE"
-			if [ "$TOOL_DBG" == "true" ]; then            
-				printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
-			fi
-            return $SUCCESS
-        fi
-		MSG="Check file [$DB_FILE]"
-		printf "$SEND" "$UTIL_FILEINTEGRITY" "$MSG"
-        return $NOT_SUCCESS
+		declare -A configfileintegrityutil=()
+		__loadutilconf "$UTIL_FILEINTEGRITY_CFG" configfileintegrityutil
+		local STATUS=$?
+		if [ $STATUS -eq $SUCCESS ]; then
+			local md5sum=${configfileintegrityutil[MD5SUM]}
+		    if [ -f "$DB_FILE" ];
+				if [ "$TOOL_DBG" == "true" ]; then
+				    MSG="Write directory name to first line of file"
+					printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
+				fi
+		        echo ""$DIR"" > "$DB_FILE"
+				if [ "$TOOL_DBG" == "true" ]; then
+		        	MSG="Append md5 checksums and filenames"
+					printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
+				fi
+		        eval "$md5sum $DIR/* >> $DB_FILE"
+				if [ "$TOOL_DBG" == "true" ]; then            
+					printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
+				fi
+		        return $SUCCESS
+		    fi
+			MSG="Please check file [$DB_FILE]"
+			printf "$SEND" "$UTIL_FILEINTEGRITY" "$MSG"
+		    return $NOT_SUCCESS
+		fi
+		return $NOT_SUCCESS
     fi
-    __usage $SETDB_USAGE
+    __usage "$(declare -p SETDB_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -99,7 +107,7 @@ function __setupdb() {
 # __checkdb "$DB_FILE"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -161,7 +169,7 @@ function __checkdb() {
 		fi
         return $SUCCESS
     fi
-    __usage $CHECKDB_USAGE
+    __usage "$(declare -p CHECKDB_USAGE)"
     return $NOT_SUCCESS
 }
 
@@ -177,7 +185,7 @@ function __checkdb() {
 # __fileintegrity "$DIR"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -210,7 +218,7 @@ function __fileintegrity() {
     fi
     __checkdb "$DB_FILE"
     local STATUS=$?
-    if [ "$STATUS" -eq "$SUCCESS" ]; then
+    if [ $STATUS -eq $SUCCESS ]; then
 		if [ "$TOOL_DBG" == "true" ]; then        
 			printf "$DEND" "$UTIL_FILEINTEGRITY" "$FUNC" "Done"
 		fi

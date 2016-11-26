@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RMBLANKS=rmblanks
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_RMBLANKS_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_RMBLANKS_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A RMBLANKS_USAGE=(
-    [TOOL_NAME]="__$UTIL_RMBLANKS"
-    [ARG1]="[FILES] Name of file"
-    [EX-PRE]="# Removing blank lines from file"
-    [EX]="__$UTIL_RMBLANKS /data/test.txt"	
+    ["TOOL"]="__$UTIL_RMBLANKS"
+    ["ARG1"]="[FILES] Name of file"
+    ["EX-PRE"]="# Removing blank lines from file"
+    ["EX"]="__$UTIL_RMBLANKS /data/test.txt"	
 )
 
 #
@@ -32,7 +32,7 @@ declare -A RMBLANKS_USAGE=(
 # __rmblanks "test.ini"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -67,7 +67,7 @@ function __rmblanks() {
 				fi
                 file "$a" | grep -q text
                 local STATUS=$?
-                if [ "$STATUS" -eq "$SUCCESS" ]; then
+                if [ $STATUS -eq $SUCCESS ]; then
                     sed '/^[ 	]*$/d' < "$a" > $tmp1 && mv $tmp1 "$a"
                 else
 					if [ "$TOOL_DBG" == "true" ]; then
@@ -88,7 +88,7 @@ function __rmblanks() {
 		fi
         return $SUCCESS
     fi
-    __usage $RMBLANKS_USAGE
+    __usage "$(declare -p RMBLANKS_USAGE)"
     return $NOT_SUCCESS
 }
 

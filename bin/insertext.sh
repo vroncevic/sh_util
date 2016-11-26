@@ -7,20 +7,20 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_INSERTEXT=insertext
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_INSERTEXT_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_INSERTEXT_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A INSERTEXT_USAGE=(
-    [TOOL_NAME]="__$UTIL_INSERTEXT"
-    [ARG1]="[LINE]  An integer referring to line number at which to insert the text file"
-    [ARG2]="[TEXT]  The text file to insert"
-    [ARG3]="[FILES] The text file to insert into"
-    [EX-PRE]="# Example put text into file"
-    [EX]="__$UTIL_INSERTEXT 3 test file"	
+    ["TOOL"]="__$UTIL_INSERTEXT"
+    ["ARG1"]="[LINE]  An integer referring to line number at which to insert the text file"
+    ["ARG2"]="[TEXT]  The text file to insert"
+    ["ARG3"]="[FILES] The text file to insert into"
+    ["EX-PRE"]="# Example put text into file"
+    ["EX"]="__$UTIL_INSERTEXT 3 test file"	
 )
 
 #
@@ -34,7 +34,7 @@ declare -A INSERTEXT_USAGE=(
 # __insertext $LINE $TEXT ${FILES[@]}
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -95,7 +95,7 @@ function __insertext() {
 		fi
         return $SUCCESS
     fi
-    __usage $INSERTEXT_USAGE
+    __usage "$(declare -p INSERTEXT_USAGE)"
     return $NOT_SUCCESS
 }
 

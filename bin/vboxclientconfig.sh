@@ -8,8 +8,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VBOXCLIENTCONFIG=vboxclientconfig
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_VBOXCLIENTCONFIG_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_VBOXCLIENTCONFIG_VERSION
 UTIL_CFG_VBOXCFG=$UTIL/conf/$UTIL_VBOXCLIENTCONFIG.cfg
 UTIL_LOG=$UTIL/log
 
@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A VBOXCLIENTCONFIG_USAGE=(
-    [TOOL_NAME]="__$UTIL_VBOXCLIENTCONFIG"
-    [ARG1]="[USERNAME] System username"
-    [EX-PRE]="# Example generating VBOX config files"
-    [EX]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
+    ["TOOL"]="__$UTIL_VBOXCLIENTCONFIG"
+    ["ARG1"]="[USERNAME] System username"
+    ["EX-PRE"]="# Example generating VBOX config files"
+    ["EX"]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
 )
 
 #
@@ -35,7 +35,7 @@ declare -A VBOXCLIENTCONFIG_USAGE=(
 # __vboxclientconfig "vroncevic" 
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -51,17 +51,17 @@ function __vboxclientconfig() {
     if [ -n "$USERNAME" ]; then 
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		declare -A cfgvbox=()
-		__loadutilconf "$UTIL_CFG_VBOXCFG" cfgvbox
+		declare -A configvboxclientconfigutil=()
+		__loadutilconf "$UTIL_CFG_VBOXCFG" configvboxclientconfigutil
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking dir [${cfgvbox[VBOX_CONF]}/]"
+				MSG="Checking dir [${configvboxclientconfigutil[VBOX_CONF]}/]"
 				printf "$DQUE" "$UTIL_VBOXCLIENTCONFIG" "$FUNC" "$MSG"
 			fi
-			if [ -d "${cfgvbox[VBOX_CONF]}/" ]; then
+			if [ -d "${configvboxclientconfigutil[VBOX_CONF]}/" ]; then
 				printf "%s\n" "[ok]"
-				local VBOX_USER="${cfgvbox[VBOX_CONF]}/$USERNAME"
+				local VBOX_USER="${configvboxclientconfigutil[VBOX_CONF]}/$USERNAME"
 				if [ "$TOOL_DBG" == "true" ]; then
 					MSG="Checking dir [$VBOX_USER/]"
 					printf "$DQUE" "$UTIL_VBOXCLIENTCONFIG" "$FUNC" "$MSG"
@@ -76,9 +76,9 @@ function __vboxclientconfig() {
 				else
 					printf "%s\n" "[ok]"
 				fi
-				local BKP_LIN="${cfgvbox[VBOX_USR]}/$USERNAME/VirtualBox\ VMs/"
+				local BKP_LIN="${configvboxclientconfigutil[VBOX_USR]}/$USERNAME/VirtualBox\ VMs/"
 				cp -R "$BKP_LIN" "$VBOX_USER/"
-				local VBOX_USER_WIN="${cfgvbox[VBOX_CONF]}/${USERNAME}-win"
+				local VBOX_USER_WIN="${configvboxclientconfigutil[VBOX_CONF]}/${USERNAME}-win"
 				if [ "$TOOL_DBG" == "true" ]; then
 					MSG="Checking dir [$VBOX_USER_WIN/]"
 					printf "$DQUE" "$UTIL_VBOXCLIENTCONFIG" "$FUNC" "$MSG"
@@ -93,7 +93,7 @@ function __vboxclientconfig() {
 				else
 					printf "%s\n" "[ok]"
  				fi
- 				local BKP_WIN="${cfgvbox[VBOX_USR]}/$USERNAME/VirtualBox\ VMs/"
+ 				local BKP_WIN="${configvboxclientconfigutil[VBOX_USR]}/$USERNAME/VirtualBox\ VMs/"
  				cp -R "$BKP_WIN" "$VBOX_USER_WIN/"
 				if [ "$TOOL_DBG" == "true" ]; then                
 					printf "$DEND" "$UTIL_VBOXCLIENTCONFIG" "$FUNC" "Done"
@@ -107,7 +107,7 @@ function __vboxclientconfig() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage $VBOXCLIENTCONFIG_USAGE
+    __usage "$(declare -p VBOXCLIENTCONFIG_USAGE)"
     return $NOT_SUCCESS
 }
 

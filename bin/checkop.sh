@@ -7,19 +7,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECKOP=checkop
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CHECKOP_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKOP_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CHECKOP_USAGE=(
-    [TOOL_NAME]="__$UTIL_CHECKOP"
-    [ARG1]="[OPERATION]      Operation to be done"
-	[ARG2]="[OPERATION_LIST] List of operations"
-    [EX-PRE]="# Example checking operation"
-    [EX]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
+    ["TOOL"]="__$UTIL_CHECKOP"
+    ["ARG1"]="[OPERATION]      Operation to be done"
+	["ARG2"]="[OPERATION_LIST] List of operations"
+    ["EX-PRE"]="# Example checking operation"
+    ["EX"]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
 )
 
 #
@@ -36,7 +36,7 @@ declare -A CHECKOP_USAGE=(
 # __checkop "$OPERATION" "${OPERATION_LIST[*]}"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #	# true
 #	# notify admin | user
 # else
@@ -75,7 +75,7 @@ function __checkop() {
 		printf "$SEND" "$UTIL_CHECKOP" "$MSG"
 		return $NOT_SUCCESS
 	fi
-	__usage $CHECKOP_USAGE
+	__usage "$(declare -p CHECKOP_USAGE)"
 	return $NOT_SUCCESS
 }
 

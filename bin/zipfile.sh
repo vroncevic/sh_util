@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ZIPFILE=zipfile
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_ZIPFILE_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_ZIPFILE_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A ZIPFILE_USAGE=(
-    [TOOL_NAME]="__$UTIL_ZIPFILE"
-    [ARG1]="[FILE] Name of file"
-    [EX-PRE]="# Example zipping a file"
-    [EX]="__$UTIL_ZIPFILE freshtool.txt"
+    ["TOOL"]="__$UTIL_ZIPFILE"
+    ["ARG1"]="[FILE] Name of file"
+    ["EX-PRE"]="# Example zipping a file"
+    ["EX"]="__$UTIL_ZIPFILE freshtool.txt"
 )
 
 #
@@ -32,7 +32,7 @@ declare -A ZIPFILE_USAGE=(
 # __zipfile "$FILES"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -91,7 +91,7 @@ function __zipfile() {
 		fi
         return $SUCCESS
     fi
-    __usage $ZIPFILE_USAGE
+    __usage "$(declare -p ZIPFILE_USAGE)"
     return $NOT_SUCCESS
 }
 

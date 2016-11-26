@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECKX=checkx
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CHECKX_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKX_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CHECKX_USAGE=(
-    [TOOL_NAME]="__$UTIL_CHECKX"
-    [ARG1]="[XINIT] Instance of tool for running X session"
-    [EX-PRE]="# Example checking X Server"
-    [EX]="__$UTIL_CHECKX \"xinit\""
+    ["TOOL"]="__$UTIL_CHECKX"
+    ["ARG1"]="[XINIT] Instance of tool for running X session"
+    ["EX-PRE"]="# Example checking X Server"
+    ["EX"]="__$UTIL_CHECKX \"xinit\""
 )
 
 #
@@ -32,7 +32,7 @@ declare -A CHECKX_USAGE=(
 # __checkx "xinit"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -67,7 +67,7 @@ function __checkx() {
 		printf "$SEND" "$UTIL_CHECKX" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CHECKX_USAGE
+    __usage "$(declare -p CHECKX_USAGE)"
     return $NOT_SUCCESS
 }
 

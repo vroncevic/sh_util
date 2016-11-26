@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_PATHPROC=pathproc
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_PATHPROC_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_PATHPROC_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A PATHPROC_USAGE=(
-    [TOOL_NAME]="__$UTIL_PATHPROC"
-    [ARG1]="[PROCESS] Process ID"
-    [EX-PRE]="# Example Gives complete path name of process"
-    [EX]="__$UTIL_PATHPROC 1356"	
+    ["TOOL"]="__$UTIL_PATHPROC"
+    ["ARG1"]="[PROCESS] Process ID"
+    ["EX-PRE"]="# Example Gives complete path name of process"
+    ["EX"]="__$UTIL_PATHPROC 1356"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A PATHPROC_USAGE=(
 # __pathproc "$PROCESS"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -85,7 +85,7 @@ function __pathproc() {
 		fi
         return $SUCCESS
     fi
-    __usage $PATHPROC_USAGE
+    __usage "$(declare -p PATHPROC_USAGE)"
     return $NOT_SUCCESS
 }
 

@@ -6,25 +6,25 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-UTIL_APP2USER=newapp2user
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
-UTIL_CFG_NEWAPP2USER=$UTIL/conf/$UTIL_APP2USER.cfg
+UTIL_APP2USER=app2user
+UTIL_APP2USER_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_APP2USER_VERSION
+UTIL_APP2USER_CFG=$UTIL/conf/$UTIL_APP2USER.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/devel.sh
 
-declare -A NEWAPP2USER_USAGE=(
-    [TOOL_NAME]="__$UTIL_APP2USER"
-    [ARG1]="[NEW_APP_STRUCTURE] username, group, app"
-    [EX-PRE]="# Copy Application shortcut to user configuration"
-    [EX]="__$UTIL_APP2USER \$NEW_APP_STRUCTURE"
+declare -A APP2USER_USAGE=(
+    ["TOOL"]="__$UTIL_APP2USER"
+    ["ARG1"]="[NEW_APP_STRUCTURE] username, group, app"
+    ["EX-PRE"]="# Copy Application shortcut to user configuration"
+    ["EX"]="__$UTIL_APP2USER \$NEW_APP_STRUCTURE"
 )
 
 #
-# @brief  Generating App shortcut
+# @brief  Copy new APP shortcut to user configuration
 # @param  Value required structure (username, group, app)
 # @retval Success return 0, else return 1
 #
@@ -33,13 +33,13 @@ declare -A NEWAPP2USER_USAGE=(
 #
 # declare -A NEW_APP_STRUCTURE=()
 # NEW_APP_STRUCTURE[UN]="vroncevic"
-# NEW_APP_STRUCTURE[DN]="users"
+# NEW_APP_STRUCTURE[DN]="vroncevic"
 # NEW_APP_STRUCTURE[AN]="wolan"
 #
-# __newapp2user $NEW_APP_STRUCTURE
+# __app2user "$(declare -p NEW_APP_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -50,23 +50,23 @@ declare -A NEWAPP2USER_USAGE=(
 #	# exit 128
 # fi
 #
-function __newapp2user() {
-    local NEW_APP_STRUCTURE=$1
-    local USERNAME=${NEW_APP_STRUCTURE[UN]}
-    local DEPARTMENT=${NEW_APP_STRUCTURE[DN]}
-    local APPNAME=${NEW_APP_STRUCTURE[AN]}
+function __app2user() {
+	eval "declare -A NEW_APP_STRUCTURE="${1#*=}
+    local USERNAME=${NEW_APP_STRUCTURE["UN"]}
+    local DEPARTMENT=${NEW_APP_STRUCTURE["DN"]}
+    local APPNAME=${NEW_APP_STRUCTURE["AN"]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ] && [ -n "$APPNAME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		declare -A cfgnewapp2user=()
-		__loadutilconf "$UTIL_CFG_NEWAPP2USER" cfgnewapp2user
+		declare -A configapp2user=()
+		__loadutilconf "$UTIL_APP2USER_CFG" configapp2user
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
+		if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
 				MSG="Checking schortcut dir"
 				printf "$DQUE" "$UTIL_APP2USER" "$FUNC" "$MSG"
 			fi
-			if [ -d "$cfgnewapp2user[APPLICATION_SHORTCUT]/" ]; then
+			if [ -d "$configapp2user[APPLICATION_SHORTCUT]/" ]; then
 				local HOME_APP_DIR="/home/$USERNAME/.local/share/applications"
 				if [ "$TOOL_DBG" == "true" ]; then
 					MSG="Checking App configuration dir"
@@ -120,7 +120,7 @@ function __newapp2user() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage $NEWAPP2USER_USAGE
+    __usage "$(declare -p APP2USER_USAGE)"
     return $NOT_SUCCESS
 }
 

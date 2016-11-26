@@ -7,8 +7,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_INSERTINGPASSWD=insertingpasswd
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_INSERTINGPASSWD_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_INSERTINGPASSWD_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/devel.sh
@@ -24,7 +24,7 @@ UTIL_LOG=$UTIL/log
 # __insertingpasswd "$PASSWD"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else

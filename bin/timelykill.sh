@@ -7,27 +7,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_TIMELYKILL=timelykill
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_TIMELYKILL_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_TIMELYKILL_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
-. $UTIL/bin/logging.sh
 . $UTIL/bin/devel.sh
 
 declare -A TIMELYKILL_USAGE=(
-    [TOOL_NAME]="__$UTIL_TIMELYKILL"
-    [ARG1]="[PID]  Process ID"
-    [ARG2]="[TIME] Time <n>s|m|h|d"
-    [EX-PRE]="# Destroy process in <n>s|m|h|d"
-    [EX]="__$UTIL_TIMELYKILL freshtool 5s"	
-)
-
-declare -A LOG=(
-    [TOOL]="$UTIL_TIMELYKILL"
-    [FLAG]="error"
-    [PATH]="$UTIL_LOG"
-    [MSG]=""
+    ["TOOL"]="__$UTIL_TIMELYKILL"
+    ["ARG1"]="[PID]  Process ID"
+    ["ARG2"]="[TIME] Time <n>s|m|h|d"
+    ["EX-PRE"]="# Destroy process in <n>s|m|h|d"
+    ["EX"]="__$UTIL_TIMELYKILL freshtool 5s"	
 )
 
 #
@@ -41,7 +33,7 @@ declare -A LOG=(
 # __checkpid "$PID"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -63,7 +55,7 @@ function __checkpid() {
 		fi
         kill -0 $PID &>/dev/null 
         local STATUS=$?
-        if [ "$STATUS" -eq "$SUCCESS" ]; then
+        if [ $STATUS -eq $SUCCESS ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
             	MSG="Received signal [ok]"
             	printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
@@ -91,7 +83,7 @@ function __checkpid() {
 # __time_validatesleep $TIME
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -139,7 +131,7 @@ function __time_validatesleep() {
 # __timelykill $PID $TIME
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -204,6 +196,7 @@ function __timelykill() {
 		fi
         return $SUCCESS
     fi
-    __usage $TIMELYKILL_USAGE
+    __usage "$(declare -p TIMELYKILL_USAGE)"
     return $NOT_SUCCESS
 }
+

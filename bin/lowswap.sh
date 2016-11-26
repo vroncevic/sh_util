@@ -7,8 +7,8 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOWSWAP=lowswap
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_LOWSWAP_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_LOWSWAP_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
@@ -16,11 +16,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOWSWAP_USAGE=(
-    [TOOL_NAME]="__$UTIL_LOWSWAP"
-    [ARG1]="[LOW_LIMIT]   An integer referring to MB"
-    [ARG2]="[ADMIN_EMAIL] Administrator email address"
-    [EX-PRE]="# Checking swap memory, is under 12 MB"
-    [EX]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
+    ["TOOL"]="__$UTIL_LOWSWAP"
+    ["ARG1"]="[LOW_LIMIT]   An integer referring to MB"
+    ["ARG2"]="[ADMIN_EMAIL] Administrator email address"
+    ["EX-PRE"]="# Checking swap memory, is under 12 MB"
+    ["EX"]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
 )
 
 #
@@ -34,7 +34,7 @@ declare -A LOWSWAP_USAGE=(
 # __lowswap "$MEM_LIMIT" "$ADMIN_EMAIL"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -84,7 +84,7 @@ function __lowswap() {
                 ;;
         esac
     fi
-    __usage $LOWSWAP_USAGE
+    __usage "$(declare -p LOWSWAP_USAGE)"
     return $NOT_SUCCESS
 }
 

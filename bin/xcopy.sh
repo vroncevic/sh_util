@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_XCOPY=xcopy
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_XCOPY_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_XCOPY_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A XCOPY_USAGE=(
-    [TOOL_NAME]="__$UTIL_XCOPY"
-    [ARG1]="[XCOPY_STRUCTURE] Tool name, version, path and dev-path"
-    [EX-PRE]="# Copy tool to folder destination"
-    [EX]="__$UTIL_XCOPY \$XCOPY_STRUCTURE"
+    ["TOOL"]="__$UTIL_XCOPY"
+    ["ARG1"]="[XCOPY_STRUCTURE] Tool name, version, path and dev-path"
+    ["EX-PRE"]="# Copy tool to folder destination"
+    ["EX"]="__$UTIL_XCOPY \$XCOPY_STRUCTURE"
 )
 
 #
@@ -30,15 +30,15 @@ declare -A XCOPY_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A XCOPY_STRUCTURE=()
-# XCOPY_STRUCTURE[TN]="new_tool"
-# XCOPY_STRUCTURE[TV]="ver.1.0"
-# XCOPY_STRUCTURE[AP]="/usr/bin/local/"
-# XCOPY_STRUCTURE[DP]="/opt/new_tool/"
+# XCOPY_STRUCTURE["TN"]="new_tool"
+# XCOPY_STRUCTURE["TV"]="ver.1.0"
+# XCOPY_STRUCTURE["AP"]="/usr/bin/local/"
+# XCOPY_STRUCTURE["DP"]="/opt/new_tool/"
 #
-# __xcopy $XCOPY_STRUCTURE
+# __xcopy "$(declare -p XCOPY_STRUCTURE)"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -50,11 +50,11 @@ declare -A XCOPY_USAGE=(
 # fi
 #
 function __xcopy() {
-    local XCOPY_STRUCTURE=$1
-    local TOOLNAME=${XCOPY_STRUCTURE[TN]}
-    local VERSION=${XCOPY_STRUCTURE[TV]}
-    local APPPATH=${XCOPY_STRUCTURE[AP]}
-    local DEVPATH=${XCOPY_STRUCTURE[DP]}
+	eval "declare -A XCOPY_STRUCTURE="${1#*=}
+    local TOOLNAME=${XCOPY_STRUCTURE["TN"]}
+    local VERSION=${XCOPY_STRUCTURE["TV"]}
+    local APPPATH=${XCOPY_STRUCTURE["AP"]}
+    local DEVPATH=${XCOPY_STRUCTURE["DP"]}
     if [ -n "$TOOLNAME" ] && [ -n "$VERSION" ] && 
        [ -n "$APPPATH" ] && [ -n "$DEVPATH" ]; then
 		local FUNC=${FUNCNAME[0]}
@@ -105,7 +105,7 @@ function __xcopy() {
 		printf "$SEND" "$UTIL_XCOPY" "$MSG"
 		return $NOT_SUCCESS
     fi
-    __usage $XCOPY_USAGE
+    __usage "$(declare -p XCOPY_USAGE)"
     return $NOT_SUCCESS
 }
 

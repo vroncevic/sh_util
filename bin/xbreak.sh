@@ -7,20 +7,22 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_XBREAK=xbreak
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_XBREAK_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_XBREAK_VERSION
+UTIL_XBREAK_CFG=$UTIL/conf/$UTIL_XBREAK.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/checkx.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
 declare -A XBREAK_USAGE=(
-    [TOOL_NAME]="__$UTIL_XBREAK"
-    [ARG1]="[TIME] Life time"
-    [EX-PRE]="# Example running __$UTIL_XBREAK"
-    [EX]="__$UTIL_XBREAK 5s"	
+    ["TOOL"]="__$UTIL_XBREAK"
+    ["ARG1"]="[TIME] Life time"
+    ["EX-PRE"]="# Example running __$UTIL_XBREAK"
+    ["EX"]="__$UTIL_XBREAK 5s"	
 )
 
 #
@@ -34,7 +36,7 @@ declare -A XBREAK_USAGE=(
 # __xbreak $TIME
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -50,34 +52,40 @@ function __xbreak() {
     if [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local XINIT="/usr/bin/xinit"
-		local XMSG="/usr/bin/xmessage"
-        case $TIME in
-            +([0-9]))
-                while :
-                do
-                    __checkx "$XMSG"
-                    local STATUS=$?
-                    if [ "$STATUS" -eq "$SUCCESS" ]; then
-                        MSG="Time's up! Session will be closed"
-                        eval "$XMSG -center $MSG"
-                    else
-                        MSG="Time's up! Session will be closed"
-						printf "$DSTA" "$UTIL_XBREAK" "$FUNC" "$MSG"
-                    fi
-                done 
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DEND" "$UTIL_XBREAK" "$FUNC" "Done"
-				fi
-                return $SUCCESS
-                ;;
-            *) 
-                __usage $XBREAK_USAGE
-                ;;
-        esac
-        return $NOT_SUCCESS 
+		declare -A configxbreakutil=()
+		__loadutilconf "$UTIL_XBREAK_CFG" configxbreakutil
+		local STATUS=$?
+		if [ $STATUS -eq $SUCCESS ]; then
+			local xinit=${configxbreakutil[XINIT]}
+			local xmsg=${configxbreakutil[XMSG]}
+		    case $TIME in
+		        +([0-9]))
+		            while :
+		            do
+		                __checkx "$XMSG"
+		                STATUS=$?
+		                if [ $STATUS -eq $SUCCESS ]; then
+		                    MSG="Time's up! Session will be closed"
+		                    eval "$XMSG -center $MSG"
+		                else
+		                    MSG="Time's up! Session will be closed"
+							printf "$DSTA" "$UTIL_XBREAK" "$FUNC" "$MSG"
+		                fi
+		            done 
+					if [ "$TOOL_DBG" == "true" ]; then
+						printf "$DEND" "$UTIL_XBREAK" "$FUNC" "Done"
+					fi
+		            return $SUCCESS
+		            ;;
+		        *) 
+		            __usage "$(declare -p XBREAK_USAGE)"
+		            ;;
+		    esac
+		    return $NOT_SUCCESS 
+		fi
+		return $NOT_SUCCESS
     fi
-    __usage $XBREAK_USAGE
+    __usage "$(declare -p XBREAK_USAGE)"
     return $NOT_SUCCESS
 }
 

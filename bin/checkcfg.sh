@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECKCFG=checkcfg
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CHECKCFG_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKCFG_VERSION
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
 
 declare -A CHECKCFG_USAGE=(
-    [TOOL_NAME]="__$UTIL_CHECKCFG"
-    [ARG1]="[TOOL_CFG] Path to config file"
-    [EX-PRE]="# Example checking config file"
-    [EX]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
+    ["TOOL"]="__$UTIL_CHECKCFG"
+    ["ARG1"]="[TOOL_CFG] Path to config file"
+    ["EX-PRE"]="# Example checking config file"
+    ["EX"]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A CHECKCFG_USAGE=(
 # __checkcfg "$CFG_FILE"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #   # notify admin | user
 # else
@@ -67,7 +67,7 @@ function __checkcfg() {
 		printf "$SEND" "$UTIL_CHECKCFG" "$MSG"
 		return $NOT_SUCCESS
     fi
-    __usage $CHECKCFG_USAGE
+    __usage "$(declare -p CHECKCFG_USAGE)"
     return $NOT_SUCCESS
 }
 

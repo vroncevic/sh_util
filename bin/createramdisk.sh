@@ -7,19 +7,21 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CREATERAMDISK=createramdisk
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
+UTIL_CREATERAMDISK_VERSION=ver.1.0
+UTIL=/root/scripts/sh-util-srv/$UTIL_CREATERAMDISK_VERSION
+UTIL_CREATERAMDISK_CFG=$UTIL/conf/$UTIL_CREATERAMDISK.cfg
 UTIL_LOG=$UTIL/log
 
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
+. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/devel.sh
 
 declare -A CREATERAMDISK_USAGE=(
-    [TOOL_NAME]="__$UTIL_CREATERAMDISK"
-    [ARG1]="[MOUNTPT] Mount point"
-    [EX-PRE]="# Example creating RAM disk"
-    [EX]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
+    ["TOOL"]="__$UTIL_CREATERAMDISK"
+    ["ARG1"]="[MOUNTPT] Mount point"
+    ["EX-PRE"]="# Example creating RAM disk"
+    ["EX"]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
 )
 
 #
@@ -33,7 +35,7 @@ declare -A CREATERAMDISK_USAGE=(
 # __createramdisk "$MOUNTPT"
 # local STATUS=$?
 #
-# if [ "$STATUS" -eq "$SUCCESS" ]; then
+# if [ $STATUS -eq $SUCCESS ]; then
 #   # true
 #	# notify admin | user
 # else
@@ -49,47 +51,52 @@ function __createramdisk() {
     if [ -n "$MOUNTPT" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
-		local MKE2FS="/sbin/mke2fs"
-        local SIZE=2000            # 2K blocks (change as appropriate)
-        local BLOCKSIZE=1024       # 1K (1024 byte) block size
-        local DEVICE=/dev/ram0     # First ram device
-		if [ "$TOOL_DBG" == "true" ]; then
-            MSG="Check dir [$MOUNTPT]"
-			printf "$DQUE" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
-		fi
-        if [ ! -d "$MOUNTPT" ]; then
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "%s\n" "[not ok]"
-            	MSG="Creating directory [$MOUNTPT]"
-				printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
-			fi
-            mkdir "$MOUNTPT"
-        fi
-		if [ "$TOOL_DBG" == "true" ]; then
-            printf "%s\n" "[ok]"
-		fi
-		__checktool "$MKE2FS"
+		declare -A configcreateramdiskutil=()
+		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configcreateramdiskutil
 		local STATUS=$?
-		if [ "$STATUS" -eq "$SUCCESS" ]; then
-			dd if=/dev/zero of=$DEVICE count=$SIZE bs=$BLOCKSIZE  
-			eval "$MKE2FS $DEVICE"
+		if [ $STATUS -eq $SUCCESS ]; then
+			local makefs=$configcreateramdiskutil[MKE2FS]
+		    local size=2000            # 2K blocks (change as appropriate)
+		    local blocksize=1024       # 1K (1024 byte) block size
+		    local device=$configcreateramdiskutil[DEVICE]
 			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Mounting device [$DEVICE] to point [$MOUNTPT]"
-				printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
+		        MSG="Checking dir [$MOUNTPT]"
+				printf "$DQUE" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
 			fi
-			mount "$DEVICE" "$MOUNTPT"
+		    if [ ! -d "$MOUNTPT" ]; then
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "%s\n" "[not ok]"
+		        	MSG="Creating directory [$MOUNTPT]"
+					printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
+				fi
+		        mkdir "$MOUNTPT"
+		    fi
 			if [ "$TOOL_DBG" == "true" ]; then
-				printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "Set permission"
+		        printf "%s\n" "[ok]"
 			fi
-			chmod 777 "$MOUNTPT"
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "$DEND" "$UTIL_CREATERAMDISK" "$FUNC" "Done"
+			__checktool "$makefs"
+			local STATUS=$?
+			if [ $STATUS -eq $SUCCESS ]; then
+				dd if=/dev/zero of=$device count=$size bs=$blocksize  
+				eval "$makefs $device"
+				if [ "$TOOL_DBG" == "true" ]; then
+					MSG="Mounting device [$device] to point [$MOUNTPT]"
+					printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "$MSG"
+				fi
+				eval "mount $device $MOUNTPT"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DSTA" "$UTIL_CREATERAMDISK" "$FUNC" "Set permission"
+				fi
+				chmod 777 "$MOUNTPT"
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_CREATERAMDISK" "$FUNC" "Done"
+				fi
+				return $SUCCESS
 			fi
-			return $SUCCESS
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $CREATERAMDISK_USAGE
+    __usage "$(declare -p CREATERAMDISK_USAGE)"
     return $NOT_SUCCESS
 }
 
