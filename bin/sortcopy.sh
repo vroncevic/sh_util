@@ -15,18 +15,18 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LCP_USAGE=(
-    ["TOOL"]="__lcp"
-    ["ARG1"]="[EXSTENSION]  File extension"
-    ["ARG2"]="[DESTINATION] Final destination for copy process"
-    ["EX-PRE"]="# Copy all *.jpg files to directory /opt/"
-    ["EX"]="__lcp jpg /opt/"	
+    [TOOL]="__lcp"
+    [ARG1]="[EXSTENSION]  File extension"
+    [ARG2]="[DESTINATION] Final destination for copy process"
+    [EX-PRE]="# Copy all *.jpg files to directory /opt/"
+    [EX]="__lcp jpg /opt/"	
 )
 
 declare -A DUP_USAGE=(
-    ["TOOL"]="__duplicatescounter"
-    ["ARG1"]="[FILE_PATH] Sort and count duplicates"
-    ["EX-PRE"]="# Sort and count duplicates"
-    ["EX"]="__duplicatescounter /opt/test.txt"	
+    [TOOL]="__duplicatescounter"
+    [ARG1]="[FILE_PATH] Sort and count duplicates"
+    [EX-PRE]="# Sort and count duplicates"
+    [EX]="__duplicatescounter /opt/test.txt"	
 )
 
 #
@@ -76,7 +76,7 @@ function __lcp() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p LCP_USAGE)"
+    __usage $LCP_USAGE
     return $NOT_SUCCESS
 }
 
@@ -127,7 +127,7 @@ function __duplicatescounter() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p DUP_USAGE)"
+    __usage $DUP_USAGE
     return $NOT_SUCCESS
 }
 

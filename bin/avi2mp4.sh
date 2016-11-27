@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A AVI2MP4_USAGE=(
-    ["TOOL"]="__$UTIL_AVI2MP4"
-    ["ARG1"]="[FILE_NAME] Path to AVI file"
-    ["EX-PRE"]="# Example converting AVI file"
-    ["EX"]="__$UTIL_AVI2MP4 test.avi"	
+    [TOOL]="__$UTIL_AVI2MP4"
+    [ARG1]="[FILE_NAME] Path to AVI file"
+    [EX-PRE]="# Example converting AVI file"
+    [EX]="__$UTIL_AVI2MP4 test.avi"	
 )
 
 #
@@ -53,7 +53,7 @@ function __avi2mp4() {
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
 		declare -A configavi2mp4util=()
-		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configavi2mp4util
+		__loadutilconf "$UTIL_AVI2MP4_CFG" configavi2mp4util
 		local STATUS=$?
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking file [$FILE_NAME]"
@@ -85,7 +85,7 @@ function __avi2mp4() {
 		printf "$SEND" "$UTIL_AVI2MP4" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p AVI2MP4_USAGE)"
+    __usage $AVI2MP4_USAGE
     return $NOT_SUCCESS
 }
 

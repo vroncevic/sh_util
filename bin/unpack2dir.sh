@@ -16,13 +16,6 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/dirutils.sh
 . $UTIL/bin/devel.sh
 
-declare -A UNPACK2DIR_USAGE=(
-    ["TOOL"]="__$UTIL_UNPACK2DIR"
-    ["ARG1"]="[FILE] Path to the target"
-    ["EX-PRE"]="# Example running __$UTIL_UNPACK2DIR"
-    ["EX"]="__$UTIL_UNPACK2DIR test.ar.gz"	
-)
-
 #
 # @brief  Unpack to dir archive
 # @param  Value required archive file

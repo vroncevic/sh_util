@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOGGEDOUT_USAGE=(
-    ["TOOL"]="__$UTIL_LOGGEDOUT"
-    ["ARG1"]="[LOGOUT_STRUCTURE] System username and time"
-    ["EX-PRE"]="# Checking user to log out"
-    ["EX"]="__$UTIL_LOGGEDOUT \$LOGOUT_STRUCTURE"	
+    [TOOL]="__$UTIL_LOGGEDOUT"
+    [ARG1]="[LOGOUT_STRUCTURE] System username and time"
+    [EX-PRE]="# Checking user to log out"
+    [EX]="__$UTIL_LOGGEDOUT \$LOGOUT_STRUCTURE"	
 )
 
 #
@@ -30,10 +30,10 @@ declare -A LOGGEDOUT_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGOUT_STRUCTURE=()
-# LOGOUT_STRUCTURE["USERNAME"]="rmuller"
-# LOGOUT_STRUCTURE["TIME"]=$time
+# LOGOUT_STRUCTURE[USERNAME]="vroncevic"
+# LOGOUT_STRUCTURE[TIME]=$time
 #
-# __loggedout "$(declare -p LOGOUT_STRUCTURE)"
+# __loggedout $LOGOUT_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -48,9 +48,9 @@ declare -A LOGGEDOUT_USAGE=(
 # fi
 #
 function __loggedout() {
-	eval "declare -A LOGOUT_STRUCTURE="${1#*=}
-    local USER_NAME=${LOGOUT_STRUCTURE["USERNAME"]}
-    local TIME=${LOGOUT_STRUCTURE["TIME"]}
+	local LOGOUT_STRUCTURE=$1
+    local USER_NAME=${LOGOUT_STRUCTURE[USERNAME]}
+    local TIME=${LOGOUT_STRUCTURE[TIME]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -77,7 +77,7 @@ function __loggedout() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p LOGGEDOUT_USAGE)"
+    __usage $LOGGEDOUT_USAGE
     return $NOT_SUCCESS
 }
 

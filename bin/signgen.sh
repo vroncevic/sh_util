@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SIGNGEN_USAGE=(
-    ["TOOL"]="__$UTIL_SIGNGEN"
-    ["ARG1"]="[SIGNATURE_STRUCTURE] Full name, work position"
-    ["EX-PRE"]="# Example generating email signature"
-    ["EX"]="__$UTIL_SIGNGEN \$SIGNATURE_STRUCTURE"	
+    [TOOL]="__$UTIL_SIGNGEN"
+    [ARG1]="[SIGNATURE_STRUCTURE] Full name, work position"
+    [EX-PRE]="# Example generating email signature"
+    [EX]="__$UTIL_SIGNGEN \$SIGNATURE_STRUCTURE"	
 )
 
 #
@@ -32,14 +32,14 @@ declare -A SIGNGEN_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A SIGNATURE_STRUCTURE=()
-# SIGNATURE_STRUCTURE["NAME"]=$name      # Full name
-# SIGNATURE_STRUCTURE["WP"]=$wp          # Work position as eenginer, developer
-# SIGNATURE_STRUCTURE["DN"]=$dn          # Electronic, Design Service
-# SIGNATURE_STRUCTURE["IP"]=$ip          # IP phone number
-# SIGNATURE_STRUCTURE["MOBILE"]=$mobile  # Mobile phone number
-# SIGNATURE_STRUCTURE["EMAIL"]=$email    # Email address
+# SIGNATURE_STRUCTURE[NAME]=$name      # Full name
+# SIGNATURE_STRUCTURE[WP]=$wp          # Work position as eenginer, developer
+# SIGNATURE_STRUCTURE[DN]=$dn          # Electronic, Design Service
+# SIGNATURE_STRUCTURE[IP]=$ip          # IP phone number
+# SIGNATURE_STRUCTURE[MOBILE]=$mobile  # Mobile phone number
+# SIGNATURE_STRUCTURE[EMAIL]=$email    # Email address
 # 
-# __signgen "$(declare -p SIGNATURE_STRUCTURE)"
+# __signgen $SIGNATURE_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -55,12 +55,12 @@ declare -A SIGNGEN_USAGE=(
 #
 function __signgen() {
 	eval "declare -A SIGNATURE_STRUCTURE="${1#*=}
-    local NAME=${SIGNATURE_STRUCTURE["NAME"]}
-    local WORKPOSITION=${SIGNATURE_STRUCTURE["WP"]}
-    local DEPARTMENT=${SIGNATURE_STRUCTURE["DN"]}
-    local IP=${SIGNATURE_STRUCTURE["IP"]}
-    local MOBILE=${SIGNATURE_STRUCTURE["MOBILE"]}
-    local EMAIL=${SIGNATURE_STRUCTURE["EMAIl"]}
+    local NAME=${SIGNATURE_STRUCTURE[NAME]}
+    local WORKPOSITION=${SIGNATURE_STRUCTURE[WP]}
+    local DEPARTMENT=${SIGNATURE_STRUCTURE[DN]}
+    local IP=${SIGNATURE_STRUCTURE[IP]}
+    local MOBILE=${SIGNATURE_STRUCTURE[MOBILE]}
+    local EMAIL=${SIGNATURE_STRUCTURE[EMAIl]}
     if [ -n "$NAME" ] && [ -n "$WORKPOSITION" ] && [ -n "$DEPARTMENT" ] &&
        [ -n "$IP" ] && [ -n "$MOBILE" ] && [ -n "$EMAIL" ] ; then
 		local FUNC=${FUNCNAME[0]}
@@ -214,7 +214,7 @@ function __signgen() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p SIGNGEN_USAGE)"
+    __usage $SIGNGEN_USAGE
     return $NOT_SUCCESS
 } 
 

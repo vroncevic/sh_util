@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ADDNEWTOOL_USAGE=(
-    ["TOOL"]="__$UTIL_ADDNEWTOOL"
-    ["ARG1"]="[TOOL_TO_ADD] Name of App/Tool/Script"
-    ["EX-PRE"]="# Example adding info for Thunderbird"
-    ["EX"]="__$UTIL_ADDNEWTOOL thunderbird"
+    [TOOL]="__$UTIL_ADDNEWTOOL"
+    [ARG1]="[TOOL_TO_ADD] Name of App/Tool/Script"
+    [EX-PRE]="# Example adding info for Thunderbird"
+    [EX]="__$UTIL_ADDNEWTOOL thunderbird"
 )
 
 #
@@ -144,7 +144,7 @@ function __addnewtool() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p ADDNEWTOOL_USAGE)"
+    __usage $ADDNEWTOOL_USAGE
     return $NOT_SUCCESS
 }
 

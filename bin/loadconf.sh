@@ -17,11 +17,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOADCONF_USAGE=(
-    ["TOOL"]="__$UTIL_LOADCONF"
-    ["ARG1"]="[TOOL_CFG]      Path to config file"
-    ["ARG2"]="[CONFIGURATION] Hash structure for config"
-    ["EX-PRE"]="# Example load configuration"
-    ["EX"]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
+    [TOOL]="__$UTIL_LOADCONF"
+    [ARG1]="[TOOL_CFG]      Path to config file"
+    [ARG2]="[CONFIGURATION] Hash structure for config"
+    [EX-PRE]="# Example load configuration"
+    [EX]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
 )
 
 #
@@ -81,7 +81,7 @@ function __loadconf() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p LOADCONF_USAGE)"
+    __usage $LOADCONF_USAGE
     return $NOT_SUCCESS
 }
 

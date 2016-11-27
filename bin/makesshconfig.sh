@@ -16,11 +16,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A MAKESSHCONFIG_USAGE=(
-    ["TOOL"]="__$UTIL_MAKESSHCONFIG"
-    ["ARG1"]="[USERNAME]   System username"
-    ["ARG2"]="[DEPARTMENT] System group"
-    ["EX-PRE"]="# Generate SSH configuration"
-    ["EX"]="__$UTIL_MAKESSHCONFIG vroncevic users"	
+    [TOOL]="__$UTIL_MAKESSHCONFIG"
+    [ARG1]="[USERNAME]   System username"
+    [ARG2]="[DEPARTMENT] System group"
+    [EX-PRE]="# Generate SSH configuration"
+    [EX]="__$UTIL_MAKESSHCONFIG vroncevic users"	
 )
 
 #
@@ -114,7 +114,7 @@ Host host2
 		printf "$SEND" "$UTIL_MAKESSHCONFIG" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p MAKESSHCONFIG_USAGE)"
+    __usage $MAKESSHCONFIG_USAGE
     return $NOT_SUCCESS
 }
 

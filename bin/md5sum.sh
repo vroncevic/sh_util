@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A md5sum_USAGE=(
-    ["TOOL"]="__$UTIL_MD5SUM"
-    ["ARG1"]="[INPUT_STRING] input string"
-    ["EX-PRE"]="# Calculate md5sum from an input string"
-    ["EX"]="__$UTIL_MD5SUM simpletest"	
+    [TOOL]="__$UTIL_MD5SUM"
+    [ARG1]="[INPUT_STRING] input string"
+    [EX-PRE]="# Calculate md5sum from an input string"
+    [EX]="__$UTIL_MD5SUM simpletest"	
 )
 
 #
@@ -73,7 +73,7 @@ function __md5sum() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage  "$(declare -p MD5SUM_USAGE)"
+    __usage  $MD5SUM_USAGE
     return $NOT_SUCCESS
 }
 

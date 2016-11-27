@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A VDEPLOY_USAGE=(
-    ["TOOL"]="__$UTIL_VDEPLOY"
-    ["ARG1"]="[VDEPLOY_STRUCTURE] Version number and path to dev-dir"
-    ["EX-PRE"]="# Copy tool to deployment zone"
-    ["EX"]="__$UTIL_VDEPLOY \$VDEPLOY_STRUCTURE"
+    [TOOL]="__$UTIL_VDEPLOY"
+    [ARG1]="[VDEPLOY_STRUCTURE] Version number and path to dev-dir"
+    [EX-PRE]="# Copy tool to deployment zone"
+    [EX]="__$UTIL_VDEPLOY \$VDEPLOY_STRUCTURE"
 )
 
 #
@@ -32,10 +32,10 @@ declare -A VDEPLOY_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VDEPLOY_STRUCTURE=()
-# VDEPLOY_STRUCTURE["TV"]="ver.1.0"
-# VDEPLOY_STRUCTURE["DP"]="/opt/new_tool/"
+# VDEPLOY_STRUCTURE[TV]="ver.1.0"
+# VDEPLOY_STRUCTURE[DP]="/opt/new_tool/"
 #
-# __vdeploy "$(declare -p VDEPLOY_STRUCTURE)"
+# __vdeploy $VDEPLOY_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,9 +50,9 @@ declare -A VDEPLOY_USAGE=(
 # fi
 #
 function __vdeploy() {
-	eval "declare -A VDEPLOY_STRUCTURE="${1#*=}
-    local VERSION=${VDEPLOY_STRUCTURE["TV"]}
-    local DEVPATH=${VDEPLOY_STRUCTURE["DP"]}
+	local VDEPLOY_STRUCTURE=$1
+    local VERSION=${VDEPLOY_STRUCTURE[TV]}
+    local DEVPATH=${VDEPLOY_STRUCTURE[DP]}
     if [ -n "$VERSION" ] && [ -n "$DEVPATH" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -95,7 +95,7 @@ function __vdeploy() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p VDEPLOY_USAGE)"
+    __usage $VDEPLOY_USAGE
     return $NOT_SUCCESS
 }
 

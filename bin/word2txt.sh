@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A WORD2TXT_USAGE=(
-    ["TOOL"]="__$UTIL_WORD2TXT"
-    ["ARG1"]="[DOC_FILE] Name of Document to be extracted"
-    ["EX-PRE"]="# Display ms word doc file in ascii format"
-    ["EX"]="__$UTIL_WORD2TXT test.doc"	
+    [TOOL]="__$UTIL_WORD2TXT"
+    [ARG1]="[DOC_FILE] Name of Document to be extracted"
+    [EX-PRE]="# Display ms word doc file in ascii format"
+    [EX]="__$UTIL_WORD2TXT test.doc"	
 )
 
 #
@@ -81,7 +81,7 @@ function __word2txt() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p WORD2TXT_USAGE)"
+    __usage $WORD2TXT_USAGE
     return $NOT_SUCCESS
 }
 

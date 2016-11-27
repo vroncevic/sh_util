@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CHECKX_USAGE=(
-    ["TOOL"]="__$UTIL_CHECKX"
-    ["ARG1"]="[XINIT] Instance of tool for running X session"
-    ["EX-PRE"]="# Example checking X Server"
-    ["EX"]="__$UTIL_CHECKX \"xinit\""
+    [TOOL]="__$UTIL_CHECKX"
+    [ARG1]="[XINIT] Instance of tool for running X session"
+    [EX-PRE]="# Example checking X Server"
+    [EX]="__$UTIL_CHECKX \"xinit\""
 )
 
 #
@@ -67,7 +67,7 @@ function __checkx() {
 		printf "$SEND" "$UTIL_CHECKX" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p CHECKX_USAGE)"
+    __usage $CHECKX_USAGE
     return $NOT_SUCCESS
 }
 

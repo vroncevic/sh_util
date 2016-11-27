@@ -16,10 +16,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A RMLEADS_USAGE=(
-    ["TOOL"]="__$UTIL_RMLEADS"
-    ["ARG1"]="[FILES] Name of file"
-    ["EX-PRE"]="# Remove empty leading spaces from an ascii file"
-    ["EX"]="__$UTIL_RMLEADS /data/test.txt"	
+    [TOOL]="__$UTIL_RMLEADS"
+    [ARG1]="[FILES] Name of file"
+    [EX-PRE]="# Remove empty leading spaces from an ascii file"
+    [EX]="__$UTIL_RMLEADS /data/test.txt"	
 )
 
 #
@@ -85,7 +85,7 @@ function __rmleads() {
 		fi
         return $SUCCESS        
     fi
-    __usage "$(declare -p RMLEADS_USAGE)"
+    __usage $RMLEADS_USAGE
     return $NOT_SUCCESS
 }
 

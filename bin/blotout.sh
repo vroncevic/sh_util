@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A BLOTOUT_USAGE=(
-    ["TOOL"]="__$UTIL_BLOTOUT"
-    ["ARG1"]="[FILE_NAME] Name of file"
-    ["EX-PRE"]="# Example delete file with high security"
-    ["EX"]="__$UTIL_BLOTOUT /opt/test.ini"	
+    [TOOL]="__$UTIL_BLOTOUT"
+    [ARG1]="[FILE_NAME] Name of file"
+    [EX-PRE]="# Example delete file with high security"
+    [EX]="__$UTIL_BLOTOUT /opt/test.ini"	
 )
 
 #
@@ -106,7 +106,7 @@ function __blotout() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p BLOTOUT_USAGE)"
+    __usage $BLOTOUT_USAGE
     return $NOT_SUCCESS
 }
 

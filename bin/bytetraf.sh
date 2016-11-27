@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A BYTETRAF_USAGE=(
-    ["TOOL"]="__$UTIL_BYTETRAF"
-    ["ARG1"]="[TEST_STRUCTURE] Time and name of interface"
-    ["EX-PRE"]="# Display network traffic on an interface"
-    ["EX"]="__$UTIL_BYTETRAF \"enp0s25\""
+    [TOOL]="__$UTIL_BYTETRAF"
+    [ARG1]="[TEST_STRUCTURE] Time and name of interface"
+    [EX-PRE]="# Display network traffic on an interface"
+    [EX]="__$UTIL_BYTETRAF \"enp0s25\""
 )
 
 #
@@ -125,10 +125,10 @@ function __interface_check() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A TEST_STRUCTURE=()
-# TEST_STRUCTURE["TIME"]=$TIME
-# TEST_STRUCTURE["INTERFACE"]=$INTERFACE
+# TEST_STRUCTURE[TIME]=$TIME
+# TEST_STRUCTURE[INTERFACE]=$INTERFACE
 #
-# __bytetraf "$(declare -p TEST_STRUCTURE)"
+# __bytetraf $TEST_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -196,7 +196,7 @@ function __bytetraf() {
         esac
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p BYTETRAF_USAGE)"
+    __usage $BYTETRAF_USAGE
     return $NOT_SUCCESS
 }
 

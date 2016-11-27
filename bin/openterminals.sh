@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A OPENTERMINALS_USAGE=(
-    ["TOOL"]="__$UTIL_OPENTERMINALS"
-    ["ARG1"]="[NUM_TERMINALS] number of terminal windows"
-    ["EX-PRE"]="# Open 4 terminal windows"
-    ["EX"]="__$UTIL_OPENTERMINALS 4"	
+    [TOOL]="__$UTIL_OPENTERMINALS"
+    [ARG1]="[NUM_TERMINALS] number of terminal windows"
+    [EX-PRE]="# Open 4 terminal windows"
+    [EX]="__$UTIL_OPENTERMINALS 4"	
 )
 
 #
@@ -78,7 +78,7 @@ function __openterminals() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p OPENTERMINALS_USAGE)"
+    __usage $OPENTERMINALS_USAGE
     return $NOT_SUCCESS
 }
 

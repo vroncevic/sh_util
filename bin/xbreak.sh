@@ -19,10 +19,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A XBREAK_USAGE=(
-    ["TOOL"]="__$UTIL_XBREAK"
-    ["ARG1"]="[TIME] Life time"
-    ["EX-PRE"]="# Example running __$UTIL_XBREAK"
-    ["EX"]="__$UTIL_XBREAK 5s"	
+    [TOOL]="__$UTIL_XBREAK"
+    [ARG1]="[TIME] Life time"
+    [EX-PRE]="# Example running __$UTIL_XBREAK"
+    [EX]="__$UTIL_XBREAK 5s"	
 )
 
 #
@@ -78,14 +78,14 @@ function __xbreak() {
 		            return $SUCCESS
 		            ;;
 		        *) 
-		            __usage "$(declare -p XBREAK_USAGE)"
+		            __usage $XBREAK_USAGE
 		            ;;
 		    esac
 		    return $NOT_SUCCESS 
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p XBREAK_USAGE)"
+    __usage $XBREAK_USAGE
     return $NOT_SUCCESS
 }
 

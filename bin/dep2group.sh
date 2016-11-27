@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A DEP2GROUP_USAGE=(
-    ["TOOL"]="__$UTIL_DEP2GROUP"
-    ["ARG1"]="[DEPARTMENT] Department name"
-    ["EX-PRE"]="# Example converting \"Management\" to \"me\""
-    ["EX"]="__$UTIL_DEP2GROUP \"Management\""
+    [TOOL]="__$UTIL_DEP2GROUP"
+    [ARG1]="[DEPARTMENT] Department name"
+    [EX-PRE]="# Example converting \"Management\" to \"me\""
+    [EX]="__$UTIL_DEP2GROUP \"Management\""
 )
 
 #
@@ -73,7 +73,7 @@ function __dep2group() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p DEP2GROUP_USAGE)"
+    __usage $DEP2GROUP_USAGE
     return $NOT_SUCCESS
 }
 

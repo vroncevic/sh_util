@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SPAMLOOKUP_USAGE=(
-    ["TOOL"]="__$UTIL_SPAMLOOKUP"
-    ["ARG1"]="[DOMAIN_NAME] Domain name"
-    ["EX-PRE"]="# Example check www.domain.cc"
-    ["EX"]="__$UTIL_SPAMLOOKUP www.domain.cc"	
+    [TOOL]="__$UTIL_SPAMLOOKUP"
+    [ARG1]="[DOMAIN_NAME] Domain name"
+    [EX-PRE]="# Example check www.domain.cc"
+    [EX]="__$UTIL_SPAMLOOKUP www.domain.cc"	
 )
 
 #
@@ -73,7 +73,7 @@ function __spamlookup() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p SPAMLOOKUP_USAGE)"
+    __usage $SPAMLOOKUP_USAGE
     return $NOT_SUCCESS
 }
 

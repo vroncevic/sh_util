@@ -15,11 +15,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A TIMELYKILL_USAGE=(
-    ["TOOL"]="__$UTIL_TIMELYKILL"
-    ["ARG1"]="[PID]  Process ID"
-    ["ARG2"]="[TIME] Time <n>s|m|h|d"
-    ["EX-PRE"]="# Destroy process in <n>s|m|h|d"
-    ["EX"]="__$UTIL_TIMELYKILL freshtool 5s"	
+    [TOOL]="__$UTIL_TIMELYKILL"
+    [ARG1]="[PID]  Process ID"
+    [ARG2]="[TIME] Time <n>s|m|h|d"
+    [EX-PRE]="# Destroy process in <n>s|m|h|d"
+    [EX]="__$UTIL_TIMELYKILL freshtool 5s"	
 )
 
 #
@@ -196,7 +196,7 @@ function __timelykill() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p TIMELYKILL_USAGE)"
+    __usage $TIMELYKILL_USAGE
     return $NOT_SUCCESS
 }
 

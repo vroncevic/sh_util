@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A PATHPROC_USAGE=(
-    ["TOOL"]="__$UTIL_PATHPROC"
-    ["ARG1"]="[PROCESS] Process ID"
-    ["EX-PRE"]="# Example Gives complete path name of process"
-    ["EX"]="__$UTIL_PATHPROC 1356"	
+    [TOOL]="__$UTIL_PATHPROC"
+    [ARG1]="[PROCESS] Process ID"
+    [EX-PRE]="# Example Gives complete path name of process"
+    [EX]="__$UTIL_PATHPROC 1356"	
 )
 
 #
@@ -85,7 +85,7 @@ function __pathproc() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p PATHPROC_USAGE)"
+    __usage $PATHPROC_USAGE
     return $NOT_SUCCESS
 }
 

@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CHECKTOOL_USAGE=(
-    ["TOOL"]="__$UTIL_CHECKTOOL"
-    ["ARG1"]="["TOOL"] Path to App/Tool/Script"
-    ["EX-PRE"]="# Example checking java tool"
-    ["EX"]="__$UTIL_CHECKTOOL /usr/share/java"
+    [TOOL]="__$UTIL_CHECKTOOL"
+    [ARG1]="[TOOL] Path to App/Tool/Script"
+    [EX-PRE]="# Example checking java tool"
+    [EX]="__$UTIL_CHECKTOOL /usr/share/java"
 )
 
 #
@@ -67,7 +67,7 @@ function __checktool() {
 		printf "$SEND" "$UTIL_CHECKTOOL" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p CHECKTOOL_USAGE)"
+    __usage $CHECKTOOL_USAGE
     return $NOT_SUCCESS
 }
 

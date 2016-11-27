@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A RMDUPS_USAGE=(
-    ["TOOL"]="__$UTIL_RMDUPS"
-    ["ARG1"]="[STREAM] stdin or file path"
-    ["EX-PRE"]="# Remove duplicate lines from file or stdin"
-    ["EX"]="__$UTIL_RMDUPS /data/test.txt"	
+    [TOOL]="__$UTIL_RMDUPS"
+    [ARG1]="[STREAM] stdin or file path"
+    [EX-PRE]="# Remove duplicate lines from file or stdin"
+    [EX]="__$UTIL_RMDUPS /data/test.txt"	
 )
 
 #
@@ -65,7 +65,7 @@ function __rmdups() {
 		printf "$SEND" "$UTIL_RMDUPS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p RMDUPS_USAGE)"
+    __usage $RMDUPS_USAGE
     return $NOT_SUCCESS
 }
 

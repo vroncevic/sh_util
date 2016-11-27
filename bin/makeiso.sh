@@ -15,11 +15,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A MAKEISO_USAGE=(
-    ["TOOL"]="__$UTIL_MAKEISO"
-    ["ARG1"]="[SOURCE]       Target media for cloning or restoring"
-    ["ARG2"]="[DESTINATION]  Final destination"
-    ["EX-PRE"]="# Creates an ISO disk image from a CD-ROM"
-    ["EX"]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
+    [TOOL]="__$UTIL_MAKEISO"
+    [ARG1]="[SOURCE]       Target media for cloning or restoring"
+    [ARG2]="[DESTINATION]  Final destination"
+    [EX-PRE]="# Creates an ISO disk image from a CD-ROM"
+    [EX]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
 )
 
 #
@@ -115,7 +115,7 @@ function __makeiso {
 		printf "$SEND" "$UTIL_MAKEISO" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p MAKEISO_USAGE)"
+    __usage $MAKEISO_USAGE
     return $NOT_SUCCESS
 }
 

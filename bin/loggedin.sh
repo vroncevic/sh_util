@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOGGEDIN_USAGE=(
-    ["TOOL"]="__$UTIL_LOGGEDIN"
-    ["ARG1"]="[LOGIN_STRUCTURE] System username and time"
-    ["EX-PRE"]="# Create a file n bytes large"
-    ["EX"]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
+    [TOOL]="__$UTIL_LOGGEDIN"
+    [ARG1]="[LOGIN_STRUCTURE] System username and time"
+    [EX-PRE]="# Create a file n bytes large"
+    [EX]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
 )
 
 #
@@ -30,10 +30,10 @@ declare -A LOGGEDIN_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGIN_STRUCTURE=()
-# LOGIN_STRUCTURE["USERNAME"]="rmuller"
-# LOGIN_STRUCTURE["TIME"]=$time
+# LOGIN_STRUCTURE[USERNAME]="vroncevic"
+# LOGIN_STRUCTURE[TIME]=$time
 #
-# __loggedin "$(declare -p LOGIN_STRUCTURE)"
+# __loggedin $LOGIN_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -48,9 +48,9 @@ declare -A LOGGEDIN_USAGE=(
 # fi
 #
 function __loggedin() {
-	eval "declare -A LOGIN_STRUCTURE="${1#*=}
-    local USER_NAME=${LOGIN_STRUCTURE["USERNAME"]}
-    local TIME=${LOGIN_STRUCTURE["TIME"]}
+	local LOGIN_STRUCTURE=$1
+    local USER_NAME=${LOGIN_STRUCTURE[USERNAME]}
+    local TIME=${LOGIN_STRUCTURE[TIME]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -78,7 +78,7 @@ function __loggedin() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p LOGGEDIN_USAGE)"
+    __usage $LOGGEDIN_USAGE
     return $NOT_SUCCESS
 }
 

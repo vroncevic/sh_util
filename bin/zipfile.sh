@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ZIPFILE_USAGE=(
-    ["TOOL"]="__$UTIL_ZIPFILE"
-    ["ARG1"]="[FILE] Name of file"
-    ["EX-PRE"]="# Example zipping a file"
-    ["EX"]="__$UTIL_ZIPFILE freshtool.txt"
+    [TOOL]="__$UTIL_ZIPFILE"
+    [ARG1]="[FILE] Name of file"
+    [EX-PRE]="# Example zipping a file"
+    [EX]="__$UTIL_ZIPFILE freshtool.txt"
 )
 
 #
@@ -91,7 +91,7 @@ function __zipfile() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p ZIPFILE_USAGE)"
+    __usage $ZIPFILE_USAGE
     return $NOT_SUCCESS
 }
 

@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LONGL_USAGE=(
-    ["TOOL"]="__$UTIL_LONGL"
-    ["ARG1"]="[NUMCHARS] an integer referring to minimum characters per line"
-    ["EX-PRE"]="# Print file name, that contain lines longer then 45 chars"
-    ["EX"]="__$UTIL_LONGL 45"	
+    [TOOL]="__$UTIL_LONGL"
+    [ARG1]="[NUMCHARS] an integer referring to minimum characters per line"
+    [EX-PRE]="# Print file name, that contain lines longer then 45 chars"
+    [EX]="__$UTIL_LONGL 45"	
 )
 
 #
@@ -82,7 +82,7 @@ function __longl() {
 			printf "$DEND" "$UTIL_LONGL" "$FUNC" "Done"
 		fi
     fi
-    __usage "$(declare -p LONGL_USAGE)"
+    __usage $LONGL_USAGE
     return $NOT_SUCCESS
 }
 

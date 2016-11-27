@@ -17,24 +17,24 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A IT_PROFILE_USAGE=(
-    ["TOOL"]="__ituserprofile"
-    ["ARG1"]="[USERNAME]  employee username"
-    ["EX-PRE"]="# Example generating IT profile"
-    ["EX"]="__ituserprofile vroncevic"	
+    [TOOL]="__ituserprofile"
+    [ARG1]="[USERNAME]  employee username"
+    [EX-PRE]="# Example generating IT profile"
+    [EX]="__ituserprofile vroncevic"	
 )
 
 declare -A USER_PROFILE_USAGE=(
-    ["TOOL"]="__shareuserprofile"
-    ["ARG1"]="[SHARE_STRUCTURE]   System username and groip"
-    ["EX-PRE"]="# Example generating user profile"
-    ["EX"]="__shareuserprofile \$SHARE_STRUCTURE"	
+    [TOOL]="__shareuserprofile"
+    [ARG1]="[SHARE_STRUCTURE]   System username and groip"
+    [EX-PRE]="# Example generating user profile"
+    [EX]="__shareuserprofile \$SHARE_STRUCTURE"	
 )
 
 declare -A SHARE_PROFILE_USAGE=(
-    ["TOOL"]="__homefrobas"
-    ["ARG1"]="[HOME_STRUCTURE]   System username and group"
-    ["EX-PRE"]="# Example generatingshare profile"
-    ["EX"]="__homefrobas \$HOME_STRUCTURE"	
+    [TOOL]="__homefrobas"
+    [ARG1]="[HOME_STRUCTURE]   System username and group"
+    [EX-PRE]="# Example generatingshare profile"
+    [EX]="__homefrobas \$HOME_STRUCTURE"	
 )
 
 #
@@ -115,7 +115,7 @@ function __ituserprofile() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p IT_PROFILE_USAGE)"
+    __usage $IT_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 
@@ -128,10 +128,10 @@ function __ituserprofile() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A SHARE_STRUCTURE=()
-# SHARE_STRUCTURE["USERNAME"]="vroncevic"
-# SHARE_STRUCTURE["DEPARTMENT"]="users"
+# SHARE_STRUCTURE[USERNAME]="vroncevic"
+# SHARE_STRUCTURE[DEPARTMENT]="users"
 #
-# __shareuserprofile "$(declare -p SHARE_STRUCTURE)"
+# __shareuserprofile $SHARE_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -146,9 +146,9 @@ function __ituserprofile() {
 # fi
 #
 function __shareuserprofile() {
-	eval "declare -A SHARE_STRUCTURE="${1#*=}
-    local USERNAME=${SHARE_STRUCTURE["USERNAME"]}
-    local DEPARTMENT=${SHARE_STRUCTURE["DEPARTMENT"]}
+	local SHARE_STRUCTURE=$1
+    local USERNAME=${SHARE_STRUCTURE[USERNAME]}
+    local DEPARTMENT=${SHARE_STRUCTURE[DEPARTMENT]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -179,7 +179,9 @@ function __shareuserprofile() {
 					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set owner"
 				fi
 				local BACKUP="$R_DIR/backup/"
-				chown -R ${configituserprofileutil[UNAME]}.${configituserprofileutil[GRP]} "$BACKUP"
+				local PRFX_CMD="chown -R"
+				local OWNER="${configituserprofileutil[UNAME]}.${configituserprofileutil[GRP]}" 
+				eval "$PRFX_CMD $OWNER $BACKUP"
 				if [ "$TOOL_DBG" == "true" ]; then            
 					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set permission"
 				fi
@@ -197,7 +199,7 @@ function __shareuserprofile() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p USER_PROFILE_USAGE)"
+    __usage $USER_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 
@@ -210,10 +212,10 @@ function __shareuserprofile() {
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A HOME_STRUCTURE=()
-# HOME_STRUCTURE["USERNAME"]="vroncevic"
-# HOME_STRUCTURE["DEPARTMENT"]="users"
+# HOME_STRUCTURE[USERNAME]="vroncevic"
+# HOME_STRUCTURE[DEPARTMENT]="users"
 #
-# __homefrobas "$(declare -p HOME_STRUCTURE)"
+# __homefrobas $HOME_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -228,9 +230,9 @@ function __shareuserprofile() {
 # fi
 #
 function __homefrobas() {
-	eval "declare -A HOME_STRUCTURE="${1#*=}
-    local USERNAME=${HOME_STRUCTURE["USERNAME"]}
-    local DEPARTMENT=${HOME_STRUCTURE["DEPARTMENT"]}
+	local HOME_STRUCTURE=$1
+    local USERNAME=${HOME_STRUCTURE[USERNAME]}
+    local DEPARTMENT=${HOME_STRUCTURE[DEPARTMENT]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -255,7 +257,9 @@ function __homefrobas() {
 			if [ "$TOOL_DBG" == "true" ]; then            
 				printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set owner"
 			fi
-			chown -R "$USERNAME.$DEPARTMENT" "$R_DIR/"
+			local PRFX_CMD="chown -R" 
+			local OWNER="$USERNAME.$DEPARTMENT"
+			eval "$PRFX_CMD $OWNER $R_DIR/"			
 			if [ "$TOOL_DBG" == "true" ]; then
 				printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set permission"
 			fi
@@ -272,7 +276,7 @@ function __homefrobas() {
 		printf "$SEND" "$UTIL_EMPLOYEE" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p SHARE_PROFILE_USAGE)"
+    __usage $SHARE_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 

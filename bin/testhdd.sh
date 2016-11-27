@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A TESTHDD_USAGE=(
-    ["TOOL"]="__$UTIL_TESTHDD"
-    ["ARG1"]="[TIME_COUNT] Time count"
-    ["EX-PRE"]="# Creating zerofile and test hdd"
-    ["EX"]="__$UTIL_TESTHDD 500"	
+    [TOOL]="__$UTIL_TESTHDD"
+    [ARG1]="[TIME_COUNT] Time count"
+    [EX-PRE]="# Creating zerofile and test hdd"
+    [EX]="__$UTIL_TESTHDD 500"	
 )
 
 #
@@ -58,7 +58,7 @@ function __testhdd() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p TESTHDD_USAGE)"
+    __usage $TESTHDD_USAGE
     return $NOT_SUCCESS
 }
 

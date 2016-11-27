@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CREATERAMDISK_USAGE=(
-    ["TOOL"]="__$UTIL_CREATERAMDISK"
-    ["ARG1"]="[MOUNTPT] Mount point"
-    ["EX-PRE"]="# Example creating RAM disk"
-    ["EX"]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
+    [TOOL]="__$UTIL_CREATERAMDISK"
+    [ARG1]="[MOUNTPT] Mount point"
+    [EX-PRE]="# Example creating RAM disk"
+    [EX]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
 )
 
 #
@@ -96,7 +96,7 @@ function __createramdisk() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p CREATERAMDISK_USAGE)"
+    __usage $CREATERAMDISK_USAGE
     return $NOT_SUCCESS
 }
 

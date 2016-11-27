@@ -15,31 +15,31 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A MKDIRF_USAGE=(
-    ["TOOL"]="__mkdirf"
-    ["ARG1"]="[DIR_PATH] Directory path"
-    ["EX-PRE"]="# Example creating directory"
-    ["EX"]="__mkdirf /opt/test/"
+    [TOOL]="__mkdirf"
+    [ARG1]="[DIR_PATH] Directory path"
+    [EX-PRE]="# Example creating directory"
+    [EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A DIRNAME_USAGE=(
-    ["TOOL"]="__getdirname"
-    ["ARG1"]="[DIR_PATH] Directory path"
-    ["EX-PRE"]="# Example creating directory"
-    ["EX"]="__mkdirf /opt/test/"
+    [TOOL]="__getdirname"
+    [ARG1]="[DIR_PATH] Directory path"
+    [EX-PRE]="# Example creating directory"
+    [EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A BASENAME_USAGE=(
-    ["TOOL"]="__getbasename"
-    ["ARG1"]="[DIR_PATH] Directory path"
-    ["EX-PRE"]="# Example creating directory"
-    ["EX"]="__mkdirf /opt/test/"
+    [TOOL]="__getbasename"
+    [ARG1]="[DIR_PATH] Directory path"
+    [EX-PRE]="# Example creating directory"
+    [EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A CLEANDIR_USAGE=(
-    ["TOOL"]="__clean"
-    ["ARG1"]="[DIR_PATH] Directory path"
-    ["EX-PRE"]="# Example creating directory"
-    ["EX"]="__mkdirf /opt/test/"
+    [TOOL]="__clean"
+    [ARG1]="[DIR_PATH] Directory path"
+    [EX-PRE]="# Example creating directory"
+    [EX]="__mkdirf /opt/test/"
 ) 
 
 #
@@ -91,7 +91,7 @@ function __mkdirf() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p TOOL_MKDIR_USAGE)"
+    __usage $TOOL_MKDIR_USAGE
     return $NOT_SUCCESS
 }
 
@@ -122,7 +122,7 @@ function __getdirname() {
 		fi
         echo "$_dir"
     fi
-    __usage "$(declare -p DIRNAME_USAGE)"
+    __usage $DIRNAME_USAGE
 }
 
 #
@@ -149,7 +149,7 @@ function __getbasename() {
 		fi
         echo "${_name%$2}"
     fi
-    __usage "$(declare -p BASENAME_USAGE)"
+    __usage $BASENAME_USAGE
 }
 
 #
@@ -200,7 +200,7 @@ function __clean() {
 		printf "$SEND" "$UTIL_DIRUTILS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p CLEANDIR_USAGE)"
+    __usage $CLEANDIR_USAGE
     return $NOT_SUCCESS
 }
 

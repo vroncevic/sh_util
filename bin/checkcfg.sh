@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CHECKCFG_USAGE=(
-    ["TOOL"]="__$UTIL_CHECKCFG"
-    ["ARG1"]="[TOOL_CFG] Path to config file"
-    ["EX-PRE"]="# Example checking config file"
-    ["EX"]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
+    [TOOL]="__$UTIL_CHECKCFG"
+    [ARG1]="[TOOL_CFG] Path to config file"
+    [EX-PRE]="# Example checking config file"
+    [EX]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
 )
 
 #
@@ -67,7 +67,7 @@ function __checkcfg() {
 		printf "$SEND" "$UTIL_CHECKCFG" "$MSG"
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p CHECKCFG_USAGE)"
+    __usage $CHECKCFG_USAGE
     return $NOT_SUCCESS
 }
 

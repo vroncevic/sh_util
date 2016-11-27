@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ID2BRANCH_USAGE=(
-    ["TOOL"]="__$UTIL_ID2BRANCH"
-    ["ARG1"]="[ID] Name of town or country"
-    ["EX-PRE"]="# Example convert ns to ns-frobas-employee"
-    ["EX"]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
+    [TOOL]="__$UTIL_ID2BRANCH"
+    [ARG1]="[ID] Name of town or country"
+    [EX-PRE]="# Example convert ns to ns-frobas-employee"
+    [EX]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
 )
 
 #
@@ -76,7 +76,7 @@ function __id2branch() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p ID2BRANCH_USAGE)"
+    __usage $ID2BRANCH_USAGE
     return $NOT_SUCCESS
 }
 

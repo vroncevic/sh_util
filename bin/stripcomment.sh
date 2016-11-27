@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A STRIPCOMMENT_USAGE=(
-    ["TOOL"]="__$UTIL_STRIPCOMMENT"
-    ["ARG1"]="[FILE] Path to C file code"
-    ["EX-PRE"]="# Strips comments from C code"
-    ["EX"]="__$UTIL_STRIPCOMMENT /opt/test.c"	
+    [TOOL]="__$UTIL_STRIPCOMMENT"
+    [ARG1]="[FILE] Path to C file code"
+    [EX-PRE]="# Strips comments from C code"
+    [EX]="__$UTIL_STRIPCOMMENT /opt/test.c"	
 )
 
 #
@@ -76,7 +76,7 @@ function __stripcomment() {
 		printf "$SEND" "$UTIL_STRIPCOMMENT" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p STRIPCOMMENT_USAGE)"
+    __usage $STRIPCOMMENT_USAGE
     return $NOT_SUCCESS
 }
 

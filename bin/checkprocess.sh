@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CHECKPROCESS_USAGE=(
-    ["TOOL"]="__$UTIL_CHECKPROCESS"
-    ["ARG1"]="[PROCESS_NAME] Process name"
-    ["EX-PRE"]="# Example check ddclient process"
-    ["EX"]="__$UTIL_CHECKPROCESS ddclient"	
+    [TOOL]="__$UTIL_CHECKPROCESS"
+    [ARG1]="[PROCESS_NAME] Process name"
+    [EX-PRE]="# Example check ddclient process"
+    [EX]="__$UTIL_CHECKPROCESS ddclient"	
 )
 
 #
@@ -69,7 +69,7 @@ function __checkprocess() {
 		fi
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p CHECKPROCESS_USAGE)"
+    __usage $CHECKPROCESS_USAGE
     return $NOT_SUCCESS
 }
 

@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A UUDECODES_USAGE=(
-    ["TOOL"]="__$UTIL_UUDECODES"
-    ["ARG1"]="[FILE_NAME] Path to binary file"
-    ["EX-PRE"]="# Example decode thunderbird binary"
-    ["EX"]="__$UTIL_UUDECODES thunderbird-bin"	
+    [TOOL]="__$UTIL_UUDECODES"
+    [ARG1]="[FILE_NAME] Path to binary file"
+    [EX-PRE]="# Example decode thunderbird binary"
+    [EX]="__$UTIL_UUDECODES thunderbird-bin"	
 )
 
 #
@@ -86,7 +86,7 @@ function __uudecodes() {
 		fi
 		return $NOT_SUCCESS
 	fi
-    __usage "$(declare -p UUDECODES_USAGE)"
+    __usage $UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 
@@ -146,7 +146,7 @@ function __uudecodes_all() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p UUDECODES_USAGE)"
+    __usage $UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 

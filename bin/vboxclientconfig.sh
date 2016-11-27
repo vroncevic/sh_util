@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A VBOXCLIENTCONFIG_USAGE=(
-    ["TOOL"]="__$UTIL_VBOXCLIENTCONFIG"
-    ["ARG1"]="[USERNAME] System username"
-    ["EX-PRE"]="# Example generating VBOX config files"
-    ["EX"]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
+    [TOOL]="__$UTIL_VBOXCLIENTCONFIG"
+    [ARG1]="[USERNAME] System username"
+    [EX-PRE]="# Example generating VBOX config files"
+    [EX]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
 )
 
 #
@@ -107,7 +107,7 @@ function __vboxclientconfig() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p VBOXCLIENTCONFIG_USAGE)"
+    __usage $VBOXCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
 

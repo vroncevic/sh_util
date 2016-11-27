@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A WRAPTEXT_USAGE=(
-    ["TOOL"]="__$UTIL_WRAPTEXT"
-    ["ARG1"]="[PATH] Path to the target(s)"
-    ["EX-PRE"]="# Example running __$UTIL_WRAPTEXT"
-    ["EX"]="__$UTIL_WRAPTEXT /data/"	
+    [TOOL]="__$UTIL_WRAPTEXT"
+    [ARG1]="[PATH] Path to the target(s)"
+    [EX-PRE]="# Example running __$UTIL_WRAPTEXT"
+    [EX]="__$UTIL_WRAPTEXT /data/"	
 )
 
 #
@@ -67,7 +67,7 @@ function __wraptext() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p WRAPTEXT_USAGE)"
+    __usage $WRAPTEXT_USAGE
     return $NOT_SUCCESS
 }
 

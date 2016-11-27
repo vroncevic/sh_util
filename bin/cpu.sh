@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CPU_USAGE=(
-    ["TOOL"]="__$UTIL_CPU"
-    ["ARG1"]="[CPU_SPEED] Show in GHz | MHz CPU speed"
-    ["EX-PRE"]="# Example show in GHz CPU speed"
-    ["EX"]="__$UTIL_CPU ghz"	
+    [TOOL]="__$UTIL_CPU"
+    [ARG1]="[CPU_SPEED] Show in GHz | MHz CPU speed"
+    [EX-PRE]="# Example show in GHz CPU speed"
+    [EX]="__$UTIL_CPU ghz"	
 )
 
 #
@@ -72,7 +72,7 @@ function __cpu() {
 		fi
 		return $SUCCESS
     fi
-    __usage "$(declare -p CPU_USAGE)"
+    __usage $CPU_USAGE
     return $NOT_SUCCESS
 }
 

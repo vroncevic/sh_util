@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh 
 
 declare -A VPNCLIENTCONFIG_USAGE=(
-    ["TOOL"]="__$UTIL_VPNCLIENTCONFIG"
-    ["ARG1"]="[VPN_STRUCTURE] Username, group, first and last name"
-    ["EX-PRE"]="# Generate openVPN configuration"
-    ["EX"]="__$UTIL_VPNCLIENTCONFIG vroncevic users Vladimir Roncevic"
+    [TOOL]="__$UTIL_VPNCLIENTCONFIG"
+    [ARG1]="[VPN_STRUCTURE] Username, group, first and last name"
+    [EX-PRE]="# Generate openVPN configuration"
+    [EX]="__$UTIL_VPNCLIENTCONFIG vroncevic users Vladimir Roncevic"
 )
 
 #
@@ -33,12 +33,12 @@ declare -A VPNCLIENTCONFIG_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VPN_STRUCTURE=()
-# VPN_STRUCTURE["UN"]="vroncevic"
-# VPN_STRUCTURE["DN"]="vroncevic"
-# VPN_STRUCTURE["FN"]="Vladimir"
-# VPN_STRUCTURE["LN"]="Roncevic"
+# VPN_STRUCTURE[UN]="vroncevic"
+# VPN_STRUCTURE[DN]="vroncevic"
+# VPN_STRUCTURE[FN]="Vladimir"
+# VPN_STRUCTURE[LN]="Roncevic"
 #
-# __vpnclientconfig "$(declare -p VPN_STRUCTURE)"
+# __vpnclientconfig $VPN_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -53,11 +53,11 @@ declare -A VPNCLIENTCONFIG_USAGE=(
 # fi
 #
 function __vpnclientconfig() {
-	eval "declare -A VPN_STRUCTURE="${1#*=}
-    local UNAME=${VPN_STRUCTURE["UN"]}
-    local DEPART=${VPN_STRUCTURE["DN"]}
-    local FIRSTNAME=${VPN_STRUCTURE["FN"]}
-    local LASTNAME=${VPN_STRUCTURE["LN"]}
+	local VPN_STRUCTURE=$1
+    local UNAME=${VPN_STRUCTURE[UN]}
+    local DEPART=${VPN_STRUCTURE[DN]}
+    local FIRSTNAME=${VPN_STRUCTURE[FN]}
+    local LASTNAME=${VPN_STRUCTURE[LN]}
     if [ -n "$UNAME" ] && [ -n "$DEPART" ] && 
        [ -n "$FIRSTNAME" ] && [ -n "$LASTNAME" ]; then
 		local FUNC=${FUNCNAME[0]}
@@ -149,7 +149,7 @@ client
 			return $NOT_SUCCESS
 		fi
     fi 
-    __usage "$(declare -p VPNCLIENTCONFIG_USAGE)"
+    __usage $VPNCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
 

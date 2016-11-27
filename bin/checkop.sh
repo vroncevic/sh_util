@@ -15,11 +15,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CHECKOP_USAGE=(
-    ["TOOL"]="__$UTIL_CHECKOP"
-    ["ARG1"]="[OPERATION]      Operation to be done"
-	["ARG2"]="[OPERATION_LIST] List of operations"
-    ["EX-PRE"]="# Example checking operation"
-    ["EX"]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
+    [TOOL]="__$UTIL_CHECKOP"
+    [ARG1]="[OPERATION]      Operation to be done"
+	[ARG2]="[OPERATION_LIST] List of operations"
+    [EX-PRE]="# Example checking operation"
+    [EX]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
 )
 
 #
@@ -75,7 +75,7 @@ function __checkop() {
 		printf "$SEND" "$UTIL_CHECKOP" "$MSG"
 		return $NOT_SUCCESS
 	fi
-	__usage "$(declare -p CHECKOP_USAGE)"
+	__usage $CHECKOP_USAGE
 	return $NOT_SUCCESS
 }
 

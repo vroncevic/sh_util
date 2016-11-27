@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A DISKLABEL_USAGE=(
-    ["TOOL"]="__$UTIL_DISKLABEL"
-    ["ARG1"]="[DISK_STRUCTURE] Disk drive and disk label"
-    ["EX-PRE"]="# Set label name for mounted disk"
-    ["EX"]="__$UTIL_DISKLABEL \$DISK_STRUCTURE"	
+    [TOOL]="__$UTIL_DISKLABEL"
+    [ARG1]="[DISK_STRUCTURE] Disk drive and disk label"
+    [EX-PRE]="# Set label name for mounted disk"
+    [EX]="__$UTIL_DISKLABEL \$DISK_STRUCTURE"	
 )
 
 #
@@ -32,10 +32,10 @@ declare -A DISKLABEL_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A DISK_STRUCTURE=()
-# DISK_STRUCTURE["DISK"]=$DISK_DRIVE
-# DISK_STRUCTURE["LABEL"]=$DISK_LABEL
+# DISK_STRUCTURE[DISK]=$DISK_DRIVE
+# DISK_STRUCTURE[LABEL]=$DISK_LABEL
 #
-# __disklabel "$(declare -p DISK_STRUCTURE)"
+# __disklabel $DISK_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,9 +50,9 @@ declare -A DISKLABEL_USAGE=(
 # fi
 #
 function __disklabel() {
-	eval "declare -A DISK_STRUCTURE="${1#*=}
-    local DISK_DRIVE=${DISK_STRUCTURE["DISK"]}
-    local DISK_LABEL=${DISK_STRUCTURE["LABEL"]}
+	local DISK_STRUCTURE=$1
+    local DISK_DRIVE=${DISK_STRUCTURE[DISK]}
+    local DISK_LABEL=${DISK_STRUCTURE[LABEL]}
     if [ -n "$DISK_DRIVE" ] && [ -n "$DISK_LABEL" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -90,7 +90,7 @@ function __disklabel() {
 		fi
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p DISKLABEL_USAGE)"
+    __usage $DISKLABEL_USAGE
     return $NOT_SUCCESS
 }
 

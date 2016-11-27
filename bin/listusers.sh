@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LISTUSERS_USAGE=(
-    ["TOOL"]="__$UTIL_LISTUSERS"
-    ["ARG1"]="[ID] Minimal user id"
-    ["EX-PRE"]="# Example print all common user names"
-    ["EX"]="__$UTIL_LISTUSERS 500"	
+    [TOOL]="__$UTIL_LISTUSERS"
+    [ARG1]="[ID] Minimal user id"
+    [EX-PRE]="# Example print all common user names"
+    [EX]="__$UTIL_LISTUSERS 500"	
 )
 
 #
@@ -59,7 +59,7 @@ function __listusers() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p LISTUSERS_USAGE)"
+    __usage $LISTUSERS_USAGE
     return $NOT_SUCCESS
 }
 

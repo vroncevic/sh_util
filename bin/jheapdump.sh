@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A JHEAPDUMP_USAGE=(
-    ["TOOL"]="__$UTIL_JHEAPDUMP"
-    ["ARG1"]="[PID_OF_JVM] PID of JVM"
-    ["EX-PRE"]="# Create a heap dump of a Java process"
-    ["EX"]="__$UTIL_JHEAPDUMP 2334"	
+    [TOOL]="__$UTIL_JHEAPDUMP"
+    [ARG1]="[PID_OF_JVM] PID of JVM"
+    [EX-PRE]="# Create a heap dump of a Java process"
+    [EX]="__$UTIL_JHEAPDUMP 2334"	
 )
 
 #
@@ -77,7 +77,7 @@ function __jheapdump() {
 			fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p JHEAPDUMP_USAGE)"
+    __usage $JHEAPDUMP_USAGE
     return $NOT_SUCCESS
 }
 

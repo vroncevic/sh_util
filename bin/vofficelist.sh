@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A VMINFO_USAGE=(
-    ["TOOL"]="__$UTIL_VMINFO"
-    ["ARG1"]="[VM_DISK]  Path to lock file"
-    ["EX-PRE"]="# Example running __$UTIL_VMINFO"
-    ["EX"]="__$UTIL_VMINFO \$VM_DISK"	
+    [TOOL]="__$UTIL_VMINFO"
+    [ARG1]="[VM_DISK]  Path to lock file"
+    [EX-PRE]="# Example running __$UTIL_VMINFO"
+    [EX]="__$UTIL_VMINFO \$VM_DISK"	
 )
 
 #
@@ -60,7 +60,7 @@ function __vminfo() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p VMINFO_USAGE)"
+    __usage $VMINFO_USAGE
 	return $NOT_SUCCESS
 }
 

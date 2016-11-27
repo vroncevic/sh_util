@@ -17,12 +17,12 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
 
-declare -A sendmail_USAGE=(
-    ["TOOL"]="__$UTIL_SENDMAIL"
-    ["ARG1"]="[MSG]         Email text body"
-    ["ARG2"]="[EMAIL2ADMIN] Full email address"
-    ["EX-PRE"]="# Example sending simple message"
-    ["EX"]="__$UTIL_SENDMAIL \"test\" \"vladimir.roncevic@frobas.com\""	
+declare -A SENDMAIL_USAGE=(
+    [TOOL]="__$UTIL_SENDMAIL"
+    [ARG1]="[MSG]         Email text body"
+    [ARG2]="[EMAIL2ADMIN] Full email address"
+    [EX-PRE]="# Example sending simple message"
+    [EX]="__$UTIL_SENDMAIL \"test\" \"vladimir.roncevic@frobas.com\""	
 )
 
 #

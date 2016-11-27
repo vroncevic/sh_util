@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A RMBLANKS_USAGE=(
-    ["TOOL"]="__$UTIL_RMBLANKS"
-    ["ARG1"]="[FILES] Name of file"
-    ["EX-PRE"]="# Removing blank lines from file"
-    ["EX"]="__$UTIL_RMBLANKS /data/test.txt"	
+    [TOOL]="__$UTIL_RMBLANKS"
+    [ARG1]="[FILES] Name of file"
+    [EX-PRE]="# Removing blank lines from file"
+    [EX]="__$UTIL_RMBLANKS /data/test.txt"	
 )
 
 #
@@ -88,7 +88,7 @@ function __rmblanks() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p RMBLANKS_USAGE)"
+    __usage $RMBLANKS_USAGE
     return $NOT_SUCCESS
 }
 

@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ISSPAMMER_USAGE=(
-    ["TOOL"]="__$UTIL_ISSPAMMER"
-    ["ARG1"]="[DOMAIN_NAME] Domain name"
-    ["EX-PRE"]="# Example checking domain"
-    ["EX"]="__$UTIL_ISSPAMMER domain.cc"	
+    [TOOL]="__$UTIL_ISSPAMMER"
+    [ARG1]="[DOMAIN_NAME] Domain name"
+    [EX-PRE]="# Example checking domain"
+    [EX]="__$UTIL_ISSPAMMER domain.cc"	
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return
@@ -157,7 +157,7 @@ function __isspammer(){
 		printf "$SEND" "$UTIL_ISSPAMMER" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p ISSPAMMER_USAGE)"
+    __usage $ISSPAMMER_USAGE
     return $NOT_SUCCESS
 }
 

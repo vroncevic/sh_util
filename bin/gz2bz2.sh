@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A GZ2BZ2_USAGE=(
-    ["TOOL"]="__$UTIL_GZ2BZ2"
-    ["ARG1"]="[FILE_NAME] Name of gzip archive"
-    ["EX-PRE"]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
-    ["EX"]="__$UTIL_GZ2BZ2 test.tar.gz"	
+    [TOOL]="__$UTIL_GZ2BZ2"
+    [ARG1]="[FILE_NAME] Name of gzip archive"
+    [EX-PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
+    [EX]="__$UTIL_GZ2BZ2 test.tar.gz"	
 )
 
 #
@@ -81,7 +81,7 @@ function __gz2bz2() {
 		printf "$SEND" "$UTIL_GZ2BZ2" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p GZ2BZ2_USAGE)"
+    __usage $GZ2BZ2_USAGE
     return $NOT_SUCCESS
 }
 

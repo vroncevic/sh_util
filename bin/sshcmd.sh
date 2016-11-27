@@ -16,10 +16,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SSHCMD_USAGE=(
-    ["TOOL"]="__$UTIL_SSHCMD"
-    ["ARG1"]="[SSH_STRUCTURE] Username, server name and path to script"
-    ["EX-PRE"]="# Example running script on remote server"
-    ["EX"]="__$UTIL_SSHCMD \$SSH_STRUCTURE"	
+    [TOOL]="__$UTIL_SSHCMD"
+    [ARG1]="[SSH_STRUCTURE] Username, server name and path to script"
+    [EX-PRE]="# Example running script on remote server"
+    [EX]="__$UTIL_SSHCMD \$SSH_STRUCTURE"	
 )
 
 #
@@ -32,11 +32,11 @@ declare -A SSHCMD_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A SSH_STRUCTURE=() 
-# SSH_STRUCTURE["UN"]="rmuller"
-# SSH_STRUCTURE["SN"]="fronss1"
-# SSH_STRUCTURE["SC"]="test.sh"
+# SSH_STRUCTURE[UN]="vroncevic"
+# SSH_STRUCTURE[SN]="host1"
+# SSH_STRUCTURE[SC]="test.sh"
 #
-# __sshcmd "$(declare -p SSH_STRUCTURE)"
+# __sshcmd $SSH_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -51,10 +51,10 @@ declare -A SSHCMD_USAGE=(
 # fi
 #
 function __sshcmd() {
-	eval "declare -A SSH_STRUCTURE="${1#*=}
-    local USER_NAME=${SSH_STRUCTURE["UN"]}
-    local SERVER_NAME=${SSH_STRUCTURE["SN"]}
-    local SCRIPT_NAME=${SSH_STRUCTURE["SC"]}
+	local SSH_STRUCTURE=$1
+    local USER_NAME=${SSH_STRUCTURE[UN]}
+    local SERVER_NAME=${SSH_STRUCTURE[SN]}
+    local SCRIPT_NAME=${SSH_STRUCTURE[SC]}
     if [ -n "$USER_NAME" ] && [ -n "$SERVER_NAME" ] && 
 	   [ -n "$SCRIPT_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
@@ -74,7 +74,7 @@ function __sshcmd() {
 		printf "$SEND" "$UTIL_SSHCMD" "$MSG"
         return $NOT_SUCCESS
     fi
-	__usage "$(declare -p SSHCMD_USAGE)"
+	__usage $SSHCMD_USAGE
 	return $NOT_SUCCESS
 }
 

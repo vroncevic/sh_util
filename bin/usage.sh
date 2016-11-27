@@ -22,16 +22,16 @@ UTIL_LOG=$UTIL/log
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 #   declare -A USAGE=(
-#	    ["TOOL"]="$TOOL"
-#	    ["ARG1"]="argument 1"
-#	    ["ARG2"]="argument 2"
+#	    [TOOL]="$TOOL"
+#	    [ARG1]="argument 1"
+#	    [ARG2]="argument 2"
 #       ...
-#	    ["ARGn"]="argument n"
-#	    ["EX-PRE"]="# Comment for tool usage example"
-#	    ["EX"]="Example: $TOOL arg1 arg2 ... argn"	
+#	    [ARGn]="argument n"
+#	    [EX-PRE]="# Comment for tool usage example"
+#	    [EX]="Example: $TOOL arg1 arg2 ... argn"	
 #   )
 #
-# __usage "$(declare -p USAGE)"
+# __usage $USAGE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -43,10 +43,10 @@ UTIL_LOG=$UTIL/log
 # fi
 #
 function __usage() {
-	eval "declare -A USAGE="${1#*=}
-    local TOOL=${USAGE["TOOL"]}
-    local TOOL_EX_PRE=${USAGE["EX-PRE"]}
-    local TOOL_EX=${USAGE["EX"]}
+	local USAGE=$1
+    local TOOL=${USAGE[TOOL]}
+    local TOOL_EX_PRE=${USAGE[EX-PRE]}
+    local TOOL_EX=${USAGE[EX]}
     local FUNC=${FUNCNAME[0]}
     local FPARENT=${FUNCNAME[1]}
     local MSG=""
@@ -58,29 +58,29 @@ function __usage() {
             if [ "$argument" != "EX" ] && 
                [ "$argument" != "EX-PRE" ] && 
 			   [ "$argument" != "TOOL" ]; then
-                printf "%s\n" "  ${USAGE["$argument"]}"
+                printf "%s\n" "  ${USAGE[$argument]}"
             fi
         done
-        printf "%s\n" "  ${USAGE[\"EX-PRE\"]}"
-        printf "%s\n" "  ${USAGE[\"EX\"]}"
+        printf "%s\n" "  ${USAGE[EX-PRE]}"
+        printf "%s\n" "  ${USAGE[EX]}"
         printf "%s\n" "  [help | h] print this option"
         return $SUCCESS
     fi
     MSG="  Error at $FPARENT, provide argument USAGE structure of:"
     printf "%s\n" "$MSG"
-    MSG="  [\"TOOL\"], [\"ARG1\"], [\"ARG2\"], ...[\"ARGn\"], [\"EX-PRE\"] and [\"EX\"] for $FUNC"
+    MSG="  [TOOL], [ARG1], [ARG2], ...[ARGn], [EX-PRE] and [EX] for $FUNC"
     printf "%s\n\n" "$MSG"
-    MSG="  [\"TOOL\"]      Name of Tool/Script/Application"
+    MSG="  [TOOL]      Name of Tool/Script/Application"
     printf "%s\n" "$MSG"
-    MSG="  [\"ARG1\"]      First argument for Tool or Application"
+    MSG="  [ARG1]      First argument for Tool or Application"
     printf "%s\n" "$MSG"
     MSG="  [ARG2]      Second argument for Tool or Application"
     printf "%s\n" "$MSG"
     MSG="  [ARGn]      Last argument for Tool or Application"
     printf "%s\n" "$MSG"
-    MSG="  [\"EX-PRE\"]    Comment line for example command line"
+    MSG="  [EX-PRE]    Comment line for example command line"
     printf "%s\n" "$MSG"
-    MSG="  [\"EX\"]        Example of command line"
+    MSG="  [EX]        Example of command line"
     printf "%s\n" "$MSG"
     printf "%s\n" "  $FUNC [USAGE]"
     return $NOT_SUCCESS

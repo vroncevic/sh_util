@@ -16,11 +16,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOWSWAP_USAGE=(
-    ["TOOL"]="__$UTIL_LOWSWAP"
-    ["ARG1"]="[LOW_LIMIT]   An integer referring to MB"
-    ["ARG2"]="[ADMIN_EMAIL] Administrator email address"
-    ["EX-PRE"]="# Checking swap memory, is under 12 MB"
-    ["EX"]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
+    [TOOL]="__$UTIL_LOWSWAP"
+    [ARG1]="[LOW_LIMIT]   An integer referring to MB"
+    [ARG2]="[ADMIN_EMAIL] Administrator email address"
+    [EX-PRE]="# Checking swap memory, is under 12 MB"
+    [EX]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
 )
 
 #
@@ -84,7 +84,7 @@ function __lowswap() {
                 ;;
         esac
     fi
-    __usage "$(declare -p LOWSWAP_USAGE)"
+    __usage $LOWSWAP_USAGE
     return $NOT_SUCCESS
 }
 

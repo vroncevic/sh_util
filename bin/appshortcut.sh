@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A APPSHORTCUT_USAGE=(
-	["TOOL"]="__$UTIL_APPSHORTCUT"
-	["ARG1"]="[APP_STRUCTURE] App name and description"
-	["EX-PRE"]="# Example generating WoLAN shortcut"
-	["EX"]="__$UTIL_APPSHORTCUT wolan \"WOL Software System\""	
+	[TOOL]="__$UTIL_APPSHORTCUT"
+	[ARG1]="[APP_STRUCTURE] App name and description"
+	[EX-PRE]="# Example generating WoLAN shortcut"
+	[EX]="__$UTIL_APPSHORTCUT wolan \"WOL Software System\""	
 )
 
 #
@@ -32,10 +32,10 @@ declare -A APPSHORTCUT_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A APP_STRUCTURE=()
-# APP_STRUCTURE["AN"]="WoLAN"
-# APP_STRUCTURE["AD"]="WOL Software System"
+# APP_STRUCTURE[AN]="WoLAN"
+# APP_STRUCTURE[AD]="WOL Software System"
 #
-# __appshortcut "$(declare -p APP_STRUCTURE)"
+# __appshortcut $APP_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,9 +50,9 @@ declare -A APPSHORTCUT_USAGE=(
 # fi
 #
 function __appshortcut() {
-	eval "declare -A APP_STRUCTURE="${1#*=}
-    local APPNAME=${APP_STRUCTURE["AN"]}
-    local APPDESCRIPTION=${APP_STRUCTURE["AD"]}
+	local APP_STRUCTURE=$1
+    local APPNAME=${APP_STRUCTURE[AN]}
+    local APPDESCRIPTION=${APP_STRUCTURE[AD]}
     if [ -n "$APPNAME" ] && [ -n "$APPDESCRIPTION" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -60,7 +60,7 @@ function __appshortcut() {
 		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configappshortcututil
 		local STATUS=$?
 		if [ $STATUS -eq $SUCCESS ]; then
-			local APP_SHORTCUT_DIR=${configappshortcututil["APP_SHORTCUT"]}			
+			local APP_SHORTCUT_DIR=${configappshortcututil[APP_SHORTCUT]}			
 			if [ ! -d "$APP_SHORTCUT_DIR/" ]; then
 				MSG="Please create folder structure $APP_SHORTCUT_DIR/"
 				printf "$SEND" "$UTIL_APPSHORTCUT" "$MSG"
@@ -116,7 +116,7 @@ X-KDE-Username=
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p APPSHORTCUT_USAGE)"
+    __usage $APPSHORTCUT_USAGE
     return $NOT_SUCCESS
 }
 

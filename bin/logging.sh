@@ -15,14 +15,14 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LOGGING_USAGE=(
-    ["TOOL"]="__$UTIL_LOGGING"
-    ["ARG1"]="[LOG]  Name of App/Tool/Script, flag, path and message"
-    ["EX-PRE"]="# Example write LOG line structure to file"
-    ["EX"]="__$UTIL_LOGGING \$LOG"	
+    [TOOL]="__$UTIL_LOGGING"
+    [ARG1]="[LOG]  Name of App/Tool/Script, flag, path and message"
+    [EX-PRE]="# Example write LOG line structure to file"
+    [EX]="__$UTIL_LOGGING LOG_STRUCTURE"	
 )
 
 #
-# @brief  Logging message to log file
+# @brief  Logging message t()()o log file
 # @param  Value required log structure (name, flag, path, message)
 # @retval Success return 0, else return 1
 #
@@ -30,12 +30,12 @@ declare -A LOGGING_USAGE=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOG=()
-# LOG["TOOL"]="wolan"             # Name of App/Tool/Script
-# LOG["FLAG"]="info"              # String flag info/error, type of log message
-# LOG["PATH"]="/opt/wolan/log/"   # Path to log file of tool
-# LOG["MSG"]="Simple log line"    # Message content for log line
+# LOG[TOOL]="wolan"             # Name of App/Tool/Script
+# LOG[FLAG]="info"              # String flag info/error, type of log message
+# LOG[PATH]="/opt/wolan/log/"   # Path to log file of tool
+# LOG[MSG]="Simple log line"    # Message content for log line
 #
-# __logging "$(declare -p LOG)"
+# __logging $LOG
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,11 +50,11 @@ declare -A LOGGING_USAGE=(
 # fi
 #
 function __logging() {
-    local LOG=$1
-    local LTN=${LOG["TOOL"]}
-    local LTF=${LOG["FLAG"]}
-    local LTP=${LOG["PATH"]}
-    local LTM=${LOG["MSG"]}
+	local LOG=$1
+    local LTN=${LOG[TOOL]}
+    local LTF=${LOG[FLAG]}
+    local LTP=${LOG[PATH]}
+    local LTM=${LOG[MSG]}
     if [ -n "$LTN" ] && [ -n "$LTF" ] && [ -n "$LTP" ] && [ -n "$LTM" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -88,7 +88,7 @@ function __logging() {
 				fi
                 LOG_LINE="[`date`] ERROR $LTM [host: `hostname`]"
             else
-                __usage $LOGGING_USAGE
+                __usage "$(declare -p LOGGING_USAGE)"
                 return $NOT_SUCCESS
             fi
             echo "$LOG_LINE" >> "$LTP/$LTN.log"
@@ -101,7 +101,7 @@ function __logging() {
 		printf "$SEND" "$UTIL_LOGGING" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage "$(declare -p LOGGING_USAGE)"
+    __usage $LOGGING_USAGE
     return $NOT_SUCCESS
 }
 

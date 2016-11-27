@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A ONLINECONNECT_USAGE=(
-    ["TOOL"]="__$UTIL_ONLINECONNECT"
-    ["ARG1"]="[TIME] Sleep time"
-    ["EX-PRE"]="# Example running __$TOOL"
-    ["EX"]="__$UTIL_ONLINECONNECT 5s"	
+    [TOOL]="__$UTIL_ONLINECONNECT"
+    [ARG1]="[TIME] Sleep time"
+    [EX-PRE]="# Example running __$TOOL"
+    [EX]="__$UTIL_ONLINECONNECT 5s"	
 )
 
 #
@@ -84,7 +84,7 @@ function __onlineconnect() {
 		fi
 		return $NOT_SUCCESS
 	fi
-	__usage "$(declare -p ONLINECONNECT_USAGE)"
+	__usage $ONLINECONNECT_USAGE
 	return $NOT_SUCCESS
 }
 

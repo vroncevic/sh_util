@@ -15,11 +15,11 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A RMLINES_USAGE=(
-    ["TOOL"]="__$UTIL_RMLINES"
-    ["ARG1"]="[INPUT_FILE]  Name of file for operation"
-    ["ARG2"]="[OUTPUT_FILE] Name of the resulting file"
-    ["EX-PRE"]="# Create a file n bytes large"
-    ["EX"]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
+    [TOOL]="__$UTIL_RMLINES"
+    [ARG1]="[INPUT_FILE]  Name of file for operation"
+    [ARG2]="[OUTPUT_FILE] Name of the resulting file"
+    [EX-PRE]="# Create a file n bytes large"
+    [EX]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
 )
 
 #
@@ -69,7 +69,7 @@ function __rmlines() {
 		printf "$SEND" "$UTIL_RMLINES" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p RMLINES_USAGE)"
+    __usage $RMLINES_USAGE
     return $NOT_SUCCESS
 }
 

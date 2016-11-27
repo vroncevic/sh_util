@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LISTOPENFILES_USAGE=(
-    ["TOOL"]="__$UTIL_LISTOPENFILES"
-    ["ARG1"]="[USER_NAME] System username"
-    ["EX-PRE"]="# Example list all opened files by user"
-    ["EX"]="__$UTIL_LISTOPENFILES vroncevic"
+    [TOOL]="__$UTIL_LISTOPENFILES"
+    [ARG1]="[USER_NAME] System username"
+    [EX-PRE]="# Example list all opened files by user"
+    [EX]="__$UTIL_LISTOPENFILES vroncevic"
 )
 
 #
@@ -74,7 +74,7 @@ function __listopenfiles() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p LISTOPENFILES_USAGE)"
+    __usage $LISTOPENFILES_USAGE
     return $NOT_SUCCESS
 }
 

@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A RECORDMIC_USAGE=(
-    ["TOOL"]="__$UTIL_RECORDMIC"
-    ["ARG1"]="[FILE_NAME] Name of media file"
-    ["EX-PRE"]="# Recording from microfon to test.mp3"
-    ["EX"]="__$UTIL_RECORDMIC test.mp3"	
+    [TOOL]="__$UTIL_RECORDMIC"
+    [ARG1]="[FILE_NAME] Name of media file"
+    [EX-PRE]="# Recording from microfon to test.mp3"
+    [EX]="__$UTIL_RECORDMIC test.mp3"	
 )
 
 #
@@ -81,7 +81,7 @@ function __recordmic() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p RECORDMIC_USAGE)"
+    __usage $RECORDMIC_USAGE
     return $NOT_SUCCESS
 }
 

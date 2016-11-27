@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A CALUTILS_USAGE=(
-    ["TOOL"]="__$UTIL_CALUTILS"
-    ["ARG1"]="[CALENDAR_STRUCTURE] Target month and year"
-    ["EX-PRE"]="# Example geting last working day in May 1987"
-    ["EX"]="__$UTIL_CALUTILS \$CALENDAR_STRUCTURE"	
+    [TOOL]="__$UTIL_CALUTILS"
+    [ARG1]="[CALENDAR_STRUCTURE] Target month and year"
+    [EX-PRE]="# Example geting last working day in May 1987"
+    [EX]="__$UTIL_CALUTILS \$CALENDAR_STRUCTURE"	
 )
 
 #
@@ -33,7 +33,7 @@ declare -A CALUTILS_USAGE=(
 # CALENDAR_STRUCTURE[MONTH]=$month
 # CALENDAR_STRUCTURE[YEAR]=$year
 #
-# __calutils "$(declare -p CALENDAR_STRUCTURE)"
+# __calutils $CALENDAR_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -48,7 +48,7 @@ declare -A CALUTILS_USAGE=(
 # fi
 #
 function __calutils() {
-	eval "declare -A CALENDAR_STRUCTURE="${1#*=}
+	local CALENDAR_STRUCTURE=$1
     local TARGET_MONTH=${CALENDAR_STRUCTURE[MONTH]}
     local TARGET_YEAR=${CALENDAR_STRUCTURE[YEAR]}
     if [ -n "$TARGET_MONTH"  ] && [ -n "$TARGET_YEAR" ]; then
@@ -81,7 +81,7 @@ function __calutils() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p CALUTILS_USAGE)"
+    __usage $CALUTILS_USAGE
     return $NOT_SUCCESS
 }
 

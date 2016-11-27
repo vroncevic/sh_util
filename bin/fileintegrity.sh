@@ -18,17 +18,17 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SETDB_USAGE=(
-    ["TOOL"]="__setupdb"
-    ["ARG1"]="[DB_STRUCTURE] DB file and path"
-    ["EX-PRE"]="# Example set database"
-    ["EX"]="__setupdb \$DB_STRUCTURE"	
+    [TOOL]="__setupdb"
+    [ARG1]="[DB_STRUCTURE] DB file and path"
+    [EX-PRE]="# Example set database"
+    [EX]="__setupdb \$DB_STRUCTURE"	
 )
 
 declare -A CHECKDB_USAGE=(
-    ["TOOL"]="__checkdb"
-    ["ARG1"]="[DB_FILE] Database file"
-    ["EX-PRE"]="# Example checking database"
-    ["EX"]="__checkdb test.db"	
+    [TOOL]="__checkdb"
+    [ARG1]="[DB_FILE] Database file"
+    [EX-PRE]="# Example checking database"
+    [EX]="__checkdb test.db"	
 )
 
 #
@@ -43,7 +43,7 @@ declare -A CHECKDB_USAGE=(
 # DB_STRUCTURE[FILE]="info.db"
 # DB_STRUCTURE[DIR]="/data/"
 #
-# __setupdb "$(declare -p DB_STRUCTURE)"
+# __setupdb $DB_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -58,9 +58,9 @@ declare -A CHECKDB_USAGE=(
 # fi
 #
 function __setupdb() {
-	eval "declare -A DB_STRUCTURE="${1#*=}
-    local DB_FILE=${DB_STRUCTURE["FILE"]}
-    local DIR=${DB_STRUCTURE["DIR"]}
+	local DB_STRUCTURE=$1
+    local DB_FILE=${DB_STRUCTURE[FILE]}
+    local DIR=${DB_STRUCTURE[DIR]}
     if [ -n "$DB_FILE" ] && [ -n "$DIR" ]; then
 		local FUNC=${FUNCNAME[0]}
 		local MSG=""
@@ -91,7 +91,7 @@ function __setupdb() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage "$(declare -p SETDB_USAGE)"
+    __usage $SETDB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -169,7 +169,7 @@ function __checkdb() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p CHECKDB_USAGE)"
+    __usage $CHECKDB_USAGE
     return $NOT_SUCCESS
 }
 

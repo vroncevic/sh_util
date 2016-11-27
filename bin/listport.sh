@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A LISTPORT_USAGE=(
-    ["TOOL"]="__$UTIL_LISTPORT"
-    ["ARG1"]="[PORT] Which you need to check"
-    ["EX-PRE"]="# Example check port 1734"
-    ["EX"]="__$UTIL_LISTPORT 1734"	
+    [TOOL]="__$UTIL_LISTPORT"
+    [ARG1]="[PORT] Which you need to check"
+    [EX-PRE]="# Example check port 1734"
+    [EX]="__$UTIL_LISTPORT 1734"	
 )
 
 #
@@ -58,7 +58,7 @@ function __listport {
 		fi
         return $SUCCESS
     fi 
-    __usage "$(declare -p LISTPORT_USAGE)"
+    __usage $LISTPORT_USAGE
     return $NOT_SUCCESS
 }
 

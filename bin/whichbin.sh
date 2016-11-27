@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A WHICHBIN_USAGE=(
-    ["TOOL"]="__$UTIL_WHICHBIN"
-    ["ARG1"]="[PATH] Path to destionation"
-    ["EX-PRE"]="# Example running __$UTIL_WHICHBIN"
-    ["EX"]="__$UTIL_WHICHBIN /data/"
+    [TOOL]="__$UTIL_WHICHBIN"
+    [ARG1]="[PATH] Path to destionation"
+    [EX-PRE]="# Example running __$UTIL_WHICHBIN"
+    [EX]="__$UTIL_WHICHBIN /data/"
 )
 
 #
@@ -112,7 +112,7 @@ function __whichbin() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p WHICHBIN_USAGE)"
+    __usage $WHICHBIN_USAGE
     return $NOT_SUCCESS
 }
 

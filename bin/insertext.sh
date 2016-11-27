@@ -15,12 +15,12 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A INSERTEXT_USAGE=(
-    ["TOOL"]="__$UTIL_INSERTEXT"
-    ["ARG1"]="[LINE]  An integer referring to line number at which to insert the text file"
-    ["ARG2"]="[TEXT]  The text file to insert"
-    ["ARG3"]="[FILES] The text file to insert into"
-    ["EX-PRE"]="# Example put text into file"
-    ["EX"]="__$UTIL_INSERTEXT 3 test file"	
+    [TOOL]="__$UTIL_INSERTEXT"
+    [ARG1]="[LINE]  An integer referring to line number at which to insert the text file"
+    [ARG2]="[TEXT]  The text file to insert"
+    [ARG3]="[FILES] The text file to insert into"
+    [EX-PRE]="# Example put text into file"
+    [EX]="__$UTIL_INSERTEXT 3 test file"	
 )
 
 #
@@ -95,7 +95,7 @@ function __insertext() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p INSERTEXT_USAGE)"
+    __usage $INSERTEXT_USAGE
     return $NOT_SUCCESS
 }
 

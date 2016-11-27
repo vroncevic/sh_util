@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SAMESIZE_USAGE=(
-    ["TOOL"]="__$UTIL_SAMESIZE"
-    ["ARG1"]="[DIR_PATH] Directory path"
-    ["EX-PRE"]="# List files of same size in dir"
-    ["EX"]="__$UTIL_SAMESIZE /data/"	
+    [TOOL]="__$UTIL_SAMESIZE"
+    [ARG1]="[DIR_PATH] Directory path"
+    [EX-PRE]="# List files of same size in dir"
+    [EX]="__$UTIL_SAMESIZE /data/"	
 )
 
 #
@@ -72,7 +72,7 @@ function __samesize() {
 		printf "$SEND" "$UTIL_SAMESIZE" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage "$(declare -p SAMESIZE_USAGE)"
+    __usage $SAMESIZE_USAGE
     return $NOT_SUCCESS
 }
 

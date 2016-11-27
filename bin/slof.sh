@@ -15,10 +15,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A SLOF_USAGE=(
-    ["TOOL"]="__$UTIL_SLOF"
-    ["ARG1"]="[SIZE] LIst in GB/MB"
-    ["EX-PRE"]="# Show 10 Largest Open Files in GB"
-    ["EX"]="__$UTIL_SLOF large"	
+    [TOOL]="__$UTIL_SLOF"
+    [ARG1]="[SIZE] LIst in GB/MB"
+    [EX-PRE]="# Show 10 Largest Open Files in GB"
+    [EX]="__$UTIL_SLOF large"	
 )
 
 #
@@ -64,7 +64,7 @@ function __slof() {
 		fi
         return $SUCCESS
     fi
-    __usage "$(declare -p SLOF_USAGE)"
+    __usage $SLOF_USAGE
     return $NOT_SUCCESS
 }
 
