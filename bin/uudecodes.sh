@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_UUDECODES_VERSION
 UTIL_UUDECODES_CFG=$UTIL/conf/$UTIL_UUDECODES.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A UUDECODES_USAGE=(
-    [TOOL]="__$UTIL_UUDECODES"
-    [ARG1]="[FILE_NAME] Path to binary file"
-    [EX-PRE]="# Example decode thunderbird binary"
-    [EX]="__$UTIL_UUDECODES thunderbird-bin"	
+    [USAGE_TOOL]="__$UTIL_UUDECODES"
+    [USAGE_ARG1]="[FILE_NAME] Path to binary file"
+    [USAGE_EX_PRE]="# Example decode thunderbird binary"
+    [USAGE_EX]="__$UTIL_UUDECODES thunderbird-bin"	
 )
 
 #
@@ -86,7 +86,7 @@ function __uudecodes() {
 		fi
 		return $NOT_SUCCESS
 	fi
-    __usage $UUDECODES_USAGE
+    __usage UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 
@@ -116,7 +116,7 @@ function __uudecodes_all() {
 	local FILE_PATH=$1
     if [ -z "$FILE_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local uudec=${configuudecodesutil[UUDEC]}
 		__checktool "$uudec"
 		local STATUS=$?
@@ -146,7 +146,7 @@ function __uudecodes_all() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage $UUDECODES_USAGE
+    __usage UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 

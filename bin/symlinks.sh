@@ -11,14 +11,14 @@ UTIL_SYMLINKS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_SYMLINKS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A SYMLINKS_USAGE=(
-    [TOOL]="__$UTIL_SYMLINKS"
-    [ARG1]="[DIRECTORY] Directory path"
-    [EX-PRE]="# Example listing symlinks"
-    [EX]="__$UTIL_SYMLINKS /etc"	
+    [USAGE_TOOL]="__$UTIL_SYMLINKS"
+    [USAGE_ARG1]="[DIRECTORY] Directory path"
+    [USAGE_EX_PRE]="# Example listing symlinks"
+    [USAGE_EX]="__$UTIL_SYMLINKS /etc"	
 )
 
 #
@@ -47,7 +47,7 @@ function __symlinks() {
     local DIRECTORY=$1
     if [ -n "$DIRECTORY" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
             MSG="Checking dir [$DIRECTORY/]"
 			printf "$DQUE" "$UTIL_SYMLINKS" "$FUNC" "$MSG"
@@ -75,7 +75,7 @@ function __symlinks() {
 		printf "$SEND" "$UTIL_SYMLINKS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $SYMLINKS_USAGE
+    __usage SYMLINKS_USAGE
     return $NOT_SUCCESS
 }
 

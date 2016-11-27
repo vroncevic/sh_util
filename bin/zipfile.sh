@@ -11,14 +11,14 @@ UTIL_ZIPFILE_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_ZIPFILE_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A ZIPFILE_USAGE=(
-    [TOOL]="__$UTIL_ZIPFILE"
-    [ARG1]="[FILE] Name of file"
-    [EX-PRE]="# Example zipping a file"
-    [EX]="__$UTIL_ZIPFILE freshtool.txt"
+    [USAGE_TOOL]="__$UTIL_ZIPFILE"
+    [USAGE_ARG1]="[FILE] Name of file"
+    [USAGE_EX-PRE]="# Example zipping a file"
+    [USAGE_EX]="__$UTIL_ZIPFILE freshtool.txt"
 )
 
 #
@@ -48,7 +48,7 @@ function __zipfile() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
         local rm_input=
         while getopts hlr OPTIONS 
         do
@@ -91,7 +91,7 @@ function __zipfile() {
 		fi
         return $SUCCESS
     fi
-    __usage $ZIPFILE_USAGE
+    __usage ZIPFILE_USAGE
     return $NOT_SUCCESS
 }
 

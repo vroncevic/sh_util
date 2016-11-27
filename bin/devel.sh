@@ -6,7 +6,6 @@
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
-
 UTIL_FROM_COMPANY="Frobas"
 
 DSTA="[@Module %s.sh @Func %s] %s\n"

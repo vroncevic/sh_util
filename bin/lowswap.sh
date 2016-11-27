@@ -11,16 +11,16 @@ UTIL_LOWSWAP_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LOWSWAP_VERSION
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/sendmail.sh
-. $UTIL/bin/devel.sh
 
 declare -A LOWSWAP_USAGE=(
-    [TOOL]="__$UTIL_LOWSWAP"
-    [ARG1]="[LOW_LIMIT]   An integer referring to MB"
-    [ARG2]="[ADMIN_EMAIL] Administrator email address"
-    [EX-PRE]="# Checking swap memory, is under 12 MB"
-    [EX]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
+    [USAGE_TOOL]="__$UTIL_LOWSWAP"
+    [USAGE_ARG1]="[LOW_LIMIT]   An integer referring to MB"
+    [USAGE_ARG2]="[ADMIN_EMAIL] Administrator email address"
+    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
+    [USAGE_EX]="__$UTIL_LOWSWAP 12 vladimir.roncevic@frobas.com"	
 )
 
 #
@@ -50,7 +50,7 @@ function __lowswap() {
     local ADMIN_EMAIL=$2
     if [ -n "$SWAP_LIMIT" ] && [ -n "$ADMIN_EMAIL" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking swap memory, limit [$SWAP_LIMIT]"
 			printf "$DSTA" "$UTIL_LOWSWAP" "$FUNC" "$MSG"
@@ -84,7 +84,7 @@ function __lowswap() {
                 ;;
         esac
     fi
-    __usage $LOWSWAP_USAGE
+    __usage LOWSWAP_USAGE
     return $NOT_SUCCESS
 }
 

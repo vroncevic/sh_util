@@ -37,8 +37,8 @@ UTIL_LOG=$UTIL/log
 #
 function __insertingpasswd() {
     local PASSWD="$1"
-    local TMP_PASSWD=""
-    local MSG=""
+    local TMP_PASSWD="None"
+    local MSG="None"
     local FUNC=${FUNCNAME[0]}
     stty -echo
     printf "%s" "Enter password: "

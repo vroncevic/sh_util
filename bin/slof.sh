@@ -11,14 +11,14 @@ UTIL_SLOF_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_SLOF_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A SLOF_USAGE=(
-    [TOOL]="__$UTIL_SLOF"
-    [ARG1]="[SIZE] LIst in GB/MB"
-    [EX-PRE]="# Show 10 Largest Open Files in GB"
-    [EX]="__$UTIL_SLOF large"	
+    [USAGE_TOOL]="__$UTIL_SLOF"
+    [USAGE_ARG1]="[SIZE] LIst in GB/MB"
+    [USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
+    [USAGE_EX]="__$UTIL_SLOF large"	
 )
 
 #
@@ -47,7 +47,7 @@ function __slof() {
     local SIZE=$1
     if [ -n "$SIZE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Show 10 Largest Open Files"
 			printf "$DSTA" "$UTIL_SLOF" "$FUNC" "$MSG"
@@ -64,7 +64,7 @@ function __slof() {
 		fi
         return $SUCCESS
     fi
-    __usage $SLOF_USAGE
+    __usage SLOF_USAGE
     return $NOT_SUCCESS
 }
 

@@ -11,14 +11,14 @@ UTIL_ONLINECONNECT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_ONLINECONNECT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A ONLINECONNECT_USAGE=(
-    [TOOL]="__$UTIL_ONLINECONNECT"
-    [ARG1]="[TIME] Sleep time"
-    [EX-PRE]="# Example running __$TOOL"
-    [EX]="__$UTIL_ONLINECONNECT 5s"	
+    [USAGE_TOOL]="__$UTIL_ONLINECONNECT"
+    [USAGE_ARG1]="[TIME] Sleep time"
+    [USAGE_EX_PRE]="# Example running __$TOOL"
+    [USAGE_EX]="__$UTIL_ONLINECONNECT 5s"	
 )
 
 #
@@ -47,8 +47,8 @@ function __onlineconnect() {
 	local INTERVAL=$1
 	if [ -n "$INTERVAL" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
-		local PID_NUM=""
+		local MSG="None"
+		local PID_NUM="None"
 		declare -A configonlineconnectutil=()
 		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configonlineconnectutil
 		local STATUS=$?
@@ -84,7 +84,7 @@ function __onlineconnect() {
 		fi
 		return $NOT_SUCCESS
 	fi
-	__usage $ONLINECONNECT_USAGE
+	__usage ONLINECONNECT_USAGE
 	return $NOT_SUCCESS
 }
 

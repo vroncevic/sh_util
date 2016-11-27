@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_CUTPDF_VERSION
 UTIL_CUTPDF_CFG=$UTIL/conf/$UTIL_CUTPDF.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/usage.sh
-. $UTIL/bin/devel.sh
 
 declare -A CUTPDF_USAGE=(
-    [TOOL]="__$UTIL_CUTPDF"
-    [ARG1]="[TIME] Life time"
-    [EX-PRE]="# Example running __$UTIL_CUTPDF"
-    [EX]="__$UTIL_CUTPDF 5s"	
+    [USAGE_TOOL]="__$UTIL_CUTPDF"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running __$UTIL_CUTPDF"
+    [USAGE_EX]="__$UTIL_CUTPDF 5s"	
 )
 
 #
@@ -32,13 +32,14 @@ declare -A CUTPDF_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A PDF_STRUCTURE=()
-# PDF_STRUCTURE[INPUT]="/opt/green.pdf"
-# PDF_STRUCTURE[OUTPUT]="/opt/green_stripped.pdf"
-# PDF_STRUCTURE[FP]="12"
-# PDF_STRUCTURE[LP]="23"
+# declare -A PDF_STRUCTURE=(
+# 	[INPUT]="/opt/green.pdf"
+# 	[OUTPUT]="/opt/green_stripped.pdf"
+# 	[FP]="12"
+# 	[LP]="23"
+# )
 #
-# __cutpdf $PDF_STRUCTURE
+# __cutpdf PDF_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -53,7 +54,7 @@ declare -A CUTPDF_USAGE=(
 # fi
 #
 function __cutpdf() {
-	local PDF_STRUCTURE=$1
+	local -n PDF_STRUCTURE=$1
     local INPUT_PDF_FILE=${PDF_STRUCTURE[INPUT]}
     local OUTPUT_PDF_FILE=${PDF_STRUCTURE[OUTPUT]}
     local FIRST_PAGE_PDF=${PDF_STRUCTURE[FP]}
@@ -61,7 +62,7 @@ function __cutpdf() {
     if [ -n "$INPUT_PDF_FILE" ] && [ -n "$OUTPUT_PDF_FILE" ] && 
        [ -n "$FIRST_PAGE_PDF" ] && [ -n "$LAST_PAGE_PDF" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configcutpdfutil=()
 		__loadutilconf "$UTIL_CUTPDF_CFG" configcutpdfutil
 		local STATUS=$?
@@ -97,7 +98,7 @@ function __cutpdf() {
 		fi
         return $NOT_SUCCESS
     fi
-    __usage $CUTPDF_USAGE
+    __usage CUTPDF_USAGE
     return $NOT_SUCCESS
 }
 

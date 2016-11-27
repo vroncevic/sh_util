@@ -17,10 +17,10 @@ UTIL_LOG=$UTIL/log
 . $UTIL/bin/devel.sh
 
 declare -A APP2USER_USAGE=(
-    [TOOL]="__$UTIL_APP2USER"
-    [ARG1]="[NEW_APP_STRUCTURE] username, group, app"
-    [EX-PRE]="# Copy Application shortcut to user configuration"
-    [EX]="__$UTIL_APP2USER \$NEW_APP_STRUCTURE"
+    [USAGE_TOOL]="__$UTIL_APP2USER"
+    [USAGE_ARG1]="[NEW_APP_STRUCTURE] username, group, app"
+    [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
+    [USAGE_EX]="__$UTIL_APP2USER \$NEW_APP_STRUCTURE"
 )
 
 #
@@ -31,12 +31,13 @@ declare -A APP2USER_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A NEW_APP_STRUCTURE=()
-# NEW_APP_STRUCTURE[UN]="vroncevic"
-# NEW_APP_STRUCTURE[DN]="vroncevic"
-# NEW_APP_STRUCTURE[AN]="wolan"
+# declare -A NEW_APP_STRUCTURE=(
+# 	[UN]="vroncevic"
+# 	[DN]="vroncevic"
+# 	[AN]="wolan"
+# )
 #
-# __app2user $NEW_APP_STRUCTURE
+# __app2user NEW_APP_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -51,13 +52,13 @@ declare -A APP2USER_USAGE=(
 # fi
 #
 function __app2user() {
-	local NEW_APP_STRUCTURE=$1
+	local -n NEW_APP_STRUCTURE=$1
     local USERNAME=${NEW_APP_STRUCTURE[UN]}
     local DEPARTMENT=${NEW_APP_STRUCTURE[DN]}
     local APPNAME=${NEW_APP_STRUCTURE[AN]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ] && [ -n "$APPNAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configapp2user=()
 		__loadutilconf "$UTIL_APP2USER_CFG" configapp2user
 		local STATUS=$?
@@ -120,7 +121,7 @@ function __app2user() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage $APP2USER_USAGE
+    __usage APP2USER_USAGE
     return $NOT_SUCCESS
 }
 

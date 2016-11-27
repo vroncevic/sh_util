@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_AVI2MP4_VERSION
 UTIL_AVI2MP4_CFG=$UTIL/conf/$UTIL_AVI2MP4.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
-. $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/checktool.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
+. $UTIL/bin/checktool.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A AVI2MP4_USAGE=(
-    [TOOL]="__$UTIL_AVI2MP4"
-    [ARG1]="[FILE_NAME] Path to AVI file"
-    [EX-PRE]="# Example converting AVI file"
-    [EX]="__$UTIL_AVI2MP4 test.avi"	
+    [USAGE_TOOL]="__$UTIL_AVI2MP4"
+    [USAGE_ARG1]="[FILE_NAME] Path to AVI file"
+    [USAGE_EX_PRE]="# Example converting AVI file"
+    [USAGE_EX]="__$UTIL_AVI2MP4 test.avi"	
 )
 
 #
@@ -51,7 +51,7 @@ function __avi2mp4() {
     local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configavi2mp4util=()
 		__loadutilconf "$UTIL_AVI2MP4_CFG" configavi2mp4util
 		local STATUS=$?
@@ -85,7 +85,7 @@ function __avi2mp4() {
 		printf "$SEND" "$UTIL_AVI2MP4" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $AVI2MP4_USAGE
+    __usage AVI2MP4_USAGE
     return $NOT_SUCCESS
 }
 

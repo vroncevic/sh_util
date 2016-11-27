@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_CREATERAMDISK_VERSION
 UTIL_CREATERAMDISK_CFG=$UTIL/conf/$UTIL_CREATERAMDISK.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A CREATERAMDISK_USAGE=(
-    [TOOL]="__$UTIL_CREATERAMDISK"
-    [ARG1]="[MOUNTPT] Mount point"
-    [EX-PRE]="# Example creating RAM disk"
-    [EX]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
+    [USAGE_TOOL]="__$UTIL_CREATERAMDISK"
+    [USAGE_ARG1]="[MOUNTPT] Mount point"
+    [USAGE_EX_PRE]="# Example creating RAM disk"
+    [USAGE_EX]="__$UTIL_CREATERAMDISK \"/mnt/test/\""
 )
 
 #
@@ -50,7 +50,7 @@ function __createramdisk() {
     local MOUNTPT=$1
     if [ -n "$MOUNTPT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configcreateramdiskutil=()
 		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configcreateramdiskutil
 		local STATUS=$?
@@ -96,7 +96,7 @@ function __createramdisk() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $CREATERAMDISK_USAGE
+    __usage CREATERAMDISK_USAGE
     return $NOT_SUCCESS
 }
 

@@ -11,14 +11,14 @@ UTIL_LISTUSERS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LISTUSERS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A LISTUSERS_USAGE=(
-    [TOOL]="__$UTIL_LISTUSERS"
-    [ARG1]="[ID] Minimal user id"
-    [EX-PRE]="# Example print all common user names"
-    [EX]="__$UTIL_LISTUSERS 500"	
+    [USAGE_TOOL]="__$UTIL_LISTUSERS"
+    [USAGE_ARG1]="[ID] Minimal user id"
+    [USAGE_EX_PRE]="# Example print all common user names"
+    [USAGE_EX]="__$UTIL_LISTUSERS 500"	
 )
 
 #
@@ -48,7 +48,7 @@ function __listusers() {
     local ID=$1
     if [ -n "$ID" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Print all common user names started from id [$ID]"
 			printf "$DSTA" "$UTIL_LISTUSERS" "$FUNC" "$MSG"
@@ -59,7 +59,7 @@ function __listusers() {
 		fi
         return $SUCCESS
     fi
-    __usage $LISTUSERS_USAGE
+    __usage LISTUSERS_USAGE
     return $NOT_SUCCESS
 }
 

@@ -11,14 +11,14 @@ UTIL_DATE2ISO8601_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_DATE2ISO8601_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A DATE2ISO8601_USAGE=(
-    [TOOL]="__$UTIL_DATE2ISO8601"
-    [ARG1]="[TOOL] Name of App/Tool/Script"
-    [EX-PRE]="# Converting time to iso8601"
-    [EX]="__$UTIL_DATE2ISO8601 \"tester.log\""	
+    [USAGE_TOOL]="__$UTIL_DATE2ISO8601"
+    [USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
+    [USAGE_EX_PRE]="# Converting time to iso8601"
+    [USAGE_EX]="__$UTIL_DATE2ISO8601 \"tester.log\""	
 )
 #
 # @brief  Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)
@@ -47,7 +47,7 @@ function __date2iso8601() {
     local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)"
 			printf "$DSTA" "$UTIL_DATE2ISO8601" "$FUNC" "$MSG"
@@ -59,7 +59,7 @@ function __date2iso8601() {
 		fi
         return $SUCCESS
     fi 
-    __usage $DATE2ISO8601_USAGE
+    __usage DATE2ISO8601_USAGE
     return $NOT_SUCCESS
 }
 

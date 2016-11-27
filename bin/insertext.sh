@@ -11,16 +11,16 @@ UTIL_INSERTEXT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_INSERTEXT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A INSERTEXT_USAGE=(
-    [TOOL]="__$UTIL_INSERTEXT"
-    [ARG1]="[LINE]  An integer referring to line number at which to insert the text file"
-    [ARG2]="[TEXT]  The text file to insert"
-    [ARG3]="[FILES] The text file to insert into"
-    [EX-PRE]="# Example put text into file"
-    [EX]="__$UTIL_INSERTEXT 3 test file"	
+    [USAGE_TOOL]="__$UTIL_INSERTEXT"
+    [USAGE_ARG1]="[LINE]  An integer referring to line number at which to insert the text file"
+    [USAGE_ARG2]="[TEXT]  The text file to insert"
+    [USAGE_ARG3]="[FILES] The text file to insert into"
+    [USAGE_EX_PRE]="# Example put text into file"
+    [USAGE_EX]="__$UTIL_INSERTEXT 3 test file"	
 )
 
 #
@@ -52,7 +52,7 @@ function __insertext() {
     local FILES=$@
     if [ -n "$LINE" ] && [ -n "$TEXT" ] && [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Insert text file into another file at line n"
 			printf "$DSTA" "$UTIL_INSERTEXT" "$FUNC" "$MSG"
@@ -95,7 +95,7 @@ function __insertext() {
 		fi
         return $SUCCESS
     fi
-    __usage $INSERTEXT_USAGE
+    __usage INSERTEXT_USAGE
     return $NOT_SUCCESS
 }
 

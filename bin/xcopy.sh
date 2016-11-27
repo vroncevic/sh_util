@@ -11,14 +11,14 @@ UTIL_XCOPY_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_XCOPY_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A XCOPY_USAGE=(
-    [TOOL]="__$UTIL_XCOPY"
-    [ARG1]="[XCOPY_STRUCTURE] Tool name, version, path and dev-path"
-    [EX-PRE]="# Copy tool to folder destination"
-    [EX]="__$UTIL_XCOPY \$XCOPY_STRUCTURE"
+    [USAGE_TOOL]="__$UTIL_XCOPY"
+    [USAGE_ARG1]="[XCOPY_STRUCTURE] Tool name, version, path and dev-path"
+    [USAGE_EX_PRE]="# Copy tool to folder destination"
+    [USAGE_EX]="__$UTIL_XCOPY \$XCOPY_STRUCTURE"
 )
 
 #
@@ -29,13 +29,14 @@ declare -A XCOPY_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A XCOPY_STRUCTURE=()
-# XCOPY_STRUCTURE[TN]="new_tool"
-# XCOPY_STRUCTURE[TV]="ver.1.0"
-# XCOPY_STRUCTURE[AP]="/usr/bin/local/"
-# XCOPY_STRUCTURE[DP]="/opt/new_tool/"
+# declare -A XCOPY_STRUCTURE=(
+# 	[TN]="new_tool"
+# 	[TV]="ver.1.0"
+# 	[AP]="/usr/bin/local/"
+# 	[DP]="/opt/new_tool/"
+# )
 #
-# __xcopy $XCOPY_STRUCTURE
+# __xcopy XCOPY_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,7 +51,7 @@ declare -A XCOPY_USAGE=(
 # fi
 #
 function __xcopy() {
-	local XCOPY_STRUCTURE=$1
+	local -n XCOPY_STRUCTURE=$1
     local TOOLNAME=${XCOPY_STRUCTURE[TN]}
     local VERSION=${XCOPY_STRUCTURE[TV]}
     local APPPATH=${XCOPY_STRUCTURE[AP]}
@@ -58,7 +59,7 @@ function __xcopy() {
     if [ -n "$TOOLNAME" ] && [ -n "$VERSION" ] && 
        [ -n "$APPPATH" ] && [ -n "$DEVPATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking dir [$APPPATH/]"
 			printf "$DQUE" "$UTIL_XCOPY" "$FUNC" "$MSG"
@@ -105,7 +106,7 @@ function __xcopy() {
 		printf "$SEND" "$UTIL_XCOPY" "$MSG"
 		return $NOT_SUCCESS
     fi
-    __usage $XCOPY_USAGE
+    __usage XCOPY_USAGE
     return $NOT_SUCCESS
 }
 

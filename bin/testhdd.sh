@@ -11,14 +11,14 @@ UTIL_TESTHDD_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_TESTHDD_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A TESTHDD_USAGE=(
-    [TOOL]="__$UTIL_TESTHDD"
-    [ARG1]="[TIME_COUNT] Time count"
-    [EX-PRE]="# Creating zerofile and test hdd"
-    [EX]="__$UTIL_TESTHDD 500"	
+    [USAGE_TOOL]="__$UTIL_TESTHDD"
+    [USAGE_ARG1]="[TIME_COUNT] Time count"
+    [USAGE_EX_PRE]="# Creating zerofile and test hdd"
+    [USAGE_EX]="__$UTIL_TESTHDD 500"	
 )
 
 #
@@ -46,7 +46,7 @@ function __testhdd() {
     local TIME_COUNT=$1
     if [ -n "$TIME_COUNT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Testing hard drive speed"
 			printf "$DSTA" "$UTIL_TESTHDD" "$FUNC" "$MSG"
@@ -58,7 +58,7 @@ function __testhdd() {
 		fi
         return $SUCCESS
     fi
-    __usage $TESTHDD_USAGE
+    __usage TESTHDD_USAGE
     return $NOT_SUCCESS
 }
 

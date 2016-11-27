@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_ADDNEWTOOL_VERSION
 UTIL_ADDNEWTOOL_CFG=$UTIL/conf/$UTIL_ADDNEWTOOL.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A ADDNEWTOOL_USAGE=(
-    [TOOL]="__$UTIL_ADDNEWTOOL"
-    [ARG1]="[TOOL_TO_ADD] Name of App/Tool/Script"
-    [EX-PRE]="# Example adding info for Thunderbird"
-    [EX]="__$UTIL_ADDNEWTOOL thunderbird"
+    [USAGE_TOOL]="__$UTIL_ADDNEWTOOL"
+    [USAGE_ARG1]="[TOOL_TO_ADD] Name of App/Tool/Script"
+    [USAGE_EX_PRE]="# Example adding info for Thunderbird"
+    [USAGE_EX]="__$UTIL_ADDNEWTOOL thunderbird"
 )
 
 #
@@ -49,7 +49,7 @@ function __addnewtool() {
     local TOOL_TO_ADD=$1
     if [ -n "$TOOL_TO_ADD" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configaddnewtoolutil=()
 		__loadutilconf $UTIL_ADDNEWTOOL_CFG configaddnewtoolutil
 		local STATUS=$?
@@ -144,7 +144,7 @@ function __addnewtool() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage $ADDNEWTOOL_USAGE
+    __usage ADDNEWTOOL_USAGE
     return $NOT_SUCCESS
 }
 

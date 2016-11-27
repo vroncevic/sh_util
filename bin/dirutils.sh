@@ -11,35 +11,35 @@ UTIL_DIRUTILS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_DIRUTILS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A MKDIRF_USAGE=(
-    [TOOL]="__mkdirf"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="__mkdirf"
+    [USAGE_ARG1]="[DIR_PATH] Directory path"
+    [USAGE_EX-PRE]="# Example creating directory"
+    [USAGE_EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A DIRNAME_USAGE=(
-    [TOOL]="__getdirname"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="__getdirname"
+    [USAGE_ARG1]="[DIR_PATH] Directory path"
+    [USAGE_EX-PRE]="# Example creating directory"
+    [USAGE_EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A BASENAME_USAGE=(
-    [TOOL]="__getbasename"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="__getbasename"
+    [USAGE_ARG1]="[DIR_PATH] Directory path"
+    [USAGE_EX-PRE]="# Example creating directory"
+    [USAGE_EX]="__mkdirf /opt/test/"
 ) 
 
 declare -A CLEANDIR_USAGE=(
-    [TOOL]="__clean"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# Example creating directory"
-    [EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="__clean"
+    [USAGE_ARG1]="[DIR_PATH] Directory path"
+    [USAGE_EX-PRE]="# Example creating directory"
+    [USAGE_EX]="__mkdirf /opt/test/"
 ) 
 
 #
@@ -68,7 +68,7 @@ function __mkdirf() {
     local DIR_PATH=$1
     if [ -n "$DIR_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Check dir [$DIR_PATH/]"
 			printf "$DQUE" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
@@ -91,7 +91,7 @@ function __mkdirf() {
 		fi
         return $SUCCESS
     fi
-    __usage $TOOL_MKDIR_USAGE
+    __usage TOOL_MKDIR_USAGE
     return $NOT_SUCCESS
 }
 
@@ -108,7 +108,7 @@ function __mkdirf() {
 function __getdirname() {
     if [ -n "$1" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Get name of dir"
 			printf "$DSTA" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
@@ -122,7 +122,7 @@ function __getdirname() {
 		fi
         echo "$_dir"
     fi
-    __usage $DIRNAME_USAGE
+    __usage DIRNAME_USAGE
 }
 
 #
@@ -138,7 +138,7 @@ function __getdirname() {
 function __getbasename() {
     if [ -n "$1" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Get basename of file"
 			printf "$DSTA" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
@@ -149,7 +149,7 @@ function __getbasename() {
 		fi
         echo "${_name%$2}"
     fi
-    __usage $BASENAME_USAGE
+    __usage BASENAME_USAGE
 }
 
 #
@@ -178,7 +178,7 @@ function __clean() {
     local DIRNAME=$1
     if [ -n "$DIRNAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking dir [${config[TOOLS]}/]"
 			printf "$DQUE" "$UTIL_DIRUTILS" "$FUNC" "$MSG"
@@ -200,7 +200,7 @@ function __clean() {
 		printf "$SEND" "$UTIL_DIRUTILS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CLEANDIR_USAGE
+    __usage CLEANDIR_USAGE
     return $NOT_SUCCESS
 }
 

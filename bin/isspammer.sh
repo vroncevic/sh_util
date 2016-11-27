@@ -11,14 +11,14 @@ UTIL_ISSPAMMER_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_ISSPAMMER_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A ISSPAMMER_USAGE=(
-    [TOOL]="__$UTIL_ISSPAMMER"
-    [ARG1]="[DOMAIN_NAME] Domain name"
-    [EX-PRE]="# Example checking domain"
-    [EX]="__$UTIL_ISSPAMMER domain.cc"	
+    [USAGE_TOOL]="__$UTIL_ISSPAMMER"
+    [USAGE_ARG1]="[DOMAIN_NAME] Domain name"
+    [USAGE_EX_PRE]="# Example checking domain"
+    [USAGE_EX]="__$UTIL_ISSPAMMER domain.cc"	
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return
@@ -112,7 +112,7 @@ function __checkaddress() {
 #
 function __isspammer(){
     local DOMAIN_NAME=$1
-    local MSG=""
+    local MSG="None"
     if [ -n "$DOMAIN_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
 		if [ "$TOOL_DBG" == "true" ]; then
@@ -157,7 +157,7 @@ function __isspammer(){
 		printf "$SEND" "$UTIL_ISSPAMMER" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $ISSPAMMER_USAGE
+    __usage ISSPAMMER_USAGE
     return $NOT_SUCCESS
 }
 

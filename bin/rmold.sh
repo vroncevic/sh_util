@@ -27,7 +27,7 @@ UTIL_LOG=$UTIL/log
 #
 function __rmold() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
 	if [ "$TOOL_DBG" == "true" ]; then
 		MSG="Remove files, dirs whose name is timestamp older than certain time"
 		printf "$DSTA" "$UTIL_RMOLD" "$FUNC" "$MSG"

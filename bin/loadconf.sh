@@ -12,16 +12,16 @@ UTIL_LOADCONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LOADCONF_VERSION
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checkcfg.sh
-. $UTIL/bin/devel.sh
 
 declare -A LOADCONF_USAGE=(
-    [TOOL]="__$UTIL_LOADCONF"
-    [ARG1]="[TOOL_CFG]      Path to config file"
-    [ARG2]="[CONFIGURATION] Hash structure for config"
-    [EX-PRE]="# Example load configuration"
-    [EX]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
+    [USAGE_TOOL]="__$UTIL_LOADCONF"
+    [USAGE_ARG1]="[TOOL_CFG]      Path to config file"
+    [USAGE_ARG2]="[CONFIGURATION] Hash structure for config"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="__$UTIL_LOADCONF \$TOOL_CFG configuration"	
 )
 
 #
@@ -53,7 +53,7 @@ function __loadconf() {
     local CONFIGURATION="$2"
     if [ -n "$TOOL_CFG" ] && [ -n "$CONFIGURATION" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Loading App/Tool/Script configuration"
 			printf "$DSTA" "$UTIL_LOADCONF" "$FUNC" "$MSG"
@@ -81,7 +81,7 @@ function __loadconf() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage $LOADCONF_USAGE
+    __usage LOADCONF_USAGE
     return $NOT_SUCCESS
 }
 

@@ -11,14 +11,14 @@ UTIL_LONGL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LONGL_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A LONGL_USAGE=(
-    [TOOL]="__$UTIL_LONGL"
-    [ARG1]="[NUMCHARS] an integer referring to minimum characters per line"
-    [EX-PRE]="# Print file name, that contain lines longer then 45 chars"
-    [EX]="__$UTIL_LONGL 45"	
+    [USAGE_TOOL]="__$UTIL_LONGL"
+    [USAGE_ARG1]="[NUMCHARS] an integer referring to minimum characters per line"
+    [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
+    [USAGE_EX]="__$UTIL_LONGL 45"	
 )
 
 #
@@ -49,7 +49,7 @@ function __longl() {
     local FILES=$@
     if [ -n "$NUMCHARS" ] && [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Print file name that contains lines longer then n chars"
 			printf "$DSTA" "$UTIL_LONGL" "$FUNC" "$MSG"
@@ -82,7 +82,7 @@ function __longl() {
 			printf "$DEND" "$UTIL_LONGL" "$FUNC" "Done"
 		fi
     fi
-    __usage $LONGL_USAGE
+    __usage LONGL_USAGE
     return $NOT_SUCCESS
 }
 

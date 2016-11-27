@@ -12,17 +12,17 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_XBREAK_VERSION
 UTIL_XBREAK_CFG=$UTIL/conf/$UTIL_XBREAK.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
-. $UTIL/bin/loadutilconf.sh
 . $UTIL/bin/checkx.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A XBREAK_USAGE=(
-    [TOOL]="__$UTIL_XBREAK"
-    [ARG1]="[TIME] Life time"
-    [EX-PRE]="# Example running __$UTIL_XBREAK"
-    [EX]="__$UTIL_XBREAK 5s"	
+    [USAGE_TOOL]="__$UTIL_XBREAK"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running __$UTIL_XBREAK"
+    [USAGE_EX]="__$UTIL_XBREAK 5s"	
 )
 
 #
@@ -51,7 +51,7 @@ function __xbreak() {
     local TIME=$1
     if [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configxbreakutil=()
 		__loadutilconf "$UTIL_XBREAK_CFG" configxbreakutil
 		local STATUS=$?
@@ -78,14 +78,14 @@ function __xbreak() {
 		            return $SUCCESS
 		            ;;
 		        *) 
-		            __usage $XBREAK_USAGE
+		            __usage XBREAK_USAGE
 		            ;;
 		    esac
 		    return $NOT_SUCCESS 
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $XBREAK_USAGE
+    __usage XBREAK_USAGE
     return $NOT_SUCCESS
 }
 

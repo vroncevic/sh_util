@@ -11,14 +11,14 @@ UTIL_WHICHBIN_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_WHICHBIN_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A WHICHBIN_USAGE=(
-    [TOOL]="__$UTIL_WHICHBIN"
-    [ARG1]="[PATH] Path to destionation"
-    [EX-PRE]="# Example running __$UTIL_WHICHBIN"
-    [EX]="__$UTIL_WHICHBIN /data/"
+    [USAGE_TOOL]="__$UTIL_WHICHBIN"
+    [USAGE_ARG1]="[PATH] Path to destionation"
+    [USAGE_EX_PRE]="# Example running __$UTIL_WHICHBIN"
+    [USAGE_EX]="__$UTIL_WHICHBIN /data/"
 )
 
 #
@@ -48,7 +48,7 @@ function __follow_link() {
     if [ -n "$FILE" ]; then
 		local FILE=$(which "$FILE")
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$FILE" -eq "$NOT_SUCCESS" ]; then
 			MSG="[$FILE] is not an executable"
 			printf "$SEND" "$UTIL_WHICHBIN" "$MSG"
@@ -98,7 +98,7 @@ function __whichbin() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Locate bin"
 			printf "$DSTA" "$UTIL_WHICHBIN" "$FUNC" "$MSG"
@@ -112,7 +112,7 @@ function __whichbin() {
 		fi
         return $SUCCESS
     fi
-    __usage $WHICHBIN_USAGE
+    __usage WHICHBIN_USAGE
     return $NOT_SUCCESS
 }
 

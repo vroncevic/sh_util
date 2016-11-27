@@ -11,14 +11,14 @@ UTIL_RMBLANKS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_RMBLANKS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A RMBLANKS_USAGE=(
-    [TOOL]="__$UTIL_RMBLANKS"
-    [ARG1]="[FILES] Name of file"
-    [EX-PRE]="# Removing blank lines from file"
-    [EX]="__$UTIL_RMBLANKS /data/test.txt"	
+    [USAGE_TOOL]="__$UTIL_RMBLANKS"
+    [USAGE_ARG1]="[FILES] Name of file"
+    [USAGE_EX_PRE]="# Removing blank lines from file"
+    [USAGE_EX]="__$UTIL_RMBLANKS /data/test.txt"	
 )
 
 #
@@ -47,7 +47,7 @@ function __rmblanks() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Remove blank lines from an ascii file, replace original file"
 			printf "$DSTA" "$UTIL_RMBLANKS" "$FUNC" "$MSG"
@@ -88,7 +88,7 @@ function __rmblanks() {
 		fi
         return $SUCCESS
     fi
-    __usage $RMBLANKS_USAGE
+    __usage RMBLANKS_USAGE
     return $NOT_SUCCESS
 }
 

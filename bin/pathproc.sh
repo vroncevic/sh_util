@@ -11,14 +11,14 @@ UTIL_PATHPROC_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_PATHPROC_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A PATHPROC_USAGE=(
-    [TOOL]="__$UTIL_PATHPROC"
-    [ARG1]="[PROCESS] Process ID"
-    [EX-PRE]="# Example Gives complete path name of process"
-    [EX]="__$UTIL_PATHPROC 1356"	
+    [USAGE_TOOL]="__$UTIL_PATHPROC"
+    [USAGE_ARG1]="[PROCESS] Process ID"
+    [USAGE_EX_PRE]="# Example Gives complete path name of process"
+    [USAGE_EX]="__$UTIL_PATHPROC 1356"	
 )
 
 #
@@ -48,7 +48,7 @@ function __pathproc() {
     local PROCESS=$1
     if [ -n "$PROCESS" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local PROCFILE=exe
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Gives complete path name of process associated with pid"
@@ -85,7 +85,7 @@ function __pathproc() {
 		fi
         return $SUCCESS
     fi
-    __usage $PATHPROC_USAGE
+    __usage PATHPROC_USAGE
     return $NOT_SUCCESS
 }
 

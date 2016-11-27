@@ -11,14 +11,14 @@ UTIL_LOGGEDIN_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LOGGEDIN_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A LOGGEDIN_USAGE=(
-    [TOOL]="__$UTIL_LOGGEDIN"
-    [ARG1]="[LOGIN_STRUCTURE] System username and time"
-    [EX-PRE]="# Create a file n bytes large"
-    [EX]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
+    [USAGE_TOOL]="__$UTIL_LOGGEDIN"
+    [USAGE_ARG1]="[LOGIN_STRUCTURE] System username and time"
+    [USAGE_EX_PRE]="# Create a file n bytes large"
+    [USAGE_EX]="__$UTIL_LOGGEDIN \$LOGIN_STRUCTURE"	
 )
 
 #
@@ -29,11 +29,12 @@ declare -A LOGGEDIN_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A LOGIN_STRUCTURE=()
-# LOGIN_STRUCTURE[USERNAME]="vroncevic"
-# LOGIN_STRUCTURE[TIME]=$time
+# declare -A LOGIN_STRUCTURE=(
+# 	[USERNAME]="vroncevic"
+# 	[TIME]=$time
+# )
 #
-# __loggedin $LOGIN_STRUCTURE
+# __loggedin LOGIN_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -48,12 +49,12 @@ declare -A LOGGEDIN_USAGE=(
 # fi
 #
 function __loggedin() {
-	local LOGIN_STRUCTURE=$1
+	local -n LOGIN_STRUCTURE=$1
     local USER_NAME=${LOGIN_STRUCTURE[USERNAME]}
     local TIME=${LOGIN_STRUCTURE[TIME]}
     if [ -n "$USER_NAME" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Notify when a particular user [$USER_NAME] has logged in"
 			printf "$DSTA" "$UTIL_LOGGEDIN" "$FUNC" "$MSG"
@@ -78,7 +79,7 @@ function __loggedin() {
 		fi
         return $SUCCESS
     fi
-    __usage $LOGGEDIN_USAGE
+    __usage LOGGEDIN_USAGE
     return $NOT_SUCCESS
 }
 

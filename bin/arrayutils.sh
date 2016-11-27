@@ -38,7 +38,7 @@ UTIL_LOG=$UTIL/log
 function __arr() {
 	local FUNC=${FUNCNAME[0]}
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Invalid bash variable"
 			printf "$DSTA" "$UTIL_ARRAYLIST" "$FUNC" "$MSG"
@@ -73,7 +73,7 @@ function __arr() {
 #
 function __insert() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Invalid bash variable"
@@ -117,7 +117,7 @@ function __insert() {
 #
 function __set() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; 
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Invalid bash variable"
@@ -161,7 +161,7 @@ function __set() {
 #
 function __get() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then 
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Invalid bash variable"
@@ -204,7 +204,7 @@ function __get() {
 #
 function __at() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Invalid bash variable"
@@ -258,7 +258,7 @@ function __at() {
 #
 function __count() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
     if [[ ! "$1" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then 
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Invalid bash variable"

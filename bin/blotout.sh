@@ -11,14 +11,14 @@ UTIL_BLOTOUT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_BLOTOUT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A BLOTOUT_USAGE=(
-    [TOOL]="__$UTIL_BLOTOUT"
-    [ARG1]="[FILE_NAME] Name of file"
-    [EX-PRE]="# Example delete file with high security"
-    [EX]="__$UTIL_BLOTOUT /opt/test.ini"	
+    [USAGE_TOOL]="__$UTIL_BLOTOUT"
+    [USAGE_ARG1]="[FILE_NAME] Name of file"
+    [USAGE_EX_PRE]="# Example delete file with high security"
+    [USAGE_EX]="__$UTIL_BLOTOUT /opt/test.ini"	
 )
 
 #
@@ -47,7 +47,7 @@ function __blotout() {
     local FILE=$1
     if [ -n "$FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local PASSES=7
 		local BLOCKSIZE=1
 		if [ "$TOOL_DBG" == "true" ]; then
@@ -106,7 +106,7 @@ function __blotout() {
 		fi
         return $SUCCESS
     fi
-    __usage $BLOTOUT_USAGE
+    __usage BLOTOUT_USAGE
     return $NOT_SUCCESS
 }
 

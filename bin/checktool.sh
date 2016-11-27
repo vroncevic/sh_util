@@ -11,14 +11,14 @@ UTIL_CHECKTOOL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKTOOL_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CHECKTOOL_USAGE=(
-    [TOOL]="__$UTIL_CHECKTOOL"
-    [ARG1]="[TOOL] Path to App/Tool/Script"
-    [EX-PRE]="# Example checking java tool"
-    [EX]="__$UTIL_CHECKTOOL /usr/share/java"
+    [USAGE_TOOL]="__$UTIL_CHECKTOOL"
+    [USAGE_ARG1]="[TOOL] Path to App/Tool/Script"
+    [USAGE_EX_PRE]="# Example checking java tool"
+    [USAGE_EX]="__$UTIL_CHECKTOOL /usr/share/java"
 )
 
 #
@@ -48,7 +48,7 @@ function __checktool() {
     local APP_TOOL=$1
     if [ -n "$APP_TOOL" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking tool [$APP_TOOL]"
         	printf "$DQUE" "$UTIL_CHECKTOOL" "$FUNC" "$MSG"
@@ -67,7 +67,7 @@ function __checktool() {
 		printf "$SEND" "$UTIL_CHECKTOOL" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $CHECKTOOL_USAGE
+    __usage CHECKTOOL_USAGE
     return $NOT_SUCCESS
 }
 

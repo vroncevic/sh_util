@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_DEP2GROUP_VERSION
 UTIL_DEP2GROUP_CFG=$UTIL/conf/$UTIL_DEP2GROUP.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A DEP2GROUP_USAGE=(
-    [TOOL]="__$UTIL_DEP2GROUP"
-    [ARG1]="[DEPARTMENT] Department name"
-    [EX-PRE]="# Example converting \"Management\" to \"me\""
-    [EX]="__$UTIL_DEP2GROUP \"Management\""
+    [USAGE_TOOL]="__$UTIL_DEP2GROUP"
+    [USAGE_ARG1]="[DEPARTMENT] Department name"
+    [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
+    [USAGE_EX]="__$UTIL_DEP2GROUP \"Management\""
 )
 
 #
@@ -51,7 +51,7 @@ function __dep2group() {
     local DEPARTMENT=$1
     if [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configdep2group=()
 		__loadutilconf $UTIL_DEP2GROUP_CFG configdep2group
 		local STATUS=$?
@@ -73,7 +73,7 @@ function __dep2group() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $DEP2GROUP_USAGE
+    __usage DEP2GROUP_USAGE
     return $NOT_SUCCESS
 }
 

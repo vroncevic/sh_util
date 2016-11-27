@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_SPAMLOOKUP_VERSION
 UTIL_SPAMLOOKUP_CFG=$UTIL/conf/$UTIL_SPAMLOOKUP.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A SPAMLOOKUP_USAGE=(
-    [TOOL]="__$UTIL_SPAMLOOKUP"
-    [ARG1]="[DOMAIN_NAME] Domain name"
-    [EX-PRE]="# Example check www.domain.cc"
-    [EX]="__$UTIL_SPAMLOOKUP www.domain.cc"	
+    [USAGE_TOOL]="__$UTIL_SPAMLOOKUP"
+    [USAGE_ARG1]="[DOMAIN_NAME] Domain name"
+    [USAGE_EX_PRE]="# Example check www.domain.cc"
+    [USAGE_EX]="__$UTIL_SPAMLOOKUP www.domain.cc"	
 )
 
 #
@@ -50,7 +50,7 @@ function __spamlookup() {
     local DOMAIN_NAME=$1
     if [ -n "$DOMAIN_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configspamlookuputil=()
 		__loadutilconf "$UTIL_SPAMLOOKUP_CFG" configspamlookuputil
 		local STATUS=$?
@@ -73,7 +73,7 @@ function __spamlookup() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $SPAMLOOKUP_USAGE
+    __usage SPAMLOOKUP_USAGE
     return $NOT_SUCCESS
 }
 

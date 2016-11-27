@@ -12,16 +12,16 @@ UTIL_LOADUTILCONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LOADUTILCONF_VERSION
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checkcfg.sh
-. $UTIL/bin/devel.sh
 
 declare -A LOADUTILCONF_USAGE=(
-    [TOOL]="__$UTIL_LOADUTILCONF"
-	[ARG1]="[TOOL_CFG]      Path to config file"
-    [ARG2]="[CONFIGURATION] Hash structure for config"
-    [EX-PRE]="# Example load configuration"
-    [EX]="__$UTIL_LOADUTILCONF \$UTIL_CFG configuration"	
+    [USAGE_TOOL]="__$UTIL_LOADUTILCONF"
+	[USAGE_ARG1]="[TOOL_CFG]      Path to config file"
+    [USAGE_ARG2]="[CONFIGURATION] Hash structure for config"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="__$UTIL_LOADUTILCONF \$UTIL_CFG configuration"	
 )
 
 #
@@ -53,7 +53,7 @@ function __loadutilconf() {
     local CONFIGURATION="$2"
     if [ -n "$TOOL_CFG" ] && [ -n "$CONFIGURATION" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Load module configuration"
 			printf "$DSTA" "$UTIL_LOADUTILCONF" "$FUNC" "$MSG"
@@ -73,7 +73,7 @@ function __loadutilconf() {
         fi
         return $NOT_SUCCESS
     fi
-    __usage $LOADUTILCONF_USAGE
+    __usage LOADUTILCONF_USAGE
     return $NOT_SUCCESS
 }
 

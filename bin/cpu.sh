@@ -11,14 +11,14 @@ UTIL_CPU_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CPU_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CPU_USAGE=(
-    [TOOL]="__$UTIL_CPU"
-    [ARG1]="[CPU_SPEED] Show in GHz | MHz CPU speed"
-    [EX-PRE]="# Example show in GHz CPU speed"
-    [EX]="__$UTIL_CPU ghz"	
+    [USAGE_TOOL]="__$UTIL_CPU"
+    [USAGE_ARG1]="[CPU_SPEED] Show in GHz | MHz CPU speed"
+    [USAGE_EX_PRE]="# Example show in GHz CPU speed"
+    [USAGE_EX]="__$UTIL_CPU ghz"	
 )
 
 #
@@ -48,11 +48,11 @@ function __cpu() {
     local CPU_SPEED=$1
     if [ -n "$CPU_SPEED" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local CPUINFO=/proc/cpuinfo
 		local GHZ='/cpu MHz/ {print $4 " / 1000"}'
 		local MHZ='/cpu MHz/ {print $4}'
-		local HZ=""
+		local HZ="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking CPU speed"
 			printf "$DSTA" "$UTIL_CPU" "$FUNC" "$MSG"
@@ -72,7 +72,7 @@ function __cpu() {
 		fi
 		return $SUCCESS
     fi
-    __usage $CPU_USAGE
+    __usage CPU_USAGE
     return $NOT_SUCCESS
 }
 

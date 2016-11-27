@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_MD5SUM_VERSION
 UTIL_MD5SUM_CFG=$UTIL/conf/$UTIL_MD5SUM.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A md5sum_USAGE=(
-    [TOOL]="__$UTIL_MD5SUM"
-    [ARG1]="[INPUT_STRING] input string"
-    [EX-PRE]="# Calculate md5sum from an input string"
-    [EX]="__$UTIL_MD5SUM simpletest"	
+    [USAGE_TOOL]="__$UTIL_MD5SUM"
+    [USAGE_ARG1]="[INPUT_STRING] input string"
+    [USAGE_EX_PRE]="# Calculate md5sum from an input string"
+    [USAGE_EX]="__$UTIL_MD5SUM simpletest"	
 )
 
 #
@@ -50,7 +50,7 @@ function __md5sum() {
     local INPUT_STRING=$1
     if [ -n "$INPUT_STRING" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configmd5sumutil=()
 		__loadutilconf "$UTIL_MD5SUM_CFG" configmd5sumutil
 		local STATUS=$?
@@ -73,7 +73,7 @@ function __md5sum() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage  $MD5SUM_USAGE
+    __usage MD5SUM_USAGE
     return $NOT_SUCCESS
 }
 

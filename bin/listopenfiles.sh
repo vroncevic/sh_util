@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_LISTOPENFILES_VERSION
 UTIL_LISTOPENFILES_CFG=$UTIL/conf/$UTIL_LISTOPENFILES.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A LISTOPENFILES_USAGE=(
-    [TOOL]="__$UTIL_LISTOPENFILES"
-    [ARG1]="[USER_NAME] System username"
-    [EX-PRE]="# Example list all opened files by user"
-    [EX]="__$UTIL_LISTOPENFILES vroncevic"
+    [USAGE_TOOL]="__$UTIL_LISTOPENFILES"
+    [USAGE_ARG1]="[USER_NAME] System username"
+    [USAGE_EX_PRE]="# Example list all opened files by user"
+    [USAGE_EX]="__$UTIL_LISTOPENFILES vroncevic"
 )
 
 #
@@ -51,7 +51,7 @@ function __listopenfiles() {
     local USER_NAME=$1
     if [ -n "$USER_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configlistopenfilesutil=()
 		__loadutilconf "$UTIL_LISTOPENFILES_CFG" configlistopenfilesutil
 		local STATUS=$?
@@ -74,7 +74,7 @@ function __listopenfiles() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $LISTOPENFILES_USAGE
+    __usage LISTOPENFILES_USAGE
     return $NOT_SUCCESS
 }
 

@@ -37,7 +37,7 @@ UTIL_LOG=$UTIL/log
 #
 function __checkroot() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
 	if [ "$TOOL_DBG" == "true" ]; then
 		MSG="Check permission for current session"
     	printf "$DQUE" "$UTIL_CHECKROOT" "$FUNC" "$MSG"

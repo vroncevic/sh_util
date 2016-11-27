@@ -12,17 +12,17 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_SENDMAIL_VERSION
 UTIL_SENDMAIL_CFG=$UTIL/conf/$UTIL_SENDMAIL.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A SENDMAIL_USAGE=(
-    [TOOL]="__$UTIL_SENDMAIL"
-    [ARG1]="[MSG]         Email text body"
-    [ARG2]="[EMAIL2ADMIN] Full email address"
-    [EX-PRE]="# Example sending simple message"
-    [EX]="__$UTIL_SENDMAIL \"test\" \"vladimir.roncevic@frobas.com\""	
+    [USAGE_TOOL]="__$UTIL_SENDMAIL"
+    [USAGE_ARG1]="[MSG]         Email text body"
+    [USAGE_ARG2]="[EMAIL2ADMIN] Full email address"
+    [USAGE_EX_PRE]="# Example sending simple message"
+    [USAGE_EX]="__$UTIL_SENDMAIL \"test\" \"vladimir.roncevic@frobas.com\""	
 )
 
 #
@@ -52,7 +52,7 @@ function __sendmail() {
     local ADMIN_EMAIL=$2
     if [ -n "$MESSAGE" ] && [ -n "$ADMIN_EMAIL" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configsendmailutil=()
 		__loadutilconf "$UTIL_SENDMAIL_CFG" configsendmailutil
 		local STATUS=$?
@@ -83,7 +83,7 @@ EOF
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $SENDMAIL_USAGE
+    __usage SENDMAIL_USAGE
     return $NOT_SUCCESS
 }
 

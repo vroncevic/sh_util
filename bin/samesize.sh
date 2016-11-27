@@ -11,14 +11,14 @@ UTIL_SAMESIZE_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_SAMESIZE_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A SAMESIZE_USAGE=(
-    [TOOL]="__$UTIL_SAMESIZE"
-    [ARG1]="[DIR_PATH] Directory path"
-    [EX-PRE]="# List files of same size in dir"
-    [EX]="__$UTIL_SAMESIZE /data/"	
+    [USAGE_TOOL]="__$UTIL_SAMESIZE"
+    [USAGE_ARG1]="[DIR_PATH] Directory path"
+    [USAGE_EX_PRE]="# List files of same size in dir"
+    [USAGE_EX]="__$UTIL_SAMESIZE /data/"	
 )
 
 #
@@ -47,7 +47,7 @@ function __samesize() {
     local DIR_PATH=$1
     if [ -n "$DIR_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="List files of same size in current dir"
 			printf "$DSTA" "$UTIL_SAMESIZE" "$FUNC" "$MSG"
@@ -72,7 +72,7 @@ function __samesize() {
 		printf "$SEND" "$UTIL_SAMESIZE" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $SAMESIZE_USAGE
+    __usage SAMESIZE_USAGE
     return $NOT_SUCCESS
 }
 

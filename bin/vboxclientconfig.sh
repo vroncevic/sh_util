@@ -13,15 +13,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_VBOXCLIENTCONFIG_VERSION
 UTIL_CFG_VBOXCFG=$UTIL/conf/$UTIL_VBOXCLIENTCONFIG.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A VBOXCLIENTCONFIG_USAGE=(
-    [TOOL]="__$UTIL_VBOXCLIENTCONFIG"
-    [ARG1]="[USERNAME] System username"
-    [EX-PRE]="# Example generating VBOX config files"
-    [EX]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
+    [USAGE_TOOL]="__$UTIL_VBOXCLIENTCONFIG"
+    [USAGE_ARG1]="[USERNAME] System username"
+    [USAGE_EX_PRE]="# Example generating VBOX config files"
+    [USAGE_EX]="__$UTIL_VBOXCLIENTCONFIG vroncevic"	
 )
 
 #
@@ -50,7 +50,7 @@ function __vboxclientconfig() {
     local USERNAME=$1
     if [ -n "$USERNAME" ]; then 
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configvboxclientconfigutil=()
 		__loadutilconf "$UTIL_CFG_VBOXCFG" configvboxclientconfigutil
 		local STATUS=$?
@@ -107,7 +107,7 @@ function __vboxclientconfig() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage $VBOXCLIENTCONFIG_USAGE
+    __usage VBOXCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
 

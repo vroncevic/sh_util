@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_ID2BRANCH_VERSION
 UTIL_ID2BRANCH_CFG=$UTIL/conf/$UTIL_ID2BRANCH.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A ID2BRANCH_USAGE=(
-    [TOOL]="__$UTIL_ID2BRANCH"
-    [ARG1]="[ID] Name of town or country"
-    [EX-PRE]="# Example convert ns to ns-frobas-employee"
-    [EX]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
+    [USAGE_TOOL]="__$UTIL_ID2BRANCH"
+    [USAGE_ARG1]="[ID] Name of town or country"
+    [USAGE_EX_PRE]="# Example convert ns to ns-frobas-employee"
+    [USAGE_EX]="__$UTIL_ID2BRANCH \"ns\" BRANCH"	
 )
 
 #
@@ -51,7 +51,7 @@ function __id2branch() {
     local ID=$1
     if [ -n "$ID" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configid2branch=()
 		__loadutilconf $UTIL_ID2BRANCH_CFG configid2branch
 		local STATUS=$?
@@ -76,7 +76,7 @@ function __id2branch() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $ID2BRANCH_USAGE
+    __usage ID2BRANCH_USAGE
     return $NOT_SUCCESS
 }
 

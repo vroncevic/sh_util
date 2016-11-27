@@ -38,7 +38,7 @@ function __listssh() {
     local TTY=$(tty | cut -f3- -d/)
     if [ -n "$TTY" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="List SSH sessions"
 			printf "$DSTA" "$UTIL_LISTSSH" "$FUNC" "$MSG"

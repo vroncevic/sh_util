@@ -11,14 +11,14 @@ UTIL_LISTPORT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_LISTPORT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A LISTPORT_USAGE=(
-    [TOOL]="__$UTIL_LISTPORT"
-    [ARG1]="[PORT] Which you need to check"
-    [EX-PRE]="# Example check port 1734"
-    [EX]="__$UTIL_LISTPORT 1734"	
+    [USAGE_TOOL]="__$UTIL_LISTPORT"
+    [USAGE_ARG1]="[PORT] Which you need to check"
+    [USAGE_EX-PRE]="# Example check port 1734"
+    [USAGE_EX]="__$UTIL_LISTPORT 1734"	
 )
 
 #
@@ -43,11 +43,11 @@ declare -A LISTPORT_USAGE=(
 #	# exit 128
 # fi
 #
-function __listport {
+function __listport() {
     local TARGET_PORT=$1
     if [ -n "$TARGET_PORT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking port [$TARGET_PORT]"
 			printf "$DSTA" "$UTIL_LISTPORT" "$FUNC" "$MSG"
@@ -58,7 +58,7 @@ function __listport {
 		fi
         return $SUCCESS
     fi 
-    __usage $LISTPORT_USAGE
+    __usage LISTPORT_USAGE
     return $NOT_SUCCESS
 }
 

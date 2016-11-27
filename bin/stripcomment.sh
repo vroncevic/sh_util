@@ -11,14 +11,14 @@ UTIL_STRIPCOMMENT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_STRIPCOMMENT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A STRIPCOMMENT_USAGE=(
-    [TOOL]="__$UTIL_STRIPCOMMENT"
-    [ARG1]="[FILE] Path to C file code"
-    [EX-PRE]="# Strips comments from C code"
-    [EX]="__$UTIL_STRIPCOMMENT /opt/test.c"	
+    [USAGE_TOOL]="__$UTIL_STRIPCOMMENT"
+    [USAGE_ARG1]="[FILE] Path to C file code"
+    [USAGE_EX_PRE]="# Strips comments from C code"
+    [USAGE_EX]="__$UTIL_STRIPCOMMENT /opt/test.c"	
 )
 
 #
@@ -47,7 +47,7 @@ function __stripcomment() {
     local FILE=$1
     if [ -n "$FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
         if [ -f "$FILE" ]; then
 			if [ "$TOOL_DBG" == "true" ]; then
             	MSG="Checking Code File"
@@ -76,7 +76,7 @@ function __stripcomment() {
 		printf "$SEND" "$UTIL_STRIPCOMMENT" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $STRIPCOMMENT_USAGE
+    __usage STRIPCOMMENT_USAGE
     return $NOT_SUCCESS
 }
 

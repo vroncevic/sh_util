@@ -11,22 +11,22 @@ UTIL_SORTCOPY_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_SORTCOPY_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A LCP_USAGE=(
-    [TOOL]="__lcp"
-    [ARG1]="[EXSTENSION]  File extension"
-    [ARG2]="[DESTINATION] Final destination for copy process"
-    [EX-PRE]="# Copy all *.jpg files to directory /opt/"
-    [EX]="__lcp jpg /opt/"	
+    [USAGE_TOOL]="__lcp"
+    [USAGE_ARG1]="[EXSTENSION]  File extension"
+    [USAGE_ARG2]="[DESTINATION] Final destination for copy process"
+    [USAGE_EX_PRE]="# Copy all *.jpg files to directory /opt/"
+    [USAGE_EX]="__lcp jpg /opt/"	
 )
 
 declare -A DUP_USAGE=(
-    [TOOL]="__duplicatescounter"
-    [ARG1]="[FILE_PATH] Sort and count duplicates"
-    [EX-PRE]="# Sort and count duplicates"
-    [EX]="__duplicatescounter /opt/test.txt"	
+    [USAGE_TOOL]="__duplicatescounter"
+    [USAGE_ARG1]="[FILE_PATH] Sort and count duplicates"
+    [USAGE_EX_PRE]="# Sort and count duplicates"
+    [USAGE_EX]="__duplicatescounter /opt/test.txt"	
 )
 
 #
@@ -56,7 +56,7 @@ function __lcp() {
     local DESTINATION=$2
     if [ -n "$EXSTENSION" ] && [ -n "$DESTINATION" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking dir [$DESTINATION/]"
 			printf "$DQUE" "$UTIL_SORTCOPY" "$FUNC" "$MSG"
@@ -76,7 +76,7 @@ function __lcp() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $LCP_USAGE
+    __usage LCP_USAGE
     return $NOT_SUCCESS
 }
 
@@ -107,7 +107,7 @@ function __duplicatescounter() {
     local FILE_PATH=$1
     if [ -n "$FILE_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking dir [$FILE_PATH/]"
 			printf "$DQUE" "$UTIL_SORTCOPY" "$FUNC" "$MSG"
@@ -127,7 +127,7 @@ function __duplicatescounter() {
 		printf "$SEND" "$UTIL_SORTCOPY" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $DUP_USAGE
+    __usage DUP_USAGE
     return $NOT_SUCCESS
 }
 

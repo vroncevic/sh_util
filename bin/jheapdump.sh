@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_JHEAPDUMP_VERSION
 UTIL_JHEAPDUMP_CFG=$UTIL/conf/$UTIL_JHEAPDUMP.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A JHEAPDUMP_USAGE=(
-    [TOOL]="__$UTIL_JHEAPDUMP"
-    [ARG1]="[PID_OF_JVM] PID of JVM"
-    [EX-PRE]="# Create a heap dump of a Java process"
-    [EX]="__$UTIL_JHEAPDUMP 2334"	
+    [USAGE_TOOL]="__$UTIL_JHEAPDUMP"
+    [USAGE_ARG1]="[PID_OF_JVM] PID of JVM"
+    [USAGE_EX_PRE]="# Create a heap dump of a Java process"
+    [USAGE_EX]="__$UTIL_JHEAPDUMP 2334"	
 )
 
 #
@@ -50,7 +50,7 @@ function __jheapdump() {
     local PID_OF_JVM=$1
     if [ -n "$PID_OF_JVM" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configjheapdumputil=()
 		__loadutilconf "$UTIL_JHEAPDUMP_CFG" configjheapdumputil
 		local STATUS=$?
@@ -77,7 +77,7 @@ function __jheapdump() {
 			fi
 		return $NOT_SUCCESS
     fi
-    __usage $JHEAPDUMP_USAGE
+    __usage JHEAPDUMP_USAGE
     return $NOT_SUCCESS
 }
 

@@ -12,23 +12,23 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_FILEINTEGRITY_VERSION
 UTIL_FILEINTEGRITY_CFG=$UTIL/conf/$UTIL_FILEINTEGRITY.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A SETDB_USAGE=(
-    [TOOL]="__setupdb"
-    [ARG1]="[DB_STRUCTURE] DB file and path"
-    [EX-PRE]="# Example set database"
-    [EX]="__setupdb \$DB_STRUCTURE"	
+    [USAGE_TOOL]="__setupdb"
+    [USAGE_ARG1]="[DB_STRUCTURE] DB file and path"
+    [USAGE_EX_PRE]="# Example set database"
+    [USAGE_EX]="__setupdb \$DB_STRUCTURE"	
 )
 
 declare -A CHECKDB_USAGE=(
-    [TOOL]="__checkdb"
-    [ARG1]="[DB_FILE] Database file"
-    [EX-PRE]="# Example checking database"
-    [EX]="__checkdb test.db"	
+    [USAGE_TOOL]="__checkdb"
+    [USAGE_ARG1]="[DB_FILE] Database file"
+    [USAGE_EX_PRE]="# Example checking database"
+    [USAGE_EX]="__checkdb test.db"	
 )
 
 #
@@ -39,11 +39,12 @@ declare -A CHECKDB_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A DB_STRUCTURE=()
-# DB_STRUCTURE[FILE]="info.db"
-# DB_STRUCTURE[DIR]="/data/"
+# declare -A DB_STRUCTURE=(
+# 	[FILE]="info.db"
+# 	[DIR]="/data/"
+# )
 #
-# __setupdb $DB_STRUCTURE
+# __setupdb DB_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -58,12 +59,12 @@ declare -A CHECKDB_USAGE=(
 # fi
 #
 function __setupdb() {
-	local DB_STRUCTURE=$1
+	local -n DB_STRUCTURE=$1
     local DB_FILE=${DB_STRUCTURE[FILE]}
     local DIR=${DB_STRUCTURE[DIR]}
     if [ -n "$DB_FILE" ] && [ -n "$DIR" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configfileintegrityutil=()
 		__loadutilconf "$UTIL_FILEINTEGRITY_CFG" configfileintegrityutil
 		local STATUS=$?
@@ -91,7 +92,7 @@ function __setupdb() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $SETDB_USAGE
+    __usage SETDB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -125,7 +126,7 @@ function __checkdb() {
     local checksum
     if [ -n "$DB_FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking db file [$DB_FILE]"
 			printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"
@@ -169,7 +170,7 @@ function __checkdb() {
 		fi
         return $SUCCESS
     fi
-    __usage $CHECKDB_USAGE
+    __usage CHECKDB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -204,7 +205,7 @@ function __fileintegrity() {
         DIR="$1"
     fi
     local FUNC=${FUNCNAME[0]}
-    local MSG=""
+    local MSG="None"
 	if [ "$TOOL_DBG" == "true" ]; then
     	MSG="Running file integrity check on [$DIR]"
 		printf "$DSTA" "$UTIL_FILEINTEGRITY" "$FUNC" "$MSG"

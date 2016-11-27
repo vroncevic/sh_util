@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_APPSHORTCUT_VERSION
 UTIL_APPSHORTCUT_CFG=$UTIL/conf/$UTIL_APPSHORTCUT.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A APPSHORTCUT_USAGE=(
-	[TOOL]="__$UTIL_APPSHORTCUT"
-	[ARG1]="[APP_STRUCTURE] App name and description"
-	[EX-PRE]="# Example generating WoLAN shortcut"
-	[EX]="__$UTIL_APPSHORTCUT wolan \"WOL Software System\""	
+	[USAGE_TOOL]="__$UTIL_APPSHORTCUT"
+	[USAGE_ARG1]="[APP_STRUCTURE] App name and description"
+	[USAGE_EX_PRE]="# Example generating WoLAN shortcut"
+	[USAGE_EX]="__$UTIL_APPSHORTCUT wolan \"WOL Software System\""	
 )
 
 #
@@ -31,11 +31,12 @@ declare -A APPSHORTCUT_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A APP_STRUCTURE=()
-# APP_STRUCTURE[AN]="WoLAN"
-# APP_STRUCTURE[AD]="WOL Software System"
+# declare -A APP_STRUCTURE=(
+# 	[AN]="WoLAN"
+# 	[AD]="WOL Software System"
+# )
 #
-# __appshortcut $APP_STRUCTURE
+# __appshortcut APP_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,12 +51,12 @@ declare -A APPSHORTCUT_USAGE=(
 # fi
 #
 function __appshortcut() {
-	local APP_STRUCTURE=$1
+	local -n APP_STRUCTURE=$1
     local APPNAME=${APP_STRUCTURE[AN]}
     local APPDESCRIPTION=${APP_STRUCTURE[AD]}
     if [ -n "$APPNAME" ] && [ -n "$APPDESCRIPTION" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configappshortcututil=()
 		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configappshortcututil
 		local STATUS=$?
@@ -116,7 +117,7 @@ X-KDE-Username=
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage $APPSHORTCUT_USAGE
+    __usage APPSHORTCUT_USAGE
     return $NOT_SUCCESS
 }
 

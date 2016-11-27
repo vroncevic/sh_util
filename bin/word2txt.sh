@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_WORD2TXT_VERSION
 UTIL_WORD2TXT_CFG=$UTIL/conf/$UTIL_WORD2TXT.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A WORD2TXT_USAGE=(
-    [TOOL]="__$UTIL_WORD2TXT"
-    [ARG1]="[DOC_FILE] Name of Document to be extracted"
-    [EX-PRE]="# Display ms word doc file in ascii format"
-    [EX]="__$UTIL_WORD2TXT test.doc"	
+    [USAGE_TOOL]="__$UTIL_WORD2TXT"
+    [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
+    [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
+    [USAGE_EX]="__$UTIL_WORD2TXT test.doc"	
 )
 
 #
@@ -50,7 +50,7 @@ function __word2txt() {
     local DOC_FILES=$@
     if [ -n "$DOC_FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configword2txtutil=()
 		__loadutilconf "$UTIL_APPSHORTCUT_CFG" configword2txtutil
 		local STATUS=$?
@@ -81,7 +81,7 @@ function __word2txt() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $WORD2TXT_USAGE
+    __usage WORD2TXT_USAGE
     return $NOT_SUCCESS
 }
 

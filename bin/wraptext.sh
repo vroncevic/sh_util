@@ -11,14 +11,14 @@ UTIL_WRAPTEXT_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_WRAPTEXT_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A WRAPTEXT_USAGE=(
-    [TOOL]="__$UTIL_WRAPTEXT"
-    [ARG1]="[PATH] Path to the target(s)"
-    [EX-PRE]="# Example running __$UTIL_WRAPTEXT"
-    [EX]="__$UTIL_WRAPTEXT /data/"	
+    [USAGE_TOOL]="__$UTIL_WRAPTEXT"
+    [USAGE_ARG1]="[PATH] Path to the target(s)"
+    [USAGE_EX_PRE]="# Example running __$UTIL_WRAPTEXT"
+    [USAGE_EX]="__$UTIL_WRAPTEXT /data/"	
 )
 
 #
@@ -47,7 +47,7 @@ function __wraptext() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
         for a in "${FILES[@]}"
         do
             if [ -f "$a" ]; then
@@ -67,7 +67,7 @@ function __wraptext() {
 		fi
         return $SUCCESS
     fi
-    __usage $WRAPTEXT_USAGE
+    __usage WRAPTEXT_USAGE
     return $NOT_SUCCESS
 }
 

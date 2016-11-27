@@ -11,14 +11,14 @@ UTIL_CHECKCFG_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKCFG_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CHECKCFG_USAGE=(
-    [TOOL]="__$UTIL_CHECKCFG"
-    [ARG1]="[TOOL_CFG] Path to config file"
-    [EX-PRE]="# Example checking config file"
-    [EX]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
+    [USAGE_TOOL]="__$UTIL_CHECKCFG"
+    [USAGE_ARG1]="[TOOL_CFG] Path to config file"
+    [USAGE_EX_PRE]="# Example checking config file"
+    [USAGE_EX]="__$UTIL_CHECKCFG /etc/sometool.cfg"	
 )
 
 #
@@ -48,7 +48,7 @@ function __checkcfg() {
     local CFG_FILE=$1
     if [ -n "$CFG_FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking configuration file [$CFG_FILE]"
         	printf "$DQUE" "$UTIL_CHECKCFG" "$FUNC" "$MSG"
@@ -67,7 +67,7 @@ function __checkcfg() {
 		printf "$SEND" "$UTIL_CHECKCFG" "$MSG"
 		return $NOT_SUCCESS
     fi
-    __usage $CHECKCFG_USAGE
+    __usage CHECKCFG_USAGE
     return $NOT_SUCCESS
 }
 

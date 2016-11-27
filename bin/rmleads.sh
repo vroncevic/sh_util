@@ -12,14 +12,14 @@ UTIL_RMLEADS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_RMLEADS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A RMLEADS_USAGE=(
-    [TOOL]="__$UTIL_RMLEADS"
-    [ARG1]="[FILES] Name of file"
-    [EX-PRE]="# Remove empty leading spaces from an ascii file"
-    [EX]="__$UTIL_RMLEADS /data/test.txt"	
+    [USAGE_TOOL]="__$UTIL_RMLEADS"
+    [USAGE_ARG1]="[FILES] Name of file"
+    [USAGE_EX_PRE]="# Remove empty leading spaces from an ascii file"
+    [USAGE_EX]="__$UTIL_RMLEADS /data/test.txt"	
 )
 
 #
@@ -49,7 +49,7 @@ function __rmleads() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Remove leading spaces from ascii file and replace input file"
 			printf "$DSTA" "$UTIL_RMLEADS" "$FUNC" "$MSG"
@@ -85,7 +85,7 @@ function __rmleads() {
 		fi
         return $SUCCESS        
     fi
-    __usage $RMLEADS_USAGE
+    __usage RMLEADS_USAGE
     return $NOT_SUCCESS
 }
 

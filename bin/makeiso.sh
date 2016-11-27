@@ -11,15 +11,15 @@ UTIL_MAKEISO_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_MAKEISO_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A MAKEISO_USAGE=(
-    [TOOL]="__$UTIL_MAKEISO"
-    [ARG1]="[SOURCE]       Target media for cloning or restoring"
-    [ARG2]="[DESTINATION]  Final destination"
-    [EX-PRE]="# Creates an ISO disk image from a CD-ROM"
-    [EX]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
+    [USAGE_TOOL]="__$UTIL_MAKEISO"
+    [USAGE_ARG1]="[SOURCE]       Target media for cloning or restoring"
+    [USAGE_ARG2]="[DESTINATION]  Final destination"
+    [USAGE_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
+    [USAGE_EX]="__$UTIL_MAKEISO /dev/sr0 myCD.iso"	
 )
 
 #
@@ -91,7 +91,7 @@ function __makeiso {
     local DESTINATION=$2
     if [ -n "$DESTINATION" ] && [ -n "$SOURCE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Checking media disk"
 			printf "$DQUE" "$UTIL_MAKEISO" "$FUNC" "$MSG"
@@ -115,7 +115,7 @@ function __makeiso {
 		printf "$SEND" "$UTIL_MAKEISO" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $MAKEISO_USAGE
+    __usage MAKEISO_USAGE
     return $NOT_SUCCESS
 }
 

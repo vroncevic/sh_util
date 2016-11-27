@@ -11,15 +11,15 @@ UTIL_CHECKOP_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKOP_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CHECKOP_USAGE=(
-    [TOOL]="__$UTIL_CHECKOP"
-    [ARG1]="[OPERATION]      Operation to be done"
-	[ARG2]="[OPERATION_LIST] List of operations"
-    [EX-PRE]="# Example checking operation"
-    [EX]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
+    [USAGE_TOOL]="__$UTIL_CHECKOP"
+    [USAGE_ARG1]="[OPERATION]      Operation to be done"
+	[USAGE_ARG2]="[OPERATION_LIST] List of operations"
+    [USAGE_EX_PRE]="# Example checking operation"
+    [USAGE_EX]="__$UTIL_CHECKOP \"restart\" \"\${OPERATION_LIST[*]\""	
 )
 
 #
@@ -52,7 +52,7 @@ function __checkop() {
 	OPERATION_LIST=($2)
 	if [ -n "$OPERATION" ] && [ -n "$OPERATION_LIST" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking operation [$OPERATION]"
 			printf "$DQUE" "$UTIL_CHECKOP" "$FUNC" "$MSG"
@@ -75,7 +75,7 @@ function __checkop() {
 		printf "$SEND" "$UTIL_CHECKOP" "$MSG"
 		return $NOT_SUCCESS
 	fi
-	__usage $CHECKOP_USAGE
+	__usage CHECKOP_USAGE
 	return $NOT_SUCCESS
 }
 

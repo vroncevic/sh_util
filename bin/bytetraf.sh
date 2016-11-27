@@ -11,14 +11,14 @@ UTIL_BYTETRAF_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_BYTETRAF_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A BYTETRAF_USAGE=(
-    [TOOL]="__$UTIL_BYTETRAF"
-    [ARG1]="[TEST_STRUCTURE] Time and name of interface"
-    [EX-PRE]="# Display network traffic on an interface"
-    [EX]="__$UTIL_BYTETRAF \"enp0s25\""
+    [USAGE_TOOL]="__$UTIL_BYTETRAF"
+    [USAGE_ARG1]="[TEST_STRUCTURE] Time and name of interface"
+    [USAGE_EX_PRE]="# Display network traffic on an interface"
+    [USAGE_EX]="__$UTIL_BYTETRAF \"enp0s25\""
 )
 
 #
@@ -36,7 +36,7 @@ function __byte_count() {
     local DIRECTION=$2
     if [ -n "$INTERFACE" ] && [ -n "$DIRECTION" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Counting bytes from interface [$INTERFACE]"
 			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
@@ -97,7 +97,7 @@ function __interface_check() {
     local INTERFACE=$1
     if [ -n "$INTERFACE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking interface [$INTERFACE]"
 			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
@@ -124,11 +124,12 @@ function __interface_check() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A TEST_STRUCTURE=()
-# TEST_STRUCTURE[TIME]=$TIME
-# TEST_STRUCTURE[INTERFACE]=$INTERFACE
+# declare -A TEST_STRUCTURE=(
+# 	[TIME]=$TIME
+# 	[INTERFACE]=$INTERFACE
+# )
 #
-# __bytetraf $TEST_STRUCTURE
+# __bytetraf TEST_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -143,12 +144,12 @@ function __interface_check() {
 # fi
 #
 function __bytetraf() {
-	eval "declare -A TEST_STRUCTURE="${1#*=}
+	local -n TEST_STRUCTURE=$1
     local TIME=${TEST_STRUCTURE[TIME]}
     local INTERFACE=${TEST_STRUCTURE[INTERFACE]}
     if [ -n "$TIME" ] && [ -n "$INTERFACE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Display network traffic on an interface [$INTERFACE]"
 			printf "$DSTA" "$UTIL_BYTETRAF" "$FUNC" "$MSG"
@@ -196,7 +197,7 @@ function __bytetraf() {
         esac
 		return $NOT_SUCCESS
     fi
-    __usage $BYTETRAF_USAGE
+    __usage BYTETRAF_USAGE
     return $NOT_SUCCESS
 }
 

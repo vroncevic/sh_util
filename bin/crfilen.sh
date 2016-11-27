@@ -11,14 +11,14 @@ UTIL_CRFILEN_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CRFILEN_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CRFILEN_USAGE=(
-    [TOOL]="__$UTIL_CRFILEN"
-    [ARG1]="[CREATE_STRUCTURE] Number of bytes, file name and Character"
-    [EX-PRE]="# Example creating a file n bytes large"
-    [EX]="__$UTIL_CRFILEN \$CREATE_STRUCTURE"	
+    [USAGE_TOOL]="__$UTIL_CRFILEN"
+    [USAGE_ARG1]="[CREATE_STRUCTURE] Number of bytes, file name and Character"
+    [USAGE_EX_PRE]="# Example creating a file n bytes large"
+    [USAGE_EX]="__$UTIL_CRFILEN \$CREATE_STRUCTURE"	
 )
 
 #
@@ -29,12 +29,13 @@ declare -A CRFILEN_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A CREATE_STRUCTURE=()
-# CREATE_STRUCTURE[NB]=8
-# CREATE_STRUCTURE[FN]="test.ini"
-# CREATE_STRUCTURE[CH]="D"
+# declare -A CREATE_STRUCTURE=(
+# 	[NB]=8
+# 	[FN]="test.ini"
+# 	[CH]="D"
+# )
 #
-# __crfilen $CREATE_STRUCTURE
+# __crfilen CREATE_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -49,20 +50,20 @@ declare -A CRFILEN_USAGE=(
 # fi
 #
 function __crfilen() {
-	eval "declare -A CREATE_STRUCTURE="${1#*=}
+	local -n CREATE_STRUCTURE=$1
     local NBYTES=${CREATE_STRUCTURE[NB]}
     local FILENAME=${CREATE_STRUCTURE[FN]}
     local CHARACHTER=${CREATE_STRUCTURE[CH]}
     if [ -n "$FILENAME" ] && [ -n "$NBYTES" ] && [ -n "$CHARACHTER" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Create a file n bytes size"
 			printf "$DSTA" "$UTIL_CRFILEN" "$FUNC" "$MSG"
 		fi
         case $NBYTES in
             *[!0-9]*) 
-                __usage $CRFILEN_USAGE
+                __usage CRFILEN_USAGE
                 return $NOT_SUCCESS
                 ;;
             *)
@@ -91,7 +92,7 @@ function __crfilen() {
 		fi
         return $SUCCESS
     fi
-    __usage $CRFILEN_USAGE
+    __usage CRFILEN_USAGE
     return $NOT_SUCCESS
 }
 

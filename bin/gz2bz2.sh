@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_GZ2BZ2_VERSION
 UTIL_GZ2BZ2_CFG=$UTIL/conf/$UTIL_GZ2BZ2.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/checktool.sh
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
+. $UTIL/bin/checktool.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A GZ2BZ2_USAGE=(
-    [TOOL]="__$UTIL_GZ2BZ2"
-    [ARG1]="[FILE_NAME] Name of gzip archive"
-    [EX-PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
-    [EX]="__$UTIL_GZ2BZ2 test.tar.gz"	
+    [USAGE_TOOL]="__$UTIL_GZ2BZ2"
+    [USAGE_ARG1]="[FILE_NAME] Name of gzip archive"
+    [USAGE_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
+    [USAGE_EX]="__$UTIL_GZ2BZ2 test.tar.gz"	
 )
 
 #
@@ -50,7 +50,7 @@ function __gz2bz2() {
     local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
 			printf "$DSTA" "$UTIL_GZ2BZ2" "$FUNC" "$MSG"
@@ -81,7 +81,7 @@ function __gz2bz2() {
 		printf "$SEND" "$UTIL_GZ2BZ2" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $GZ2BZ2_USAGE
+    __usage GZ2BZ2_USAGE
     return $NOT_SUCCESS
 }
 

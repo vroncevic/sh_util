@@ -11,14 +11,14 @@ UTIL_CHECKPROCESS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_CHECKPROCESS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A CHECKPROCESS_USAGE=(
-    [TOOL]="__$UTIL_CHECKPROCESS"
-    [ARG1]="[PROCESS_NAME] Process name"
-    [EX-PRE]="# Example check ddclient process"
-    [EX]="__$UTIL_CHECKPROCESS ddclient"	
+    [USAGE_TOOL]="__$UTIL_CHECKPROCESS"
+    [USAGE_ARG1]="[PROCESS_NAME] Process name"
+    [USAGE_EX_PRE]="# Example check ddclient process"
+    [USAGE_EX]="__$UTIL_CHECKPROCESS ddclient"	
 )
 
 #
@@ -50,7 +50,7 @@ function __checkprocess() {
     local PROCESS=$1
     if [ -n "$PROCESS" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking process [$PROCESS]"
 			printf "$DQUE" "$UTIL_CHECKPROCESS" "$FUNC" "$MSG"
@@ -69,7 +69,7 @@ function __checkprocess() {
 		fi
         return $NOT_SUCCESS
     fi 
-    __usage $CHECKPROCESS_USAGE
+    __usage CHECKPROCESS_USAGE
     return $NOT_SUCCESS
 }
 

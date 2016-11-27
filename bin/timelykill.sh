@@ -11,15 +11,15 @@ UTIL_TIMELYKILL_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_TIMELYKILL_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A TIMELYKILL_USAGE=(
-    [TOOL]="__$UTIL_TIMELYKILL"
-    [ARG1]="[PID]  Process ID"
-    [ARG2]="[TIME] Time <n>s|m|h|d"
-    [EX-PRE]="# Destroy process in <n>s|m|h|d"
-    [EX]="__$UTIL_TIMELYKILL freshtool 5s"	
+    [USAGE_TOOL]="__$UTIL_TIMELYKILL"
+    [USAGE_ARG1]="[PID]  Process ID"
+    [USAGE_ARG2]="[TIME] Time <n>s|m|h|d"
+    [USAGE_EX_PRE]="# Destroy process in <n>s|m|h|d"
+    [USAGE_EX]="__$UTIL_TIMELYKILL freshtool 5s"	
 )
 
 #
@@ -48,7 +48,7 @@ function __checkpid() {
     local PID=$1
     if [ -n "$PID" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking process id [$PID]"
 			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
@@ -98,23 +98,23 @@ function __time_validatesleep() {
     local TIME=$1
     if [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Validation of time argument [$TIME]"
 			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
 		fi
         case $TIME in
             +([0-9])[smhd] ) 
-					if [ "$TOOL_DBG" == "true" ]; then
-						printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
-					fi
-                    return $SUCCESS
-                    ;;
+				if [ "$TOOL_DBG" == "true" ]; then
+					printf "$DEND" "$UTIL_TIMELYKILL" "$FUNC" "Done"
+				fi
+                return $SUCCESS
+                ;;
             *) 
-					MSG="Wrong argument"
-					printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
-                    return $NOT_SUCCESS
-                    ;;
+				MSG="Wrong argument"
+				printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
+                return $NOT_SUCCESS
+                ;;
         esac
     fi
     return $NOT_SUCCESS
@@ -147,7 +147,7 @@ function __timelykill() {
     local TIME=$2
     if [ -n "$PID" ] && [ -n "$TIME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Kill process pid [$PID] after [$TIME]"
 			printf "$DSTA" "$UTIL_TIMELYKILL" "$FUNC" "$MSG"
@@ -157,7 +157,7 @@ function __timelykill() {
                 __time_validatesleep $TIME
                 local STATUS=$?
                 if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
-                    __usage $TIMELYKILL_USAGE
+                    __usage TIMELYKILL_USAGE
                     return $NOT_SUCCESS
                 fi
                 sleep $TIME
@@ -177,10 +177,8 @@ function __timelykill() {
                     __checkpid "$PID"
                     STATUS=$?
                     if [ "$STATUS" -eq "$NOT_SUCCESS" ]; then
-						LOG[MSG]="Faild to kill process [$PID]"
 						MSG="${LOG[MSG]}"
 						printf "$SEND" "$UTIL_TIMELYKILL" "$MSG"
-                        __logging $LOG
                         return $NOT_SUCCESS
                     fi
                 done
@@ -196,7 +194,7 @@ function __timelykill() {
 		fi
         return $SUCCESS
     fi
-    __usage $TIMELYKILL_USAGE
+    __usage TIMELYKILL_USAGE
     return $NOT_SUCCESS
 }
 

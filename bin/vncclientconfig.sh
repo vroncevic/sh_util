@@ -12,14 +12,14 @@ UTIL_VNCCLIENTCONFIG_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_VNCCLIENTCONFIG_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A VNCCLIENTCONFIG_USAGE=(
-    [TOOL]="__$UTIL_VNCCLIENTCONFIG"
-    [ARG1]="[VNC_STRUCTURE]   System username and group"
-    [EX-PRE]="# Example generating VNC config file"
-    [EX]="__$UTIL_VNCCLIENTCONFIG rmuller ds"	
+    [USAGE_TOOL]="__$UTIL_VNCCLIENTCONFIG"
+    [USAGE_ARG1]="[VNC_STRUCTURE]   System username and group"
+    [USAGE_EX_PRE]="# Example generating VNC config file"
+    [USAGE_EX]="__$UTIL_VNCCLIENTCONFIG rmuller ds"	
 )
 
 #
@@ -30,11 +30,12 @@ declare -A VNCCLIENTCONFIG_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A VNC_STRUCTURE=()
-# VNC_STRUCTURE[UN]="vroncevic"
-# VNC_STRUCTURE[DN]="vroncevic"
+# declare -A VNC_STRUCTURE=(
+# 	[UN]="vroncevic"
+# 	[DN]="vroncevic"
+# )
 #
-# __vncclientconfig $VNC_STRUCTURE
+# __vncclientconfig VNC_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -49,12 +50,12 @@ declare -A VNCCLIENTCONFIG_USAGE=(
 # fi
 #
 function __vncclientconfig() {
-	local VNC_STRUCTURE=$1
+	local -n VNC_STRUCTURE=$1
     local USERNAME=${VNC_STRUCTURE[UN]}
     local DEPARTMENT=${VNC_STRUCTURE[DN]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local UHOME="/home/$USERNAME"
 		if [ "$TOOL_DBG" == "true" ]; then
             MSG="Checking dir [$UHOME/]"
@@ -137,7 +138,7 @@ twm &
 		MSG="Please check dir [$UHOME/]"
 		return $NOT_SUCCESS
     fi 
-    __usage $VNCCLIENTCONFIG_USAGE
+    __usage VNCCLIENTCONFIG_USAGE
     return $NOT_SUCCESS
 }
 

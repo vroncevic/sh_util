@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_RECORDMIC_VERSION
 UTIL_RECORDMIC_CFG=$UTIL/conf/$UTIL_RECORDMIC.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/checktool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A RECORDMIC_USAGE=(
-    [TOOL]="__$UTIL_RECORDMIC"
-    [ARG1]="[FILE_NAME] Name of media file"
-    [EX-PRE]="# Recording from microfon to test.mp3"
-    [EX]="__$UTIL_RECORDMIC test.mp3"	
+    [USAGE_TOOL]="__$UTIL_RECORDMIC"
+    [USAGE_ARG1]="[FILE_NAME] Name of media file"
+    [USAGE_EX_PRE]="# Recording from microfon to test.mp3"
+    [USAGE_EX]="__$UTIL_RECORDMIC test.mp3"	
 )
 
 #
@@ -50,7 +50,7 @@ function __recordmic() {
     local FILE_NAME=$1
     if [ -n "$FILE_NAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configrecordmicutil=()
 		__loadutilconf "$UTIL_RECORDMIC_CFG" configrecordmicutil
 		local STATUS=$?
@@ -81,7 +81,7 @@ function __recordmic() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $RECORDMIC_USAGE
+    __usage RECORDMIC_USAGE
     return $NOT_SUCCESS
 }
 

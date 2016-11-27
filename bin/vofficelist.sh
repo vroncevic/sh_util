@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_VMINFO_VERSION
 UTIL_VMINFO_CFG=$UTIL/conf/$UTIL_VMINFO.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A VMINFO_USAGE=(
-    [TOOL]="__$UTIL_VMINFO"
-    [ARG1]="[VM_DISK]  Path to lock file"
-    [EX-PRE]="# Example running __$UTIL_VMINFO"
-    [EX]="__$UTIL_VMINFO \$VM_DISK"	
+    [USAGE_TOOL]="__$UTIL_VMINFO"
+    [USAGE_ARG1]="[VM_DISK]  Path to lock file"
+    [USAGE_EX_PRE]="# Example running __$UTIL_VMINFO"
+    [USAGE_EX]="__$UTIL_VMINFO \$VM_DISK"	
 )
 
 #
@@ -37,7 +37,7 @@ function __vminfo() {
     local VM_DISK_PATH=$1
     if [ -n "$VM_DISK_PATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking dir [$VM_DISK_PATH/]"
 			printf "$DQUE" "$UTIL_VMINFO" "$FUNC" "$MSG"
@@ -60,7 +60,7 @@ function __vminfo() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage $VMINFO_USAGE
+    __usage VMINFO_USAGE
 	return $NOT_SUCCESS
 }
 
@@ -88,7 +88,7 @@ function __vminfo() {
 # 
 function __vofficelist() {
 	local FUNC=${FUNCNAME[0]}
-	local MSG=""
+	local MSG="None"
 	if [ "$TOOL_DBG" == "true" ]; then
 		MSG="Checking voffice system"
 		printf "$DSTA" "$UTIL_VMINFO" "$FUNC" "$MSG"

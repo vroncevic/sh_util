@@ -12,29 +12,29 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_EMPLOYEE_VERSION
 UTIL_EMPLOYEE_CFG=$UTIL/conf/$UTIL_EMPLOYEE.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A IT_PROFILE_USAGE=(
-    [TOOL]="__ituserprofile"
-    [ARG1]="[USERNAME]  employee username"
-    [EX-PRE]="# Example generating IT profile"
-    [EX]="__ituserprofile vroncevic"	
+    [USAGE_TOOL]="__ituserprofile"
+    [USAGE_ARG1]="[USERNAME]  employee username"
+    [USAGE_EX_PRE]="# Example generating IT profile"
+    [USAGE_EX]="__ituserprofile vroncevic"	
 )
 
 declare -A USER_PROFILE_USAGE=(
-    [TOOL]="__shareuserprofile"
-    [ARG1]="[SHARE_STRUCTURE]   System username and groip"
-    [EX-PRE]="# Example generating user profile"
-    [EX]="__shareuserprofile \$SHARE_STRUCTURE"	
+    [USAGE_TOOL]="__shareuserprofile"
+    [USAGE_ARG1]="[SHARE_STRUCTURE]   System username and groip"
+    [USAGE_EX_PRE]="# Example generating user profile"
+    [USAGE_EX]="__shareuserprofile \$SHARE_STRUCTURE"	
 )
 
 declare -A SHARE_PROFILE_USAGE=(
-    [TOOL]="__homefrobas"
-    [ARG1]="[HOME_STRUCTURE]   System username and group"
-    [EX-PRE]="# Example generatingshare profile"
-    [EX]="__homefrobas \$HOME_STRUCTURE"	
+    [USAGE_TOOL]="__homefrobas"
+    [USAGE_ARG1]="[HOME_STRUCTURE]   System username and group"
+    [USAGE_EX_PRE]="# Example generatingshare profile"
+    [USAGE_EX]="__homefrobas \$HOME_STRUCTURE"	
 )
 
 #
@@ -64,7 +64,7 @@ function __ituserprofile() {
     local USERNAME=$1
     if [ -n "$USERNAME" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configituserprofileutil=()
 		local CURRENT_YEAR=$(date +'%Y')
 		__loadutilconf "$UTIL_EMPLOYEE_CFG" configituserprofileutil
@@ -115,7 +115,7 @@ function __ituserprofile() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage $IT_PROFILE_USAGE
+    __usage IT_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 
@@ -127,11 +127,12 @@ function __ituserprofile() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A SHARE_STRUCTURE=()
-# SHARE_STRUCTURE[USERNAME]="vroncevic"
-# SHARE_STRUCTURE[DEPARTMENT]="users"
+# declare -A SHARE_STRUCTURE=(
+# 	[USERNAME]="vroncevic"
+# 	[DEPARTMENT]="users"
+# )
 #
-# __shareuserprofile $SHARE_STRUCTURE
+# __shareuserprofile SHARE_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -146,12 +147,12 @@ function __ituserprofile() {
 # fi
 #
 function __shareuserprofile() {
-	local SHARE_STRUCTURE=$1
+	local -n SHARE_STRUCTURE=$1
     local USERNAME=${SHARE_STRUCTURE[USERNAME]}
     local DEPARTMENT=${SHARE_STRUCTURE[DEPARTMENT]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configituserprofileutil=()
 		__loadutilconf $UTIL_EMPLOYEE_CFG configituserprofileutil
 		local STATUS=$?
@@ -199,7 +200,7 @@ function __shareuserprofile() {
 		fi
 		return $NOT_SUCCESS
     fi 
-    __usage $USER_PROFILE_USAGE
+    __usage USER_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 
@@ -211,11 +212,12 @@ function __shareuserprofile() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A HOME_STRUCTURE=()
-# HOME_STRUCTURE[USERNAME]="vroncevic"
-# HOME_STRUCTURE[DEPARTMENT]="users"
+# declare -A HOME_STRUCTURE=(
+# 	[USERNAME]="vroncevic"
+# 	[DEPARTMENT]="users"
+# )
 #
-# __homefrobas $HOME_STRUCTURE
+# __homefrobas HOME_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -230,12 +232,12 @@ function __shareuserprofile() {
 # fi
 #
 function __homefrobas() {
-	local HOME_STRUCTURE=$1
+	local -n HOME_STRUCTURE=$1
     local USERNAME=${HOME_STRUCTURE[USERNAME]}
     local DEPARTMENT=${HOME_STRUCTURE[DEPARTMENT]}
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		local R_DIR="/home/$USERNAME/frobas"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking dir [$R_DIR/]"
@@ -276,7 +278,7 @@ function __homefrobas() {
 		printf "$SEND" "$UTIL_EMPLOYEE" "$MSG"
         return $NOT_SUCCESS
     fi 
-    __usage $SHARE_PROFILE_USAGE
+    __usage SHARE_PROFILE_USAGE
     return $NOT_SUCCESS
 }
 

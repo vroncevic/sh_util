@@ -11,15 +11,15 @@ UTIL_RMLINES_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_RMLINES_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A RMLINES_USAGE=(
-    [TOOL]="__$UTIL_RMLINES"
-    [ARG1]="[INPUT_FILE]  Name of file for operation"
-    [ARG2]="[OUTPUT_FILE] Name of the resulting file"
-    [EX-PRE]="# Create a file n bytes large"
-    [EX]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
+    [USAGE_TOOL]="__$UTIL_RMLINES"
+    [USAGE_ARG1]="[INPUT_FILE]  Name of file for operation"
+    [USAGE_ARG2]="[OUTPUT_FILE] Name of the resulting file"
+    [USAGE_EX_PRE]="# Create a file n bytes large"
+    [USAGE_EX]="__$UTIL_RMLINES /opt/test.txt /opt/result.txt"	
 )
 
 #
@@ -49,7 +49,7 @@ function __rmlines() {
     local OUTPUT_FILE=$2
     if [ -n "$INPUT_FILE" ] && [ -n "$OUTPUT_FILE" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Checking file [$INPUT_FILE]"
 			printf "$DQUE" "$UTIL_RMLINES" "$FUNC" "$MSG"
@@ -69,7 +69,7 @@ function __rmlines() {
 		printf "$SEND" "$UTIL_RMLINES" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $RMLINES_USAGE
+    __usage RMLINES_USAGE
     return $NOT_SUCCESS
 }
 

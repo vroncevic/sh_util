@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_VDEPLOY_VERSION
 UTIL_VDEPLOY_CFG=$UTIL/conf/$UTIL_VDEPLOY.cfg
 UTIL_LOG=$UTIL/log
 
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/loadutilconf.sh
-. $UTIL/bin/devel.sh
 
 declare -A VDEPLOY_USAGE=(
-    [TOOL]="__$UTIL_VDEPLOY"
-    [ARG1]="[VDEPLOY_STRUCTURE] Version number and path to dev-dir"
-    [EX-PRE]="# Copy tool to deployment zone"
-    [EX]="__$UTIL_VDEPLOY \$VDEPLOY_STRUCTURE"
+    [USAGE_TOOL]="__$UTIL_VDEPLOY"
+    [USAGE_ARG1]="[VDEPLOY_STRUCTURE] Version number and path to dev-dir"
+    [USAGE_EX_PRE]="# Copy tool to deployment zone"
+    [USAGE_EX]="__$UTIL_VDEPLOY \$VDEPLOY_STRUCTURE"
 )
 
 #
@@ -31,11 +31,12 @@ declare -A VDEPLOY_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A VDEPLOY_STRUCTURE=()
-# VDEPLOY_STRUCTURE[TV]="ver.1.0"
-# VDEPLOY_STRUCTURE[DP]="/opt/new_tool/"
+# declare -A VDEPLOY_STRUCTURE=(
+# 	[TV]="ver.1.0"
+# 	[DP]="/opt/new_tool/"
+# )
 #
-# __vdeploy $VDEPLOY_STRUCTURE
+# __vdeploy VDEPLOY_STRUCTURE
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
@@ -50,12 +51,12 @@ declare -A VDEPLOY_USAGE=(
 # fi
 #
 function __vdeploy() {
-	local VDEPLOY_STRUCTURE=$1
+	local -n VDEPLOY_STRUCTURE=$1
     local VERSION=${VDEPLOY_STRUCTURE[TV]}
     local DEVPATH=${VDEPLOY_STRUCTURE[DP]}
     if [ -n "$VERSION" ] && [ -n "$DEVPATH" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configvdeployutil=()
 		__loadutilconf "$UTIL_VDEPLOY_CFG" configvdeployutil
 		local STATUS=$?
@@ -95,7 +96,7 @@ function __vdeploy() {
         fi
         return $NOT_SUCCESS
     fi 
-    __usage $VDEPLOY_USAGE
+    __usage VDEPLOY_USAGE
     return $NOT_SUCCESS
 }
 

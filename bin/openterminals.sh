@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh-util-srv/$UTIL_OPENTERMINALS_VERSION
 UTIL_OPENTERMINALS_CFG=$UTIL/conf/$UTIL_OPENTERMINALS.cfg
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/loadutilconf.sh
+. $UTIL/bin/devel.sh
 . $UTIL/bin/usage.sh
 . $UTIL/bin/chectool.sh
-. $UTIL/bin/devel.sh
+. $UTIL/bin/loadutilconf.sh
 
 declare -A OPENTERMINALS_USAGE=(
-    [TOOL]="__$UTIL_OPENTERMINALS"
-    [ARG1]="[NUM_TERMINALS] number of terminal windows"
-    [EX-PRE]="# Open 4 terminal windows"
-    [EX]="__$UTIL_OPENTERMINALS 4"	
+    [USAGE_TOOL]="__$UTIL_OPENTERMINALS"
+    [USAGE_ARG1]="[NUM_TERMINALS] number of terminal windows"
+    [USAGE_EX_PRE]="# Open 4 terminal windows"
+    [USAGE_EX]="__$UTIL_OPENTERMINALS 4"	
 )
 
 #
@@ -50,7 +50,7 @@ function __openterminals() {
     local NUM_TERMINALS=$1
     if [ -n "$NUM_TERMINALS" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		declare -A configopenterminalsutil=()
 		__loadutilconf "$UTIL_OPENTERMINALS_CFG" configopenterminalsutil
 		local STATUS=$?
@@ -78,7 +78,7 @@ function __openterminals() {
 		fi
 		return $NOT_SUCCESS
     fi
-    __usage $OPENTERMINALS_USAGE
+    __usage OPENTERMINALS_USAGE
     return $NOT_SUCCESS
 }
 

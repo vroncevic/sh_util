@@ -11,14 +11,14 @@ UTIL_RMDUPS_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_RMDUPS_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A RMDUPS_USAGE=(
-    [TOOL]="__$UTIL_RMDUPS"
-    [ARG1]="[STREAM] stdin or file path"
-    [EX-PRE]="# Remove duplicate lines from file or stdin"
-    [EX]="__$UTIL_RMDUPS /data/test.txt"	
+    [USAGE_TOOL]="__$UTIL_RMDUPS"
+    [USAGE_ARG1]="[STREAM] stdin or file path"
+    [USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
+    [USAGE_EX]="__$UTIL_RMDUPS /data/test.txt"	
 )
 
 #
@@ -47,7 +47,7 @@ function __rmdups() {
     local FILES=$@
     if [ -n "$FILES" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
 			MSG="Remove duplicate lines from file or stdin"
 			printf "$DSTA" "$UTIL_RMDUPS" "$FUNC" "$MSG"
@@ -65,7 +65,7 @@ function __rmdups() {
 		printf "$SEND" "$UTIL_RMDUPS" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $RMDUPS_USAGE
+    __usage RMDUPS_USAGE
     return $NOT_SUCCESS
 }
 

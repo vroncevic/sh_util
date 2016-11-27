@@ -12,15 +12,15 @@ UTIL_MAKESSHCONFIG_VERSION=ver.1.0
 UTIL=/root/scripts/sh-util-srv/$UTIL_MAKESSHCONFIG_VERSION
 UTIL_LOG=$UTIL/log
 
-. $UTIL/bin/usage.sh
 . $UTIL/bin/devel.sh
+. $UTIL/bin/usage.sh
 
 declare -A MAKESSHCONFIG_USAGE=(
-    [TOOL]="__$UTIL_MAKESSHCONFIG"
-    [ARG1]="[USERNAME]   System username"
-    [ARG2]="[DEPARTMENT] System group"
-    [EX-PRE]="# Generate SSH configuration"
-    [EX]="__$UTIL_MAKESSHCONFIG vroncevic users"	
+    [USAGE_TOOL]="__$UTIL_MAKESSHCONFIG"
+    [USAGE_ARG1]="[USERNAME]   System username"
+    [USAGE_ARG2]="[DEPARTMENT] System group"
+    [USAGE_EX_PRE]="# Generate SSH configuration"
+    [USAGE_EX]="__$UTIL_MAKESSHCONFIG vroncevic users"	
 )
 
 #
@@ -50,7 +50,7 @@ function __makesshconfig() {
     local DEPARTMENT=$2
     if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
 		local FUNC=${FUNCNAME[0]}
-		local MSG=""
+		local MSG="None"
 		if [ "$TOOL_DBG" == "true" ]; then
         	MSG="Generating SSH client config file at $USERNAME home dir"
 			printf "$DSTA" "$UTIL_MAKESSHCONFIG" "$FUNC" "$MSG"
@@ -114,7 +114,7 @@ Host host2
 		printf "$SEND" "$UTIL_MAKESSHCONFIG" "$MSG"
         return $NOT_SUCCESS
     fi
-    __usage $MAKESSHCONFIG_USAGE
+    __usage MAKESSHCONFIG_USAGE
     return $NOT_SUCCESS
 }
 
