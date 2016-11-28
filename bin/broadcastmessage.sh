@@ -19,7 +19,7 @@ UTIL_LOG=$UTIL/log
 
 declare -A BROADCASTMESSAGE_USAGE=(
 	[USAGE_TOOL]="__$UTIL_BROADCASTMESSAGE"
-	[USAGE_ARG1]="[MESSAGE] Main message"
+	[USAGE_ARG1]="[MESSAGE] Main message for broadcast"
 	[USAGE_ARG2]="[NOTE] Short note with fullname"
 	[USAGE_EX_PRE]="# Example sending broadcast message"
 	[USAGE_EX]="__$UTIL_BROADCASTMESSAGE \$BM_STRUCTURE"	
