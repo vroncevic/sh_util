@@ -86,11 +86,11 @@ function __draw_bar() {
 # declare -A PB_STRUCTURE=(
 # 	[BAR_WIDTH]=50
 # 	[MAX_PERCENT]=100
-#	[SLEEP]=0.1
+#	[SLEEP]=0.01
 # )
 #
 # __progressbar PB_STRUCTURE
-# local STATUS=$?
+# printf "%s\n\n" ""
 #
 # if [ $STATUS -eq $SUCCESS ]; then
 #   # true
