@@ -31,6 +31,7 @@ declare -A ADDNEWTOOL_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
+# TOOL_TO_ADD="thunderbird"
 # __addnewtool "$TOOL_TO_ADD"
 # local STATUS=$?
 #
