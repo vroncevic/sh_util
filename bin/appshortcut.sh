@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Generating application shortcut for KDE 
+# @brief   Generating App shortcut for KDE 
 # @version ver.1.0
 # @date    Thu Aug  11 09:58:41 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -24,7 +24,7 @@ declare -A APPSHORTCUT_USAGE=(
 )
 
 #
-# @brief  Generating application shortcut
+# @brief  Generating App shortcut for KDE
 # @param  Value required app structure (name and description)
 # @retval Success return 0, else return 1
 #

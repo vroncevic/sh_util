@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @brief   Copy new APP shortcut to user configuration
+# @brief   Copy new App shortcut to user configuration spot
 # @version ver.1.0
 # @date    Mon Jul 15 17:43:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
@@ -24,7 +24,7 @@ declare -A APP2USER_USAGE=(
 )
 
 #
-# @brief  Copy new APP shortcut to user configuration
+# @brief  Copy new App shortcut to user configuration spot
 # @param  Value required structure (username, group, app)
 # @retval Success return 0, else return 1
 #

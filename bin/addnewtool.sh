@@ -24,7 +24,7 @@ declare -A ADDNEWTOOL_USAGE=(
 )
 
 #
-# @brief  Create file-structure for new App/Tool/Script
+# @brief  Create file structure for new App/Tool/Script
 # @param  Value required name of App/Tool/Script
 # @retval Success return 0, else return 1
 #

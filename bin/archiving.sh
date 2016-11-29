@@ -29,7 +29,7 @@ declare -A GZ_ARCHIVING_USAGE=(
 )
 
 #
-# @brief  Find files by name and archive in *.tar  
+# @brief  Find files by name and archive in *.tar format
 # @param  Value required structure (location and file name)
 # @retval Success return 0, else return 1
 #
