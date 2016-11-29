@@ -147,4 +147,3 @@ function __addnewtool() {
     __usage ADDNEWTOOL_USAGE
     return $NOT_SUCCESS
 }
-
