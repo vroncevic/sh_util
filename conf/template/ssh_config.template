@@ -1,0 +1,14 @@
+${HASH}
+${HASH} ${UTIL_FROM_COMPANY}
+${HASH} SSH session to host1, host2
+${HASH}
+
+Host host1
+${TAB}HostName host1
+${TAB}Port 5555
+${TAB}User ${USERNAME}
+
+Host host2
+${TAB}HostName host2
+${TAB}Port 7777
+${TAB}User ${USERNAME}

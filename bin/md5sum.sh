@@ -8,20 +8,20 @@
 #
 UTIL_MD5SUM=md5sum
 UTIL_MD5SUM_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_MD5SUM_VERSION
-UTIL_MD5SUM_CFG=$UTIL/conf/$UTIL_MD5SUM.cfg
-UTIL_LOG=$UTIL/log
+UTIL=/root/scripts/sh_util/${UTIL_MD5SUM_VERSION}
+UTIL_MD5SUM_CFG=${UTIL}/conf/${UTIL_MD5SUM}.cfg
+UTIL_LOG=${UTIL}/log
 
-. $UTIL/bin/devel.sh
-. $UTIL/bin/usage.sh
-. $UTIL/bin/checktool.sh
-. $UTIL/bin/loadutilconf.sh
+.	${UTIL}/bin/devel.sh
+.	${UTIL}/bin/usage.sh
+.	${UTIL}/bin/check_tool.sh
+.	${UTIL}/bin/load_util_conf.sh
 
-declare -A md5sum_USAGE=(
-    [USAGE_TOOL]="__$UTIL_MD5SUM"
-    [USAGE_ARG1]="[INPUT_STRING] input string"
-    [USAGE_EX_PRE]="# Calculate md5sum from an input string"
-    [USAGE_EX]="__$UTIL_MD5SUM simpletest"	
+declare -A MD5SUM_USAGE=(
+	[USAGE_TOOL]="__${UTIL_MD5SUM}"
+	[USAGE_ARG1]="[INSTRING] input string"
+	[USAGE_EX_PRE]="# Calculate md5sum from an input string"
+	[USAGE_EX]="__${UTIL_MD5SUM} simpletest"
 )
 
 #
@@ -32,48 +32,47 @@ declare -A md5sum_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __md5sum "$INPUT_STRING"
+# __md5sum "$INSTRING"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
-#   # notify admin | user
+#	# true
+#	# notify admin | user
 # else
-#   # false
-#   # missing argument | missing tool
+#	# false
+#	# missing argument | missing tool
 #	# return $NOT_SUCCESS
 #	# or
 #	# exit 128
 # fi
 #
 function __md5sum() {
-    local INPUT_STRING=$1
-    if [ -n "$INPUT_STRING" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		declare -A configmd5sumutil=()
-		__loadutilconf "$UTIL_MD5SUM_CFG" configmd5sumutil
-		local STATUS=$?
+	local INSTRING=$1
+	if [ -n "${INSTRING}" ]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+		declare -A config_md5sum=()
+		__load_util_conf "$UTIL_MD5SUM_CFG" config_md5sum
+		STATUS=$?
 		if [ $STATUS -eq $SUCCESS ]; then
-			local md5sum=${configmd5sumutil[MD5SUM]}
-			__checktool "$md5sum"
+			local MD5SUM=${config_md5sum[MD5SUM]}
+			__check_tool "${MD5SUM}"
 			STATUS=$?
 			if [ $STATUS -eq $SUCCESS ]; then
-				if [ "$TOOL_DBG" == "true" ]; then
-					MSG="Calculate md5sum from an input string"
-					printf "$DSTA" "$UTIL_MD5SUM" "$FUNC" "$MSG"
-				fi
-				eval "$md5sum<<<"$INPUT_STRING" | cut -f1 -d' ';"
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DEND" "$UTIL_MD5SUM" "$FUNC" "Done"
-				fi
+					MSG="Calculate md5sum from an input string!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_MD5SUM"
+				eval "${MD5SUM}<<<"${INSTRING}" | cut -f1 -d' ';"
+				__info_debug_message_end "Done" "$FUNC" "$UTIL_MD5SUM"
 				return $SUCCESS
-		    fi
-		    return $NOT_SUCCESS
+			fi
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_MD5SUM"
+			return $NOT_SUCCESS
 		fi
+		MSG="Force exit!"
+		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_MD5SUM"
 		return $NOT_SUCCESS
-    fi
-    __usage MD5SUM_USAGE
-    return $NOT_SUCCESS
+	fi
+	__usage MD5SUM_USAGE
+	return $NOT_SUCCESS
 }
 

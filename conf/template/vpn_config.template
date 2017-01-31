@@ -1,0 +1,19 @@
+${HASH}
+${HASH} openVPN client configuration
+${HASH} ${UTIL_FROM_COMPANY}
+${HASH}
+client
+${TAB}auth-nocache
+${TAB}dev tun
+${TAB}proto ${PROTO}
+${TAB}cipher ${CIPHER}
+${TAB}comp-lzo
+${TAB}resolv-retry infinite
+${TAB}persist-key
+${TAB}persist-tun
+${TAB}remote ${VPN_SERVER} ${VPN_PORT}
+${TAB}ca ${CA}
+${TAB}cert ${FIRSTNAME}.${LASTNAME}.crt
+${TAB}key ${FIRSTNAME}.${LASTNAME}.key
+${TAB}verb 3
+${TAB}float

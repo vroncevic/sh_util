@@ -1,0 +1,19 @@
+${HASH}${HASH}
+${HASH}${HASH} @tool    ${APPNAME}
+${HASH}${HASH} @company ${UTIL_FROM_COMPANY}
+${HASH}${HASH} @date    ${DATE}
+${HASH}${HASH} @brief   App shortcut
+${HASH}${HASH}
+[Desktop Entry]
+Comment=${APPDESCRIPTION}
+Exec=/data/apps/bin/${APPNAME}
+Icon=/data/apps/icons/${APPNAME}.png
+Name=${APPNAME}
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

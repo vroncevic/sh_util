@@ -1,0 +1,118 @@
+SIGNATURE_CONTENT="
+<html>
+	<head>
+		<title>$COMPANY</title>
+		<style>
+			table-params {
+				border: 0;
+				border-spacing:2px;
+			}
+			tr {
+				font-family: 'Calibri','sans-serif';
+				color: #5B5B5B;
+				font-size: 10pt;
+			}
+			td-com {
+				padding-top:15px; 
+				padding-bottom:1px; 
+				padding-left: 10px;
+				color: #5B5B5B; 
+				font-family: 'Calibri','sans-serif'; 
+				color: #5B5B5B; 
+				font-size: 10pt;
+			}
+			td-com-address-label {
+				padding-top:1px; 
+				padding-bottom:1px; 
+				color: #5B5B5B; 
+				font-family: 'Calibri','sans-serif'; 
+				color: #5B5B5B; 
+				font-size: 10pt;
+			}
+			td-com-address {
+				padding-top:1px; 
+				padding-bottom:1px; 
+				padding-left: 10px;
+				color: #5B5B5B; 
+				font-family: 'Calibri','sans-serif'; 
+				color:  #5B5B5B; 
+				font-size: 10pt;
+			}
+			td-com-phone-label {
+				padding-top:1px; 
+				padding-bottom:1px; 
+				color: #5B5B5B; 
+				font-family: 'Calibri','sans-serif'; 
+				color: #5B5B5B; 
+				font-size: 10pt;
+			}
+			td-com-phone {
+				padding-top:1px; 
+				padding-bottom:1px; 
+				padding-left: 10px;
+				color: #5B5B5B; 
+				font-family:  'Calibri','sans-serif'; 
+				color:  #5B5B5B; 
+				font-size: 10pt;
+			} 
+			td-padding-left {
+				padding-left: 10px;
+			}
+		</style>
+	</head>
+	<body bgcolor=\"#FFFFFF\" text=\"#000000\" >
+		<table class=\"table-params\">
+			<tr class=\"tr\">
+				<td colspan=\"2\"><strong>$NAME</strong></td>
+			</tr>
+			<tr class=\"tr\">
+				<td colspan=\"2\">$WORKPOSITION</td>
+			</tr>
+			<tr class=\"tr\">
+				<td colspan=\"2\">$DEPARTMENT</td>
+			</tr>
+			<tr class=\"tr\">
+				<td colspan=\"2\"><br/></td>
+			</tr>
+			<tr class=\"tr\">
+				<td width=\"18%\">Phone:</td>
+				<td class=\"td-padding-left\">$IP</td>
+			</tr>
+			<tr class=\"tr\">
+				<td >Mobile: </td>
+				<td class=\"td-padding-left\">$MOBILE</td>
+			</tr>
+			<tr class=\"tr\">
+				<td >E-mail:</td>
+				<td class=\"td-padding-left\">$EMAIL</td>
+			</tr>
+			<tr class=\"tr\">
+				<td colspan=\"2\"><br/></td>
+			</tr>
+			<tr>
+				<td colspan=\"2\" class=\"td-com\">$COMPANY</td>
+			</tr>
+			<tr class=\"tr\">
+				<td>Web</td>
+				<td class=\"td-padding-left\">$COMPANY_SITE</td>
+			</tr>
+			<tr>
+				<td class=\"td-com-address-label\">Address</td>
+				<td class=\"td-com-address\">$COMPANY_ADDRESS</td>
+			</tr>
+			<tr>
+				<td class=\"td-com-address-label\">State</td>
+				<td class=\"td-com-address\">$COMPANY_STATE</td>
+			</tr>
+			<tr>
+				<td class=\"td-com-phone-label\">Tel</td>
+				<td class=\"td-com-phone\">$COMPANY_PHONE</td>
+			</tr>
+			<tr>
+				<td class=\"td-com-phone-label\">Fax</td>
+				<td class=\"td-com-phone\">$COMPANY_FAX</td>
+			</tr>
+		</table>
+	</body>
+</html>
+"

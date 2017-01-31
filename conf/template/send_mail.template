@@ -1,0 +1,5 @@
+To: ${EMAIL}
+Subject: [IT ${UTIL_FROM_COMPANY}] root@${HOST}
+From: root@${HOST}
+
+${EMSG}

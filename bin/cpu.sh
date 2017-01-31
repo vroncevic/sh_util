@@ -8,17 +8,17 @@
 #
 UTIL_CPU=cpu
 UTIL_CPU_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_CPU_VERSION
-UTIL_LOG=$UTIL/log
+UTIL=/root/scripts/sh_util/${UTIL_CPU_VERSION}
+UTIL_LOG=${UTIL}/log
 
-. $UTIL/bin/devel.sh
-. $UTIL/bin/usage.sh
+.	${UTIL}/bin/devel.sh
+.	${UTIL}/bin/usage.sh
 
 declare -A CPU_USAGE=(
-    [USAGE_TOOL]="__$UTIL_CPU"
-    [USAGE_ARG1]="[CPU_SPEED] Show in GHz | MHz CPU speed"
-    [USAGE_EX_PRE]="# Example show in GHz CPU speed"
-    [USAGE_EX]="__$UTIL_CPU ghz"	
+	[USAGE_TOOL]="__${UTIL_CPU}"
+	[USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
+	[USAGE_EX_PRE]="# Example show in GHz CPU speed"
+	[USAGE_EX]="__${UTIL_CPU} ghz"
 )
 
 #
@@ -29,15 +29,15 @@ declare -A CPU_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local CPU_SPEED="ghz"
-# __cpu $CPU_SPEED
-# local STATUS=$?
+# local PSPEED="ghz" STATUS
+# __cpu $PSPEED
+# STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
-#   # notify admin | user
+#	# true
+#	# notify admin | user
 # else
-#   # false
+#	# false
 #	# missing argument | wrong argument
 #	# return $NOT_SUCCESS
 #	# or
@@ -45,34 +45,32 @@ declare -A CPU_USAGE=(
 # fi
 #
 function __cpu() {
-    local CPU_SPEED=$1
-    if [ -n "$CPU_SPEED" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		local CPUINFO=/proc/cpuinfo
-		local GHZ='/cpu MHz/ {print $4 " / 1000"}'
-		local MHZ='/cpu MHz/ {print $4}'
-		local HZ="None"
-		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Checking CPU speed"
-			printf "$DSTA" "$UTIL_CPU" "$FUNC" "$MSG"
-		fi
-        if [ "$CPU_SPEED" == "ghz" ]; then
-            HZ=$GHZ
-		elif [ "$CPU_SPEED" == "mhz" ]; then
-			HZ=$MHZ
+	local PSPEED=$1
+	if [ -n "${PSPEED}" ]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" CPUS
+		MSG="Checking CPU speed [${PSPEED}]!"
+		__info_debug_message "$MSG" "$FUNC" "$UTIL_CPU"
+		if [ "${PSPEED}" == "ghz" ]; then
+			CPUS=($({ \
+				echo scale=2; \
+				awk '/cpu MHz/ {print $4 " / 1000"}' /proc/cpuinfo; \
+			} | bc))
+		elif [ "${PSPEED}" == "mhz" ]; then
+			CPUS=($( \
+				awk '/cpu MHz/ {print $4}' /proc/cpuinfo \
+			))
 		else
-			printf "$SEND" "$UTIL_CPU" "$FUNC" "Wrong argument"
+			MSG="Wrong argument!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_CPU"
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CPU"
 			return $NOT_SUCCESS
-        fi
-		local cpus=($({ echo scale=2; awk $HZ $CPUINFO; } | bc))
-		printf "%s\n" "$cpus"
-		if [ "$TOOL_DBG" == "true" ]; then
-			printf "$DEND" "$UTIL_CPU" "$FUNC" "Done"
 		fi
+		__info_debug_message "${CPUS}" "$FUNC" "$UTIL_CPU"
+		__info_debug_message_end "Done" "$FUNC" "$UTIL_CPU"
 		return $SUCCESS
-    fi
-    __usage CPU_USAGE
-    return $NOT_SUCCESS
+	fi
+	__usage CPU_USAGE
+	return $NOT_SUCCESS
 }
 

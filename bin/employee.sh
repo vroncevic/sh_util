@@ -8,33 +8,33 @@
 #
 UTIL_EMPLOYEE=employee
 UTIL_EMPLOYEE_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_EMPLOYEE_VERSION
-UTIL_EMPLOYEE_CFG=$UTIL/conf/$UTIL_EMPLOYEE.cfg
-UTIL_LOG=$UTIL/log
+UTIL=/root/scripts/sh_util/${UTIL_EMPLOYEE_VERSION}
+UTIL_EMPLOYEE_CFG=${UTIL}/conf/${UTIL_EMPLOYEE}.cfg
+UTIL_LOG=${UTIL}/log
 
-. $UTIL/bin/devel.sh
-. $UTIL/bin/usage.sh
-. $UTIL/bin/loadutilconf.sh
+.	${UTIL}/bin/devel.sh
+.	${UTIL}/bin/usage.sh
+.	${UTIL}/bin/load_util_conf.sh
 
 declare -A IT_PROFILE_USAGE=(
-    [USAGE_TOOL]="__ituserprofile"
-    [USAGE_ARG1]="[USERNAME]  employee username"
-    [USAGE_EX_PRE]="# Example generating IT profile"
-    [USAGE_EX]="__ituserprofile vroncevic"	
+	[USAGE_TOOL]="__create_it_user_profile"
+	[USAGE_ARG1]="[USR] Employee username"
+	[USAGE_EX_PRE]="# Example generating IT profile"
+	[USAGE_EX]="__create_it_user_profile vroncevic"
 )
 
-declare -A USER_PROFILE_USAGE=(
-    [USAGE_TOOL]="__shareuserprofile"
-    [USAGE_ARG1]="[SHARE_STRUCTURE]   System username and groip"
-    [USAGE_EX_PRE]="# Example generating user profile"
-    [USAGE_EX]="__shareuserprofile \$SHARE_STRUCTURE"	
+declare -A USR_PROFILE_USAGE=(
+	[USAGE_TOOL]="__create_share_user_profile"
+	[USAGE_ARG1]="[SHARE_STRUCT] System username and groip"
+	[USAGE_EX_PRE]="# Example generating user profile"
+	[USAGE_EX]="__create_share_user_profile \$SHARE_STRUCT"
 )
 
 declare -A SHARE_PROFILE_USAGE=(
-    [USAGE_TOOL]="__homefrobas"
-    [USAGE_ARG1]="[HOME_STRUCTURE]   System username and group"
-    [USAGE_EX_PRE]="# Example generatingshare profile"
-    [USAGE_EX]="__homefrobas \$HOME_STRUCTURE"	
+	[USAGE_TOOL]="__create_home_user_profile"
+	[USAGE_ARG1]="[HOME_STRUCT] System username and group"
+	[USAGE_EX_PRE]="# Example generatingshare profile"
+	[USAGE_EX]="__create_home_user_profile \$HOME_STRUCT"
 )
 
 #
@@ -45,78 +45,74 @@ declare -A SHARE_PROFILE_USAGE=(
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local UNAME="vroncevic"
-# __ituserprofile "$UNAME"
-# local STATUS=$?
+# local UNAME="vroncevic" STATUS
+# __create_it_user_profile "$UNAME"
+# STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
+#	# true
 #	# notify admin | user
 # else
-#   # false
+#	# false
 #	# missing argument | failed to load config file | user profile already exist
 #	# return $NOT_SUCCESS
 #	# or
 #	# exit 128
 # fi
 #
-function __ituserprofile() {
-    local USERNAME=$1
-    if [ -n "$USERNAME" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		declare -A configituserprofileutil=()
-		local CURRENT_YEAR=$(date +'%Y')
-		__loadutilconf "$UTIL_EMPLOYEE_CFG" configituserprofileutil
-		local STATUS=$?
+function __create_it_user_profile() {
+	local USR=$1
+	if [ -n "${USR}" ]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" STATUS CURRYEAR=$(date +'%Y')
+		declare -A config_it_user_profile=()
+		__load_util_conf "$UTIL_EMPLOYEE_CFG" config_it_user_profile
+		STATUS=$?
 		if [ $STATUS -eq $SUCCESS ]; then
-			local ITDIR=${configituserprofileutil[ITEDIR]}
-			local R_DIR="$ITDIR/$CURRENT_YEAR/$USERNAME"
-			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking dir [$R_DIR/]"
-				printf "$DQUE" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
-			fi
-			if [ ! -d "$R_DIR/" ]; then
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "%s\n" "[not exist]"
-					MSG="Creating IT profile structure for [$USERNAME]"
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
+			local ITDIR=${config_it_user_profile[ITEDIR]}
+			local RDIR="${ITDIR}/${CURRYEAR}/${USR}"
+			MSG="Checking directory [${RDIR}/]?"
+			__info_debug_message_que "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			if [ ! -d "${RDIR}/" ]; then
+				MSG="[not exist]"
+				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				MSG="Creating IT profile structure for [${USR}]!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
 				fi
-				mkdir "$R_DIR/"
-				mkdir "$R_DIR/dig_certificate/"
-				mkdir "$R_DIR/image_profile/"
-				mkdir "$R_DIR/ip_phone/"
-				mkdir "$R_DIR/mail_backup/"
-				mkdir "$R_DIR/mail_signature/"
-				mkdir "$R_DIR/openvpn/"
-				mkdir "$R_DIR/pgp_key/"
-				mkdir "$R_DIR/ssh_config/"
-				mkdir "$R_DIR/vnc/"
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set owner"
-				fi
-				local PRFX_CMD="chown -R"
-				local OWNER="${configituserprofileutil[UID]}.${configituserprofileutil[GID]}"
-				eval "$PRFX_CMD $OWNER $R_DIR/"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set permission"
-				fi
-				chmod -R 770 "$R_DIR/"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DEND" "$UTIL_EMPLOYEE" "$FUNC" "Done"
-				fi
+				mkdir "${RDIR}/"
+				mkdir "${RDIR}/dig_certificate/"
+				mkdir "${RDIR}/image_profile/"
+				mkdir "${RDIR}/ip_phone/"
+				mkdir "${RDIR}/mail_backup/"
+				mkdir "${RDIR}/mail_signature/"
+				mkdir "${RDIR}/openvpn/"
+				mkdir "${RDIR}/pgp_key/"
+				mkdir "${RDIR}/ssh_config/"
+				mkdir "${RDIR}/vnc/"
+				MSG="Set owner!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				local USRID=${config_it_user_profile[USRID]}
+				local GRPID=${config_it_user_profile[GRPID]}
+				eval "chown -R ${USRID}.${GRPID} ${RDIR}/"
+				MSG="Set permission!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				eval "chmod -R 770 ${RDIR}/"
+				__info_debug_message_end "Done" "$FUNC" "$UTIL_EMPLOYEE"
 				return $SUCCESS
 			fi
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "%s\n" "[already exist]"
-			fi
-			MSG="IT user profile [$USERNAME] already exist"
-			printf "$SEND" "$UTIL_EMPLOYEE" "$MSG"
+			MSG="[exist]"
+			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			MSG="IT user profile [${USR}] already exist!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			return $NOT_SUCCESS
 		fi
+		MSG="Force exit!"
+		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
 		return $NOT_SUCCESS
-    fi 
-    __usage IT_PROFILE_USAGE
-    return $NOT_SUCCESS
+	fi
+	__usage IT_PROFILE_USAGE
+	return $NOT_SUCCESS
 }
 
 #
@@ -127,81 +123,77 @@ function __ituserprofile() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A SHARE_STRUCTURE=(
-# 	[USERNAME]="vroncevic"
-# 	[DEPARTMENT]="users"
+# declare -A SHARE_STRUCT=(
+#	[USR]="vroncevic"
+#	[DEP]="users"
 # )
 #
-# __shareuserprofile SHARE_STRUCTURE
+# __create_share_user_profile SHARE_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
+#	# true
 #	# notify admin | user
 # else
-#   # false
+#	# false
 #	# missing argument | missing config file | user profile already exist
 #	# return $NOT_SUCCESS
 #	# or
 #	# exit 128
 # fi
 #
-function __shareuserprofile() {
-	local -n SHARE_STRUCTURE=$1
-    local USERNAME=${SHARE_STRUCTURE[USERNAME]}
-    local DEPARTMENT=${SHARE_STRUCTURE[DEPARTMENT]}
-    if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		declare -A configituserprofileutil=()
-		__loadutilconf $UTIL_EMPLOYEE_CFG configituserprofileutil
-		local STATUS=$?
+function __create_share_user_profile() {
+	local -n SHARE_STRUCT=$1
+	local USR=${SHARE_STRUCT[USR]} DEP=${SHARE_STRUCT[DEP]}
+	if [[ -n "${USR}" && -n "${DEP}" ]]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+		declare -A config_it_user_profile=()
+		__load_util_conf "$UTIL_EMPLOYEE_CFG" config_it_user_profile
+		STATUS=$?
 		if [ $STATUS -eq $SUCCESS ]; then
-			local R_DIR="$EMPLOYEE_DIR/$USERNAME"
-			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking dir [$R_DIR/]"
-				printf "$DQUE" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
-			fi
-			if [ ! -d "$R_DIR/" ]; then
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "%s\n" "[not exist]"
-					MSG="Creating profile structure for [$USERNAME]"
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
-				fi
-				mkdir "$R_DIR/"
-				mkdir "$R_DIR/backup/"
-				mkdir "$R_DIR/baazar/"
-				mkdir "$R_DIR/CV/"
-				mkdir "$R_DIR/img/"
-				mkdir "$R_DIR/PGP-Key/"
-				mkdir "$R_DIR/SMIME-cert/"
-				chmod -R 777 "$R_DIR/"
-				if [ "$TOOL_DBG" == "true" ]; then
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set owner"
-				fi
-				local BACKUP="$R_DIR/backup/"
-				local PRFX_CMD="chown -R"
-				local OWNER="${configituserprofileutil[UNAME]}.${configituserprofileutil[GRP]}" 
-				eval "$PRFX_CMD $OWNER $BACKUP"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set permission"
-				fi
-				chmod -R 700 "$BACKUP"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DEND" "$UTIL_EMPLOYEE" "$FUNC" "Done"
-				fi
+			local EDIR=${config_it_user_profile[EDIR]} RDIR
+			RDIR="${EDIR}/${USR}"
+			MSG="Checking directory [${RDIR}/]?"
+			__info_debug_message_que "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			if [ ! -d "${RDIR}/" ]; then
+				MSG="[not exist]"
+				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				MSG="Creating profile structure for [${USR}]!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				mkdir "${RDIR}/"
+				mkdir "${RDIR}/backup/"
+				mkdir "${RDIR}/baazar/"
+				mkdir "${RDIR}/CV/"
+				mkdir "${RDIR}/img/"
+				mkdir "${RDIR}/PGP-Key/"
+				mkdir "${RDIR}/SMIME-cert/"
+				eval "chmod -R 777 ${RDIR}/"
+				MSG="Set owner!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				local BACKUP="${RDIR}/backup/" USRID GRPID
+				USRID=${config_it_user_profile[UNAME]}
+				GRPID=${config_it_user_profile[GRP]}
+				eval "chown -R ${USRID}.${GRPID} ${BACKUP}/"
+				MSG="Set permission!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+				eval "chmod -R 700 ${BACKUP}/"
+				__info_debug_message_end "Done" "$FUNC" "$UTIL_EMPLOYEE"
 				return $SUCCESS
 			fi
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "%s\n\n" "[already exist]"
-			fi
-			MSG="Share user profile [$USERNAME] already exist"
-			printf "$SEND" "$UTIL_EMPLOYEE" "$MSG"
+			MSG="[exist]"
+			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			MSG="Share user profile [$USR] already exist"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			return $NOT_SUCCESS
 		fi
+		MSG="Force exit!"
+		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
 		return $NOT_SUCCESS
-    fi 
-    __usage USER_PROFILE_USAGE
-    return $NOT_SUCCESS
+	fi
+	__usage USR_PROFILE_USAGE
+	return $NOT_SUCCESS
 }
 
 #
@@ -212,73 +204,63 @@ function __shareuserprofile() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A HOME_STRUCTURE=(
-# 	[USERNAME]="vroncevic"
-# 	[DEPARTMENT]="users"
+# declare -A HOME_STRUCT=(
+#	[USR]="vroncevic"
+#	[DEP]="users"
 # )
 #
-# __homefrobas HOME_STRUCTURE
+# __create_home_user_profile HOME_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
+#	# true
 #	# notify admin | user
 # else
-#   # false
+#	# false
 #	# missing argument | user profile already exist
 #	# return $NOT_SUCCESS
 #	# or
 #	# exit 128
 # fi
 #
-function __homefrobas() {
-	local -n HOME_STRUCTURE=$1
-    local USERNAME=${HOME_STRUCTURE[USERNAME]}
-    local DEPARTMENT=${HOME_STRUCTURE[DEPARTMENT]}
-    if [ -n "$USERNAME" ] && [ -n "$DEPARTMENT" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		local R_DIR="/home/$USERNAME/frobas"
-		if [ "$TOOL_DBG" == "true" ]; then
-			MSG="Checking dir [$R_DIR/]"
-			printf "$DQUE" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
-		fi
-		if [ ! -d "$R_DIR/" ]; then
-			if [ "$TOOL_DBG" == "true" ]; then            
-				printf "%s\n" "[not exist]"
-				MSG="Creating structure [$R_DIR/]"
-				printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "$MSG"
-			fi
-			mkdir "$R_DIR/"
-			mkdir "$R_DIR/openvpn/"
-			mkdir "$R_DIR/mail_signature"
-			mkdir "$R_DIR/smime/"
-			mkdir "$R_DIR/pgp/"
-			mkdir "$R_DIR/pgp/private_key/"
-			mkdir "$R_DIR/pgp/public_key"
-			if [ "$TOOL_DBG" == "true" ]; then            
-				printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set owner"
-			fi
-			local PRFX_CMD="chown -R" 
-			local OWNER="$USERNAME.$DEPARTMENT"
-			eval "$PRFX_CMD $OWNER $R_DIR/"			
-			if [ "$TOOL_DBG" == "true" ]; then
-				printf "$DSTA" "$UTIL_EMPLOYEE" "$FUNC" "Set permission"
-			fi
-			chmod -R 700 "$R_DIR/"
-			if [ "$TOOL_DBG" == "true" ]; then            
-				printf "$DEND" "$UTIL_EMPLOYEE" "$FUNC" "Done"
-			fi
+function __create_home_user_profile() {
+	local -n HOME_STRUCT=$1
+	local USR=${HOME_STRUCT[USR]} DEP=${HOME_STRUCT[DEP]}
+	if [[ -n "${USR}" && -n "${DEP}" ]]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" 
+		local RDIR="/home/${USR}/${UTIL_FROM_COMPANY}"
+		MSG="Checking directory [${RDIR}/]?"
+		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+		if [ ! -d "${RDIR}/" ]; then
+			MSG="[not exist]"
+			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			MSG="Creating directory structure [${RDIR}/]!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			mkdir "${RDIR}/"
+			mkdir "${RDIR}/openvpn/"
+			mkdir "${RDIR}/mail_signature"
+			mkdir "${RDIR}/smime/"
+			mkdir "${RDIR}/pgp/"
+			mkdir "${RDIR}/pgp/private_key/"
+			mkdir "${RDIR}/pgp/public_key"
+			MSG="Set owner!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			eval "chown -R ${USR}.${DEP} ${RDIR}/"
+			MSG="Set permission!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+			eval "chmod -R 700 ${RDIR}/"
+			__info_debug_message_end "Done" "$FUNC" "$UTIL_EMPLOYEE"
 			return $SUCCESS
 		fi
-		if [ "$TOOL_DBG" == "true" ]; then
-			printf "%s\n" "[already exist]"
-		fi
-		MSG="home structure for [$USERNAME] already exist"
-		printf "$SEND" "$UTIL_EMPLOYEE" "$MSG"
-        return $NOT_SUCCESS
-    fi 
-    __usage SHARE_PROFILE_USAGE
-    return $NOT_SUCCESS
+		MSG="[exist]"
+		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+		MSG="Home structure for [${USR}] already exist"
+		__info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+		MSG="Force exit!"
+		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
+		return $NOT_SUCCESS
+	fi
+	__usage SHARE_PROFILE_USAGE
+	return $NOT_SUCCESS
 }
 

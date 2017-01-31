@@ -7,96 +7,90 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VDEPLOY=vdeploy
-UTIL_VDEPLOY_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VDEPLOY_VERSION
-UTIL_VDEPLOY_CFG=$UTIL/conf/$UTIL_VDEPLOY.cfg
-UTIL_LOG=$UTIL/log
+UTIL_VDEPLOY_VER=ver.1.0
+UTIL=/root/scripts/sh_util/${UTIL_VDEPLOY_VER}
+UTIL_VDEPLOY_CFG=${UTIL}/conf/${UTIL_VDEPLOY}.cfg
+UTIL_LOG=${UTIL}/log
 
-. $UTIL/bin/devel.sh
-. $UTIL/bin/usage.sh
-. $UTIL/bin/loadutilconf.sh
+.	${UTIL}/bin/devel.sh
+.	${UTIL}/bin/usage.sh
+.	${UTIL}/bin/load_util_conf.sh
 
 declare -A VDEPLOY_USAGE=(
-    [USAGE_TOOL]="__$UTIL_VDEPLOY"
-    [USAGE_ARG1]="[VDEPLOY_STRUCTURE] Version number and path to dev-dir"
-    [USAGE_EX_PRE]="# Copy tool to deployment zone"
-    [USAGE_EX]="__$UTIL_VDEPLOY \$VDEPLOY_STRUCTURE"
+	[USAGE_TOOL]="__${UTIL_VDEPLOY}"
+	[USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
+	[USAGE_EX_PRE]="# Copy tool to deployment zone"
+	[USAGE_EX]="__${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
 )
 
 #
 # @brief  Copy new version of tool to deployment zone 
-# @param  Value required, structure VDEPLOY_STRUCTURE
+# @param  Value required, structure VDEPLOY_STRUCT
 # @retval Success return 0, else return 1
 #
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A VDEPLOY_STRUCTURE=(
-# 	[TV]="ver.1.0"
-# 	[DP]="/opt/new_tool/"
+# declare -A VDEPLOY_STRUCT=(
+#	[TV]="ver.1.0"
+#	[DP]="/opt/new_tool/"
 # )
 #
-# __vdeploy VDEPLOY_STRUCTURE
+# __vdeploy VDEPLOY_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
-#   # notify admin | user
+#	# true
+#	# notify admin | user
 # else
-#   # false
-#   # missing argument(s) | check dirs
+#	# false
+#	# missing argument(s) | check dirs
 #	# return $NOT_SUCCESS
 #	# or
 #	# exit 128
 # fi
 #
 function __vdeploy() {
-	local -n VDEPLOY_STRUCTURE=$1
-    local VERSION=${VDEPLOY_STRUCTURE[TV]}
-    local DEVPATH=${VDEPLOY_STRUCTURE[DP]}
-    if [ -n "$VERSION" ] && [ -n "$DEVPATH" ]; then
-		local FUNC=${FUNCNAME[0]}
-		local MSG="None"
-		declare -A configvdeployutil=()
-		__loadutilconf "$UTIL_VDEPLOY_CFG" configvdeployutil
-		local STATUS=$?
+	local -n VDEPLOY_STRUCT=$1
+	local VER=${VDEPLOY_STRUCT[TV]} DPATH=${VDEPLOY_STRUCT[DP]}
+	if [[ -n "${VER}" && -n "${DPATH}" ]]; then
+		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+		declare -A config_vdeploy=()
+		__load_util_conf "$UTIL_VDEPLOY_CFG" config_vdeploy
+		STATUS=$?
 		if [ $STATUS -eq $SUCCESS ]; then
-			local SRC="$DEVPATH/src"
-			local DIST="$DEVPATH/dist"
-			if [ "$TOOL_DBG" == "true" ]; then
-				MSG="Checking dirs [$SRC/ver.${VERSION}.0/] [$DIST/]"
-				printf "$DQUE" "$UTIL_VDEPLOY" "$FUNC" "$MSG"
-			fi
-			if [[ -d "$SRC/ver.${VERSION}.0/" ]] && [[ -d "$DIST/" ]]; then 
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "%s\n" "[ok]"
-					MSG="Copy [$SRC/ver.${VERSION}.0/] to [$DIST/]"
-					printf "$DSTA" "$UTIL_VDEPLOY" "$FUNC" "$MSG"
-				fi
-				cp -R "$SRC/ver.${VERSION}.0/" "$DIST/"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DSTA" "$UTIL_VDEPLOY" "$FUNC" "Set owner"
-				fi
-				local PRFX_CMD="chown -R"
-				local OWNER="${configvdeployutil[UID]}.${configvdeployutil[GID]}"
-				eval "$PRFX_CMD $OWNER $DIST/"
-				if [ "$TOOL_DBG" == "true" ]; then        
-					printf "$DSTA" "$UTIL_VDEPLOY" "$FUNC" "Set permission"
-				fi
-				chmod -R 770 "$DIST/"
-				if [ "$TOOL_DBG" == "true" ]; then            
-					printf "$DEND" "$UTIL_VDEPLOY" "$FUNC" "Done"
-				fi
+			local SRC="${DPATH}/src" DIST="${DPATH}/dist"
+			MSG="Checking directories [${SRC}/ver.${VER}.0/] [${DIST}/]?"
+			__info_debug_message_que "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+			if [[ -d "${SRC}/ver.${VER}.0/" && -d "${DIST}/" ]]; then
+				MSG="[ok]"
+				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+				MSG="Copy [${SRC}/ver.${VER}.0/] to [${DIST}/]!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+				cp -R "${SRC}/ver.${VER}.0/" "${DIST}/"
+				MSG="Set owner!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+				local UID=${config_vdeploy[UID]} GID=${config_vdeploy[GID]}
+				eval "chown -R ${UID}.${GID} ${DIST}/"
+				MSG="Set permission!"
+				__info_debug_message "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+				eval "chmod -R 770 ${DIST}/"
+				__info_debug_message_end "Done" "$FUNC" "$UTIL_VDEPLOY"
 				return $SUCCESS
 			fi
-			printf "%s\n" "[not ok]"
-			MSG="Please check dirs [$SRC/ver.${VERSION}.0/] [$DIST/]"
-			printf "$SEND" "$UTIL_VDEPLOY" "$MSG"
+			MSG="[not ok]"
+			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+			MSG="Please check directories [${SRC}/ver.${VER}.0/] [${DIST}/]!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_VDEPLOY"
 			return $NOT_SUCCESS
-        fi
-        return $NOT_SUCCESS
-    fi 
-    __usage VDEPLOY_USAGE
-    return $NOT_SUCCESS
+		fi
+		MSG="Force exit!"
+		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_VDEPLOY"
+		return $NOT_SUCCESS
+	fi
+	__usage VDEPLOY_USAGE
+	return $NOT_SUCCESS
 }
 

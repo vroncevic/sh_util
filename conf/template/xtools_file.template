@@ -1,0 +1,6 @@
+${HASH}${HASH}
+${HASH}${HASH} @tool    ${TOOL_TO_ADD}
+${HASH}${HASH} @company ${UTIL_FROM_COMPANY}
+${HASH}${HASH} @date    ${DATE}
+${HASH}${HASH} @brief   xtools
+${HASH}${HASH}

@@ -8,10 +8,10 @@
 #
 UTIL_HASH=hash
 UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh-util-srv/$UTIL_VERSION
-UTIL_LOG=$UTIL/log
+UTIL=/root/scripts/sh_util/${UTIL_VERSION}
+UTIL_LOG=${UTIL}/log
 
-. $UTIL/bin/devel.sh
+.	${UTIL}/bin/devel.sh
 
 #
 # @brief  Set key, value to hash structure
@@ -24,7 +24,7 @@ UTIL_LOG=$UTIL/log
 # __hset $HASH_STRUCT $KEY $VALUE
 #
 function __hset() {
-    eval "$1""$2"='$3'
+	eval "$1""$2"='$3'
 }
 
 #
@@ -39,7 +39,7 @@ function __hset() {
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
 function __hget() {
-    eval echo '${'"$1$2"'#hash}'
+	eval echo '${'"$1$2"'#hash}'
 }
 
 #
@@ -54,19 +54,17 @@ function __hget() {
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#   # true
-#   # notif admin | user
+#	# true
+#	# notif admin | user
 # else
-#   # false
-#   # notify admin | user
+#	# false
+#	# notify admin | user
 # fi
 #
 function __set_item() {
-	local KEY=$1
-	local VALUE=$2
-	local HASH_STRUCT=$3
-	if [ -n "$KEY" ]  && [ -n "$VALUE" ]; then
-		__hset $HASH_STRUCT $KEY $VALUE
+	local KEY=$1 VALUE=$2 HASH_STRUCT=$3
+	if [[ -n "${KEY}" && -n "${VALUE}" ]]; then
+		__hset ${HASH_STRUCT} ${KEY} ${VALUE}
 		return $SUCCESS
 	fi
 	return $NOT_SUCCESS
@@ -84,13 +82,11 @@ function __set_item() {
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
 function __get_item() {
-	local KEY=$1
-	local HASH_STRUCT=$2
-	local VALUE="None"
-	if [ -n "$KEY" ]; then
-		VALUE=$(__hget $HASH_STRUCT "$KEY")
+	local KEY=$1 HASH_STRUCT=$2 VALUE="None"
+	if [ -n "${KEY}" ]; then
+		VALUE=$(__hget ${HASH_STRUCT} "${KEY}")
 	fi
-	eval "echo "$VALUE""
+	eval "echo "${VALUE}""
 }
 
 #
@@ -101,7 +97,7 @@ function __get_item() {
 # @usage
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# declare -A capitals=() 
+# declare -A capitals=()
 # local HASH_STRUCTURE_CFG="`pwd`/hash_values.conf"
 # __get_configuration $HASH_STRUCTURE_CFG capitals
 # local STATUS=$?
@@ -114,14 +110,13 @@ function __get_item() {
 # fi
 #
 function __get_configuration() {
-	local CFG_FILE=$1
-	local HASH_STRUCT=$2
-	if [ -n "$CFG_FILE" ] && [ -n "$HASH_STRUCT" ]; then
+	local FILE=$1 HASH_STRUCT=$2 KEY VALUE
+	if [[ -n "${FILE}" && -n "${HASH_STRUCT}" ]]; then
 		IFS="="
-		while read -r key value
+		while read -r KEY VALUE
 		do
-			__set_item $key $value $HASH_STRUCT
-		done < $CFG_FILE
+			__set_item ${KEY} ${VALUE} ${HASH_STRUCT}
+		done < ${FILE}
 		return $SUCCESS
 	fi
 	return $NOT_SUCCESS
