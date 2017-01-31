@@ -58,12 +58,12 @@ NOT_SUCCESS=1
 # fi
 #
 function __check_status() {
-	local -n STATUS_STRUCT=$1 FUNC=${FUNCNAME[0]} MSG="None" I
-	local NSTATUS=${#STATUS_STRUCT[@]}
+	local -n STATUS_STRUCT=$1
+	local NSTATUS=${#STATUS_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
 	if [ -n "${NSTATUS}" ]; then
 		for I in "${!STATUS_STRUCT[@]}"
 		do
-			if [${STATUS_STRUCT[$I]} -eq $NOT_SUCCESS]; then
+			if [[ ${STATUS_STRUCT[$I]} -eq $NOT_SUCCESS ]]; then
 				return $NOT_SUCCESS
 			fi
 		done
