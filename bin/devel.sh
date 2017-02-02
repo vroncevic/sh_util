@@ -13,6 +13,9 @@ UTIL_FROM_COMPANY="Frobas"
 # Debug/Info print mode
 TOOL_DBG="false"
 
+# Logging messages
+TOOL_LOG="false"
+
 # Debug print formats
 DSTA="[@Module %s.sh @Func %s] %s\n"
 DEND="[@Module %s.sh @Func %s] %s\n\n"

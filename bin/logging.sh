@@ -52,45 +52,48 @@ declare -A LOGGING_USAGE=(
 #
 function __logging() {
 	local -n LOG=$1
-	local LTN=${LOG[LOG_TOOL]} LTF=${LOG[LOG_FLAG]}
-	local LTP=${LOG[LOG_PATH]} LTM=${LOG[LOG_MSGE]}
-	if [[ -n "${LTN}" && -n "${LTF}" && -n "${LTP}" && -n "${LTM}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" LOG_LINE="None"
-		MSG="Checking directory [${LTP}/]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_LOGGING"
-		if [ ! -d "${LTP}/" ]; then
-			MSG="[not exist]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_LOGGING"
-			MSG="Creating directory [${LTP}/]!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
-			mkdir "${LTP}/"
-		fi
-		if [ -d "${LTP}/" ]; then
-			MSG="[ok]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_LOGGING"
-			if [ "${LTF}" == "info" ]; then
-				MSG="Write info log!"
+	if [ "$TOOL_LOG" == "true" ]; then
+		local LTN=${LOG[LOG_TOOL]} LTF=${LOG[LOG_FLAG]}
+		local LTP=${LOG[LOG_PATH]} LTM=${LOG[LOG_MSGE]}
+		if [[ -n "${LTN}" && -n "${LTF}" && -n "${LTP}" && -n "${LTM}" ]]; then
+			local FUNC=${FUNCNAME[0]} MSG="None" LOG_LINE="None"
+			MSG="Checking directory [${LTP}/]?"
+			__info_debug_message_que "$MSG" "$FUNC" "$UTIL_LOGGING"
+			if [ ! -d "${LTP}/" ]; then
+				MSG="[not exist]"
+				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_LOGGING"
+				MSG="Creating directory [${LTP}/]!"
 				__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
-				LOG_LINE="[`date`] INFO ${LTM} [host: `hostname`]"
-			elif [ "${LTF}" == "error" ]; then
-				MSG="Write error log!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
-				LOG_LINE="[`date`] ERROR ${LTM} [host: `hostname`]"
-			else
-				__usage LOGGING_USAGE
-				return $NOT_SUCCESS
+				mkdir "${LTP}/"
 			fi
-			echo "${LOG_LINE}" >> "${LTP}/${LTN}.log"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGING"
-			return $SUCCESS
+			if [ -d "${LTP}/" ]; then
+				MSG="[ok]"
+				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_LOGGING"
+				if [ "${LTF}" == "info" ]; then
+					MSG="Write info log!"
+					__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
+					LOG_LINE="[`date`] INFO ${LTM} [host: `hostname`]"
+				elif [ "${LTF}" == "error" ]; then
+					MSG="Write error log!"
+					__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
+					LOG_LINE="[`date`] ERROR ${LTM} [host: `hostname`]"
+				else
+					__usage LOGGING_USAGE
+					return $NOT_SUCCESS
+				fi
+				echo "${LOG_LINE}" >> "${LTP}/${LTN}.log"
+				__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGING"
+				return $SUCCESS
+			fi
+			MSG="Please check log path [${LTP}/]!"
+			__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
+			MSG="Force exit!"
+			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOGGING"
+			return $NOT_SUCCESS
 		fi
-		MSG="Please check log path [${LTP}/]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOGGING"
+		__usage LOGGING_USAGE
 		return $NOT_SUCCESS
 	fi
-	__usage LOGGING_USAGE
-	return $NOT_SUCCESS
+	return $SUCCESS
 }
 
