@@ -63,6 +63,9 @@ function __load_conf() {
 				if [ "${KEY}" == "ADMIN_EMAIL" ]; then
 					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
 				fi
+				if [ "${KEY}" == "DEBUGGING" ]; then
+					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+				fi
 				if [ "${KEY}" == "LOGGING" ]; then
 					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
 				fi

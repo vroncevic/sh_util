@@ -49,40 +49,43 @@ declare -A SEND_MAIL_USAGE=(
 #
 function __send_mail() {
 	local EMSG=$1 EMAIL=$2
-	if [[ -n "${EMSG}" && -n "${EMAIL}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS HOST=$(hostname)
-		declare -A config_send_mail=()
-		__load_util_conf "$UTIL_SEND_MAIL_CFG" config_send_mail
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local SENDMAIL=${config_send_mail[SENDMAIL]}
-			MSG="Send an email to Administrator!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
-			__check_tool "${SENDMAIL}"
+	if [ "${TOOL_NOTIFY}" == "true" ]; then
+		if [[ -n "${EMSG}" && -n "${EMAIL}" ]]; then
+			local FUNC=${FUNCNAME[0]} MSG="None" STATUS HOST=$(hostname)
+			declare -A config_send_mail=()
+			__load_util_conf "$UTIL_SEND_MAIL_CFG" config_send_mail
 			STATUS=$?
 			if [ $STATUS -eq $SUCCESS ]; then
-				local MLINE FMSG=${config_send_mail[SENDMAIL_MSG]}
-				local SMTEMPLATE=${config_send_mail[SENDMAIL_TEMPLATE]}
-				while read MLINE
-				do
-					eval echo -e "${MLINE}" >> ${FMSG}
-				done < ${SMTEMPLATE}
-				eval "${SENDMAIL} < ${FMSG}"
-				rm -f "${FMSG}"
-				MSG="Sent email to Administrator!"
+				local SENDMAIL=${config_send_mail[SENDMAIL]}
+				MSG="Send an email to Administrator!"
 				__info_debug_message "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
-				__info_debug_message_end "Done" "$FUNC" "$UTIL_SEND_MAIL"
-				return $SUCCESS
+				__check_tool "${SENDMAIL}"
+				STATUS=$?
+				if [ $STATUS -eq $SUCCESS ]; then
+					local MLINE FMSG=${config_send_mail[SENDMAIL_MSG]}
+					local SMTEMPLATE=${config_send_mail[SENDMAIL_TEMPLATE]}
+					while read MLINE
+					do
+						eval echo -e "${MLINE}" >> ${FMSG}
+					done < ${SMTEMPLATE}
+					eval "${SENDMAIL} < ${FMSG}"
+					rm -f "${FMSG}"
+					MSG="Sent email to Administrator!"
+					__info_debug_message "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
+					__info_debug_message_end "Done" "$FUNC" "$UTIL_SEND_MAIL"
+					return $SUCCESS
+				fi
+				MSG="Force exit!"
+				__info_debug_message_end "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
+				return $NOT_SUCCESS
 			fi
 			MSG="Force exit!"
 			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
 			return $NOT_SUCCESS
 		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
+		__usage SEND_MAIL_USAGE
 		return $NOT_SUCCESS
 	fi
-	__usage SEND_MAIL_USAGE
-	return $NOT_SUCCESS
+	return $SUCCESS
 }
 

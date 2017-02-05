@@ -52,7 +52,7 @@ declare -A LOGGING_USAGE=(
 #
 function __logging() {
 	local -n LOG=$1
-	if [ "$TOOL_LOG" == "true" ]; then
+	if [ "${TOOL_LOG}" == "true" ]; then
 		local LTN=${LOG[LOG_TOOL]} LTF=${LOG[LOG_FLAG]}
 		local LTP=${LOG[LOG_PATH]} LTM=${LOG[LOG_MSGE]}
 		if [[ -n "${LTN}" && -n "${LTF}" && -n "${LTP}" && -n "${LTM}" ]]; then

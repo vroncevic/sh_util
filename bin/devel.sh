@@ -16,6 +16,9 @@ TOOL_DBG="false"
 # Logging messages
 TOOL_LOG="false"
 
+# Send email notification
+TOOL_NOTIFY="false"
+
 # Debug print formats
 DSTA="[@Module %s.sh @Func %s] %s\n"
 DEND="[@Module %s.sh @Func %s] %s\n\n"
