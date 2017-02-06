@@ -81,6 +81,49 @@ function __check_status() {
 }
 
 #
+# @brief  Check key from key list in string representation
+# @params Values required key and key list
+# @retval Success 0, else 1
+#
+# @usage
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+# KEYS="debug test verification deploy"
+# KEY="test"
+#
+# __check_key $KEY $KEYS
+# local STATUS=$?
+#
+# if [ $STATUS -eq $SUCCESS ]; then
+#	# true
+#	# notify admin | user
+# else
+#	# false
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
+# fi
+#
+function __check_key() {
+	local KEY=$1 KEYS=$2
+	if [[ -n "${KEY}" && -n "${KEYS}" ]]; then
+		IFS=' ' read -ra ARRAY_KEYS <<< "$KEYS"
+		for EL in "${ARRAY_KEYS[@]}"
+		do
+			if [[ ${KEY} == ${EL} ]]; then
+				return $SUCCESS
+			fi
+		done
+		MSG="Key ${KEY} is not in key list [${KEYS}]"
+		printf "$SEND" "devel" "$FUNC" "$MSG"
+		return $NOT_SUCCESS
+	fi
+	MSG="Missing argument(s) [TARGET_KEY] or [LIST_OF_KEYS]"
+	printf "$SEND" "devel" "$FUNC" "$MSG"
+	return $NOT_SUCCESS
+}
+
+#
 # @brief  Print question text message
 # @params Values required message, parent function name and tool name
 # @retval None
