@@ -81,6 +81,51 @@ function __check_status() {
 }
 
 #
+# @brief  Check string structure
+# @param  Value required structure with strings
+# @retval Success 0, else 1
+#
+# @usage
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+# declare -A STRING_STRUCT=(
+#	[TEST1]="None"
+#	[TEST2]="SomeKey"
+#	...
+#	[TESTN]="SomeKey"
+# )
+#
+# __check_strings STRING_STRUCT
+# local STATUS=$?
+#
+# if [ $STATUS -eq $SUCCESS ]; then
+#	# true
+#	# notify admin | user
+# else
+#	# false
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
+# fi
+#
+function __check_strings() {
+	local -n STRING_STRUCT=$1
+	local NSTRING=${#STRING_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
+	if [ -n "${NSTRING}" ]; then
+		for I in "${!STRING_STRUCT[@]}"
+		do
+			if [[ "${STRING_STRUCT[$I]}" == "None" ]]; then
+				return $NOT_SUCCESS
+			fi
+		done
+		return $SUCCESS
+	fi
+	MSG="Missing argument structure [STRING_STRUCT]"
+	printf "$SEND" "devel" "$FUNC" "$MSG"
+	return $NOT_SUCCESS
+}
+
+#
 # @brief  Check key from key list in string representation
 # @params Values required key and key list
 # @retval Success 0, else 1
