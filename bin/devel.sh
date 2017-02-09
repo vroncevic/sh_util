@@ -36,6 +36,42 @@ SUCCESS=0
 NOT_SUCCESS=1
 
 #
+# @brief  Check bool variable
+# @param  Value required variable
+# @retval Success 0, else 1
+#
+# @usage
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+# local STATUS VAR="true"
+# __check_bool_var VAR
+# STATUS=$?
+#
+# if [ $STATUS -eq $SUCCESS ]; then
+#	# true
+#	# notify admin | user
+# else
+#	# false
+#	# return $NOT_SUCCESS
+#	# or
+#	# exit 128
+# fi
+#
+function __check_bool_var() {
+	local VAR=$1
+	local FUNC=${FUNCNAME[0]} MSG="None"
+	if [ -n "${VAR}" ]; then
+		if [[ "${VAR}" == "true" || "${VAR}" == "false" ]]; then
+			return $SUCCESS
+		fi
+		return $NOT_SUCCESS
+	fi
+	MSG="Missing argument [VARIABLE]"
+	printf "$SEND" "devel" "$FUNC" "$MSG"
+	return $NOT_SUCCESS
+}
+
+#
 # @brief  Check status structure
 # @param  Value required structure with statuses
 # @retval Success 0, else 1
