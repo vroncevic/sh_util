@@ -40,7 +40,7 @@ function __inserting_passwd() {
 	stty -echo
 	printf "%s" "Enter password: "
 	read TMP_PASSWD
-	eval "${PASSWD}=${TMP_PASSWD}"
+	eval "PASSWD=$(printf "'%s' " "${TMP_PASSWD}")"
 	stty echo
 	if [ -n "${PASSWD}" ]; then
 		__info_debug_message_end "Done" "$FUNC" "$UTIL_INSERTING_PASSWD"
