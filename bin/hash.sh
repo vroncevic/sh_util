@@ -15,7 +15,7 @@ UTIL_LOG=${UTIL}/log
 
 #
 # @brief  Set key, value to hash structure
-# @params Values required hash structure, key and value  
+# @params Values required hash structure, key and value
 # @retval Success return 0, else return 1
 #
 # @usage

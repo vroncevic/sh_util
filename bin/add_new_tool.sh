@@ -37,7 +37,7 @@ declare -A ADD_NEW_TOOL_USAGE=(
 #
 # if [ $STATUS -eq $SUCCESS ]; then
 #	# true
-#	# notify admin | user 
+#	# notify admin | user
 # else
 #	# false
 #	# missing argument | missing config file | tool already exist
