@@ -12,16 +12,16 @@ UTIL_LOAD_CONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOAD_CONF_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/check_cfg.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/check_cfg.sh
 
 declare -A LOAD_CONF_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LOAD_CONF}"
-	[USAGE_ARG1]="[FILE] Path to config file"
-	[USAGE_ARG2]="[CONFIG] Hash structure for config"
-	[USAGE_EX_PRE]="# Example load configuration"
-	[USAGE_EX]="__${UTIL_LOAD_CONF} \$FILE configuration"
+    [USAGE_TOOL]="__${UTIL_LOAD_CONF}"
+    [USAGE_ARG1]="[FILE] Path to config file"
+    [USAGE_ARG2]="[CONFIG] Hash structure for config"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="__${UTIL_LOAD_CONF} \$FILE configuration"
 )
 
 #
@@ -30,57 +30,57 @@ declare -A LOAD_CONF_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local FILE="/opt/sometool.cfg" STATUS
 # declare -A configuration=()
-# __load_conf $FILE configuration
+# load_conf $FILE configuration
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing file
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing file
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __load_conf() {
-	local FILE=$1 CONFIG=$2
-	if [[ -n "${FILE}" && -n "${CONFIG}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS KEY VALUE
-		MSG="Loading App/Tool/Script configuration!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOAD_CONF"
-		__check_cfg "${FILE}"
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			IFS="="
-			while read -r KEY VALUE
-			do
-				if [ "${KEY}" == "ADMIN_EMAIL" ]; then
-					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-				fi
-				if [ "${KEY}" == "DEBUGGING" ]; then
-					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-				fi
-				if [ "${KEY}" == "LOGGING" ]; then
-					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-				fi
-				if [ "${KEY}" == "EMAILING" ]; then
-					eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-				fi
-			done < ${FILE}
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LOAD_CONF"
-			return $SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOAD_CONF"
-		return $NOT_SUCCESS
-	fi
-	__usage LOAD_CONF_USAGE
-	return $NOT_SUCCESS
+function load_conf {
+    local FILE=$1 CONFIG=$2
+    if [[ -n "${FILE}" && -n "${CONFIG}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS KEY VALUE
+        MSG="Loading App/Tool/Script configuration!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOAD_CONF"
+        check_cfg "${FILE}"
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            IFS="="
+            while read -r KEY VALUE
+            do
+                if [ "${KEY}" == "ADMIN_EMAIL" ]; then
+                    eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+                fi
+                if [ "${KEY}" == "DEBUGGING" ]; then
+                    eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+                fi
+                if [ "${KEY}" == "LOGGING" ]; then
+                    eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+                fi
+                if [ "${KEY}" == "EMAILING" ]; then
+                    eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+                fi
+            done < ${FILE}
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LOAD_CONF"
+            return $SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOAD_CONF"
+        return $NOT_SUCCESS
+    fi
+    usage LOAD_CONF_USAGE
+    return $NOT_SUCCESS
 }
 

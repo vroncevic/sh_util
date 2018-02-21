@@ -11,14 +11,14 @@ UTIL_LOGGED_IN_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGED_IN_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A LOGGED_IN_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LOGGED_IN}"
-	[USAGE_ARG1]="[LOGIN_STRUCT] System username and time"
-	[USAGE_EX_PRE]="# Create a file n bytes large"
-	[USAGE_EX]="__${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
+    [USAGE_TOOL]="__${UTIL_LOGGED_IN}"
+    [USAGE_ARG1]="[LOGIN_STRUCT] System username and time"
+    [USAGE_EX_PRE]="# Create a file n bytes large"
+    [USAGE_EX]="__${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
 )
 
 #
@@ -27,51 +27,51 @@ declare -A LOGGED_IN_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGIN_STRUCT=(
-# 	[USERNAME]="vroncevic"
-# 	[TIME]=$time
+#     [USERNAME]="vroncevic"
+#     [TIME]=$time
 # )
 #
-# __logged_in LOGIN_STRUCT
+# logged_in LOGIN_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument(s)
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s)
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __logged_in() {
-	local -n LOGIN_STRUCT=$1
-	local USR=${LOGIN_STRUCT[USERNAME]} TIME=${LOGIN_STRUCT[TIME]}
-	if [[ -n "${USR}" && -n "${TIME}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Notify when a particular user [${USR}] has logged in!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
-		who | grep "^${USR} " 2>&1 > /dev/null
-		if [[ $? == 0 ]]; then
-			MSG="User [${USR}] is logged in!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
-			return $SUCCESS
-		fi
-		until who | grep "^${USR}"
-		do
-			sleep ${TIME}
-		done
-		MSG="User [${USR}] just logged in!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
-		return $SUCCESS
-	fi
-	__usage LOGGED_IN_USAGE
-	return $NOT_SUCCESS
+function logged_in {
+    local -n LOGIN_STRUCT=$1
+    local USR=${LOGIN_STRUCT[USERNAME]} TIME=${LOGIN_STRUCT[TIME]}
+    if [[ -n "${USR}" && -n "${TIME}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Notify when a particular user [${USR}] has logged in!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
+        who | grep "^${USR} " 2>&1 > /dev/null
+        if [[ $? == 0 ]]; then
+            MSG="User [${USR}] is logged in!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
+            return $SUCCESS
+        fi
+        until who | grep "^${USR}"
+        do
+            sleep ${TIME}
+        done
+        MSG="User [${USR}] just logged in!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_IN"
+        info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
+        return $SUCCESS
+    fi
+    usage LOGGED_IN_USAGE
+    return $NOT_SUCCESS
 }
 

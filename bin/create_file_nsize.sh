@@ -11,14 +11,14 @@ UTIL_CREATE_FILE_NSIZE_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CREATE_FILE_NSIZE_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A CREATE_FILE_NSIZE_USAGE=(
-	[USAGE_TOOL]="__${UTIL_CREATE_FILE_NSIZE}"
-	[USAGE_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
-	[USAGE_EX_PRE]="# Example creating a file n bytes large"
-	[USAGE_EX]="__${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
+    [USAGE_TOOL]="__${UTIL_CREATE_FILE_NSIZE}"
+    [USAGE_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
+    [USAGE_EX_PRE]="# Example creating a file n bytes large"
+    [USAGE_EX]="__${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
 )
 
 #
@@ -27,58 +27,58 @@ declare -A CREATE_FILE_NSIZE_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A F_STRUCT=(
-#	[NB]=8
-#	[FN]="test.ini"
-#	[CH]="D"
+#    [NB]=8
+#    [FN]="test.ini"
+#    [CH]="D"
 # )
 #
-# __create_file_nsize F_STRUCT
+# create_file_nsize F_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | wrong argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | wrong argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __create_file_nsize() {
-	local -n F_STRUCT=$1
-	local NBYTES=${F_STRUCT[NB]} NAME=${F_STRUCT[FN]} CHAR=${F_STRUCT[CH]}
-	if [[ -n "${NAME}" && -n "${NBYTES}" && -n "${CHAR}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Create a file n bytes size [${NAME}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
-		case ${NBYTES} in
-			*[!0-9]*)
-				__usage CREATE_FILE_NSIZE_USAGE
-				return $NOT_SUCCESS
-				;;
-				*)
-				MSG="Generating file [${NAME}]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
-				:
-				;;
-		esac
-		MSG="Write to file [${NAME}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
-		local COUNTER=0
-		while(($COUNTER != $NBYTES))
-		do
-			echo -n "${CHAR}" >> "${NAME}"
-			((COUNTER++))
-		done
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
-		return $SUCCESS
-	fi
-	__usage CREATE_FILE_NSIZE_USAGE
-	return $NOT_SUCCESS
+function create_file_nsize {
+    local -n F_STRUCT=$1
+    local NBYTES=${F_STRUCT[NB]} NAME=${F_STRUCT[FN]} CHAR=${F_STRUCT[CH]}
+    if [[ -n "${NAME}" && -n "${NBYTES}" && -n "${CHAR}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Create a file n bytes size [${NAME}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
+        case ${NBYTES} in
+            *[!0-9]*)
+                usage CREATE_FILE_NSIZE_USAGE
+                return $NOT_SUCCESS
+                ;;
+                *)
+                MSG="Generating file [${NAME}]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
+                :
+                ;;
+        esac
+        MSG="Write to file [${NAME}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
+        local COUNTER=0
+        while(($COUNTER != $NBYTES))
+        do
+            echo -n "${CHAR}" >> "${NAME}"
+            ((COUNTER++))
+        done
+        info_debug_message_end "Done" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
+        return $SUCCESS
+    fi
+    usage CREATE_FILE_NSIZE_USAGE
+    return $NOT_SUCCESS
 }
 

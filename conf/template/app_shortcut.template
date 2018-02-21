@@ -1,9 +1,9 @@
-${HASH}${HASH}
-${HASH}${HASH} @tool    ${APPNAME}
-${HASH}${HASH} @company ${UTIL_FROM_COMPANY}
-${HASH}${HASH} @date    ${DATE}
-${HASH}${HASH} @brief   App shortcut
-${HASH}${HASH}
+${H}${H}
+${H}${H} @tool    ${APPNAME}
+${H}${H} @company ${UTIL_FROM_COMPANY}
+${H}${H} @date    ${DATE}
+${H}${H} @brief   App shortcut
+${H}${H}
 [Desktop Entry]
 Comment=${APPDESCRIPTION}
 Exec=/data/apps/bin/${APPNAME}

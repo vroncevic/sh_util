@@ -11,14 +11,14 @@ UTIL_LIST_USERS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_USERS_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A LIST_USERS_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LIST_USERS}"
-	[USAGE_ARG1]="[ID] Minimal user id"
-	[USAGE_EX_PRE]="# Example print all common user names"
-	[USAGE_EX]="__${UTIL_LIST_USERS} 500"
+    [USAGE_TOOL]="__${UTIL_LIST_USERS}"
+    [USAGE_ARG1]="[ID] Minimal user id"
+    [USAGE_EX_PRE]="# Example print all common user names"
+    [USAGE_EX]="__${UTIL_LIST_USERS} 500"
 )
 
 #
@@ -27,34 +27,34 @@ declare -A LIST_USERS_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local ID=1000 STATUS
-# __list_users "$ID"
+# list_users "$ID"
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __list_users() {
-	local ID=$1
-	if [ -n "${ID}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Print all common user names started from id [${ID}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_USERS"
-		awk -F: '$3 >= '${ID}' {print $1}' /etc/passwd
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_USERS"
-		return $SUCCESS
-	fi
-	__usage LIST_USERS_USAGE
-	return $NOT_SUCCESS
+function list_users {
+    local ID=$1
+    if [ -n "${ID}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Print all common user names started from id [${ID}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_USERS"
+        awk -F: '$3 >= '${ID}' {print $1}' /etc/passwd
+        info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_USERS"
+        return $SUCCESS
+    fi
+    usage LIST_USERS_USAGE
+    return $NOT_SUCCESS
 }
 

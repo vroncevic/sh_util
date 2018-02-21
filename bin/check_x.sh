@@ -11,14 +11,14 @@ UTIL_CHECK_X_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_X_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_X_USAGE=(
-	[USAGE_TOOL]="__${UTIL_CHECK_X}"
-	[USAGE_ARG1]="[XINIT] Instance of tool for running X session"
-	[USAGE_EX_PRE]="# Example checking X Server"
-	[USAGE_EX]="__${UTIL_CHECK_X} \"xinit\""
+    [USAGE_TOOL]="__${UTIL_CHECK_X}"
+    [USAGE_ARG1]="[XINIT] Instance of tool for running X session"
+    [USAGE_EX_PRE]="# Example checking X Server"
+    [USAGE_EX]="__${UTIL_CHECK_X} \"xinit\""
 )
 
 #
@@ -27,44 +27,44 @@ declare -A CHECK_X_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __check_x "xinit"
+# check_x "xinit"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | X server isn't running
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | X server isn't running
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_x() {
-	local X=$1
-	if [ -n "${X}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" XINIT
-		MSG="Checking X Server on [${HOSTNAME}]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_X"
-		XINIT=$(ps aux | grep -q ${X})
-		if [ $XINIT -eq $SUCCESS ]; then
-			MSG="[up and running]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CHECK_X"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_CHECK_X"
-			return $SUCCESS
-		fi
-		MSG="[down]"
-		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CHECK_X"
-		MSG="Please check X Server on [${HOSTNAME}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CHECK_X"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_X"
-		return $NOT_SUCCESS
-	fi
-	__usage CHECK_X_USAGE
-	return $NOT_SUCCESS
+function check_x {
+    local X=$1
+    if [ -n "${X}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" XINIT
+        MSG="Checking X Server on [${HOSTNAME}]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_X"
+        XINIT=$(ps aux | grep -q ${X})
+        if [ $XINIT -eq $SUCCESS ]; then
+            MSG="[up and running]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CHECK_X"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_CHECK_X"
+            return $SUCCESS
+        fi
+        MSG="[down]"
+        info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CHECK_X"
+        MSG="Please check X Server on [${HOSTNAME}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CHECK_X"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_X"
+        return $NOT_SUCCESS
+    fi
+    usage CHECK_X_USAGE
+    return $NOT_SUCCESS
 }
 

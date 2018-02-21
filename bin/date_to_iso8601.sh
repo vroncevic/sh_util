@@ -11,14 +11,14 @@ UTIL_DATE_TO_ISO8601_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_DATE_TO_ISO8601_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A DATE_TO_ISO8601_USAGE=(
-	[USAGE_TOOL]="__${UTIL_DATE_TO_ISO8601}"
-	[USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
-	[USAGE_EX_PRE]="# Converting time to iso8601"
-	[USAGE_EX]="__${UTIL_DATE_TO_ISO8601} \"tester.log\""
+    [USAGE_TOOL]="__${UTIL_DATE_TO_ISO8601}"
+    [USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
+    [USAGE_EX_PRE]="# Converting time to iso8601"
+    [USAGE_EX]="__${UTIL_DATE_TO_ISO8601} \"tester.log\""
 )
 #
 # @brief  Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)
@@ -26,35 +26,35 @@ declare -A DATE_TO_ISO8601_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local FILE="/home/vroncevic/Documents/meeting_date.txt" STATUS
-# __date_to_iso8601 "$FILE"
+# date_to_iso8601 "$FILE"
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __date_to_iso8601() {
-	local FILE=$1
-	if [ -n "${FILE}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_DATE_TO_ISO8601"
-		local EX='s_\([0-9]\{1,2\}\)/\([0-9]\{1,2\}\)/\([0-9]\{4\}\)_\3-\2-\1_g'
-		sed ${EX} ${FILE}
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_DATE_TO_ISO8601"
-		return $SUCCESS
-	fi
-	__usage DATE_TO_ISO8601_USAGE
-	return $NOT_SUCCESS
+function date_to_iso8601 {
+    local FILE=$1
+    if [ -n "${FILE}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_DATE_TO_ISO8601"
+        local EX='s_\([0-9]\{1,2\}\)/\([0-9]\{1,2\}\)/\([0-9]\{4\}\)_\3-\2-\1_g'
+        sed ${EX} ${FILE}
+        info_debug_message_end "Done" "$FUNC" "$UTIL_DATE_TO_ISO8601"
+        return $SUCCESS
+    fi
+    usage DATE_TO_ISO8601_USAGE
+    return $NOT_SUCCESS
 }
 

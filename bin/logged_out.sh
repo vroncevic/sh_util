@@ -11,14 +11,14 @@ UTIL_LOGGED_OUT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGED_OUT_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A LOGGED_OUT_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LOGGED_OUT}"
-	[USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
-	[USAGE_EX_PRE]="# Checking user to log out"
-	[USAGE_EX]="__${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
+    [USAGE_TOOL]="__${UTIL_LOGGED_OUT}"
+    [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
+    [USAGE_EX_PRE]="# Checking user to log out"
+    [USAGE_EX]="__${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
 )
 
 #
@@ -27,51 +27,51 @@ declare -A LOGGED_OUT_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A LOGOUT_STRUCT=(
-#	[USERNAME]="vroncevic"
-#	[TIME]=$time
+#    [USERNAME]="vroncevic"
+#    [TIME]=$time
 # )
 #
-# __logged_out LOGOUT_STRUCT
+# logged_out LOGOUT_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument(s)
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s)
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __logged_out() {
-	local -n LOGOUT_STRUCT=$1
-	local USR=${LOGOUT_STRUCT[USERNAME]} TIME=${LOGOUT_STRUCT[TIME]}
-	if [[ -n "${USR}" && -n "${TIME}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Notify when a particular user has logged out!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
-		who | grep "^${USR} " 2>&1 > /dev/null
-		if [[ $? != 0 ]]; then
-			MSG="User [${USR}] is not logged in!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
-			return $SUCCESS
-		fi
-		while who | grep "^${USR} "; do
-			sleep ${TIME}
-		done
-		MSG="User [${USR}] just logged out!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
-		fi
-		return $SUCCESS
-	fi
-	__usage LOGGED_OUT_USAGE
-	return $NOT_SUCCESS
+function logged_out {
+    local -n LOGOUT_STRUCT=$1
+    local USR=${LOGOUT_STRUCT[USERNAME]} TIME=${LOGOUT_STRUCT[TIME]}
+    if [[ -n "${USR}" && -n "${TIME}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Notify when a particular user has logged out!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
+        who | grep "^${USR} " 2>&1 > /dev/null
+        if [[ $? != 0 ]]; then
+            MSG="User [${USR}] is not logged in!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
+            return $SUCCESS
+        fi
+        while who | grep "^${USR} "; do
+            sleep ${TIME}
+        done
+        MSG="User [${USR}] just logged out!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
+        info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
+        fi
+        return $SUCCESS
+    fi
+    usage LOGGED_OUT_USAGE
+    return $NOT_SUCCESS
 }
 

@@ -12,16 +12,16 @@ UTIL_LOAD_UTIL_CONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOAD_UTIL_CONF_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/check_cfg.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/check_cfg.sh
 
 declare -A LOAD_UTIL_CONF_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LOAD_UTIL_CONF}"
-	[USAGE_ARG1]="[FILE] Path to config file"
-	[USAGE_ARG2]="[CONFIG] Hash structure for config"
-	[USAGE_EX_PRE]="# Example load configuration"
-	[USAGE_EX]="__${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
+    [USAGE_TOOL]="__${UTIL_LOAD_UTIL_CONF}"
+    [USAGE_ARG1]="[FILE] Path to config file"
+    [USAGE_ARG2]="[CONFIG] Hash structure for config"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="__${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
 )
 
 #
@@ -30,46 +30,46 @@ declare -A LOAD_UTIL_CONF_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local UTIL_CFG_TOOL="/opt/newtool.cfg" STATUS
 # declare -A configuration=()
-# __load_util_conf $UTIL_CFG_TOOL configuration
+# load_util_conf $UTIL_CFG_TOOL configuration
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing file
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing file
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __load_util_conf() {
-	local FILE=$1 CONFIG=$2
-	if [[ -n "${FILE}" && -n "${CONFIG}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS KEY VALUE
-		MSG="Load module configuration!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
-		__check_cfg "${FILE}"
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			IFS="="
-			while read -r KEY VALUE
-			do
-				eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-			done < ${FILE}
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
-			return $SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
-		return $NOT_SUCCESS
-	fi
-	__usage LOAD_UTIL_CONF_USAGE
-	return $NOT_SUCCESS
+function load_util_conf {
+    local FILE=$1 CONFIG=$2
+    if [[ -n "${FILE}" && -n "${CONFIG}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS KEY VALUE
+        MSG="Load module configuration!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
+        check_cfg "${FILE}"
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            IFS="="
+            while read -r KEY VALUE
+            do
+                eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
+            done < ${FILE}
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
+            return $SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
+        return $NOT_SUCCESS
+    fi
+    usage LOAD_UTIL_CONF_USAGE
+    return $NOT_SUCCESS
 }
 

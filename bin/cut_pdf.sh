@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh_util/${UTIL_CUT_PDF_VERSION}
 UTIL_CUT_PDF_CFG=${UTIL}/conf/${UTIL_CUT_PDF}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/check_tool.sh
-.	${UTIL}/bin/load_util_conf.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/check_tool.sh
+.    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CUT_PDF_USAGE=(
-	[USAGE_TOOL]="__${UTIL_CUT_PDF}"
-	[USAGE_ARG1]="[TIME] Life time"
-	[USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-	[USAGE_EX]="__${UTIL_CUT_PDF} 5s"
+    [USAGE_TOOL]="__${UTIL_CUT_PDF}"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
+    [USAGE_EX]="__${UTIL_CUT_PDF} 5s"
 )
 
 #
@@ -30,72 +30,72 @@ declare -A CUT_PDF_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A PDF_STRUCT=(
-#	[INPUT]="/opt/green.pdf"
-#	[OUTPUT]="/opt/green_stripped.pdf"
-#	[FP]="12"
-#	[LP]="23"
+#    [INPUT]="/opt/green.pdf"
+#    [OUTPUT]="/opt/green_stripped.pdf"
+#    [FP]="12"
+#    [LP]="23"
 # )
 #
-# __cut_pdf PDF_STRUCT
+# cut_pdf PDF_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing tool
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing tool
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __cut_pdf() {
-	local -n PDF_STRUCT=$1
-	local IPDF=${PDF_STRUCT[INPUT]} OPDF=${PDF_STRUCT[OUTPUT]}
-	local FPAG=${PDF_STRUCT[FP]} LPAG=${PDF_STRUCT[LP]}
-	if [[ -n "${IPDF}" && -n "${OPDF}" && -n "${FPAG}" && -n "${LPAG}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-		declare -A config_cut_pdf=()
-		__load_util_conf "$UTIL_CUT_PDF_CFG" config_cut_pdf
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local PS2PDF=${config_cut_pdf[PS2PDF]}
-			__check_tool "${PS2PDF}"
-			STATUS=$?
-			if [ $STATUS -eq $SUCCESS ]; then
-				MSG="Checking file [${IPDF}]?"
-				__info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-				if [ -e "${IPDF}" ]; then
-					MSG="[ok]"
-					__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-					MSG="Cut pdf file [${IPDF}]!"
-					__info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-					local FPAGE="-dFirstPage=$FPAG" LPAGE="-dLastPage=$LPAG"
-					eval "${PS2PDF} ${FPAGE} ${LPAGE} ${IPDF} ${OPDF}"
-					__info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_PDF"
-					return $SUCCESS
-				fi
-				MSG="[not ok]"
-				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-				MSG="Please check file [${IPDF}]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-				MSG="Force exit!"
-				__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-				return $NOT_SUCCESS
-			fi
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-			return $NOT_SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
-		return $NOT_SUCCESS
-	fi
-	__usage CUT_PDF_USAGE
-	return $NOT_SUCCESS
+function cut_pdf {
+    local -n PDF_STRUCT=$1
+    local IPDF=${PDF_STRUCT[INPUT]} OPDF=${PDF_STRUCT[OUTPUT]}
+    local FPAG=${PDF_STRUCT[FP]} LPAG=${PDF_STRUCT[LP]}
+    if [[ -n "${IPDF}" && -n "${OPDF}" && -n "${FPAG}" && -n "${LPAG}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+        declare -A config_cut_pdf=()
+        load_util_conf "$UTIL_CUT_PDF_CFG" config_cut_pdf
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            local PS2PDF=${config_cut_pdf[PS2PDF]}
+            check_tool "${PS2PDF}"
+            STATUS=$?
+            if [ $STATUS -eq $SUCCESS ]; then
+                MSG="Checking file [${IPDF}]?"
+                info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                if [ -e "${IPDF}" ]; then
+                    MSG="[ok]"
+                    info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                    MSG="Cut pdf file [${IPDF}]!"
+                    info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                    local FPAGE="-dFirstPage=$FPAG" LPAGE="-dLastPage=$LPAG"
+                    eval "${PS2PDF} ${FPAGE} ${LPAGE} ${IPDF} ${OPDF}"
+                    info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_PDF"
+                    return $SUCCESS
+                fi
+                MSG="[not ok]"
+                info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                MSG="Please check file [${IPDF}]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                MSG="Force exit!"
+                info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+                return $NOT_SUCCESS
+            fi
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+            return $NOT_SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
+        return $NOT_SUCCESS
+    fi
+    usage CUT_PDF_USAGE
+    return $NOT_SUCCESS
 }
 

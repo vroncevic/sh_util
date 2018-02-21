@@ -11,44 +11,44 @@ UTIL_LIST_SSH_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_SSH_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/devel.sh
 
 #
 # @brief  List SSH sessions
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __list_ssh "$DIR_PATH"
+# list_ssh "$DIR_PATH"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# notify admin | user
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # notify admin | user
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __list_ssh() {
-	local TTY=$(tty | cut -f3- -d/)
-	if [ -n "${TTY}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" PSCMD GREPCMD SEDCMD
-		MSG="List SSH sessions!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_SSH"
-		PSCMD="ps -o pid= -o command= -C sshd"
-		GREPCMD="grep sshd:.*@ | grep -v "@${TTY}""
-		SEDCMD="sed \"s/ sshd.*//\""
-		eval "${PSCMD} | ${GREPCMD} | ${SEDCMD}"
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_SSH"
-		return $SUCCESS
-	fi
-	MSG="Force exit!"
-	__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_SSH"
-	return $NOT_SUCCESS
+function list_ssh {
+    local TTY=$(tty | cut -f3- -d/)
+    if [ -n "${TTY}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" PSCMD GREPCMD SEDCMD
+        MSG="List SSH sessions!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_SSH"
+        PSCMD="ps -o pid= -o command= -C sshd"
+        GREPCMD="grep sshd:.*@ | grep -v "@${TTY}""
+        SEDCMD="sed \"s/ sshd.*//\""
+        eval "${PSCMD} | ${GREPCMD} | ${SEDCMD}"
+        info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_SSH"
+        return $SUCCESS
+    fi
+    MSG="Force exit!"
+    info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_SSH"
+    return $NOT_SUCCESS
 }
 

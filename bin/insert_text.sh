@@ -11,16 +11,16 @@ UTIL_INSERT_TEXT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_INSERT_TEXT_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A INSERT_TEXT_USAGE=(
-	[USAGE_TOOL]="__${UTIL_INSERT_TEXT}"
-	[USAGE_ARG1]="[LINE] A line number at which to insert the text file"
-	[USAGE_ARG2]="[TEXT] The text file to insert"
-	[USAGE_ARG3]="[FILES] The text file to insert into"
-	[USAGE_EX_PRE]="# Example put text into file"
-	[USAGE_EX]="__${UTIL_INSERT_TEXT} 3 test file"
+    [USAGE_TOOL]="__${UTIL_INSERT_TEXT}"
+    [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
+    [USAGE_ARG2]="[TEXT] The text file to insert"
+    [USAGE_ARG3]="[FILES] The text file to insert into"
+    [USAGE_EX_PRE]="# Example put text into file"
+    [USAGE_EX]="__${UTIL_INSERT_TEXT} 3 test file"
 )
 
 #
@@ -29,68 +29,68 @@ declare -A INSERT_TEXT_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __insert_text $LINE $TEXT ${FILES[@]}
+# insert_text $LINE $TEXT ${FILES[@]}
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument(s) | wrong argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s) | wrong argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __insert_text() {
-	local LINE=$1 TEXT=$2 FILES A N TMP1 TMP2
-	shift 2
-	FILES=$@
-	if [[ -n "${LINE}" && -n "${TEXT}" && -n "${FILES}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Insert text file into another file at line n!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
-		TMP1=/tmp/tmp.${RANDOM}$$ TMP2=/tmp/tmp.${RANDOM}$$
-		trap 'rm -f $TMP1 $TMP2 >/dev/null 2>&1' 0
-		trap "exit 1" 1 2 3 15
-		case "${LINE}" in
-			+([0-9]))
-			N=${LINE}
-			for A in "${FILES[@]}"
-			do
-				if [ -f "${A}" ]; then
-					if [[ ${N} == 1 ]];then
-						touch "${TMP1}"
-						sed -n ''${N}',$p' "${A}" > "${TMP2}"
-						cat "${TMP1}" "${TEXT}" "${TMP2}" > "${A}"
-						continue
-					fi
-					((N--))
-					sed -n '1,'${N}'p' "${A}" > "${TMP1}"
-					((N++))
-					sed -n ''${N}',$p' "${A}" > "${TMP2}"
-					cat "${TMP1}" "${TEXT}" "${TMP2}" > "${A}"
-				else
-					MSG="Check file [${A}]!"
-					__info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
-				fi
-			done
-			;;
-			*)
-			MSG="Wrong argument!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
-			return $NOT_SUCCESS
-			;;
-		esac
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
-		return $SUCCESS
-	fi
-	__usage INSERT_TEXT_USAGE
-	return $NOT_SUCCESS
+function insert_text {
+    local LINE=$1 TEXT=$2 FILES A N TMP1 TMP2
+    shift 2
+    FILES=$@
+    if [[ -n "${LINE}" && -n "${TEXT}" && -n "${FILES}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Insert text file into another file at line n!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
+        TMP1=/tmp/tmp.${RANDOM}$$ TMP2=/tmp/tmp.${RANDOM}$$
+        trap 'rm -f $TMP1 $TMP2 >/dev/null 2>&1' 0
+        trap "exit 1" 1 2 3 15
+        case "${LINE}" in
+            +([0-9]))
+            N=${LINE}
+            for A in "${FILES[@]}"
+            do
+                if [ -f "${A}" ]; then
+                    if [[ ${N} == 1 ]];then
+                        touch "${TMP1}"
+                        sed -n ''${N}',$p' "${A}" > "${TMP2}"
+                        cat "${TMP1}" "${TEXT}" "${TMP2}" > "${A}"
+                        continue
+                    fi
+                    ((N--))
+                    sed -n '1,'${N}'p' "${A}" > "${TMP1}"
+                    ((N++))
+                    sed -n ''${N}',$p' "${A}" > "${TMP2}"
+                    cat "${TMP1}" "${TEXT}" "${TMP2}" > "${A}"
+                else
+                    MSG="Check file [${A}]!"
+                    info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
+                fi
+            done
+            ;;
+            *)
+            MSG="Wrong argument!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
+            return $NOT_SUCCESS
+            ;;
+        esac
+        info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
+        return $SUCCESS
+    fi
+    usage INSERT_TEXT_USAGE
+    return $NOT_SUCCESS
 }
 

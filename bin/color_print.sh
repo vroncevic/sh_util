@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh_util/${UTIL_COL_PRINT_VERSION}
 UTIL_COL_PRINT_CFG=${UTIL}/conf/${UTIL_COL_PRINT}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A COL_PRINT_USAGE=(
-	[USAGE_TOOL]="__${UTIL_COL_PRINT}"
-	[USAGE_ARG1]="[MSG] Message to text"
-	[USAGE_ARG2]="[COL] Color for text"
-	[USAGE_EX_PRE]="# Example printing color text"
-	[USAGE_EX]="__${UTIL_COL_PRINT} \$MSG \$BLUE"
+    [USAGE_TOOL]="__${UTIL_COL_PRINT}"
+    [USAGE_ARG1]="[MSG] Message to text"
+    [USAGE_ARG2]="[COL] Color for text"
+    [USAGE_EX_PRE]="# Example printing color text"
+    [USAGE_EX]="__${UTIL_COL_PRINT} \$MSG \$BLUE"
 )
 
 BLACK='\E[30;47m'
@@ -39,36 +39,36 @@ alias Reset="tput sgr0"
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __color_print "Feeling blue..." $BLUE
+# color_print "Feeling blue..." $BLUE
 # local STATUS=$?
 #
-# __color_print "Green with envy." $GREEN
+# color_print "Green with envy." $GREEN
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user 
+#    # true
+#    # notify admin | user 
 # else
-#	# false
-#	# missing argument(s)
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s)
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __color_print() {
-	local MSG2TXT=$1 COL2TXT=$2
-	if [[ -n "${MSG2TXT}" && -n "${COL2TXT}" ]]; then
-		local DEFMSG="No message passed." MSG COL
-		MSG=${MSG2TXT:-${DEFMSG}}
-		COL=${COL2TXT:-${BLACK}}
-		echo -e "${COL}"
-		echo "${MSG}"
-		return $SUCCESS
-	fi
-	__usage COL_PRINT_USAGE
-	return $NOT_SUCCESS
+function color_print {
+    local MSG2TXT=$1 COL2TXT=$2
+    if [[ -n "${MSG2TXT}" && -n "${COL2TXT}" ]]; then
+        local DEFMSG="No message passed." MSG COL
+        MSG=${MSG2TXT:-${DEFMSG}}
+        COL=${COL2TXT:-${BLACK}}
+        echo -e "${COL}"
+        echo "${MSG}"
+        return $SUCCESS
+    fi
+    usage COL_PRINT_USAGE
+    return $NOT_SUCCESS
 }
 

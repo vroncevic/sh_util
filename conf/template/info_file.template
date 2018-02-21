@@ -1,6 +1,6 @@
-${HASH}${HASH}
-${HASH}${HASH} @tool    ${TOOL_TO_ADD}
-${HASH}${HASH} @company ${UTIL_FROM_COMPANY}
-${HASH}${HASH} @date    ${DATE}
-${HASH}${HASH} @brief   info
-${HASH}${HASH}
+${H}${H}
+${H}${H} @tool    ${TOOL_TO_ADD}
+${H}${H} @company ${UTIL_FROM_COMPANY}
+${H}${H} @date    ${DATE}
+${H}${H} @brief   info
+${H}${H}

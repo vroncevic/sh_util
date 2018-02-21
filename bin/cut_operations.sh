@@ -11,21 +11,21 @@ UTIL_CUT_OPERATIONS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CUT_OPERATIONS_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A COLUMN_USAGE=(
-	[USAGE_TOOL]="__cut_columns"
-	[USAGE_ARG1]="[CUT_STRUCT] Columns for cuting and path"
-	[USAGE_EX_PRE]="# Example for cuting columns from file"
-	[USAGE_EX]="__cut_columns \$CUT_STRUCT"
+    [USAGE_TOOL]="cut_columns"
+    [USAGE_ARG1]="[CUT_STRUCT] Columns for cuting and path"
+    [USAGE_EX_PRE]="# Example for cuting columns from file"
+    [USAGE_EX]="cut_columns \$CUT_STRUCT"
 )
 
 declare -A CHARACTER_USAGE=(
-	[USAGE_TOOL]="__cut_chars"
-	[USAGE_ARG1]="[CUT_STRUCT] Characters and path"
-	[USAGE_EX_PRE]="# Example for cuting characters from file"
-	[USAGE_EX]="__cut_chars \$CUT_STRUCT"
+    [USAGE_TOOL]="cut_chars"
+    [USAGE_ARG1]="[CUT_STRUCT] Characters and path"
+    [USAGE_EX_PRE]="# Example for cuting characters from file"
+    [USAGE_EX]="cut_chars \$CUT_STRUCT"
 )
 
 #
@@ -34,51 +34,51 @@ declare -A CHARACTER_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A CUT_STRUCT=(
-#	[COL]=1,3,5
-#	[FILE]="file.ini"
+#    [COL]=1,3,5
+#    [FILE]="file.ini"
 # )
 #
-# __cut_columns CUT_STRUCT
+# cut_columns CUT_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | wrong argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | wrong argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __cut_columns() {
-	local -n CUT_STRUCT=$1
-	local COL=${CUT_STRUCT[COL]} FILE=${CUT_STRUCT[FILE]}
-	if [[ -n "${COL}" && -n "${FILE}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Checking file [${FILE}]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		if [[ -e "${FILE}" && -f "${FILE}" ]]; then
-			MSG="[ok]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-			cut -d -f "${COL}" "${FILE}"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_OPERATIONS"
-			return $SUCCESS
-		fi
-		MSG="[not ok]"
-		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		MSG="Please check file [${FILE}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		return $NOT_SUCCESS
-	fi
-	__usage COLUMN_USAGE
-	return $NOT_SUCCESS
+function cut_columns {
+    local -n CUT_STRUCT=$1
+    local COL=${CUT_STRUCT[COL]} FILE=${CUT_STRUCT[FILE]}
+    if [[ -n "${COL}" && -n "${FILE}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Checking file [${FILE}]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        if [[ -e "${FILE}" && -f "${FILE}" ]]; then
+            MSG="[ok]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+            cut -d -f "${COL}" "${FILE}"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_OPERATIONS"
+            return $SUCCESS
+        fi
+        MSG="[not ok]"
+        info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        MSG="Please check file [${FILE}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        return $NOT_SUCCESS
+    fi
+    usage COLUMN_USAGE
+    return $NOT_SUCCESS
 }
 
 #
@@ -87,50 +87,50 @@ function __cut_columns() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A CUT_STRUCT=(
-# 	[CHARS]=$chars
-# 	[FILE]=$file
+#     [CHARS]=$chars
+#     [FILE]=$file
 # )
 #
-# __cut_chars CUT_STRUCT
+# cut_chars CUT_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | wrong argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | wrong argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __cut_chars() {
-	local -n CUT_STRUCT=$1
-	local CHARS=${CUT_STRUCT[CHARS]} FILE=${CUT_STRUCT[FILE]}
-	if [[ -n "${CHARS}" && -n "${FILE}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Checking file [${FILE}]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		if [[ -e "${FILE}" && -f "${FILE}" ]]; then
-			MSG="[ok]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-			cut -c "${CHARS}" "${FILE}"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_OPERATIONS"
-			return $SUCCESS
-		fi
-		MSG="[not ok]"
-		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		MSG="Please check file [${FILE}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
-		return $NOT_SUCCESS
-	fi
-	__usage CHARACTER_USAGE
-	return $NOT_SUCCESS
+function cut_chars {
+    local -n CUT_STRUCT=$1
+    local CHARS=${CUT_STRUCT[CHARS]} FILE=${CUT_STRUCT[FILE]}
+    if [[ -n "${CHARS}" && -n "${FILE}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Checking file [${FILE}]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        if [[ -e "${FILE}" && -f "${FILE}" ]]; then
+            MSG="[ok]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+            cut -c "${CHARS}" "${FILE}"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_CUT_OPERATIONS"
+            return $SUCCESS
+        fi
+        MSG="[not ok]"
+        info_debug_message_ans "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        MSG="Please check file [${FILE}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_OPERATIONS"
+        return $NOT_SUCCESS
+    fi
+    usage CHARACTER_USAGE
+    return $NOT_SUCCESS
 }
 

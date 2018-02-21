@@ -11,15 +11,15 @@ UTIL_GET_IPV6_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_GET_IPV6_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A GET_IPV6_USAGE=(
-	[USAGE_TOOL]="__${UTIL_GET_IPV6}"
-	[USAGE_ARG1]="[INTERFACE] Interface name"
-	[USAGE_ARG2]="[IPV6_ADDRESS] Variable for storing"
-	[USAGE_EX_PRE]="# Example checking IPV6 logic address"
-	[USAGE_EX]="__${UTIL_GET_IPV6} \$INTERFACE IPADDR"
+    [USAGE_TOOL]="__${UTIL_GET_IPV6}"
+    [USAGE_ARG1]="[INTERFACE] Interface name"
+    [USAGE_ARG2]="[IPV6_ADDRESS] Variable for storing"
+    [USAGE_EX_PRE]="# Example checking IPV6 logic address"
+    [USAGE_EX]="__${UTIL_GET_IPV6} \$INTERFACE IPADDR"
 )
 
 #
@@ -28,44 +28,44 @@ declare -A GET_IPV6_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local INTERFACE="eth0" STATUS
-# __get_ipv6 $INTERFACE IPADDR
+# get_ipv6 $INTERFACE IPADDR
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | config file doesn't exist
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | config file doesn't exist
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __get_ipv6() {
-	local INTER=$1
-	if [ -n "${INTER}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" SHOWIP SEDCMD IP
-		MSG="Get IPV6 logic address!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV6"
-		SHOWIP="ip addr show dev ${INTER}"
-		SEDCMD="sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'"
-		IP=$(eval "${SHOWIP} | ${SEDCMD}")
-		if [ -n "$IP" ]; then
-			eval "$2='$IP'"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_GET_IPV6"
-			return $SUCCESS
-		fi
-		MSG="Failed to get IPV6 logic address from local host!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV6"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV6"
-		return $NOT_SUCCESS
-	fi
-	__usage GET_IPV6_USAGE
-	return $NOT_SUCCESS
+function get_ipv6 {
+    local INTER=$1
+    if [ -n "${INTER}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" SHOWIP SEDCMD IP
+        MSG="Get IPV6 logic address!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV6"
+        SHOWIP="ip addr show dev ${INTER}"
+        SEDCMD="sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'"
+        IP=$(eval "${SHOWIP} | ${SEDCMD}")
+        if [ -n "$IP" ]; then
+            eval "$2='$IP'"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_GET_IPV6"
+            return $SUCCESS
+        fi
+        MSG="Failed to get IPV6 logic address from local host!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV6"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV6"
+        return $NOT_SUCCESS
+    fi
+    usage GET_IPV6_USAGE
+    return $NOT_SUCCESS
 }
 

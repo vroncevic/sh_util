@@ -12,7 +12,7 @@ UTIL_RM_OLD_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_OLD_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/devel.sh
 
 #
 # @brief   Remove files and directories whose name is a timestamp
@@ -21,18 +21,18 @@ UTIL_LOG=${UTIL}/log
 # @retval None
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __rm_old
+# rm_old
 #
-function __rm_old() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	MSG="Remove files, dirs whose name is timestamp older than certain time!"
-	__info_debug_message "$MSG" "$FUNC" "$UTIL_RM_OLD"
-	local LS_CMD="ls" GREP_CMD="grep '....-..-..-......'"
-	local XARG_CMD="xargs -I {} bash -c" RM_CMD="rm -rfv {}"
-	local BASH_CMD="[[ x{} < x$(date -d '3 days ago' +%Y-%m-%d-%H%M%S) ]]"
-	eval "$LS_CMD | $GREP_CMD | $XARG_CMD \"$BASH_CMD && $RM_CMD\""
-	__info_debug_message_end "Done" "$FUNC" "$UTIL_RM_OLD"
+function rm_old {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    MSG="Remove files, dirs whose name is timestamp older than certain time!"
+    info_debug_message "$MSG" "$FUNC" "$UTIL_RM_OLD"
+    local LS_CMD="ls" GREP_CMD="grep '....-..-..-......'"
+    local XARG_CMD="xargs -I {} bash -c" RM_CMD="rm -rfv {}"
+    local BASH_CMD="[[ x{} < x$(date -d '3 days ago' +%Y-%m-%d-%H%M%S) ]]"
+    eval "$LS_CMD | $GREP_CMD | $XARG_CMD \"$BASH_CMD && $RM_CMD\""
+    info_debug_message_end "Done" "$FUNC" "$UTIL_RM_OLD"
 }
 

@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh_util/${UTIL_OPEN_TERMINALS_VERSION}
 UTIL_OPEN_TERMINALS_CFG=${UTIL}/conf/${UTIL_OPEN_TERMINALS}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/chec_tool.sh
-.	${UTIL}/bin/load_util_conf.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/chec_tool.sh
+.    ${UTIL}/bin/load_util_conf.sh
 
 declare -A OPEN_TERMINALS_USAGE=(
-	[USAGE_TOOL]="__${UTIL_OPEN_TERMINALS}"
-	[USAGE_ARG1]="[TERMS] number of terminal windows"
-	[USAGE_EX_PRE]="# Open 4 terminal windows"
-	[USAGE_EX]="__${UTIL_OPEN_TERMINALS} 4"
+    [USAGE_TOOL]="__${UTIL_OPEN_TERMINALS}"
+    [USAGE_ARG1]="[TERMS] number of terminal windows"
+    [USAGE_EX_PRE]="# Open 4 terminal windows"
+    [USAGE_EX]="__${UTIL_OPEN_TERMINALS} 4"
 )
 
 #
@@ -30,54 +30,54 @@ declare -A OPEN_TERMINALS_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __open_terminals "$TERMS"
+# open_terminals "$TERMS"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing tool
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing tool
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __open_terminals() {
-	local TERMS=$1
-	if [ -n "${TERMS}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-		declare -A config_open_terminals=()
-		__load_util_conf "$UTIL_OPEN_TERMINALS_CFG" config_open_terminals
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local TERM=${config_open_terminals[TERM]}
-			MSG="Opens n terminal windows!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
-			__checktool "${TERM}"
-			STATUS=$?
-			if [ $STATUS -eq $SUCCESS ]; then
-				local I=0
-				while [ $I -lt $TERMS ]
-				do
-					eval "${TERM} &"
-					I=$[$I+1]
-				done
-				__info_debug_message_end "Done" "$FUNC" "$UTIL_OPEN_TERMINALS"
-				return $SUCCESS
-			fi
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
-			return $NOT_SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
-		return $NOT_SUCCESS
-	fi
-	__usage OPEN_TERMINALS_USAGE
-	return $NOT_SUCCESS
+function open_terminals {
+    local TERMS=$1
+    if [ -n "${TERMS}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+        declare -A config_open_terminals=()
+        load_util_conf "$UTIL_OPEN_TERMINALS_CFG" config_open_terminals
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            local TERM=${config_open_terminals[TERM]}
+            MSG="Opens n terminal windows!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
+            __checktool "${TERM}"
+            STATUS=$?
+            if [ $STATUS -eq $SUCCESS ]; then
+                local I=0
+                while [ $I -lt $TERMS ]
+                do
+                    eval "${TERM} &"
+                    I=$[$I+1]
+                done
+                info_debug_message_end "Done" "$FUNC" "$UTIL_OPEN_TERMINALS"
+                return $SUCCESS
+            fi
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
+            return $NOT_SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
+        return $NOT_SUCCESS
+    fi
+    usage OPEN_TERMINALS_USAGE
+    return $NOT_SUCCESS
 }
 

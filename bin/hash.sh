@@ -11,7 +11,7 @@ UTIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/devel.sh
 
 #
 # @brief  Set key, value to hash structure
@@ -19,12 +19,12 @@ UTIL_LOG=${UTIL}/log
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __hset $HASH_STRUCT $KEY $VALUE
+# hset $HASH_STRUCT $KEY $VALUE
 #
-function __hset() {
-	eval "$1""$2"='$3'
+function hset {
+    eval "$1""$2"='$3'
 }
 
 #
@@ -33,13 +33,13 @@ function __hset() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local ELEMENT_BY_KEY=$(__hget "Serbia" capitals)
+# local ELEMENT_BY_KEY=$(hget "Serbia" capitals)
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
-function __hget() {
-	eval echo '${'"$1$2"'#hash}'
+function hget {
+    eval echo '${'"$1$2"'#hash}'
 }
 
 #
@@ -48,26 +48,26 @@ function __hget() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __set_item $key $value $HASH_STRUCT
+# set_item $key $value $HASH_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notif admin | user
+#    # true
+#    # notif admin | user
 # else
-#	# false
-#	# notify admin | user
+#    # false
+#    # notify admin | user
 # fi
 #
-function __set_item() {
-	local KEY=$1 VALUE=$2 HASH_STRUCT=$3
-	if [[ -n "${KEY}" && -n "${VALUE}" ]]; then
-		__hset ${HASH_STRUCT} ${KEY} ${VALUE}
-		return $SUCCESS
-	fi
-	return $NOT_SUCCESS
+function set_item {
+    local KEY=$1 VALUE=$2 HASH_STRUCT=$3
+    if [[ -n "${KEY}" && -n "${VALUE}" ]]; then
+        hset ${HASH_STRUCT} ${KEY} ${VALUE}
+        return $SUCCESS
+    fi
+    return $NOT_SUCCESS
 }
 
 #
@@ -76,17 +76,17 @@ function __set_item() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
+# local ELEMENT_BY_KEY=$(get_item "Netherlands" capitals)
 # printf "%s\n" "$ELEMENT_BY_KEY"
 #
-function __get_item() {
-	local KEY=$1 HASH_STRUCT=$2 VALUE="None"
-	if [ -n "${KEY}" ]; then
-		VALUE=$(__hget ${HASH_STRUCT} "${KEY}")
-	fi
-	eval "echo "${VALUE}""
+function get_item {
+    local KEY=$1 HASH_STRUCT=$2 VALUE="None"
+    if [ -n "${KEY}" ]; then
+        VALUE=$(hget ${HASH_STRUCT} "${KEY}")
+    fi
+    eval "echo "${VALUE}""
 }
 
 #
@@ -95,30 +95,30 @@ function __get_item() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A capitals=()
 # local HASH_STRUCTURE_CFG="`pwd`/hash_values.conf"
-# __get_configuration $HASH_STRUCTURE_CFG capitals
+# get_configuration $HASH_STRUCTURE_CFG capitals
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-# 	 local ELEMENT_BY_KEY=$(__get_item "Netherlands" capitals)
-#	 printf "%s\n" "$ELEMENT_BY_KEY"
-#	 local ELEMENT_BY_KEY=$(__get_item "Serbia" capitals)
-#	 printf "%s\n" "$ELEMENT_BY_KEY"
+#      local ELEMENT_BY_KEY=$(get_item "Netherlands" capitals)
+#     printf "%s\n" "$ELEMENT_BY_KEY"
+#     local ELEMENT_BY_KEY=$(get_item "Serbia" capitals)
+#     printf "%s\n" "$ELEMENT_BY_KEY"
 # fi
 #
-function __get_configuration() {
-	local FILE=$1 HASH_STRUCT=$2 KEY VALUE
-	if [[ -n "${FILE}" && -n "${HASH_STRUCT}" ]]; then
-		IFS="="
-		while read -r KEY VALUE
-		do
-			__set_item ${KEY} ${VALUE} ${HASH_STRUCT}
-		done < ${FILE}
-		return $SUCCESS
-	fi
-	return $NOT_SUCCESS
+function get_configuration {
+    local FILE=$1 HASH_STRUCT=$2 KEY VALUE
+    if [[ -n "${FILE}" && -n "${HASH_STRUCT}" ]]; then
+        IFS="="
+        while read -r KEY VALUE
+        do
+            set_item ${KEY} ${VALUE} ${HASH_STRUCT}
+        done < ${FILE}
+        return $SUCCESS
+    fi
+    return $NOT_SUCCESS
 }
 

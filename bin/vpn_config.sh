@@ -12,15 +12,15 @@ UTIL=/root/scripts/sh_util/${UTIL_VPN_CONFIG_VERSION}
 UTIL_VPN_CONFIG_CFG=${UTIL}/conf/${UTIL_VPN_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/load_util_conf.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VPN_CONFIG_USAGE=(
-	[USAGE_TOOL]="__${UTIL_VPN_CONFIG}"
-	[USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
-	[USAGE_EX_PRE]="# Generate openVPN configuration"
-	[USAGE_EX]="__${UTIL_VPN_CONFIG} \$VPN_STRUCT"
+    [USAGE_TOOL]="__${UTIL_VPN_CONFIG}"
+    [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
+    [USAGE_EX_PRE]="# Generate openVPN configuration"
+    [USAGE_EX]="__${UTIL_VPN_CONFIG} \$VPN_STRUCT"
 )
 
 #
@@ -29,98 +29,98 @@ declare -A VPN_CONFIG_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VPN_STRUCT=(
-#	[UN]="vroncevic"
-#	[DN]="vroncevic"
-#	[FN]="Vladimir"
-#	[LN]="Roncevic"
+#    [UN]="vroncevic"
+#    [DN]="vroncevic"
+#    [FN]="Vladimir"
+#    [LN]="Roncevic"
 # )
 #
-# __vpn_config VPN_STRUCT
+# vpn_config VPN_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument(s) | missing home structure
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s) | missing home structure
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __vpn_config() {
-	local -n VPN_STRUCT=$1
-	local USR=${VPN_STRUCT[UN]} DEP=${VPN_STRUCT[DN]}
-	local FNAME=${VPN_STRUCT[FN]} LNAME=${VPN_STRUCT[LN]}
-	if [[ -n "${USR}" && -n "${DEP}" && -n "${FNAME}" && -n "${LNAME}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-		declare -A config_vpn_config=()
-		__load_util_conf "$UTIL_VPN_CONFIG_CFG" config_vpn_config
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local UHOME="/home/${USR}"
-			MSG="Checking directory [${UHOME}/]?"
-			__info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-			if [ -d "${UHOME}/" ]; then
-				MSG="[ok]"
-				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				local UVPN="${UHOME}/${UTIL_FROM_COMPANY}"
-				MSG="Checking directory [${UVPN}/]?"
-				__info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				if [ ! -d "$UVPN/" ]; then
-					MSG="[not ok]"
-					__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-					MSG="Creating at home directory [${UTIL_FROM_COMPANY}/]!"
-					__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-					mkdir "${UVPN}/"
-				fi
-				MSG="[ok]"
-				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				MSG="Checking dir [${UVPN}/openvpn/]?"
-				__info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				if [ ! -d "${UVPN}/openvpn/" ]; then
-					MSG="[not ok]"
-					__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-					MSG="Creating dir [${UVPN}/openvpn/]!"
-					__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-					mkdir "${UVPN}/openvpn/"
-				fi
-				local CO=$(echo $UTIL_FROM_COMPANY | tr '[:upper:]' '[:lower:]')
-				MSG="[ok]"
-				__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				MSG="Generating config file [${UVPN}/openvpn/${CO}.ovpn]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				local HASH="#" TAB="\t" ILINE OWNER="${USR}.${DEP}"
-				while read ILINE
-				do
-					eval echo -e "${ILINE}" >> "${UVPN}/openvpn/${CO}.ovpn"
-				done < ${config_vpn_config[VPN_CONFIG_TEMPLATE]}
-				MSG="Set owner!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				eval "chown -R $OWNER \"${UHOME}/${UTIL_FROM_COMPANY}/\""
-				MSG="Set permission!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-				eval "chmod -R 700 ${UHOME}/${UTIL_FROM_COMPANY}/"
-				__info_debug_message_end "Done" "$FUNC" "$UTIL_VPN_CONFIG"
-				return $SUCCESS
-			fi
-			MSG="[not ok]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-			MSG="Please check directory [${UHOME}/]"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-			return $NOT_SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
-		return $NOT_SUCCESS
-	fi
-	__usage VPN_CONFIG_USAGE
-	return $NOT_SUCCESS
+function vpn_config {
+    local -n VPN_STRUCT=$1
+    local USR=${VPN_STRUCT[UN]} DEP=${VPN_STRUCT[DN]}
+    local FNAME=${VPN_STRUCT[FN]} LNAME=${VPN_STRUCT[LN]}
+    if [[ -n "${USR}" && -n "${DEP}" && -n "${FNAME}" && -n "${LNAME}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+        declare -A config_vpn_config=()
+        load_util_conf "$UTIL_VPN_CONFIG_CFG" config_vpn_config
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            local UHOME="/home/${USR}"
+            MSG="Checking directory [${UHOME}/]?"
+            info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+            if [ -d "${UHOME}/" ]; then
+                MSG="[ok]"
+                info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                local UVPN="${UHOME}/${UTIL_FROM_COMPANY}"
+                MSG="Checking directory [${UVPN}/]?"
+                info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                if [ ! -d "$UVPN/" ]; then
+                    MSG="[not ok]"
+                    info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                    MSG="Creating at home directory [${UTIL_FROM_COMPANY}/]!"
+                    info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                    mkdir "${UVPN}/"
+                fi
+                MSG="[ok]"
+                info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                MSG="Checking dir [${UVPN}/openvpn/]?"
+                info_debug_message_que "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                if [ ! -d "${UVPN}/openvpn/" ]; then
+                    MSG="[not ok]"
+                    info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                    MSG="Creating dir [${UVPN}/openvpn/]!"
+                    info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                    mkdir "${UVPN}/openvpn/"
+                fi
+                local CO=$(echo $UTIL_FROM_COMPANY | tr '[:upper:]' '[:lower:]')
+                MSG="[ok]"
+                info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                MSG="Generating config file [${UVPN}/openvpn/${CO}.ovpn]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                local HASH="#" TAB="\t" ILINE OWNER="${USR}.${DEP}"
+                while read ILINE
+                do
+                    eval echo -e "${ILINE}" >> "${UVPN}/openvpn/${CO}.ovpn"
+                done < ${config_vpn_config[VPN_CONFIG_TEMPLATE]}
+                MSG="Set owner!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                eval "chown -R $OWNER \"${UHOME}/${UTIL_FROM_COMPANY}/\""
+                MSG="Set permission!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+                eval "chmod -R 700 ${UHOME}/${UTIL_FROM_COMPANY}/"
+                info_debug_message_end "Done" "$FUNC" "$UTIL_VPN_CONFIG"
+                return $SUCCESS
+            fi
+            MSG="[not ok]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+            MSG="Please check directory [${UHOME}/]"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+            return $NOT_SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
+        return $NOT_SUCCESS
+    fi
+    usage VPN_CONFIG_USAGE
+    return $NOT_SUCCESS
 }
 

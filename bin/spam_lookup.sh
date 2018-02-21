@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh_util/${UTIL_SPAM_LOOKUP_VERSION}
 UTIL_SPAM_LOOKUP_CFG=${UTIL}/conf/${UTIL_SPAM_LOOKUP}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/check_tool.sh
-.	${UTIL}/bin/load_util_conf.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/check_tool.sh
+.    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SPAM_LOOKUP_USAGE=(
-	[USAGE_TOOL]="__${UTIL_SPAM_LOOKUP}"
-	[USAGE_ARG1]="[DOMAIN] Domain name"
-	[USAGE_EX_PRE]="# Example check www.domain.cc"
-	[USAGE_EX]="__${UTIL_SPAM_LOOKUP} www.domain.cc"
+    [USAGE_TOOL]="__${UTIL_SPAM_LOOKUP}"
+    [USAGE_ARG1]="[DOMAIN] Domain name"
+    [USAGE_EX_PRE]="# Example check www.domain.cc"
+    [USAGE_EX]="__${UTIL_SPAM_LOOKUP} www.domain.cc"
 )
 
 #
@@ -30,49 +30,49 @@ declare -A SPAM_LOOKUP_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __spam_lookup "$DOMAIN"
+# spam_lookup "$DOMAIN"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing tool
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing tool
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __spam_lookup() {
-	local DOMAIN=$1
-	if [ -n "${DOMAIN}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-		declare -A config_spam_lookup=()
-		__load_util_conf "$UTIL_SPAM_LOOKUP_CFG" config_spam_lookup
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local DIG=${config_spam_lookup[DIG]}
-			MSG="Look up abuse contact to report a spammer!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
-			__check_tool "${DIG}"
-			STATUS=$?
-			if [ $STATUS -eq $NOT_SUCCESS ]; then
-				MSG="Force exit!"
-				__info_debug_message_end "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
-				return $NOT_SUCCESS
-			fi
-			eval "${DIG} +short ${DOMAIN}.contacts.abuse.net -c in -t txt"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_SPAM_LOOKUP"
-			return $SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
-		return $NOT_SUCCESS
-	fi
-	__usage SPAM_LOOKUP_USAGE
-	return $NOT_SUCCESS
+function spam_lookup {
+    local DOMAIN=$1
+    if [ -n "${DOMAIN}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+        declare -A config_spam_lookup=()
+        load_util_conf "$UTIL_SPAM_LOOKUP_CFG" config_spam_lookup
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            local DIG=${config_spam_lookup[DIG]}
+            MSG="Look up abuse contact to report a spammer!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
+            check_tool "${DIG}"
+            STATUS=$?
+            if [ $STATUS -eq $NOT_SUCCESS ]; then
+                MSG="Force exit!"
+                info_debug_message_end "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
+                return $NOT_SUCCESS
+            fi
+            eval "${DIG} +short ${DOMAIN}.contacts.abuse.net -c in -t txt"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_SPAM_LOOKUP"
+            return $SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
+        return $NOT_SUCCESS
+    fi
+    usage SPAM_LOOKUP_USAGE
+    return $NOT_SUCCESS
 }
 

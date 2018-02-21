@@ -11,14 +11,14 @@ UTIL_RM_DUPS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_DUPS_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A RM_DUPS_USAGE=(
-	[USAGE_TOOL]="__${UTIL_RM_DUPS}"
-	[USAGE_ARG1]="[STREAM] stdin or file path"
-	[USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
-	[USAGE_EX]="__${UTIL_RM_DUPS} /data/test.txt"
+    [USAGE_TOOL]="__${UTIL_RM_DUPS}"
+    [USAGE_ARG1]="[STREAM] stdin or file path"
+    [USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
+    [USAGE_EX]="__${UTIL_RM_DUPS} /data/test.txt"
 )
 
 #
@@ -27,42 +27,42 @@ declare -A RM_DUPS_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __rm_dups "$FILE_PATH"
+# rm_dups "$FILE_PATH"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument(s) | missing file
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument(s) | missing file
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __rm_dups() {
-	local FILES=$@
-	if [ -n "${FILES}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Remove duplicate lines from file or stdin!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_RM_DUPS"
-		if [ -f "${FILES}" ]; then
-			cat "${FILES[@]}" | {
-				awk '!x[$0]++'
-			}
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_RM_DUPS"
-			return $SUCCESS
-		fi
-		MSG="Please check file(s) [${FILES}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_RM_DUPS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_RM_DUPS"
-		return $NOT_SUCCESS
-	fi
-	__usage RM_DUPS_USAGE
-	return $NOT_SUCCESS
+function rm_dups {
+    local FILES=$@
+    if [ -n "${FILES}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Remove duplicate lines from file or stdin!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_RM_DUPS"
+        if [ -f "${FILES}" ]; then
+            cat "${FILES[@]}" | {
+                awk '!x[$0]++'
+            }
+            info_debug_message_end "Done" "$FUNC" "$UTIL_RM_DUPS"
+            return $SUCCESS
+        fi
+        MSG="Please check file(s) [${FILES}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_RM_DUPS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_RM_DUPS"
+        return $NOT_SUCCESS
+    fi
+    usage RM_DUPS_USAGE
+    return $NOT_SUCCESS
 }
 

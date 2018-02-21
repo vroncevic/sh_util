@@ -12,16 +12,16 @@ UTIL=/root/scripts/sh_util/${UTIL_LIST_OPEN_FILES_VERSION}
 UTIL_LIST_OPEN_FILES_CFG=${UTIL}/conf/${UTIL_LIST_OPEN_FILES}.cfg
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
-.	${UTIL}/bin/check_tool.sh
-.	${UTIL}/bin/load_util_conf.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/check_tool.sh
+.    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LIST_OPEN_FILES_USAGE=(
-	[USAGE_TOOL]="__${UTIL_LIST_OPEN_FILES}"
-	[USAGE_ARG1]="[USR] System username"
-	[USAGE_EX_PRE]="# Example list all opened files by user"
-	[USAGE_EX]="__${UTIL_LIST_OPEN_FILES} vroncevic"
+    [USAGE_TOOL]="__${UTIL_LIST_OPEN_FILES}"
+    [USAGE_ARG1]="[USR] System username"
+    [USAGE_EX_PRE]="# Example list all opened files by user"
+    [USAGE_EX]="__${UTIL_LIST_OPEN_FILES} vroncevic"
 )
 
 #
@@ -30,50 +30,50 @@ declare -A LIST_OPEN_FILES_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local USR="vroncevic" STATUS
-# __list_open_files "$USR"
+# list_open_files "$USR"
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing tool
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing tool
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __list_open_files() {
-	local USR=$1
-	if [ -n "${USR}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-		declare -A config_list_open_files=()
-		__load_util_conf "$UTIL_LIST_OPEN_FILES_CFG" config_list_open_files
-		STATUS=$?
-		if [ $STATUS -eq $SUCCESS ]; then
-			local LSOFCMD=${config_list_open_files[LSOF]}
-			__check_tool "${LSOFCMD}"
-			STATUS=$?
-			if [ $STATUS -eq $SUCCESS ];
-				MSG="List opened files by [${USR}]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
-				eval "${LSOFCMD} -u ${USR}"
-				__info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_OPEN_FILES"
-				return $SUCCESS
-			fi
-			MSG="Force exit!"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_OPEN_FILES"
-			return $NOT_SUCCESS
-		fi
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
-		return $NOT_SUCCESS
-	fi
-	__usage LIST_OPEN_FILES_USAGE
-	return $NOT_SUCCESS
+function list_open_files {
+    local USR=$1
+    if [ -n "${USR}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" STATUS
+        declare -A config_list_open_files=()
+        load_util_conf "$UTIL_LIST_OPEN_FILES_CFG" config_list_open_files
+        STATUS=$?
+        if [ $STATUS -eq $SUCCESS ]; then
+            local LSOFCMD=${config_list_open_files[LSOF]}
+            check_tool "${LSOFCMD}"
+            STATUS=$?
+            if [ $STATUS -eq $SUCCESS ];
+                MSG="List opened files by [${USR}]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
+                eval "${LSOFCMD} -u ${USR}"
+                info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_OPEN_FILES"
+                return $SUCCESS
+            fi
+            MSG="Force exit!"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_OPEN_FILES"
+            return $NOT_SUCCESS
+        fi
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
+        return $NOT_SUCCESS
+    fi
+    usage LIST_OPEN_FILES_USAGE
+    return $NOT_SUCCESS
 }
 

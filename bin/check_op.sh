@@ -11,15 +11,15 @@ UTIL_CHECK_OP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_OP_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_OP_USAGE=(
-	[USAGE_TOOL]="__${UTIL_CHECK_OP}"
-	[USAGE_ARG1]="[OP] Operation to be done"
-	[USAGE_ARG2]="[OPLIST] List of operations"
-	[USAGE_EX_PRE]="# Example checking operation"
-	[USAGE_EX]="__${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
+    [USAGE_TOOL]="__${UTIL_CHECK_OP}"
+    [USAGE_ARG1]="[OP] Operation to be done"
+    [USAGE_ARG2]="[OPLIST] List of operations"
+    [USAGE_EX_PRE]="# Example checking operation"
+    [USAGE_EX]="__${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
 )
 
 #
@@ -28,48 +28,48 @@ declare -A CHECK_OP_USAGE=(
 # @retval Success return 0, else 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local OP="restart" OPLIST=( start stop restart version )
 #
-# __check_op "$OP" "${OPLIST[*]}"
+# check_op "$OP" "${OPLIST[*]}"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | missing tool
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | missing tool
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_op() {
-	local OP=$1
-	OPLIST=($2)
-	if [[ -n "${OP}" && -n "${OPLIST}" ]]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" I
-		MSG="Checking operation [${OP}]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_OP"
-		for I in "${OPLIST[@]}"
-		do
-			if [ "${OP}" == "${I}" ]; then
-				__info_debug_message_ans "[ok]" "$FUNC" "$UTIL_CHECK_OP"
-				__info_debug_message_end "Done" "$FUNC" "$UTIL_CHECK_OP"
-				return $SUCCESS
-			fi
-			:
-		done
-		__info_debug_message_ans "[not ok]" "$FUNC" "$UTIL_CHECK_OP"
-		MSG="Please check operation [${OP}]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_CHECK_OP"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_OP"
-		return $NOT_SUCCESS
-	fi
-	__usage CHECK_OP_USAGE
-	return $NOT_SUCCESS
+function check_op {
+    local OP=$1
+    OPLIST=($2)
+    if [[ -n "${OP}" && -n "${OPLIST}" ]]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" I
+        MSG="Checking operation [${OP}]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_OP"
+        for I in "${OPLIST[@]}"
+        do
+            if [ "${OP}" == "${I}" ]; then
+                info_debug_message_ans "[ok]" "$FUNC" "$UTIL_CHECK_OP"
+                info_debug_message_end "Done" "$FUNC" "$UTIL_CHECK_OP"
+                return $SUCCESS
+            fi
+            :
+        done
+        info_debug_message_ans "[not ok]" "$FUNC" "$UTIL_CHECK_OP"
+        MSG="Please check operation [${OP}]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_CHECK_OP"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_OP"
+        return $NOT_SUCCESS
+    fi
+    usage CHECK_OP_USAGE
+    return $NOT_SUCCESS
 }
 

@@ -41,34 +41,34 @@ NOT_SUCCESS=1
 # @retval Success 0, else 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local STATUS VAR="true"
-# __check_bool_var VAR
+# check_bool_var VAR
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_bool_var() {
-	local VAR=$1
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [ -n "${VAR}" ]; then
-		if [[ "${VAR}" == "true" || "${VAR}" == "false" ]]; then
-			return $SUCCESS
-		fi
-		return $NOT_SUCCESS
-	fi
-	MSG="Missing argument [VARIABLE]"
-	printf "$SEND" "devel" "$FUNC" "$MSG"
-	return $NOT_SUCCESS
+function check_bool_var {
+    local VAR=$1
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [ -n "${VAR}" ]; then
+        if [[ "${VAR}" == "true" || "${VAR}" == "false" ]]; then
+            return $SUCCESS
+        fi
+        return $NOT_SUCCESS
+    fi
+    MSG="Missing argument [VARIABLE]"
+    printf "$SEND" "devel" "$FUNC" "$MSG"
+    return $NOT_SUCCESS
 }
 
 #
@@ -77,43 +77,43 @@ function __check_bool_var() {
 # @retval Success 0, else 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A STATUS_STRUCT=(
-#	[TEST1]=$SUCCESS
-#	[TEST2]=$SUCCESS
-#	...
-#	[TESTN]=$SUCCESS
+#    [TEST1]=$SUCCESS
+#    [TEST2]=$SUCCESS
+#    ...
+#    [TESTN]=$SUCCESS
 # )
 #
-# __check_status STATUS_STRUCT
+# check_status STATUS_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_status() {
-	local -n STATUS_STRUCT=$1
-	local NSTATUS=${#STATUS_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
-	if [ -n "${NSTATUS}" ]; then
-		for I in "${!STATUS_STRUCT[@]}"
-		do
-			if [[ ${STATUS_STRUCT[$I]} -eq $NOT_SUCCESS ]]; then
-				return $NOT_SUCCESS
-			fi
-		done
-		return $SUCCESS
-	fi
-	MSG="Missing argument structure [STATUS_STRUCT]"
-	printf "$SEND" "devel" "$FUNC" "$MSG"
-	return $NOT_SUCCESS
+function check_status {
+    local -n STATUS_STRUCT=$1
+    local NSTATUS=${#STATUS_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
+    if [ -n "${NSTATUS}" ]; then
+        for I in "${!STATUS_STRUCT[@]}"
+        do
+            if [[ ${STATUS_STRUCT[$I]} -eq $NOT_SUCCESS ]]; then
+                return $NOT_SUCCESS
+            fi
+        done
+        return $SUCCESS
+    fi
+    MSG="Missing argument structure [STATUS_STRUCT]"
+    printf "$SEND" "devel" "$FUNC" "$MSG"
+    return $NOT_SUCCESS
 }
 
 #
@@ -122,43 +122,43 @@ function __check_status() {
 # @retval Success 0, else 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A STRING_STRUCT=(
-#	[TEST1]="None"
-#	[TEST2]="SomeKey"
-#	...
-#	[TESTN]="SomeKey"
+#    [TEST1]="None"
+#    [TEST2]="SomeKey"
+#    ...
+#    [TESTN]="SomeKey"
 # )
 #
-# __check_strings STRING_STRUCT
+# check_strings STRING_STRUCT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_strings() {
-	local -n STRING_STRUCT=$1
-	local NSTRING=${#STRING_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
-	if [ -n "${NSTRING}" ]; then
-		for I in "${!STRING_STRUCT[@]}"
-		do
-			if [[ "${STRING_STRUCT[$I]}" == "None" ]]; then
-				return $NOT_SUCCESS
-			fi
-		done
-		return $SUCCESS
-	fi
-	MSG="Missing argument structure [STRING_STRUCT]"
-	printf "$SEND" "devel" "$FUNC" "$MSG"
-	return $NOT_SUCCESS
+function check_strings {
+    local -n STRING_STRUCT=$1
+    local NSTRING=${#STRING_STRUCT[@]} FUNC=${FUNCNAME[0]} MSG="None" I
+    if [ -n "${NSTRING}" ]; then
+        for I in "${!STRING_STRUCT[@]}"
+        do
+            if [[ "${STRING_STRUCT[$I]}" == "None" ]]; then
+                return $NOT_SUCCESS
+            fi
+        done
+        return $SUCCESS
+    fi
+    MSG="Missing argument structure [STRING_STRUCT]"
+    printf "$SEND" "devel" "$FUNC" "$MSG"
+    return $NOT_SUCCESS
 }
 
 #
@@ -167,41 +167,41 @@ function __check_strings() {
 # @retval Success 0, else 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # KEYS="debug test verification deploy"
 # KEY="test"
 #
-# __check_key $KEY $KEYS
+# check_key $KEY $KEYS
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __check_key() {
-	local KEY=$1 KEYS=$2
-	if [[ -n "${KEY}" && -n "${KEYS}" ]]; then
-		IFS=' ' read -ra ARRAY_KEYS <<< "$KEYS"
-		for EL in "${ARRAY_KEYS[@]}"
-		do
-			if [[ ${KEY} == ${EL} ]]; then
-				return $SUCCESS
-			fi
-		done
-		MSG="Key ${KEY} is not in key list [${KEYS}]"
-		printf "$SEND" "devel" "$FUNC" "$MSG"
-		return $NOT_SUCCESS
-	fi
-	MSG="Missing argument(s) [TARGET_KEY] or [LIST_OF_KEYS]"
-	printf "$SEND" "devel" "$FUNC" "$MSG"
-	return $NOT_SUCCESS
+function check_key {
+    local KEY=$1 KEYS=$2
+    if [[ -n "${KEY}" && -n "${KEYS}" ]]; then
+        IFS=' ' read -ra ARRAY_KEYS <<< "$KEYS"
+        for EL in "${ARRAY_KEYS[@]}"
+        do
+            if [[ ${KEY} == ${EL} ]]; then
+                return $SUCCESS
+            fi
+        done
+        MSG="Key ${KEY} is not in key list [${KEYS}]"
+        printf "$SEND" "devel" "$FUNC" "$MSG"
+        return $NOT_SUCCESS
+    fi
+    MSG="Missing argument(s) [TARGET_KEY] or [LIST_OF_KEYS]"
+    printf "$SEND" "devel" "$FUNC" "$MSG"
+    return $NOT_SUCCESS
 }
 
 #
@@ -210,22 +210,22 @@ function __check_key() {
 # @retval None
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __info_debug_que "$MSG" "$FUNC" "$TOOL"
+# info_debug_que "$MSG" "$FUNC" "$TOOL"
 #
-function __info_debug_message_que() {
-	local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
-	if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
-		if [ "${TOOL_DBG}" == "true" ]; then
-			printf "$DQUE" "$TOOL" "$PFUNC" "$MSG"
-		else
-			printf "$SQUE" "$TOOL" "$MSG"
-		fi
-		return
-	fi
-	local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-	printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+function info_debug_message_que {
+    local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
+    if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
+        if [ "${TOOL_DBG}" == "true" ]; then
+            printf "$DQUE" "$TOOL" "$PFUNC" "$MSG"
+        else
+            printf "$SQUE" "$TOOL" "$MSG"
+        fi
+        return
+    fi
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -234,22 +234,22 @@ function __info_debug_message_que() {
 # @retval None
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __info_debug_message_ans "$MSG" "$FUNC" "$TOOL"
+# info_debug_message_ans "$MSG" "$FUNC" "$TOOL"
 #
-function __info_debug_message_ans() {
-	local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
-	if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
-		if [ "${TOOL_DBG}" == "true" ]; then
-			printf "$DANS" "$TOOL" "$PFUNC" "$MSG"
-		else
-			printf "$SANS" "$MSG"
-		fi
-		return
-	fi
-	local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-	printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+function info_debug_message_ans {
+    local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
+    if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
+        if [ "${TOOL_DBG}" == "true" ]; then
+            printf "$DANS" "$TOOL" "$PFUNC" "$MSG"
+        else
+            printf "$SANS" "$MSG"
+        fi
+        return
+    fi
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -258,22 +258,22 @@ function __info_debug_message_ans() {
 # @retval None
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __info_debug_message "$MSG" "$FUNC" "$TOOL"
+# info_debug_message "$MSG" "$FUNC" "$TOOL"
 #
-function __info_debug_message() {
-	local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
-	if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
-		if [ "${TOOL_DBG}" == "true" ]; then
-			printf "$DSTA" "$TOOL" "$PFUNC" "$MSG"
-		else
-			printf "$SSTA" "$TOOL" "$MSG"
-		fi
-		return
-	fi
-	local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-	printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+function info_debug_message {
+    local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
+    if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
+        if [ "${TOOL_DBG}" == "true" ]; then
+            printf "$DSTA" "$TOOL" "$PFUNC" "$MSG"
+        else
+            printf "$SSTA" "$TOOL" "$MSG"
+        fi
+        return
+    fi
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -282,21 +282,21 @@ function __info_debug_message() {
 # @retval None
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __info_debug_message_end "$MSG" "$FUNC" "$TOOL"
+# info_debug_message_end "$MSG" "$FUNC" "$TOOL"
 #
-function __info_debug_message_end() {
-	local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
-	if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
-		if [ "${TOOL_DBG}" == "true" ]; then
-			printf "$DEND" "$TOOL" "$PFUNC" "$MSG"
-		else
-			printf "$SEND" "$TOOL" "$MSG"
-		fi
-		return
-	fi
-	local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-	printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+function info_debug_message_end {
+    local MSG=$1 PFUNC=$2 TOOL=$3 FUNC=${FUNCNAME[0]}
+    if [[ -n "${MSG}" && -n "${PFUNC}" && -n "${TOOL}" ]]; then
+        if [ "${TOOL_DBG}" == "true" ]; then
+            printf "$DEND" "$TOOL" "$PFUNC" "$MSG"
+        else
+            printf "$SEND" "$TOOL" "$MSG"
+        fi
+        return
+    fi
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 

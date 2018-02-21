@@ -11,14 +11,14 @@ UTIL_SLOF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_SLOF_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A SLOF_USAGE=(
-	[USAGE_TOOL]="__${UTIL_SLOF}"
-	[USAGE_ARG1]="[SIZE] LIst in GB/MB"
-	[USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
-	[USAGE_EX]="__${UTIL_SLOF} large"
+    [USAGE_TOOL]="__${UTIL_SLOF}"
+    [USAGE_ARG1]="[SIZE] LIst in GB/MB"
+    [USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
+    [USAGE_EX]="__${UTIL_SLOF} large"
 )
 
 #
@@ -27,39 +27,39 @@ declare -A SLOF_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __slof 10
+# slof 10
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __slof() {
-	local SIZE=$1
-	if [ -n "${SIZE}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Show 10 Largest Open Files!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_SLOF"
-		local AWK_CMD_G='{if($7 > 1048576) print $7/1048576 "GB" " " $9 " " $1}'
-		local AWK_CMD_M='{if($7 > 1048576) print $7/1048576 "MB" " " $9 " " $1}'
-		if [ "${SIZE}" == "large" ]; then
-			eval "lsof / | awk '${AWK_CMD_G}' | sort -n -u | tail"
-		else
-			eval "lsof / | awk '${AWK_CMD_M}' | sort -n -u | tail"
-		fi
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_SLOF"
-		return $SUCCESS
-	fi
-	__usage SLOF_USAGE
-	return $NOT_SUCCESS
+function slof {
+    local SIZE=$1
+    if [ -n "${SIZE}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" AWK_CMD_G AWK_CMD_M
+        MSG="Show 10 Largest Open Files!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_SLOF"
+        AWK_CMD_G='{if($7 > 1048576) print $7/1048576 "GB" " " $9 " " $1}'
+        AWK_CMD_M='{if($7 > 1048576) print $7/1048576 "MB" " " $9 " " $1}'
+        if [ "${SIZE}" == "large" ]; then
+            eval "lsof / | awk '${AWK_CMD_G}' | sort -n -u | tail"
+        else
+            eval "lsof / | awk '${AWK_CMD_M}' | sort -n -u | tail"
+        fi
+        info_debug_message_end "Done" "$FUNC" "$UTIL_SLOF"
+        return $SUCCESS
+    fi
+    usage SLOF_USAGE
+    return $NOT_SUCCESS
 }
 

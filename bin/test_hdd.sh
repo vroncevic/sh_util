@@ -11,14 +11,14 @@ UTIL_TEST_HDD_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_TEST_HDD_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A TEST_HDD_USAGE=(
-	[USAGE_TOOL]="__${UTIL_TEST_HDD}"
-	[USAGE_ARG1]="[TIME_COUNT] Time count"
-	[USAGE_EX_PRE]="# Creating zerofile and test hdd"
-	[USAGE_EX]="__${UTIL_TEST_HDD} 500"
+    [USAGE_TOOL]="__${UTIL_TEST_HDD}"
+    [USAGE_ARG1]="[TIME_COUNT] Time count"
+    [USAGE_EX_PRE]="# Creating zerofile and test hdd"
+    [USAGE_EX]="__${UTIL_TEST_HDD} 500"
 )
 
 #
@@ -26,34 +26,34 @@ declare -A TEST_HDD_USAGE=(
 # @param  Value required time count
 # @retval Success return 0, else return 1
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __test_hdd $TIME_COUNT
+# test_hdd $TIME_COUNT
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __test_hdd() {
-	local TIME_COUNT=$1
-	if [ -n "${TIME_COUNT}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Testing hard drive speed!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_TEST_HDD"
-		time (dd if=/dev/zero of=zerofile bs=1M count=${TIME_COUNT};sync);
-		rm zerofile
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_TEST_HDD"
-		return $SUCCESS
-	fi
-	__usage TEST_HDD_USAGE
-	return $NOT_SUCCESS
+function test_hdd {
+    local TIME_COUNT=$1
+    if [ -n "${TIME_COUNT}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Testing hard drive speed!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_TEST_HDD"
+        time (dd if=/dev/zero of=zerofile bs=1M count=${TIME_COUNT};sync);
+        rm zerofile
+        info_debug_message_end "Done" "$FUNC" "$UTIL_TEST_HDD"
+        return $SUCCESS
+    fi
+    usage TEST_HDD_USAGE
+    return $NOT_SUCCESS
 }
 

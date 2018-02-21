@@ -11,14 +11,14 @@ UTIL_PATH_PROC_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_PATH_PROC_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A PATH_PROC_USAGE=(
-	[USAGE_TOOL]="__${UTIL_PATH_PROC}"
-	[USAGE_ARG1]="[PROCESS] Process ID"
-	[USAGE_EX_PRE]="# Example Gives complete path name of process"
-	[USAGE_EX]="__${UTIL_PATH_PROC} 1356"
+    [USAGE_TOOL]="__${UTIL_PATH_PROC}"
+    [USAGE_ARG1]="[PROCESS] Process ID"
+    [USAGE_EX_PRE]="# Example Gives complete path name of process"
+    [USAGE_EX]="__${UTIL_PATH_PROC} 1356"
 )
 
 #
@@ -27,61 +27,61 @@ declare -A PATH_PROC_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # local PROCESS="1356" STATUS
-# __path_proc "$PROCESS"
+# path_proc "$PROCESS"
 # STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | no such process
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | no such process
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __path_proc() {
-	local PROCESS=$1
-	if [ -n "${PROCESS}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" PROCFILE=exe PIDNO EXE_FILE
-		MSG="Gives complete path name of process associated with pid!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-		PIDNO=$(ps ax | grep ${PROCESS} | awk '{ print $1 }' | grep ${PROCESS})
-		if [ -z "${PIDNO}" ]; then
-			MSG="No such process running [${PROCESS}]!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			return $NOT_SUCCESS
-		fi
-		if [ ! -r "/proc/${PROCESS}/${PROCFILE}" ]; then
-			MSG="Process [${PROCESS}] is running!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			MSG="Can't get read permission on [/proc/${PROCESS}/${PROCFILE}]!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			return $NOT_SUCCESS
-		fi
-		EXE_FILE=$(ls -l /proc/${PROCESS} | grep "exe" | awk '{ print $11 }')
-		if [ -e "${EXE_FILE}" ]; then
-			MSG="Process #${PROCESS} invoked by [${EXE_FILE}]"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-		else
-			MSG="No such process running"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
-			return $NOT_SUCCESS
-		fi
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_PATH_PROC"
-		return $SUCCESS
-	fi
-	__usage PATH_PROC_USAGE
-	return $NOT_SUCCESS
+function path_proc {
+    local PROCESS=$1
+    if [ -n "${PROCESS}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" PROCFILE=exe PIDNO EXE_FILE
+        MSG="Gives complete path name of process associated with pid!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+        PIDNO=$(ps ax | grep ${PROCESS} | awk '{ print $1 }' | grep ${PROCESS})
+        if [ -z "${PIDNO}" ]; then
+            MSG="No such process running [${PROCESS}]!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            return $NOT_SUCCESS
+        fi
+        if [ ! -r "/proc/${PROCESS}/${PROCFILE}" ]; then
+            MSG="Process [${PROCESS}] is running!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            MSG="Can't get read permission on [/proc/${PROCESS}/${PROCFILE}]!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            return $NOT_SUCCESS
+        fi
+        EXE_FILE=$(ls -l /proc/${PROCESS} | grep "exe" | awk '{ print $11 }')
+        if [ -e "${EXE_FILE}" ]; then
+            MSG="Process #${PROCESS} invoked by [${EXE_FILE}]"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+        else
+            MSG="No such process running"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_PATH_PROC"
+            return $NOT_SUCCESS
+        fi
+        info_debug_message_end "Done" "$FUNC" "$UTIL_PATH_PROC"
+        return $SUCCESS
+    fi
+    usage PATH_PROC_USAGE
+    return $NOT_SUCCESS
 }
 

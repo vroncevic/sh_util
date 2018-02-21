@@ -11,7 +11,7 @@ UTIL_VERSION_ARRAY_UTILS=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_VERSION_ARRAY_UTILS}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/devel.sh
 
 #
 # @brief  Get the value stored at a specific index eg. ${array[0]}
@@ -19,33 +19,33 @@ UTIL_LOG=${UTIL}/log
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __arr $ARRAY
+# arr $ARRAY
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to get element
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to get element
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __arr() {
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		local MSG="None" FUNC=${FUNCNAME[0]}
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	eval $1=\(\)
-	return $SUCCESS
+function arr {
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        local MSG="None" FUNC=${FUNCNAME[0]}
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    eval $1=\(\)
+    return $SUCCESS
 }
 
 #
@@ -54,41 +54,41 @@ function __arr() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __insert $ARRAY $EL
+# insert $ARRAY $EL
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to insert element
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to insert element
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __insert() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	declare -p "${1}" > /dev/null 2>&1
-	if [[ $? -eq 1 ]]; then
-		MSG="Bash variable [${1}] doesn't exist!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	eval $1[\$\(\(\${#${1}[@]}\)\)]=\$2
-	return $SUCCESS
+function insert {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    declare -p "${1}" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+        MSG="Bash variable [${1}] doesn't exist!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    eval $1[\$\(\(\${#${1}[@]}\)\)]=\$2
+    return $SUCCESS
 }
 
 #
@@ -97,41 +97,41 @@ function __insert() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __set $ARRAY $POS $EL
+# set $ARRAY $POS $EL
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to update element
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to update element
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __set() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	declare -p "${1}" > /dev/null 2>&1
-	if [[ $? -eq 1 ]]; then
-		MSG="Bash variable [${1}] doesn't exist!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	eval ${1}[${2}]=\${3}
-	return $SUCCESS
+function set {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    declare -p "${1}" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+        MSG="Bash variable [${1}] doesn't exist!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    eval ${1}[${2}]=\${3}
+    return $SUCCESS
 }
 
 #
@@ -140,40 +140,40 @@ function __set() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __get $ARRAY
+# get $ARRAY
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to get content of array
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to get content of array
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __get() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	declare -p "${1}" > /dev/null 2>&1
-	if [[ $? -eq 1 ]]; then
-		MSG="Bash variable [${1}] doesn't exist!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	eval echo \${${1}[@]}
+function get {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    declare -p "${1}" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+        MSG="Bash variable [${1}] doesn't exist!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    eval echo \${${1}[@]}
 }
 
 #
@@ -182,47 +182,47 @@ function __get() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __at $ARRAY $INDEX
+# at $ARRAY $INDEX
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to get element
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to get element
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __at() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	declare -p "${1}" > /dev/null 2>&1
-	if [[ $? -eq 1 ]]; then
-		MSG="Bash variable [${1}] doesn't exist!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	if [[ ! "${2}" =~ ^(0|[-]?[1-9]+[0-9]*)$ ]]; then
-		MSG="Array index must be a number!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-	fi
-	local V=${1} I=${2} MAX=$(eval echo \${\#${1}[@]})
-	if [[ $MAX -gt 0 && $I -ge 0 && $I -lt $MAX ]]; then
-		eval echo \${$V[$I]}
-	fi
+function at {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    declare -p "${1}" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+        MSG="Bash variable [${1}] doesn't exist!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    if [[ ! "${2}" =~ ^(0|[-]?[1-9]+[0-9]*)$ ]]; then
+        MSG="Array index must be a number!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+    fi
+    local V=${1} I=${2} MAX=$(eval echo \${\#${1}[@]})
+    if [[ $MAX -gt 0 && $I -ge 0 && $I -lt $MAX ]]; then
+        eval echo \${$V[$I]}
+    fi
 }
 
 #
@@ -231,40 +231,40 @@ function __at() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __count $ARRAY
+# count $ARRAY
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# failed to get length of array
-#	# return $NOT_SUCCESS
-#	# or 
-#	# exit 128
+#    # false
+#    # failed to get length of array
+#    # return $NOT_SUCCESS
+#    # or 
+#    # exit 128
 # fi
 #
-function __count() {
-	local FUNC=${FUNCNAME[0]} MSG="None"
-	if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
-		MSG="Invalid bash variable!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	declare -p "${1}" > /dev/null 2>&1
-	if [[ $? -eq 1 ]]; then
-		MSG="Bash variable [${1}] doesn't exist!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
-		return $NOT_SUCCESS
-	fi
-	local V=${1}
-	eval echo \${\#${1}[@]}
+function count {
+    local FUNC=${FUNCNAME[0]} MSG="None"
+    if [[ ! "${1}" =~ ^[a-zA-Z_]+[a-zA-Z0-9_]*$ ]]; then
+        MSG="Invalid bash variable!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    declare -p "${1}" > /dev/null 2>&1
+    if [[ $? -eq 1 ]]; then
+        MSG="Bash variable [${1}] doesn't exist!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_ARRAY_UTILS"
+        return $NOT_SUCCESS
+    fi
+    local V=${1}
+    eval echo \${\#${1}[@]}
 }
 

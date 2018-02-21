@@ -11,35 +11,35 @@ UTIL_DIR_UTILS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_DIR_UTILS_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A MKDIRF_USAGE=(
-	[USAGE_TOOL]="__mkdirf"
-	[USAGE_ARG1]="[DIRPATH] Directory path"
-	[USAGE_EX-PRE]="# Example creating directory"
-	[USAGE_EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="mkdirf"
+    [USAGE_ARG1]="[DIRPATH] Directory path"
+    [USAGE_EX-PRE]="# Example creating directory"
+    [USAGE_EX]="mkdirf /opt/test/"
 )
 
 declare -A DIRNAME_USAGE=(
-	[USAGE_TOOL]="__get_dir_name"
-	[USAGE_ARG1]="[DIRPATH] Directory path"
-	[USAGE_EX-PRE]="# Example creating directory"
-	[USAGE_EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="get_dir_name"
+    [USAGE_ARG1]="[DIRPATH] Directory path"
+    [USAGE_EX-PRE]="# Example get name directory"
+    [USAGE_EX]="get_dir_name /opt/test/"
 )
 
 declare -A BASENAME_USAGE=(
-	[USAGE_TOOL]="__getbasename"
-	[USAGE_ARG1]="[DIRPATH] Directory path"
-	[USAGE_EX-PRE]="# Example creating directory"
-	[USAGE_EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="getbasename"
+    [USAGE_ARG1]="[DIRPATH] Directory path"
+    [USAGE_EX-PRE]="# Example get base directory"
+    [USAGE_EX]="getbasename /opt/test/"
 )
 
 declare -A CLEANDIR_USAGE=(
-	[USAGE_TOOL]="__clean"
-	[USAGE_ARG1]="[DIRPATH] Directory path"
-	[USAGE_EX-PRE]="# Example creating directory"
-	[USAGE_EX]="__mkdirf /opt/test/"
+    [USAGE_TOOL]="clean"
+    [USAGE_ARG1]="[DIRPATH] Directory path"
+    [USAGE_EX-PRE]="# Example clean directory"
+    [USAGE_EX]="clean /opt/test/"
 )
 
 #
@@ -48,47 +48,47 @@ declare -A CLEANDIR_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __mkdirf "$DIRPATH"
+# mkdirf "$DIRPATH"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | failed to create dir (already exist)
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | failed to create dir (already exist)
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __mkdirf() {
-	local DIRPATH=$1
-	if [ -n "${DIRPATH}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Check directory [${DIRPATH}/]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		if [ -d "${DIRPATH}/" ]; then
-			MSG="[exist]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-			MSG="Directory [${DIRPATH}/] already exist!"
-			__info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-			MSG="Force exit!"
-			__info_debug_message_end "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-			return $NOT_SUCCESS
-		fi
-		MSG="[not exist]"
-		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		MSG="Creating directory [${DIRPATH}/]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		mkdir "${DIRPATH}"
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
-		return $SUCCESS
-	fi
-	__usage TOOL_MKDIR_USAGE
-	return $NOT_SUCCESS
+function mkdirf {
+    local DIRPATH=$1
+    if [ -n "${DIRPATH}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Check directory [${DIRPATH}/]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        if [ -d "${DIRPATH}/" ]; then
+            MSG="[exist]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+            MSG="Directory [${DIRPATH}/] already exist!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+            return $NOT_SUCCESS
+        fi
+        MSG="[not exist]"
+        info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        MSG="Creating directory [${DIRPATH}/]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        mkdir "${DIRPATH}"
+        info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
+        return $SUCCESS
+    fi
+    usage TOOL_MKDIR_USAGE
+    return $NOT_SUCCESS
 }
 
 #
@@ -97,23 +97,23 @@ function __mkdirf() {
 # @retval directory path
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local DIRNAME=$(__get_dir_name $FILE)
+# local DIRNAME=$(get_dir_name $FILE)
 #
-function __get_dir_name() {
-	if [ -n "${1}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" _dir
-		MSG="Get name of directory!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		_dir="${1%${1##*/}}"
-		if [ "${_dir:=./}" != "/" ]; then
-			_dir="${_dir%?}"
-		fi
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
-		echo "$_dir"
-	fi
-	__usage DIRNAME_USAGE
+function get_dir_name {
+    if [ -n "${1}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" _dir
+        MSG="Get name of directory!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        _dir="${1%${1##*/}}"
+        if [ "${_dir:=./}" != "/" ]; then
+            _dir="${_dir%?}"
+        fi
+        info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
+        echo "$_dir"
+    fi
+    usage DIRNAME_USAGE
 }
 
 #
@@ -122,20 +122,20 @@ function __get_dir_name() {
 # @retval full name of file
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# local BASENAME=$(__getbasename $FILE)
+# local BASENAME=$(getbasename $FILE)
 #
-function __getbasename() {
-	if [ -n "${1}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" _name
-		MSG="Get basename of file!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		_name="${1##*/}"
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
-		echo "${_name%$2}"
-	fi
-	__usage BASENAME_USAGE
+function getbasename {
+    if [ -n "${1}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" _name
+        MSG="Get basename of file!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        _name="${1##*/}"
+        info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
+        echo "${_name%$2}"
+    fi
+    usage BASENAME_USAGE
 }
 
 #
@@ -144,44 +144,44 @@ function __getbasename() {
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __clean "$DIRECTORY"
+# clean "$DIRECTORY"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument | failed to clean dir
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument | failed to clean dir
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __clean() {
-	local DIRNAME=$1
-	if [ -n "${DIRNAME}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None"
-		MSG="Checking directory [${DIRNAME}/]?"
-		__info_debug_message_que "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		if [ -d "${DIRNAME}" ]; then
-			MSG="[ok]"
-			__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-			rm -rf "${DIRNAME}/"
-			__info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
-			return $SUCCESS
-		fi
-		MSG="[not ok]"
-		__info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		MSG="Please check directory [${DIRNAME}/]!"
-		__info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		MSG="Force exit!"
-		__info_debug_message_end "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
-		return $NOT_SUCCESS
-	fi
-	__usage CLEANDIR_USAGE
-	return $NOT_SUCCESS
+function clean {
+    local DIRNAME=$1
+    if [ -n "${DIRNAME}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Checking directory [${DIRNAME}/]?"
+        info_debug_message_que "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        if [ -d "${DIRNAME}" ]; then
+            MSG="[ok]"
+            info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+            rm -rf "${DIRNAME}/"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
+            return $SUCCESS
+        fi
+        MSG="[not ok]"
+        info_debug_message_ans "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        MSG="Please check directory [${DIRNAME}/]!"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
+        return $NOT_SUCCESS
+    fi
+    usage CLEANDIR_USAGE
+    return $NOT_SUCCESS
 }
 

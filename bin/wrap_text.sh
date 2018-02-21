@@ -11,14 +11,14 @@ UTIL_WRAP_TEXT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_WRAP_TEXT_VERSION}
 UTIL_LOG=${UTIL}/log
 
-.	${UTIL}/bin/devel.sh
-.	${UTIL}/bin/usage.sh
+.    ${UTIL}/bin/devel.sh
+.    ${UTIL}/bin/usage.sh
 
 declare -A WRAP_TEXT_USAGE=(
-	[USAGE_TOOL]="__${UTIL_WRAP_TEXT}"
-	[USAGE_ARG1]="[PATH] Path to the target(s)"
-	[USAGE_EX_PRE]="# Example running tool"
-	[USAGE_EX]="__${UTIL_WRAP_TEXT} /data/"
+    [USAGE_TOOL]="__${UTIL_WRAP_TEXT}"
+    [USAGE_ARG1]="[PATH] Path to the target(s)"
+    [USAGE_EX_PRE]="# Example running tool"
+    [USAGE_EX]="__${UTIL_WRAP_TEXT} /data/"
 )
 
 #
@@ -27,42 +27,42 @@ declare -A WRAP_TEXT_USAGE=(
 # @retval Success return 0, else return 1
 #
 # @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
-# __wrap_text "$FILES"
+# wrap_text "$FILES"
 # local STATUS=$?
 #
 # if [ $STATUS -eq $SUCCESS ]; then
-#	# true
-#	# notify admin | user
+#    # true
+#    # notify admin | user
 # else
-#	# false
-#	# missing argument
-#	# return $NOT_SUCCESS
-#	# or
-#	# exit 128
+#    # false
+#    # missing argument
+#    # return $NOT_SUCCESS
+#    # or
+#    # exit 128
 # fi
 #
-function __wrap_text() {
-	local FILES=$@
-	if [ -n "${FILES}" ]; then
-		local FUNC=${FUNCNAME[0]} MSG="None" A
-		for A in "${FILES[@]}"
-		do
-			if [ -f "${A}" ]; then
-				MSG="Processing file [${A}]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_WRAP_TEXT"
-				fmt -w 80 -s ${A} > /tmp/$$.tmp
-				mv /tmp/$$.tmp ${A}
-			else
-				MSG="Check file [${A}]!"
-				__info_debug_message "$MSG" "$FUNC" "$UTIL_WRAP_TEXT"
-			fi
-		done
-		__info_debug_message_end "Done" "$FUNC" "$UTIL_WRAP_TEXT"
-		return $SUCCESS
-	fi
-	__usage WRAP_TEXT_USAGE
-	return $NOT_SUCCESS
+function wrap_text {
+    local FILES=$@
+    if [ -n "${FILES}" ]; then
+        local FUNC=${FUNCNAME[0]} MSG="None" A
+        for A in "${FILES[@]}"
+        do
+            if [ -f "${A}" ]; then
+                MSG="Processing file [${A}]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_WRAP_TEXT"
+                fmt -w 80 -s ${A} > /tmp/$$.tmp
+                mv /tmp/$$.tmp ${A}
+            else
+                MSG="Check file [${A}]!"
+                info_debug_message "$MSG" "$FUNC" "$UTIL_WRAP_TEXT"
+            fi
+        done
+        info_debug_message_end "Done" "$FUNC" "$UTIL_WRAP_TEXT"
+        return $SUCCESS
+    fi
+    usage WRAP_TEXT_USAGE
+    return $NOT_SUCCESS
 }
 
