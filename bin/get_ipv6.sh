@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A GET_IPV6_USAGE=(
-    [USAGE_TOOL]="__${UTIL_GET_IPV6}"
+    [USAGE_TOOL]="${UTIL_GET_IPV6}"
     [USAGE_ARG1]="[INTERFACE] Interface name"
     [USAGE_ARG2]="[IPV6_ADDRESS] Variable for storing"
     [USAGE_EX_PRE]="# Example checking IPV6 logic address"
-    [USAGE_EX]="__${UTIL_GET_IPV6} \$INTERFACE IPADDR"
+    [USAGE_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
 )
 
 #

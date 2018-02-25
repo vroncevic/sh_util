@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CREATE_RAM_DISK_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CREATE_RAM_DISK}"
+    [USAGE_TOOL]="${UTIL_CREATE_RAM_DISK}"
     [USAGE_ARG1]="[MOUNTPT] Mount point"
     [USAGE_EX_PRE]="# Example creating RAM disk"
-    [USAGE_EX]="__${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
+    [USAGE_EX]="${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
 )
 
 #

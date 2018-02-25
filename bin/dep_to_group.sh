@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A DEP_TO_GROUP_USAGE=(
-    [USAGE_TOOL]="__${UTIL_DEP_TO_GROUP}"
+    [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
     [USAGE_ARG1]="[DEP] Department name"
     [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
-    [USAGE_EX]="__${UTIL_DEP_TO_GROUP} \"Management\""
+    [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
 )
 
 #

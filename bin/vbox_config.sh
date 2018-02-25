@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VBOX_CONFIG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_VBOX_CONFIG}"
+    [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
     [USAGE_ARG1]="[USR] System username"
     [USAGE_EX_PRE]="# Example generating VBOX config files"
-    [USAGE_EX]="__${UTIL_VBOX_CONFIG} vroncevic"
+    [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
 )
 
 #

@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_OP_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_OP}"
+    [USAGE_TOOL]="${UTIL_CHECK_OP}"
     [USAGE_ARG1]="[OP] Operation to be done"
     [USAGE_ARG2]="[OPLIST] List of operations"
     [USAGE_EX_PRE]="# Example checking operation"
-    [USAGE_EX]="__${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
+    [USAGE_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
 )
 
 #

@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/send_mail.sh
 
 declare -A LOW_SWAP_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LOW_SWAP}"
+    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
     [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
     [USAGE_ARG2]="[EMAIL] Administrator email address"
     [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [USAGE_EX]="__${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
 )
 
 #

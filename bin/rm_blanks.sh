@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_BLANKS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_RM_BLANKS}"
+    [USAGE_TOOL]="${UTIL_RM_BLANKS}"
     [USAGE_ARG1]="[FILES] Name of file"
     [USAGE_EX_PRE]="# Removing blank lines from file"
-    [USAGE_EX]="__${UTIL_RM_BLANKS} /data/test.txt"
+    [USAGE_EX]="${UTIL_RM_BLANKS} /data/test.txt"
 )
 
 #

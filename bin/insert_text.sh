@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A INSERT_TEXT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_INSERT_TEXT}"
+    [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
     [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
     [USAGE_ARG2]="[TEXT] The text file to insert"
     [USAGE_ARG3]="[FILES] The text file to insert into"
     [USAGE_EX_PRE]="# Example put text into file"
-    [USAGE_EX]="__${UTIL_INSERT_TEXT} 3 test file"
+    [USAGE_EX]="${UTIL_INSERT_TEXT} 3 test file"
 )
 
 #

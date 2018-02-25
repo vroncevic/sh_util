@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VDEPLOY_USAGE=(
-    [USAGE_TOOL]="__${UTIL_VDEPLOY}"
+    [USAGE_TOOL]="${UTIL_VDEPLOY}"
     [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
     [USAGE_EX_PRE]="# Copy tool to deployment zone"
-    [USAGE_EX]="__${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
+    [USAGE_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
 )
 
 #

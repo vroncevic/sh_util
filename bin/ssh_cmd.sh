@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SSH_CMD_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SSH_CMD}"
+    [USAGE_TOOL]="${UTIL_SSH_CMD}"
     [USAGE_ARG1]="[SSH_STRUCT] Username, server name and path to script"
     [USAGE_EX_PRE]="# Example running script on remote server"
-    [USAGE_EX]="__${UTIL_SSH_CMD} \$SSH_STRUCT"
+    [USAGE_EX]="${UTIL_SSH_CMD} \$SSH_STRUCT"
 )
 
 #

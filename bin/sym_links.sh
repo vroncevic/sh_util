@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SYM_LINKS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SYM_LINKS}"
+    [USAGE_TOOL]="${UTIL_SYM_LINKS}"
     [USAGE_ARG1]="[DIR] Directory path"
     [USAGE_EX_PRE]="# Example listing sym_links"
-    [USAGE_EX]="__${UTIL_SYM_LINKS} /etc"
+    [USAGE_EX]="${UTIL_SYM_LINKS} /etc"
 )
 
 #

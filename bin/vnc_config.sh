@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VNC_CONFIG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_VNC_CONFIG}"
+    [USAGE_TOOL]="${UTIL_VNC_CONFIG}"
     [USAGE_ARG1]="[VNC_STRUCT] System username and group"
     [USAGE_EX_PRE]="# Example generating VNC config file"
-    [USAGE_EX]="__${UTIL_VNC_CONFIG} rmuller ds"
+    [USAGE_EX]="${UTIL_VNC_CONFIG} rmuller ds"
 )
 
 #

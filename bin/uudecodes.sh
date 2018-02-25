@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A UUDECODES_USAGE=(
-    [USAGE_TOOL]="__${UTIL_UUDECODES}"
+    [USAGE_TOOL]="${UTIL_UUDECODES}"
     [USAGE_ARG1]="[FILE_NAME] Path to binary file"
     [USAGE_EX_PRE]="# Example decode thunderbird binary"
-    [USAGE_EX]="__${UTIL_UUDECODES} thunderbird-bin"
+    [USAGE_EX]="${UTIL_UUDECODES} thunderbird-bin"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CPU_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CPU}"
+    [USAGE_TOOL]="${UTIL_CPU}"
     [USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
     [USAGE_EX_PRE]="# Example show in GHz CPU speed"
-    [USAGE_EX]="__${UTIL_CPU} ghz"
+    [USAGE_EX]="${UTIL_CPU} ghz"
 )
 
 #

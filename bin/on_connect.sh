@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ONLINE_CONNECT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_ON_CONNECT}"
+    [USAGE_TOOL]="${UTIL_ON_CONNECT}"
     [USAGE_ARG1]="[TIME] Sleep time"
     [USAGE_EX_PRE]="# Example running __$TOOL"
-    [USAGE_EX]="__${UTIL_ON_CONNECT} 5s"
+    [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
 )
 
 #

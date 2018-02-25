@@ -18,11 +18,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A BROADCAST_BMSG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_BROADCAST_BMSG}"
+    [USAGE_TOOL]="${UTIL_BROADCAST_BMSG}"
     [USAGE_ARG1]="[BMSG] Main message for broadcast"
     [USAGE_ARG2]="[NOTE] Short note with fullname"
     [USAGE_EX_PRE]="# Example sending broadcast message"
-    [USAGE_EX]="__${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
+    [USAGE_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
 )
 
 #

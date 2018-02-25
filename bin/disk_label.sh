@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LABEL_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LABEL}"
+    [USAGE_TOOL]="${UTIL_LABEL}"
     [USAGE_ARG1]="[DISK_STRUCT] Disk drive and disk label"
     [USAGE_EX_PRE]="# Set label name for mounted disk"
-    [USAGE_EX]="__${UTIL_LABEL} \$DISK_STRUCT"
+    [USAGE_EX]="${UTIL_LABEL} \$DISK_STRUCT"
 )
 
 #

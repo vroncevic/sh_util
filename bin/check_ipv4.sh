@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_IPV4_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_IPV4}"
+    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
     [USAGE_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
     [USAGE_EX_PRE]="# Example checking IPV4 Address"
-    [USAGE_EX]="__${UTIL_CHECK_IPV4} 192.168.0.1"
+    [USAGE_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
 )
 
 #

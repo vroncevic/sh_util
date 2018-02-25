@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A MD5SUM_USAGE=(
-    [USAGE_TOOL]="__${UTIL_MD5SUM}"
+    [USAGE_TOOL]="${UTIL_MD5SUM}"
     [USAGE_ARG1]="[INSTRING] input string"
     [USAGE_EX_PRE]="# Calculate md5sum from an input string"
-    [USAGE_EX]="__${UTIL_MD5SUM} simpletest"
+    [USAGE_EX]="${UTIL_MD5SUM} simpletest"
 )
 
 #

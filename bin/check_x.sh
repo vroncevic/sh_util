@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_X_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_X}"
+    [USAGE_TOOL]="${UTIL_CHECK_X}"
     [USAGE_ARG1]="[XINIT] Instance of tool for running X session"
     [USAGE_EX_PRE]="# Example checking X Server"
-    [USAGE_EX]="__${UTIL_CHECK_X} \"xinit\""
+    [USAGE_EX]="${UTIL_CHECK_X} \"xinit\""
 )
 
 #

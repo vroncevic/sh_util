@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A RECORD_MIC_USAGE=(
-    [USAGE_TOOL]="__${UTIL_RECORD_MIC}"
+    [USAGE_TOOL]="${UTIL_RECORD_MIC}"
     [USAGE_ARG1]="[FILE] Name of media file"
     [USAGE_EX_PRE]="# Recording from microfon to test.mp3"
-    [USAGE_EX]="__${UTIL_RECORD_MIC} test.mp3"
+    [USAGE_EX]="${UTIL_RECORD_MIC} test.mp3"
 )
 
 #

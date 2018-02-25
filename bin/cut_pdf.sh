@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CUT_PDF_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CUT_PDF}"
+    [USAGE_TOOL]="${UTIL_CUT_PDF}"
     [USAGE_ARG1]="[TIME] Life time"
     [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-    [USAGE_EX]="__${UTIL_CUT_PDF} 5s"
+    [USAGE_EX]="${UTIL_CUT_PDF} 5s"
 )
 
 #

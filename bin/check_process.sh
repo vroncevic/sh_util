@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_PROCESS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_PROCESS}"
+    [USAGE_TOOL]="${UTIL_CHECK_PROCESS}"
     [USAGE_ARG1]="[PROCESS_NAME] Process name"
     [USAGE_EX_PRE]="# Example check ddclient process"
-    [USAGE_EX]="__${UTIL_CHECK_PROCESS} ddclient"
+    [USAGE_EX]="${UTIL_CHECK_PROCESS} ddclient"
 )
 
 #

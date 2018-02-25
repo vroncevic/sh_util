@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGING_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LOGGING}"
+    [USAGE_TOOL]="${UTIL_LOGGING}"
     [USAGE_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
     [USAGE_EX_PRE]="# Example write LOG line structure to file"
-    [USAGE_EX]="__${UTIL_LOGGING} \$LOG_STRUCTURE"
+    [USAGE_EX]="${UTIL_LOGGING} \$LOG_STRUCTURE"
 )
 
 #

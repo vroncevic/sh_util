@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 
 declare -A APP_TO_USER_USAGE=(
-    [USAGE_TOOL]="__${UTIL_APP_TO_USER}"
+    [USAGE_TOOL]="${UTIL_APP_TO_USER}"
     [USAGE_ARG1]="[APP_STRUCT] username, group, app"
     [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
-    [USAGE_EX]="__${UTIL_APP_TO_USER} \$APP_STRUCT"
+    [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
 )
 
 #

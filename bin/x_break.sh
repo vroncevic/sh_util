@@ -19,10 +19,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A X_BREAK_USAGE=(
-    [USAGE_TOOL]="__${UTIL_X_BREAK}"
+    [USAGE_TOOL]="${UTIL_X_BREAK}"
     [USAGE_ARG1]="[TIME] Life time"
     [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="__${UTIL_X_BREAK} 5s"
+    [USAGE_EX]="${UTIL_X_BREAK} 5s"
 )
 
 #

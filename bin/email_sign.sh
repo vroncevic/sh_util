@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A EMAIL_SIGN_USAGE=(
-    [USAGE_TOOL]="__${UTIL_EMAIl_SIGN}"
+    [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
     [USAGE_ARG1]="[NAME] Full name"
     [USAGE_ARG2]="[WP] Work position"
     [USAGE_ARG3]="[DN] Department"
@@ -25,7 +25,7 @@ declare -A EMAIL_SIGN_USAGE=(
     [USAGE_ARG5]="[MOB] Mobile number"
     [USAGE_ARG6]="[EMAIL] Email address"
     [USAGE_EX_PRE]="# Example generating email signature"
-    [USAGE_EX]="__${UTIL_EMAIl_SIGN} SIGN_STRUCT"
+    [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
 )
 
 #

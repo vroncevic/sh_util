@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A WRAP_TEXT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_WRAP_TEXT}"
+    [USAGE_TOOL]="${UTIL_WRAP_TEXT}"
     [USAGE_ARG1]="[PATH] Path to the target(s)"
     [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="__${UTIL_WRAP_TEXT} /data/"
+    [USAGE_EX]="${UTIL_WRAP_TEXT} /data/"
 )
 
 #

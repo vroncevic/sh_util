@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_cfg.sh
 
 declare -A LOAD_UTIL_CONF_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LOAD_UTIL_CONF}"
+    [USAGE_TOOL]="${UTIL_LOAD_UTIL_CONF}"
     [USAGE_ARG1]="[FILE] Path to config file"
     [USAGE_ARG2]="[CONFIG] Hash structure for config"
     [USAGE_EX_PRE]="# Example load configuration"
-    [USAGE_EX]="__${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
+    [USAGE_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGED_OUT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LOGGED_OUT}"
+    [USAGE_TOOL]="${UTIL_LOGGED_OUT}"
     [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
     [USAGE_EX_PRE]="# Checking user to log out"
-    [USAGE_EX]="__${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
+    [USAGE_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A DATE_TO_ISO8601_USAGE=(
-    [USAGE_TOOL]="__${UTIL_DATE_TO_ISO8601}"
+    [USAGE_TOOL]="${UTIL_DATE_TO_ISO8601}"
     [USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
     [USAGE_EX_PRE]="# Converting time to iso8601"
-    [USAGE_EX]="__${UTIL_DATE_TO_ISO8601} \"tester.log\""
+    [USAGE_EX]="${UTIL_DATE_TO_ISO8601} \"tester.log\""
 )
 #
 # @brief  Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)

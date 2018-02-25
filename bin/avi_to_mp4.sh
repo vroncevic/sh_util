@@ -18,10 +18,10 @@ UTIL_LOG=$UTIL/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A AVI_TO_MP4_USAGE=(
-    [USAGE_TOOL]="__${UTIL_AVI_TO_MP4}"
+    [USAGE_TOOL]="${UTIL_AVI_TO_MP4}"
     [USAGE_ARG1]="[FILE] Path to AVI file"
     [USAGE_EX_PRE]="# Example converting AVI file"
-    [USAGE_EX]="__${UTIL_AVI_TO_MP4} test.avi"
+    [USAGE_EX]="${UTIL_AVI_TO_MP4} test.avi"
 )
 
 #

@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VOFFICE_LIST_USAGE=(
-    [USAGE_TOOL]="__${UTIL_VOFFICE_LIST}"
+    [USAGE_TOOL]="${UTIL_VOFFICE_LIST}"
     [USAGE_ARG1]="[VM_DISK]  Path to lock file"
     [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="__${UTIL_VOFFICE_LIST} \$VM_DISK"
+    [USAGE_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
 )
 
 #

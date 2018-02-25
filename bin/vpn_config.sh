@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VPN_CONFIG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_VPN_CONFIG}"
+    [USAGE_TOOL]="${UTIL_VPN_CONFIG}"
     [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
     [USAGE_EX_PRE]="# Generate openVPN configuration"
-    [USAGE_EX]="__${UTIL_VPN_CONFIG} \$VPN_STRUCT"
+    [USAGE_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
 )
 
 #

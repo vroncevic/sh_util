@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A BLOT_OUT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_BLOT_OUT}"
+    [USAGE_TOOL]="${UTIL_BLOT_OUT}"
     [USAGE_ARG1]="[FILE_NAME] Name of file"
     [USAGE_EX_PRE]="# Example delete file with high security"
-    [USAGE_EX]="__${UTIL_BLOT_OUT} /opt/test.ini"
+    [USAGE_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
 )
 
 #

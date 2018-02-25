@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_LINES_USAGE=(
-    [USAGE_TOOL]="__${UTIL_RM_LINES}"
+    [USAGE_TOOL]="${UTIL_RM_LINES}"
     [USAGE_ARG1]="[IFILE]  Name of file for operation"
     [USAGE_ARG2]="[OFILE] Name of the resulting file"
     [USAGE_EX_PRE]="# Create a file n bytes large"
-    [USAGE_EX]="__${UTIL_RM_LINES} /opt/test.txt /opt/result.txt"
+    [USAGE_EX]="${UTIL_RM_LINES} /opt/test.txt /opt/result.txt"
 )
 
 #

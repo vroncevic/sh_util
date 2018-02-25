@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A IS_SPAMMER_USAGE=(
-    [USAGE_TOOL]="__${UTIL_IS_SPAMMER}"
+    [USAGE_TOOL]="${UTIL_IS_SPAMMER}"
     [USAGE_ARG1]="[DOMAIN] Domain name"
     [USAGE_EX_PRE]="# Example checking domain"
-    [USAGE_EX]="__${UTIL_IS_SPAMMER} domain.cc"
+    [USAGE_EX]="${UTIL_IS_SPAMMER} domain.cc"
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return

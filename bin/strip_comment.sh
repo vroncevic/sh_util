@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A STRIP_COMMENT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_STRIP_COMMENT}"
+    [USAGE_TOOL]="${UTIL_STRIP_COMMENT}"
     [USAGE_ARG1]="[FILE] Path to C file code"
     [USAGE_EX_PRE]="# Strips comments from C code"
-    [USAGE_EX]="__${UTIL_STRIP_COMMENT} /opt/test.c"
+    [USAGE_EX]="${UTIL_STRIP_COMMENT} /opt/test.c"
 )
 
 #

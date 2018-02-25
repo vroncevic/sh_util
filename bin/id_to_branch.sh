@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ID_TO_BRANCH_USAGE=(
-    [USAGE_TOOL]="__${UTIL_ID_TO_BRANCH}"
+    [USAGE_TOOL]="${UTIL_ID_TO_BRANCH}"
     [USAGE_ARG1]="[ID] Name of town or country"
     [USAGE_EX_PRE]="# Example convert ns to ns-frobas-employee"
-    [USAGE_EX]="__${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
+    [USAGE_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
 )
 
 #

@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A WORD_TO_TXT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_WORD_TO_TXT}"
+    [USAGE_TOOL]="${UTIL_WORD_TO_TXT}"
     [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
     [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
-    [USAGE_EX]="__${UTIL_WORD_TO_TXT} test.doc"
+    [USAGE_EX]="${UTIL_WORD_TO_TXT} test.doc"
 )
 
 #

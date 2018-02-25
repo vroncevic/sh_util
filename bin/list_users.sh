@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LIST_USERS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LIST_USERS}"
+    [USAGE_TOOL]="${UTIL_LIST_USERS}"
     [USAGE_ARG1]="[ID] Minimal user id"
     [USAGE_EX_PRE]="# Example print all common user names"
-    [USAGE_EX]="__${UTIL_LIST_USERS} 500"
+    [USAGE_EX]="${UTIL_LIST_USERS} 500"
 )
 
 #

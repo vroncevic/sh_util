@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A COL_PRINT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_COL_PRINT}"
+    [USAGE_TOOL]="${UTIL_COL_PRINT}"
     [USAGE_ARG1]="[MSG] Message to text"
     [USAGE_ARG2]="[COL] Color for text"
     [USAGE_EX_PRE]="# Example printing color text"
-    [USAGE_EX]="__${UTIL_COL_PRINT} \$MSG \$BLUE"
+    [USAGE_EX]="${UTIL_COL_PRINT} \$MSG \$BLUE"
 )
 
 BLACK='\E[30;47m'

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A TEST_HDD_USAGE=(
-    [USAGE_TOOL]="__${UTIL_TEST_HDD}"
+    [USAGE_TOOL]="${UTIL_TEST_HDD}"
     [USAGE_ARG1]="[TIME_COUNT] Time count"
     [USAGE_EX_PRE]="# Creating zerofile and test hdd"
-    [USAGE_EX]="__${UTIL_TEST_HDD} 500"
+    [USAGE_EX]="${UTIL_TEST_HDD} 500"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A ZIP_FILE_USAGE=(
-    [USAGE_TOOL]="__${UTIL_ZIP_FILE}"
+    [USAGE_TOOL]="${UTIL_ZIP_FILE}"
     [USAGE_ARG1]="[FILE] Name of file"
     [USAGE_EX-PRE]="# Example zipping a file"
-    [USAGE_EX]="__${UTIL_ZIP_FILE} freshtool.txt"
+    [USAGE_EX]="${UTIL_ZIP_FILE} freshtool.txt"
 )
 
 #

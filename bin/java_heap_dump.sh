@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A JAVA_HEAP_DUMP_USAGE=(
-    [USAGE_TOOL]="__${UTIL_JAVA_HEAP_DUMP}"
+    [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
     [USAGE_ARG1]="[PIDJVM] PID of JVM"
     [USAGE_EX_PRE]="# Create a heap dump of a Java process"
-    [USAGE_EX]="__${UTIL_JAVA_HEAP_DUMP} 2334"
+    [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
 )
 
 #

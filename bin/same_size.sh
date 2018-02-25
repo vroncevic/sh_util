@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SAME_SIZE_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SAME_SIZE}"
+    [USAGE_TOOL]="${UTIL_SAME_SIZE}"
     [USAGE_ARG1]="[DIR] Directory path"
     [USAGE_EX_PRE]="# List files of same size in dir"
-    [USAGE_EX]="__${UTIL_SAME_SIZE} /data/"
+    [USAGE_EX]="${UTIL_SAME_SIZE} /data/"
 )
 
 #

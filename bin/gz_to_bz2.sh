@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A GZ_TO_BZ2_USAGE=(
-    [USAGE_TOOL]="__${UTIL_GZ_TO_BZ2}"
+    [USAGE_TOOL]="${UTIL_GZ_TO_BZ2}"
     [USAGE_ARG1]="[FILE] Name of gzip archive"
     [USAGE_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
-    [USAGE_EX]="__${UTIL_GZ_TO_BZ2} test.tar.gz"
+    [USAGE_EX]="${UTIL_GZ_TO_BZ2} test.tar.gz"
 )
 
 #

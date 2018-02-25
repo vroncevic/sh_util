@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LIST_PORT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LIST_PORTS}"
+    [USAGE_TOOL]="${UTIL_LIST_PORTS}"
     [USAGE_ARG1]="[PORT] Which you need to check"
     [USAGE_EX-PRE]="# Example check port 1734"
-    [USAGE_EX]="__${UTIL_LIST_PORTS} 1734"
+    [USAGE_EX]="${UTIL_LIST_PORTS} 1734"
 )
 
 #

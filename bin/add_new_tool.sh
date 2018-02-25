@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ADD_NEW_TOOL_USAGE=(
-    [USAGE_TOOL]="__${UTIL_ADD_NEW_TOOL}"
+    [USAGE_TOOL]="${UTIL_ADD_NEW_TOOL}"
     [USAGE_ARG1]="[TOOL_NAME] Name of App/Tool/Script"
     [USAGE_EX_PRE]="# Example adding files for Thunderbird"
-    [USAGE_EX]="__${UTIL_ADD_NEW_TOOL} thunderbird"
+    [USAGE_EX]="${UTIL_ADD_NEW_TOOL} thunderbird"
 )
 
 #

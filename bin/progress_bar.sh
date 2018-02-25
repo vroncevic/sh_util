@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A PROGRESS_BAR_USAGE=(
-    [USAGE_TOOL]="__${UTIL_PROGRESS_BAR}"
+    [USAGE_TOOL]="${UTIL_PROGRESS_BAR}"
     [USAGE_ARG1]="[BW] Width of bar"
     [USAGE_ARG2]="[MP] Maximal percent"
     [USAGE_EX_PRE]="# Example drawing progress_bar"
-    [USAGE_EX]="__${UTIL_PROGRESS_BAR} \$PB_STRUCT"
+    [USAGE_EX]="${UTIL_PROGRESS_BAR} \$PB_STRUCT"
 )
 
 #

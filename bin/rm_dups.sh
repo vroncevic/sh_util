@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_DUPS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_RM_DUPS}"
+    [USAGE_TOOL]="${UTIL_RM_DUPS}"
     [USAGE_ARG1]="[STREAM] stdin or file path"
     [USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
-    [USAGE_EX]="__${UTIL_RM_DUPS} /data/test.txt"
+    [USAGE_EX]="${UTIL_RM_DUPS} /data/test.txt"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A PATH_PROC_USAGE=(
-    [USAGE_TOOL]="__${UTIL_PATH_PROC}"
+    [USAGE_TOOL]="${UTIL_PATH_PROC}"
     [USAGE_ARG1]="[PROCESS] Process ID"
     [USAGE_EX_PRE]="# Example Gives complete path name of process"
-    [USAGE_EX]="__${UTIL_PATH_PROC} 1356"
+    [USAGE_EX]="${UTIL_PATH_PROC} 1356"
 )
 
 #

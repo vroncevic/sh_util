@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A MAKE_ISO_USAGE=(
-    [USAGE_TOOL]="__${UTIL_MAKE_ISO}"
+    [USAGE_TOOL]="${UTIL_MAKE_ISO}"
     [USAGE_ARG1]="[SRC] Target media for cloning or restoring"
     [USAGE_ARG2]="[DST]  Final destination"
     [USAGE_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
-    [USAGE_EX]="__${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
+    [USAGE_EX]="${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
 )
 
 #

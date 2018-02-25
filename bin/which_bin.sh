@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A WHICH_BIN_USAGE=(
-    [USAGE_TOOL]="__${UTIL_WHICH_BIN}"
+    [USAGE_TOOL]="${UTIL_WHICH_BIN}"
     [USAGE_ARG1]="[PATH] Path to destionation"
     [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="__${UTIL_WHICH_BIN} /data/"
+    [USAGE_EX]="${UTIL_WHICH_BIN} /data/"
 )
 
 #

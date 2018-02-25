@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LIST_OPEN_FILES_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LIST_OPEN_FILES}"
+    [USAGE_TOOL]="${UTIL_LIST_OPEN_FILES}"
     [USAGE_ARG1]="[USR] System username"
     [USAGE_EX_PRE]="# Example list all opened files by user"
-    [USAGE_EX]="__${UTIL_LIST_OPEN_FILES} vroncevic"
+    [USAGE_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
 )
 
 #

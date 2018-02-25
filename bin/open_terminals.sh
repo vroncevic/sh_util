@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A OPEN_TERMINALS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_OPEN_TERMINALS}"
+    [USAGE_TOOL]="${UTIL_OPEN_TERMINALS}"
     [USAGE_ARG1]="[TERMS] number of terminal windows"
     [USAGE_EX_PRE]="# Open 4 terminal windows"
-    [USAGE_EX]="__${UTIL_OPEN_TERMINALS} 4"
+    [USAGE_EX]="${UTIL_OPEN_TERMINALS} 4"
 )
 
 #

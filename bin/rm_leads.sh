@@ -16,10 +16,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_LEADS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_RM_LEADS}"
+    [USAGE_TOOL]="${UTIL_RM_LEADS}"
     [USAGE_ARG1]="[FILES] Name of file"
     [USAGE_EX_PRE]="# Remove empty leading spaces from an ascii file"
-    [USAGE_EX]="__${UTIL_RM_LEADS} /data/test.txt"
+    [USAGE_EX]="${UTIL_RM_LEADS} /data/test.txt"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_TOOL_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_TOOL}"
+    [USAGE_TOOL]="${UTIL_CHECK_TOOL}"
     [USAGE_ARG1]="[TOOL] Path to App/Tool/Script"
     [USAGE_EX_PRE]="# Example checking java tool"
-    [USAGE_EX]="__${UTIL_CHECK_TOOL} /usr/share/java"
+    [USAGE_EX]="${UTIL_CHECK_TOOL} /usr/share/java"
 )
 
 #

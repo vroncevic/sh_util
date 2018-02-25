@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A BYTE_TRAFFIC_USAGE=(
-    [USAGE_TOOL]="__${UTIL_BYTE_TRAFFIC}"
+    [USAGE_TOOL]="${UTIL_BYTE_TRAFFIC}"
     [USAGE_ARG1]="[TEST_STRUCT] Time and name of interface"
     [USAGE_EX_PRE]="# Display network traffic on an interface"
-    [USAGE_EX]="__${UTIL_BYTE_TRAFFIC} \$TEST_STRUCT"
+    [USAGE_EX]="${UTIL_BYTE_TRAFFIC} \$TEST_STRUCT"
 )
 
 #

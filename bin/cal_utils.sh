@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CAL_UTILS_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CAL_UTILS}"
+    [USAGE_TOOL]="${UTIL_CAL_UTILS}"
     [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
     [USAGE_EX_PRE]="# Example geting last working day in May 1987"
-    [USAGE_EX]="__${UTIL_CAL_UTILS} \$CAL_STRUCT"
+    [USAGE_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
 )
 
 #

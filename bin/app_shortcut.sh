@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A APP_SHORTCUT_USAGE=(
-    [USAGE_TOOL]="__${UTIL_APP_SHORTCUT}"
+    [USAGE_TOOL]="${UTIL_APP_SHORTCUT}"
     [USAGE_ARG1]="[APP_STRUCT] App name and description"
     [USAGE_EX_PRE]="# Example generating WoLAN shortcut"
-    [USAGE_EX]="__${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
+    [USAGE_EX]="${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
 )
 
 #

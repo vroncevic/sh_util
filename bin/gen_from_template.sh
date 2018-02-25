@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A GEN_FROM_TEMPLATE_USAGE=(
-    [USAGE_TOOL]="__${UTIL_GEN_FROM_TEMPLATE}"
+    [USAGE_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
     [USAGE_ARG1]="[INPUT FILE] Template file"
     [USAGE_ARG2]="[OUTPUT FILE] Final result file"
     [USAGE_EX_PRE]="# Example generating from template file"
-    [USAGE_EX]="__${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
+    [USAGE_EX]="${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
 )
 
 #

@@ -18,11 +18,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SEND_MAIL_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SEND_MAIL}"
+    [USAGE_TOOL]="${UTIL_SEND_MAIL}"
     [USAGE_ARG1]="[MSG] Email text body"
     [USAGE_ARG2]="[EMAIL2ADMIN] Full email address"
     [USAGE_EX_PRE]="# Example sending simple message"
-    [USAGE_EX]="__${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
+    [USAGE_EX]="${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
 )
 
 #

@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A MAKE_SSH_CONFIG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SSH_CONFIG}"
+    [USAGE_TOOL]="${UTIL_SSH_CONFIG}"
     [USAGE_ARG1]="[USR] System username"
     [USAGE_ARG2]="[DEP] System group"
     [USAGE_EX_PRE]="# Generate SSH configuration"
-    [USAGE_EX]="__${UTIL_SSH_CONFIG} vroncevic users"
+    [USAGE_EX]="${UTIL_SSH_CONFIG} vroncevic users"
 )
 
 #

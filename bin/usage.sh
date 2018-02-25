@@ -66,7 +66,7 @@ function usage {
         return $SUCCESS
     fi
     printf "%s\n" "  Error at ${FPARENT}, provide argument USAGE structure of:"
-    printf "%s\n" "  [USAGE_TOOL], [USAGE_ARG1], ...[USAGE_ARGn] and [USAGE_EX]"
+    printf "%s\n" "  [USAGE_TOOL], [USAGE_ARG1],...[USAGE_ARGn] and [USAGE_EX]"
     printf "%s\n" "  [USAGE_TOOL]    Name of Tool/Script/Application"
     printf "%s\n" "  [USAGE_ARG1]    First argument for Tool or Application"
     printf "%s\n" "  [USAGE_ARG2]    Second argument for Tool or Application"

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SLOF_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SLOF}"
+    [USAGE_TOOL]="${UTIL_SLOF}"
     [USAGE_ARG1]="[SIZE] LIst in GB/MB"
     [USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
-    [USAGE_EX]="__${UTIL_SLOF} large"
+    [USAGE_EX]="${UTIL_SLOF} large"
 )
 
 #

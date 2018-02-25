@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A X_COPY_USAGE=(
-    [USAGE_TOOL]="__${UTIL_X_COPY}"
+    [USAGE_TOOL]="${UTIL_X_COPY}"
     [USAGE_ARG1]="[XCOPY_STRUCT] Tool name, version, path and dev-path"
     [USAGE_EX_PRE]="# Copy tool to folder destination"
-    [USAGE_EX]="__${UTIL_X_COPY} \$XCOPY_STRUCT"
+    [USAGE_EX]="${UTIL_X_COPY} \$XCOPY_STRUCT"
 )
 
 #

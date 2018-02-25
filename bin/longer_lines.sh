@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LONGER_LINES_USAGE=(
-    [USAGE_TOOL]="__${UTIL_LONGER_LINES}"
+    [USAGE_TOOL]="${UTIL_LONGER_LINES}"
     [USAGE_ARG1]="[NUMCHARS] an integer referring to min characters per line"
     [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
-    [USAGE_EX]="__${UTIL_LONGER_LINES} 45"
+    [USAGE_EX]="${UTIL_LONGER_LINES} 45"
 )
 
 #

@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_CFG_USAGE=(
-    [USAGE_TOOL]="__${UTIL_CHECK_CFG}"
+    [USAGE_TOOL]="${UTIL_CHECK_CFG}"
     [USAGE_ARG1]="[TOOL_CFG] Path to config file"
     [USAGE_EX_PRE]="# Example checking config file"
-    [USAGE_EX]="__${UTIL_CHECK_CFG} /etc/sometool.cfg"
+    [USAGE_EX]="${UTIL_CHECK_CFG} /etc/sometool.cfg"
 )
 
 #

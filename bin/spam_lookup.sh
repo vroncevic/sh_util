@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SPAM_LOOKUP_USAGE=(
-    [USAGE_TOOL]="__${UTIL_SPAM_LOOKUP}"
+    [USAGE_TOOL]="${UTIL_SPAM_LOOKUP}"
     [USAGE_ARG1]="[DOMAIN] Domain name"
     [USAGE_EX_PRE]="# Example check www.domain.cc"
-    [USAGE_EX]="__${UTIL_SPAM_LOOKUP} www.domain.cc"
+    [USAGE_EX]="${UTIL_SPAM_LOOKUP} www.domain.cc"
 )
 
 #

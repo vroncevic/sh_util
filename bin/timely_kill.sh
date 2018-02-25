@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A TIMELY_KILL_USAGE=(
-    [USAGE_TOOL]="__${UTIL_TIMELY_KILL}"
+    [USAGE_TOOL]="${UTIL_TIMELY_KILL}"
     [USAGE_ARG1]="[PID]  Process ID"
     [USAGE_ARG2]="[TIME] Time <n>s|m|h|d"
     [USAGE_EX_PRE]="# Destroy process in <n>s|m|h|d"
-    [USAGE_EX]="__${UTIL_TIMELY_KILL} freshtool 5s"
+    [USAGE_EX]="${UTIL_TIMELY_KILL} freshtool 5s"
 )
 
 #
