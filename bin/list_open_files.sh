@@ -66,7 +66,7 @@ function list_open_files {
                 return $SUCCESS
             fi
             MSG="Force exit!"
-            info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_OPEN_FILES"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
             return $NOT_SUCCESS
         fi
         MSG="Force exit!"
