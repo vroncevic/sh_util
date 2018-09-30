@@ -1,4 +1,4 @@
-# Shell Utilities (Bash scripts).
+# Shell Utilities.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -20,7 +20,7 @@ cp -R ~/sh_util/log/   /root/scripts/sh_util/ver.1.0/
 
 This module requires these other modules and libraries:
 
-    * None
+* None
 
 ### COPYRIGHT AND LICENCE
 
