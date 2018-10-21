@@ -171,7 +171,7 @@ sh_util/
 │   ├── vpn_config.cfg
 │   ├── word_to_txt.cfg
 │   └── x_break.cfg
-├── log/
-│   └── sh_util.log
+└── log/
+    └── sh_util.log
 ```
 
