@@ -1,4 +1,4 @@
-# Shell Utilities.
+# Shell Utilities (Bash scripts).
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -35,9 +35,9 @@ at your option, any later version of Bash 4 you may have available.
 ### SH_UTIL STRUCTURE
 
 ```
-/sh_util/
+sh_util/
 │
-├── /bin/
+├── bin/
 │   ├── add_new_tool.sh
 │   ├── app_shortcut.sh
 │   ├── app_to_user.sh
@@ -127,7 +127,7 @@ at your option, any later version of Bash 4 you may have available.
 │   ├── x_break.sh
 │   ├── x_copy.sh
 │   └── zip_file.sh
-├── /conf/
+├── conf/
 │   ├── add_new_tool.cfg
 │   ├── app_shortcut.cfg
 │   ├── app_to_user.cfg
@@ -152,7 +152,7 @@ at your option, any later version of Bash 4 you may have available.
 │   ├── sh_util.cfg
 │   ├── spam_lookup.cfg
 │   ├── ssh_config.cfg
-│   ├── /template/
+│   ├── template/
 │   │   ├── app_shortcut.template
 │   │   ├── broadcast_message.template
 │   │   ├── create_esignature.template
@@ -171,7 +171,7 @@ at your option, any later version of Bash 4 you may have available.
 │   ├── vpn_config.cfg
 │   ├── word_to_txt.cfg
 │   └── x_break.cfg
-├── /log/
+├── log/
 │   └── sh_util.log
 ```
 
