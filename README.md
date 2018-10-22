@@ -36,7 +36,6 @@ at your option, any later version of Bash 4 you may have available.
 
 ```
 sh_util/
-│
 ├── bin/
 │   ├── add_new_tool.sh
 │   ├── app_shortcut.sh
@@ -92,6 +91,8 @@ sh_util/
 │   ├── low_swap.sh
 │   ├── make_iso.sh
 │   ├── md5sum.sh
+│   ├── named_pipe_reader.sh
+│   ├── named_pipe_writer.sh
 │   ├── on_connect.sh
 │   ├── open_terminals.sh
 │   ├── path_proc.sh
@@ -171,7 +172,8 @@ sh_util/
 │   ├── vpn_config.cfg
 │   ├── word_to_txt.cfg
 │   └── x_break.cfg
+│
 └── log/
-    └── sh_util.log
+    └── sh_util.log
 ```
 
