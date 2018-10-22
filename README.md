@@ -1,4 +1,4 @@
-# Shell Utilities (Bash scripts).
+# Shell Utilities
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
