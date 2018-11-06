@@ -16,23 +16,17 @@ cp -R ~/sh_util/conf/  /root/scripts/sh_util/ver.1.0/
 cp -R ~/sh_util/log/   /root/scripts/sh_util/ver.1.0/
 ```
 
+:sparkles:
+
 ### DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-* None
+```
+None
+```
 
-### COPYRIGHT AND LICENCE
-
-Copyright (C) 2018 by http://vroncevic.github.io/sh_util/
-
-This tool is free software; you can redistribute it and/or modify
-it under the same terms as Bash itself, either Bash version 4.2.47 or,
-at your option, any later version of Bash 4 you may have available.
-
-:sparkles:
-
-### SH_UTIL STRUCTURE
+### SH_UTIL library structure
 
 ```
 sh_util/
@@ -176,4 +170,12 @@ sh_util/
 └── log/
     └── sh_util.log
 ```
+
+### COPYRIGHT AND LICENSE
+
+Copyright (C) 2018 by http://vroncevic.github.io/sh_util/
+
+This tool is free software; you can redistribute it and/or modify
+it under the same terms as Bash itself, either Bash version 4.2.47 or,
+at your option, any later version of Bash 4 you may have available.
 
