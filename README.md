@@ -16,7 +16,7 @@ other information that should be provided before the modules are installed.
 
 - [Installation](https://github.com/vroncevic/sh_util#installation)
 - [Dependencies](https://github.com/vroncevic/sh_util#dependencies)
-- [Library Structure](https://github.com/vroncevic/sh_util#library structure)
+- [Library Structure](https://github.com/vroncevic/sh_util#library-structure)
 - [Docs](https://github.com/vroncevic/sh_util#docs)
 - [Copyright and Licence](https://github.com/vroncevic/sh_util#copyright-and-licence)
 <!-- END doctoc -->
