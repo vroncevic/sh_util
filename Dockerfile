@@ -15,4 +15,18 @@
 
 FROM debian:10
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tree htop
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+ tree \
+ htop
+
+RUN mkdir /sh_tool/
+COPY sh_tool /sh_tool/
+RUN find /sh_tool/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
+RUN mkdir -p /root/scripts/sh_util/ver.1.0/
+RUN mkdir /root/bin/
+RUN cp -R /sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
+RUN cp -R /sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
+RUN cp -R /sh_tool/log/   /root/scripts/sh_util/ver.1.0/
+RUN rm -Rf /sh_tool/
+RUN chmod -R 755 /root/scripts/sh_util/ver.1.0/
+RUN tree /root/scripts/sh_util/ver.1.0/
