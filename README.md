@@ -1,8 +1,8 @@
 # Shell Utilities
 
-***sh_util*** modules are build blocks for bash applications/tools/scripts.
+**sh_util** modules are build blocks for bash applications/tools/scripts.
 
-Developed in bash code: ***100%***.
+Developed in [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -14,18 +14,18 @@ other information that should be provided before the modules are installed.
 <!-- START doctoc -->
 **Table of Contents**
 
-- [Installation](https://github.com/vroncevic/sh_util#installation)
-- [Dependencies](https://github.com/vroncevic/sh_util#dependencies)
-- [Library Structure](https://github.com/vroncevic/sh_util#library-structure)
-- [Docs](https://github.com/vroncevic/sh_util#docs)
-- [Copyright and Licence](https://github.com/vroncevic/sh_util#copyright-and-licence)
+- [Installation](#installation)
+- [Dependencies](#dependencies)
+- [Library Structure](#library-structure)
+- [Docs](#docs)
+- [Copyright and Licence](#copyright-and-licence)
 <!-- END doctoc -->
 
 ### INSTALLATION
 
 Navigate to release [page](https://github.com/vroncevic/sh_util/releases) download and extract release archive.
 
-To install modules type the following:
+To install **sh_util** type the following:
 
 ```
 tar xvzf sh_util-x.y.z.tar.gz
@@ -192,7 +192,7 @@ Or You can use docker to create image/container.
 
 ### DEPENDENCIES
 
-This module requires these other modules and libraries:
+**sh_util** requires next modules and libraries:
 
 ```
 None
@@ -200,7 +200,7 @@ None
 
 ### LIBRARY STRUCTURE
 
-***sh_util*** is based on MOP.
+**sh_util** is based on MOP.
 
 ```
 .
@@ -349,14 +349,14 @@ None
 [![Documentation Status](https://readthedocs.org/projects/sh_util/badge/?version=latest)](https://sh_util.readthedocs.io/projects/sh_util/en/latest/?badge=latest)
 
 More documentation and info at:
-
-* https://sh_util.readthedocs.io/en/latest/
+* [https://sh_util.readthedocs.io/en/latest/](https://sh_util.readthedocs.io/en/latest/)
+* [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/)
 
 ### COPYRIGHT AND LICENSE
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2018 by http://vroncevic.github.io/sh_util/
+Copyright (C) 2015 by [vroncevic.github.io/sh_util](https://vroncevic.github.io/sh_util)
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Bash itself, either Bash version 4.2.47 or,
