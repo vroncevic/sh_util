@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SSH_CMD_USAGE=(
-    [USAGE_TOOL]="${UTIL_SSH_CMD}"
-    [USAGE_ARG1]="[SSH_STRUCT] Username, server name and path to script"
-    [USAGE_EX_PRE]="# Example running script on remote server"
-    [USAGE_EX]="${UTIL_SSH_CMD} \$SSH_STRUCT"
+declare -A SSH_CMD_Usage=(
+    [Usage_TOOL]="${UTIL_SSH_CMD}"
+    [Usage_ARG1]="[SSH_STRUCT] Username, server name and path to script"
+    [Usage_EX_PRE]="# Example running script on remote server"
+    [Usage_EX]="${UTIL_SSH_CMD} \$SSH_STRUCT"
 )
 
 #
@@ -71,7 +71,7 @@ function ssh_cmd {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SSH_CMD"
         return $NOT_SUCCESS
     fi
-    usage SSH_CMD_USAGE
+    usage SSH_CMD_Usage
     return $NOT_SUCCESS
 }
 

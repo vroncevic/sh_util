@@ -17,12 +17,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A BROADCAST_BMSG_USAGE=(
-    [USAGE_TOOL]="${UTIL_BROADCAST_BMSG}"
-    [USAGE_ARG1]="[BMSG] Main message for broadcast"
-    [USAGE_ARG2]="[NOTE] Short note with fullname"
-    [USAGE_EX_PRE]="# Example sending broadcast message"
-    [USAGE_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
+declare -A BROADCAST_BMSG_Usage=(
+    [Usage_TOOL]="${UTIL_BROADCAST_BMSG}"
+    [Usage_ARG1]="[BMSG] Main message for broadcast"
+    [Usage_ARG2]="[NOTE] Short note with fullname"
+    [Usage_EX_PRE]="# Example sending broadcast message"
+    [Usage_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
 )
 
 #
@@ -88,7 +88,7 @@ function broadcast_message {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_BROADCAST_BMSG"
         return $NOT_SUCCESS
     fi
-    usage BROADCAST_BMSG_USAGE
+    usage BROADCAST_BMSG_Usage
     return $NOT_SUCCESS
 }
 

@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A JAVA_HEAP_DUMP_USAGE=(
-    [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
-    [USAGE_ARG1]="[PIDJVM] PID of JVM"
-    [USAGE_EX_PRE]="# Create a heap dump of a Java process"
-    [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
+declare -A JAVA_HEAP_DUMP_Usage=(
+    [Usage_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
+    [Usage_ARG1]="[PIDJVM] PID of JVM"
+    [Usage_EX_PRE]="# Create a heap dump of a Java process"
+    [Usage_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
 )
 
 #
@@ -70,11 +70,12 @@ function java_heap_dump {
                 info_debug_message_end "Done" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
                 return $SUCCESS
             fi
+        fi
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
         return $NOT_SUCCESS
     fi
-    usage JAVA_HEAP_DUMP_USAGE
+    usage JAVA_HEAP_DUMP_Usage
     return $NOT_SUCCESS
 }
 

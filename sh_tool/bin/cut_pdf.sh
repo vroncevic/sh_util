@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A CUT_PDF_USAGE=(
-    [USAGE_TOOL]="${UTIL_CUT_PDF}"
-    [USAGE_ARG1]="[TIME] Life time"
-    [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-    [USAGE_EX]="${UTIL_CUT_PDF} 5s"
+declare -A CUT_PDF_Usage=(
+    [Usage_TOOL]="${UTIL_CUT_PDF}"
+    [Usage_ARG1]="[TIME] Life time"
+    [Usage_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
+    [Usage_EX]="${UTIL_CUT_PDF} 5s"
 )
 
 #
@@ -95,7 +95,7 @@ function cut_pdf {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
         return $NOT_SUCCESS
     fi
-    usage CUT_PDF_USAGE
+    usage CUT_PDF_Usage
     return $NOT_SUCCESS
 }
 

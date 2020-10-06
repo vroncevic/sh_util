@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LIST_USERS_USAGE=(
-    [USAGE_TOOL]="${UTIL_LIST_USERS}"
-    [USAGE_ARG1]="[ID] Minimal user id"
-    [USAGE_EX_PRE]="# Example print all common user names"
-    [USAGE_EX]="${UTIL_LIST_USERS} 500"
+declare -A LIST_USERS_Usage=(
+    [Usage_TOOL]="${UTIL_LIST_USERS}"
+    [Usage_ARG1]="[ID] Minimal user id"
+    [Usage_EX_PRE]="# Example print all common user names"
+    [Usage_EX]="${UTIL_LIST_USERS} 500"
 )
 
 #
@@ -54,7 +54,7 @@ function list_users {
         info_debug_message_end "Done" "$FUNC" "$UTIL_LIST_USERS"
         return $SUCCESS
     fi
-    usage LIST_USERS_USAGE
+    usage LIST_USERS_Usage
     return $NOT_SUCCESS
 }
 

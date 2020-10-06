@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A VBOX_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
-    [USAGE_ARG1]="[USR] System username"
-    [USAGE_EX_PRE]="# Example generating VBOX config files"
-    [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
+declare -A VBOX_CONFIG_Usage=(
+    [Usage_TOOL]="${UTIL_VBOX_CONFIG}"
+    [Usage_ARG1]="[USR] System username"
+    [Usage_EX_PRE]="# Example generating VBOX config files"
+    [Usage_EX]="${UTIL_VBOX_CONFIG} vroncevic"
 )
 
 #
@@ -105,7 +105,7 @@ function vbox_config {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VBOX_CONFIG"
         return $NOT_SUCCESS
     fi
-    usage VBOX_CONFIG_USAGE
+    usage VBOX_CONFIG_Usage
     return $NOT_SUCCESS
 }
 

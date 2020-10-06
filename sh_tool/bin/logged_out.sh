@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LOGGED_OUT_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOGGED_OUT}"
-    [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
-    [USAGE_EX_PRE]="# Checking user to log out"
-    [USAGE_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
+declare -A LOGGED_OUT_Usage=(
+    [Usage_TOOL]="${UTIL_LOGGED_OUT}"
+    [Usage_ARG1]="[LOGOUT_STRUCT] System username and time"
+    [Usage_EX_PRE]="# Checking user to log out"
+    [Usage_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
 )
 
 #
@@ -68,10 +68,9 @@ function logged_out {
         MSG="User [${USR}] just logged out!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
         info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
-        fi
         return $SUCCESS
     fi
-    usage LOGGED_OUT_USAGE
+    usage LOGGED_OUT_Usage
     return $NOT_SUCCESS
 }
 

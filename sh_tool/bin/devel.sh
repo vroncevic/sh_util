@@ -81,7 +81,6 @@ function check_bool_var {
 #
 # declare -A STATUS_STRUCT=(
 #    [TEST1]=$SUCCESS
-#    [TEST2]=$SUCCESS
 #    ...
 #    [TESTN]=$SUCCESS
 # )
@@ -126,7 +125,6 @@ function check_status {
 #
 # declare -A STRING_STRUCT=(
 #    [TEST1]="None"
-#    [TEST2]="SomeKey"
 #    ...
 #    [TESTN]="SomeKey"
 # )
@@ -224,8 +222,8 @@ function info_debug_message_que {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -248,8 +246,8 @@ function info_debug_message_ans {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -272,8 +270,8 @@ function info_debug_message {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -296,7 +294,7 @@ function info_debug_message_end {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 

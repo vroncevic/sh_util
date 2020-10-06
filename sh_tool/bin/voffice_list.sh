@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A VOFFICE_LIST_USAGE=(
-    [USAGE_TOOL]="${UTIL_VOFFICE_LIST}"
-    [USAGE_ARG1]="[VM_DISK]  Path to lock file"
-    [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
+declare -A VOFFICE_LIST_Usage=(
+    [Usage_TOOL]="${UTIL_VOFFICE_LIST}"
+    [Usage_ARG1]="[VM_DISK]  Path to lock file"
+    [Usage_EX_PRE]="# Example running tool"
+    [Usage_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
 )
 
 #
@@ -59,7 +59,7 @@ function voffice_check {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VOFFICE_LIST"
         return $NOT_SUCCESS
     fi
-    usage VOFFICE_LIST_USAGE
+    usage VOFFICE_LIST_Usage
     return $NOT_SUCCESS
 }
 

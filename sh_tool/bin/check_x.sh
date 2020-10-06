@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_X_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_X}"
-    [USAGE_ARG1]="[XINIT] Instance of tool for running X session"
-    [USAGE_EX_PRE]="# Example checking X Server"
-    [USAGE_EX]="${UTIL_CHECK_X} \"xinit\""
+declare -A CHECK_X_Usage=(
+    [Usage_TOOL]="${UTIL_CHECK_X}"
+    [Usage_ARG1]="[XINIT] Instance of tool for running X session"
+    [Usage_EX_PRE]="# Example checking X Server"
+    [Usage_EX]="${UTIL_CHECK_X} \"xinit\""
 )
 
 #
@@ -64,7 +64,7 @@ function check_x {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_X"
         return $NOT_SUCCESS
     fi
-    usage CHECK_X_USAGE
+    usage CHECK_X_Usage
     return $NOT_SUCCESS
 }
 

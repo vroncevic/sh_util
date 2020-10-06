@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A WHICH_BIN_USAGE=(
-    [USAGE_TOOL]="${UTIL_WHICH_BIN}"
-    [USAGE_ARG1]="[PATH] Path to destionation"
-    [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="${UTIL_WHICH_BIN} /data/"
+declare -A WHICH_BIN_Usage=(
+    [Usage_TOOL]="${UTIL_WHICH_BIN}"
+    [Usage_ARG1]="[PATH] Path to destionation"
+    [Usage_EX_PRE]="# Example running tool"
+    [Usage_EX]="${UTIL_WHICH_BIN} /data/"
 )
 
 #
@@ -105,7 +105,7 @@ function which_bin {
         info_debug_message_end "Done" "$FUNC" "$UTIL_WHICH_BIN"
         return $SUCCESS
     fi
-    usage WHICH_BIN_USAGE
+    usage WHICH_BIN_Usage
     return $NOT_SUCCESS
 }
 

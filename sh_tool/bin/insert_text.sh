@@ -14,13 +14,13 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A INSERT_TEXT_USAGE=(
-    [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
-    [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
-    [USAGE_ARG2]="[TEXT] The text file to insert"
-    [USAGE_ARG3]="[FILES] The text file to insert into"
-    [USAGE_EX_PRE]="# Example put text into file"
-    [USAGE_EX]="${UTIL_INSERT_TEXT} 3 test file"
+declare -A INSERT_TEXT_Usage=(
+    [Usage_TOOL]="${UTIL_INSERT_TEXT}"
+    [Usage_ARG1]="[LINE] A line number at which to insert the text file"
+    [Usage_ARG2]="[TEXT] The text file to insert"
+    [Usage_ARG3]="[FILES] The text file to insert into"
+    [Usage_EX_PRE]="# Example put text into file"
+    [Usage_EX]="${UTIL_INSERT_TEXT} 3 test file"
 )
 
 #
@@ -56,8 +56,7 @@ function insert_text {
         TMP1=/tmp/tmp.${RANDOM}$$ TMP2=/tmp/tmp.${RANDOM}$$
         trap 'rm -f $TMP1 $TMP2 >/dev/null 2>&1' 0
         trap "exit 1" 1 2 3 15
-        case "${LINE}" in
-            +([0-9]))
+        if [[ "${LINE}" == +([0-9]) ]]; then
             N=${LINE}
             for A in "${FILES[@]}"
             do
@@ -78,19 +77,17 @@ function insert_text {
                     info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
                 fi
             done
-            ;;
-            *)
+        else
             MSG="Wrong argument!"
             info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
             MSG="Force exit!"
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
             return $NOT_SUCCESS
-            ;;
-        esac
+        fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
         return $SUCCESS
     fi
-    usage INSERT_TEXT_USAGE
+    usage INSERT_TEXT_Usage
     return $NOT_SUCCESS
 }
 

@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_IPV4_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
-    [USAGE_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
-    [USAGE_EX_PRE]="# Example checking IPV4 Address"
-    [USAGE_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
+declare -A CHECK_IPV4_Usage=(
+    [Usage_TOOL]="${UTIL_CHECK_IPV4}"
+    [Usage_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
+    [Usage_EX_PRE]="# Example checking IPV4 Address"
+    [Usage_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
 )
 
 #
@@ -64,7 +64,7 @@ function check_ipv4 {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_IPV4"
         return $NOT_SUCCESS
     fi
-    usage CHECK_IPV4_USAGE
+    usage CHECK_IPV4_Usage
     return $NOT_SUCCESS
 }
 

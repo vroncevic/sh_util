@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LOGGED_IN_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOGGED_IN}"
-    [USAGE_ARG1]="[LOGIN_STRUCT] System username and time"
-    [USAGE_EX_PRE]="# Create a file n bytes large"
-    [USAGE_EX]="${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
+declare -A LOGGED_IN_Usage=(
+    [Usage_TOOL]="${UTIL_LOGGED_IN}"
+    [Usage_ARG1]="[LOGIN_STRUCT] System username and time"
+    [Usage_EX_PRE]="# Create a file n bytes large"
+    [Usage_EX]="${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
 )
 
 #
@@ -71,7 +71,7 @@ function logged_in {
         info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
         return $SUCCESS
     fi
-    usage LOGGED_IN_USAGE
+    usage LOGGED_IN_Usage
     return $NOT_SUCCESS
 }
 

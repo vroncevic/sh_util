@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A MAKE_SSH_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_SSH_CONFIG}"
-    [USAGE_ARG1]="[USR] System username"
-    [USAGE_ARG2]="[DEP] System group"
-    [USAGE_EX_PRE]="# Generate SSH configuration"
-    [USAGE_EX]="${UTIL_SSH_CONFIG} vroncevic users"
+declare -A MAKE_SSH_CONFIG_Usage=(
+    [Usage_TOOL]="${UTIL_SSH_CONFIG}"
+    [Usage_ARG1]="[USR] System username"
+    [Usage_ARG2]="[DEP] System group"
+    [Usage_EX_PRE]="# Generate SSH configuration"
+    [Usage_EX]="${UTIL_SSH_CONFIG} vroncevic users"
 )
 
 #
@@ -99,7 +99,7 @@ function ssh_config {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SSH_CONFIG"
         return $NOT_SUCCESS
     fi
-    usage MAKE_SSH_CONFIG_USAGE
+    usage MAKE_SSH_CONFIG_Usage
     return $NOT_SUCCESS
 }
 

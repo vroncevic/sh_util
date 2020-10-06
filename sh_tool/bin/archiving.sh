@@ -14,18 +14,18 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A TAR_ARCHIVING_USAGE=(
-    [USAGE_TOOL]="make_archive_tar"
-    [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path and file extension"
-    [USAGE_EX_PRE]="# Example create tar archive with png files"
-    [USAGE_EX]="make_archive_tar \$ARCH_STRUCT"
+declare -A TAR_ARCHIVING_Usage=(
+    [Usage_TOOL]="make_archive_tar"
+    [Usage_ARG1]="[ARCHIVE_STRUCTURE]  Path and file extension"
+    [Usage_EX_PRE]="# Example create tar archive with png files"
+    [Usage_EX]="make_archive_tar \$ARCH_STRUCT"
 )
 
-declare -A GZ_ARCHIVING_USAGE=(
-    [USAGE_TOOL]="make_archive_tar_gz"
-    [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
-    [USAGE_EX_PRE]="# Example create tar gz archive with gif images"
-    [USAGE_EX]="make_archive_tar_gz \$ARCH_STRUCT"
+declare -A GZ_ARCHIVING_Usage=(
+    [Usage_TOOL]="make_archive_tar_gz"
+    [Usage_ARG1]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
+    [Usage_EX_PRE]="# Example create tar gz archive with gif images"
+    [Usage_EX]="make_archive_tar_gz \$ARCH_STRUCT"
 )
 
 #
@@ -68,7 +68,7 @@ function make_archive_tar {
         info_debug_message_end "Done" "$FUNC" "$UTIL_ARCHIVING"
         return $SUCCESS
     fi
-    usage TAR_ARCHIVING_USAGE
+    usage TAR_ARCHIVING_Usage
     return $NOT_SUCCESS
 }
 
@@ -113,7 +113,7 @@ function make_archive_tar_gz {
         info_debug_message_end "Done" "$FUNC" "$UTIL_ARCHIVING"
         return $SUCCESS
     fi
-    usage GZ_ARCHIVING_USAGE
+    usage GZ_ARCHIVING_Usage
     return $NOT_SUCCESS
 }
 

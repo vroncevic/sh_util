@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/send_mail.sh
 
-declare -A LOW_SWAP_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
-    [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
-    [USAGE_ARG2]="[EMAIL] Administrator email address"
-    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+declare -A LOW_SWAP_Usage=(
+    [Usage_TOOL]="${UTIL_LOW_SWAP}"
+    [Usage_ARG1]="[LOW_LIMIT] An integer referring to MB"
+    [Usage_ARG2]="[EMAIL] Administrator email address"
+    [Usage_EX_PRE]="# Checking swap memory, is under 12 MB"
+    [Usage_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
 )
 
 #
@@ -51,36 +51,33 @@ function low_swap {
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Checking swap memory, limit [${SWAPLIMIT}]!" STATUS SWAP_FREE
         info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
-        case ${SWAPLIMIT} in
-            +([0-9]))
-                SWAP_FREE=$(free -mo | grep Swap | { read a b c d; echo $d; })
-                if [[ ${SWAP_FREE} < ${SWAPLIMIT} ]]; then
-                    MSG="Swap is running low! Less then ${SWAPLIMIT} MB!"
-                    send_mail "$MSG" "$EMAIL"
-                    STATUS=$?
-                    if [ $STATUS -eq $NOT_SUCCESS ]; then
-                        MSG="Force exit!"
-                        info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
-                        return $NOT_SUCCESS
-                    fi
-                    info_debug_message_end "Done" "$FUNC" "$UTIL_LOW_SWAP"
-                    return $SUCCESS
+        if [[ ${SWAPLIMIT} == +([0-9]) ]]; then
+            SWAP_FREE=$(free -mo | grep Swap | { read a b c d; echo $d; })
+            if [[ ${SWAP_FREE} < ${SWAPLIMIT} ]]; then
+                MSG="Swap is running low! Less then ${SWAPLIMIT} MB!"
+                send_mail "$MSG" "$EMAIL"
+                STATUS=$?
+                if [ $STATUS -eq $NOT_SUCCESS ]; then
+                    MSG="Force exit!"
+                    info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
+                    return $NOT_SUCCESS
                 fi
-                MSG="Swap memory ok!"
-                info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
                 info_debug_message_end "Done" "$FUNC" "$UTIL_LOW_SWAP"
-                return $NOT_SUCCESS
-                ;;
-            *)
-                MSG="Wrong argument"
-                info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
-                MSG="Force exit!"
-                info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
-                return $NOT_SUCCESS
-                ;;
-        esac
+                return $SUCCESS
+            fi
+            MSG="Swap memory ok!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
+            info_debug_message_end "Done" "$FUNC" "$UTIL_LOW_SWAP"
+            return $NOT_SUCCESS
+        else
+            MSG="Wrong argument"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
+            return $NOT_SUCCESS
+        fi
     fi
-    usage LOW_SWAP_USAGE
+    usage LOW_SWAP_Usage
     return $NOT_SUCCESS
 }
 

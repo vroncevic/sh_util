@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A RM_BLANKS_USAGE=(
-    [USAGE_TOOL]="${UTIL_RM_BLANKS}"
-    [USAGE_ARG1]="[FILES] Name of file"
-    [USAGE_EX_PRE]="# Removing blank lines from file"
-    [USAGE_EX]="${UTIL_RM_BLANKS} /data/test.txt"
+declare -A RM_BLANKS_Usage=(
+    [Usage_TOOL]="${UTIL_RM_BLANKS}"
+    [Usage_ARG1]="[FILES] Name of file"
+    [Usage_EX_PRE]="# Removing blank lines from file"
+    [Usage_EX]="${UTIL_RM_BLANKS} /data/test.txt"
 )
 
 #
@@ -78,7 +78,7 @@ function rm_blanks {
         info_debug_message_end "Done" "$FUNC" "$UTIL_RM_BLANKS"
         return $SUCCESS
     fi
-    usage RM_BLANKS_USAGE
+    usage RM_BLANKS_Usage
     return $NOT_SUCCESS
 }
 

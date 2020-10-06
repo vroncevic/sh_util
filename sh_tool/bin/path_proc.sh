@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A PATH_PROC_USAGE=(
-    [USAGE_TOOL]="${UTIL_PATH_PROC}"
-    [USAGE_ARG1]="[PROCESS] Process ID"
-    [USAGE_EX_PRE]="# Example Gives complete path name of process"
-    [USAGE_EX]="${UTIL_PATH_PROC} 1356"
+declare -A PATH_PROC_Usage=(
+    [Usage_TOOL]="${UTIL_PATH_PROC}"
+    [Usage_ARG1]="[PROCESS] Process ID"
+    [Usage_EX_PRE]="# Example Gives complete path name of process"
+    [Usage_EX]="${UTIL_PATH_PROC} 1356"
 )
 
 #
@@ -81,7 +81,7 @@ function path_proc {
         info_debug_message_end "Done" "$FUNC" "$UTIL_PATH_PROC"
         return $SUCCESS
     fi
-    usage PATH_PROC_USAGE
+    usage PATH_PROC_Usage
     return $NOT_SUCCESS
 }
 

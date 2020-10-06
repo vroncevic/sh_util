@@ -17,18 +17,18 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A SET_DB_USAGE=(
-    [USAGE_TOOL]="setup_db"
-    [USAGE_ARG1]="[DB_STRUCT] DB file and path"
-    [USAGE_EX_PRE]="# Example set database"
-    [USAGE_EX]="setup_db \$DB_STRUCT"
+declare -A SET_DB_Usage=(
+    [Usage_TOOL]="setup_db"
+    [Usage_ARG1]="[DB_STRUCT] DB file and path"
+    [Usage_EX_PRE]="# Example set database"
+    [Usage_EX]="setup_db \$DB_STRUCT"
 )
 
-declare -A CHECK_DB_USAGE=(
-    [USAGE_TOOL]="check_db"
-    [USAGE_ARG1]="[FILE] Database file"
-    [USAGE_EX_PRE]="# Example checking database"
-    [USAGE_EX]="check_db test.db"
+declare -A CHECK_DB_Usage=(
+    [Usage_TOOL]="check_db"
+    [Usage_ARG1]="[FILE] Database file"
+    [Usage_EX_PRE]="# Example checking database"
+    [Usage_EX]="check_db test.db"
 )
 
 #
@@ -66,9 +66,9 @@ function setup_db {
         declare -A config_file_integrity=()
         load_util_conf "$UTIL_FILE_INTEGRITY_CFG" config_file_integrity
         STATUS=$?
-        if [ $STATUS -eq $SUCCESS ]; then
+        if [[ $STATUS -eq $SUCCESS ]]; then
             local MD5SUM=${config_file_integrity[MD5SUM]}
-            if [ -e "${FILE}" ];
+            if [[ -e "${FILE}" ]]; then
                 MSG="Write directory name to first line of file!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_FILE_INTEGRITY"
                 echo "${DIR}" > "${FILE}"
@@ -88,7 +88,7 @@ function setup_db {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_FILE_INTEGRITY"
         return $NOT_SUCCESS
     fi
-    usage SET_DB_USAGE
+    usage SET_DB_Usage
     return $NOT_SUCCESS
 }
 
@@ -158,7 +158,7 @@ function check_db {
         info_debug_message_end "Done" "$FUNC" "$UTIL_FILE_INTEGRITY"
         return $SUCCESS
     fi
-    usage CHECK_DB_USAGE
+    usage CHECK_DB_Usage
     return $NOT_SUCCESS
 }
 

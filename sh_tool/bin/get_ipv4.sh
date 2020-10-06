@@ -14,12 +14,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A GET_IPV4_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
-    [USAGE_ARG1]="[INTERFACE] Interface name"
-    [USAGE_ARG2]="[IPV4_ADDRESS] Variabel for storing address"
-    [USAGE_EX_PRE]="# Example get IPV4 logic address"
-    [USAGE_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
+declare -A GET_IPV4_Usage=(
+    [Usage_TOOL]="${UTIL_CHECK_IPV4}"
+    [Usage_ARG1]="[INTERFACE] Interface name"
+    [Usage_ARG2]="[IPV4_ADDRESS] Variabel for storing address"
+    [Usage_EX_PRE]="# Example get IPV4 logic address"
+    [Usage_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
 )
 
 #
@@ -65,7 +65,7 @@ function get_ipv4 {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV4"
         return $NOT_SUCCESS
     fi
-    usage GET_IPV4_USAGE
+    usage GET_IPV4_Usage
     return $NOT_SUCCESS
 }
 

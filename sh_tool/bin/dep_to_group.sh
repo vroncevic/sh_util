@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A DEP_TO_GROUP_USAGE=(
-    [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
-    [USAGE_ARG1]="[DEP] Department name"
-    [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
-    [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
+declare -A DEP_TO_GROUP_Usage=(
+    [Usage_TOOL]="${UTIL_DEP_TO_GROUP}"
+    [Usage_ARG1]="[DEP] Department name"
+    [Usage_EX_PRE]="# Example converting \"Management\" to \"me\""
+    [Usage_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
 )
 
 #
@@ -69,7 +69,7 @@ function dep_to_group {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_DEP_TO_GROUP"
         return $NOT_SUCCESS
     fi
-    usage DEP_TO_GROUP_USAGE
+    usage DEP_TO_GROUP_Usage
     return $NOT_SUCCESS
 }
 

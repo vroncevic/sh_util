@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A LIST_OPEN_FILES_USAGE=(
-    [USAGE_TOOL]="${UTIL_LIST_OPEN_FILES}"
-    [USAGE_ARG1]="[USR] System username"
-    [USAGE_EX_PRE]="# Example list all opened files by user"
-    [USAGE_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
+declare -A LIST_OPEN_FILES_Usage=(
+    [Usage_TOOL]="${UTIL_LIST_OPEN_FILES}"
+    [Usage_ARG1]="[USR] System username"
+    [Usage_EX_PRE]="# Example list all opened files by user"
+    [Usage_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
 )
 
 #
@@ -58,7 +58,7 @@ function list_open_files {
             local LSOFCMD=${config_list_open_files[LSOF]}
             check_tool "${LSOFCMD}"
             STATUS=$?
-            if [ $STATUS -eq $SUCCESS ];
+            if [ $STATUS -eq $SUCCESS ]; then
                 MSG="List opened files by [${USR}]!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
                 eval "${LSOFCMD} -u ${USR}"
@@ -73,7 +73,7 @@ function list_open_files {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
         return $NOT_SUCCESS
     fi
-    usage LIST_OPEN_FILES_USAGE
+    usage LIST_OPEN_FILES_Usage
     return $NOT_SUCCESS
 }
 
