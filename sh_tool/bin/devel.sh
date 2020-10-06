@@ -81,7 +81,6 @@ function check_bool_var {
 #
 # declare -A STATUS_STRUCT=(
 #    [TEST1]=$SUCCESS
-#    [TEST2]=$SUCCESS
 #    ...
 #    [TESTN]=$SUCCESS
 # )
@@ -126,7 +125,6 @@ function check_status {
 #
 # declare -A STRING_STRUCT=(
 #    [TEST1]="None"
-#    [TEST2]="SomeKey"
 #    ...
 #    [TESTN]="SomeKey"
 # )
