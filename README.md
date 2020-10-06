@@ -12,15 +12,17 @@ other information that should be provided before the modules are installed.
 
 [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/graphs/contributors)
 
-<!-- START doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
 - [Installation](#installation)
 - [Dependencies](#dependencies)
-- [Library Structure](#library-structure)
+- [LIBRARY STRUCTURE](#library-structure)
 - [Docs](#docs)
-- [Copyright and Licence](#copyright-and-licence)
-<!-- END doctoc -->
+- [COPYRIGHT AND LICENSE](#copyright-and-license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### Installation
 
