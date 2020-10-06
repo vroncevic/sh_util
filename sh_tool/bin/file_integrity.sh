@@ -66,9 +66,9 @@ function setup_db {
         declare -A config_file_integrity=()
         load_util_conf "$UTIL_FILE_INTEGRITY_CFG" config_file_integrity
         STATUS=$?
-        if [ $STATUS -eq $SUCCESS ]; then
+        if [[ $STATUS -eq $SUCCESS ]]; then
             local MD5SUM=${config_file_integrity[MD5SUM]}
-            if [ -e "${FILE}" ];
+            if [[ -e "${FILE}" ]]; then
                 MSG="Write directory name to first line of file!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_FILE_INTEGRITY"
                 echo "${DIR}" > "${FILE}"

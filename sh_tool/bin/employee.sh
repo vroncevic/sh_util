@@ -62,7 +62,7 @@ declare -A SHARE_PROFILE_Usage=(
 #
 function create_it_user_profile {
     local USR=$1
-    if [ -n "${USR}" ]; then
+    if [[ -n "${USR}" ]]; then
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS CURRYEAR=$(date +'%Y')
         declare -A config_it_user_profile=()
         load_util_conf "$UTIL_EMPLOYEE_CFG" config_it_user_profile
@@ -77,7 +77,6 @@ function create_it_user_profile {
                 info_debug_message_ans "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
                 MSG="Creating IT profile structure for [${USR}]!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
-                fi
                 mkdir "${RDIR}/"
                 mkdir "${RDIR}/dig_certificate/"
                 mkdir "${RDIR}/image_profile/"

@@ -95,19 +95,16 @@ function time_validate_sleep {
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Validation of time argument [${TIME}]!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-        case ${TIME} in
-            +([0-9])[smhd])
-                info_debug_message_end "Done" "$FUNC" "$UTIL_TIMELY_KILL"
-                return $SUCCESS
-                ;;
-            *)
-                MSG="Wrong argument!"
-                info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                MSG="Force exit!"
-                info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                return $NOT_SUCCESS
-                ;;
-        esac
+        if [[ ${TIME} == +([0-9])[smhd] ]]; then
+            info_debug_message_end "Done" "$FUNC" "$UTIL_TIMELY_KILL"
+            return $SUCCESS
+        else
+            MSG="Wrong argument!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
+            return $NOT_SUCCESS
+        fi
     fi
     MSG="Force exit!"
     info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
@@ -142,47 +139,44 @@ function timely_kill {
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         MSG="Kill process pid [${PID}] after [${TIME}]!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-        case ${PID} in
-            +([0-9]))
-                time_validate_sleep ${TIME}
+        if [[ ${PID} == +([0-9]) ]]; then
+            time_validate_sleep ${TIME}
+            STATUS=$?
+            if [ $STATUS -eq $NOT_SUCCESS ]; then
+                usage TIMELY_KILL_Usage
+                return $NOT_SUCCESS
+            fi
+            sleep ${TIME}
+            while kill -0 ${PID} &>/dev/null
+            do
+                kill -15 ${PID}
+                check_pid "${PID}"
                 STATUS=$?
                 if [ $STATUS -eq $NOT_SUCCESS ]; then
-                    usage TIMELY_KILL_Usage
+                    kill -3 ${PID}
+                fi
+                check_pid "${PID}"
+                STATUS=$?
+                if [ $STATUS -eq $NOT_SUCCESS ]; then
+                    kill -9 ${PID}
+                fi
+                check_pid "${PID}"
+                STATUS=$?
+                if [ $STATUS -eq $NOT_SUCCESS ]; then
+                    MSG="Process [${PID}] is running!"
+                    info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
+                    MSG="Force exit!"
+                    info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
                     return $NOT_SUCCESS
                 fi
-                sleep ${TIME}
-                while kill -0 ${PID} &>/dev/null
-                do
-                    kill -15 ${PID}
-                    check_pid "${PID}"
-                    STATUS=$?
-                    if [ $STATUS -eq $NOT_SUCCESS ]; then
-                        kill -3 ${PID}
-                    fi
-                    check_pid "${PID}"
-                    STATUS=$?
-                    if [ $STATUS -eq $NOT_SUCCESS ]; then
-                        kill -9 ${PID}
-                    fi
-                    check_pid "${PID}"
-                    STATUS=$?
-                    if [ $STATUS -eq $NOT_SUCCESS ]; then
-                        MSG="Process [${PID}] is running!"
-                        info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                        MSG="Force exit!"
-                        info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                        return $NOT_SUCCESS
-                    fi
-                done
-                ;;
-            *)
-                MSG="Wrong argument!"
-                info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                MSG="Force exit!"
-                info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
-                return $NOT_SUCCESS
-                ;;
-        esac
+            done
+        else
+            MSG="Wrong argument!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_TIMELY_KILL"
+            return $NOT_SUCCESS
+        fi
         info_debug_message "Done" "$FUNC" "$UTIL_TIMELY_KILL"
         return $SUCCESS
     fi

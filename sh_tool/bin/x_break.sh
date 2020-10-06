@@ -56,27 +56,24 @@ function x_break {
         STATUS=$?
         if [ $STATUS -eq $SUCCESS ]; then
             local XINIT=${config_x_break[XINIT]} XMSG=${config_x_break[XMSG]}
-            case ${TIME} in
-                +([0-9]))
-                    while :
-                    do
-                        check_x "${XMSG}"
-                        STATUS=$?
-                        if [ $STATUS -eq $SUCCESS ]; then
-                            MSG="Time's up! Session will be closed!"
-                            eval "${XMSG} -center ${MSG}"
-                        else
-                            MSG="Time's up! Session will be closed!"
-                            info_debug_message "$MSG" "$FUNC" "$UTIL_X_BREAK"
-                        fi
-                    done 
-                    info_debug_message_end "Done" "$FUNC" "$UTIL_X_BREAK"
-                    return $SUCCESS
-                    ;;
-                *) 
-                    usage X_BREAK_Usage
-                    ;;
-            esac
+            if [[ ${TIME} == +([0-9]) ]]; then
+                while :
+                do
+                    check_x "${XMSG}"
+                    STATUS=$?
+                    if [ $STATUS -eq $SUCCESS ]; then
+                        MSG="Time's up! Session will be closed!"
+                        eval "${XMSG} -center ${MSG}"
+                    else
+                        MSG="Time's up! Session will be closed!"
+                        info_debug_message "$MSG" "$FUNC" "$UTIL_X_BREAK"
+                    fi
+                done
+                info_debug_message_end "Done" "$FUNC" "$UTIL_X_BREAK"
+                return $SUCCESS
+            else
+                usage X_BREAK_Usage
+            fi
             MSG="Force exit!"
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_X_BREAK"
             return $NOT_SUCCESS

@@ -56,8 +56,7 @@ function insert_text {
         TMP1=/tmp/tmp.${RANDOM}$$ TMP2=/tmp/tmp.${RANDOM}$$
         trap 'rm -f $TMP1 $TMP2 >/dev/null 2>&1' 0
         trap "exit 1" 1 2 3 15
-        case "${LINE}" in
-            +([0-9]))
+        if [[ "${LINE}" == +([0-9]) ]]; then
             N=${LINE}
             for A in "${FILES[@]}"
             do
@@ -78,15 +77,13 @@ function insert_text {
                     info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
                 fi
             done
-            ;;
-            *)
+        else
             MSG="Wrong argument!"
             info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
             MSG="Force exit!"
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
             return $NOT_SUCCESS
-            ;;
-        esac
+        fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
         return $SUCCESS
     fi

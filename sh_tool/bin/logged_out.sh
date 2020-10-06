@@ -68,7 +68,6 @@ function logged_out {
         MSG="User [${USR}] just logged out!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGED_OUT"
         info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
-        fi
         return $SUCCESS
     fi
     usage LOGGED_OUT_Usage

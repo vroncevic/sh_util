@@ -70,6 +70,7 @@ function java_heap_dump {
                 info_debug_message_end "Done" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
                 return $SUCCESS
             fi
+        fi
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
         return $NOT_SUCCESS

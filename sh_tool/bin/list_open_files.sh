@@ -58,7 +58,7 @@ function list_open_files {
             local LSOFCMD=${config_list_open_files[LSOF]}
             check_tool "${LSOFCMD}"
             STATUS=$?
-            if [ $STATUS -eq $SUCCESS ];
+            if [ $STATUS -eq $SUCCESS ]; then
                 MSG="List opened files by [${USR}]!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
                 eval "${LSOFCMD} -u ${USR}"

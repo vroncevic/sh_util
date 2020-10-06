@@ -51,32 +51,29 @@ function longer_lines {
         local FUNC=${FUNCNAME[0]} MSG="None" A COUNTER LINE
         MSG="Print file name that contains lines longer then n chars!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
-        case ${NUMCHARS} in
-            +([0-9]))
-                for A in "${FILES[@]}"
+        if [[ ${NUMCHARS} == +([0-9]) ]]; then
+            for A in "${FILES[@]}"
+            do
+                COUNTER=0
+                IFS=\n
+                while read LINE
                 do
-                    COUNTER=0
-                    IFS=\n
-                    while read LINE
-                    do
-                        if [[ ${#LINE} > ${NUMCHARS} ]]; then
-                            printf "%s %s %s\n" \
-                            "Chars: ${#LINE}" \
-                            "Line#: ${COUNTER}" \
-                            "File: ${A}"
-                        fi
-                        ((COUNTER++))
-                    done < ${A}
-                done
-                ;;
-            *)
-                MSG="Wrong argument!"
-                info_debug_message "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
-                MSG="Force exit!"
-                info_debug_message_end "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
-                return $NOT_SUCCESS
-                ;;
-        esac
+                    if [[ ${#LINE} > ${NUMCHARS} ]]; then
+                        printf "%s %s %s\n" \
+                        "Chars: ${#LINE}" \
+                        "Line#: ${COUNTER}" \
+                        "File: ${A}"
+                    fi
+                    ((COUNTER++))
+                done < ${A}
+            done
+        else
+            MSG="Wrong argument!"
+            info_debug_message "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
+            MSG="Force exit!"
+            info_debug_message_end "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
+            return $NOT_SUCCESS
+        fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_LONGER_LINES"
         return $SUCCESS
     fi
