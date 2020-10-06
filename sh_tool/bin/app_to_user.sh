@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 .    ${UTIL}/bin/devel.sh
 
-declare -A APP_TO_USER_USAGE=(
-    [USAGE_TOOL]="${UTIL_APP_TO_USER}"
-    [USAGE_ARG1]="[APP_STRUCT] username, group, app"
-    [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
-    [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
+declare -A APP_TO_USER_Usage=(
+    [Usage_TOOL]="${UTIL_APP_TO_USER}"
+    [Usage_ARG1]="[APP_STRUCT] username, group, app"
+    [Usage_EX_PRE]="# Copy Application shortcut to user configuration"
+    [Usage_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
 )
 
 #
@@ -121,7 +121,7 @@ function app_to_user {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_TO_USER"
         return $NOT_SUCCESS
     fi
-    usage APP_TO_USER_USAGE
+    usage APP_TO_USER_Usage
     return $NOT_SUCCESS
 }
 

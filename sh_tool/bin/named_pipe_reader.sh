@@ -14,13 +14,13 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A NAMED_PIPE_READER_USAGE=(
-    [USAGE_TOOL]="${UTIL_NAMED_PIPE_READER}"
-    [USAGE_ARG1]="[PIPE_PATH]    Absolute path of named pipe"
-    [USAGE_ARG2]="[MESSAGE_STOP] Message for pipe"
-    [USAGE_ARG3]="[HANDLER]      Function to be executed"
-    [USAGE_EX_PRE]="# Read message from named pipe and provide to process_func"
-    [USAGE_EX]="${UTIL_NAMED_PIPE_READER} /tmp/testpipe 'QUIT' process_func"
+declare -A NAMED_PIPE_READER_Usage=(
+    [Usage_TOOL]="${UTIL_NAMED_PIPE_READER}"
+    [Usage_ARG1]="[PIPE_PATH]    Absolute path of named pipe"
+    [Usage_ARG2]="[MESSAGE_STOP] Message for pipe"
+    [Usage_ARG3]="[HANDLER]      Function to be executed"
+    [Usage_EX_PRE]="# Read message from named pipe and provide to process_func"
+    [Usage_EX]="${UTIL_NAMED_PIPE_READER} /tmp/testpipe 'QUIT' process_func"
 )
 
 #
@@ -92,7 +92,7 @@ function named_pipe_reader {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_NAMED_PIPE_READER"
         return $NOT_SUCCESS
     fi
-    usage NAMED_PIPE_READER_USAGE
+    usage NAMED_PIPE_READER_Usage
     return $NOT_SUCCESS
 }
 

@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A ID_TO_BRANCH_USAGE=(
-    [USAGE_TOOL]="${UTIL_ID_TO_BRANCH}"
-    [USAGE_ARG1]="[ID] Name of town or country"
-    [USAGE_EX_PRE]="# Example convert ns to ns-frobas-employee"
-    [USAGE_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
+declare -A ID_TO_BRANCH_Usage=(
+    [Usage_TOOL]="${UTIL_ID_TO_BRANCH}"
+    [Usage_ARG1]="[ID] Name of town or country"
+    [Usage_EX_PRE]="# Example convert ns to ns-frobas-employee"
+    [Usage_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
 )
 
 #
@@ -74,7 +74,7 @@ function id_to_branch {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_ID_TO_BRANCH"
         return $NOT_SUCCESS
     fi
-    usage ID_TO_BRANCH_USAGE
+    usage ID_TO_BRANCH_Usage
     return $NOT_SUCCESS
 }
 

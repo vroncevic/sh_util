@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A BLOT_OUT_USAGE=(
-    [USAGE_TOOL]="${UTIL_BLOT_OUT}"
-    [USAGE_ARG1]="[FILE_NAME] Name of file"
-    [USAGE_EX_PRE]="# Example delete file with high security"
-    [USAGE_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
+declare -A BLOT_OUT_Usage=(
+    [Usage_TOOL]="${UTIL_BLOT_OUT}"
+    [Usage_ARG1]="[FILE_NAME] Name of file"
+    [Usage_EX_PRE]="# Example delete file with high security"
+    [Usage_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
 )
 
 #
@@ -95,7 +95,7 @@ function blot_out {
         info_debug_message_end "Done" "$FUNC" "$UTIL_BLOT_OUT"
         return $SUCCESS
     fi
-    usage BLOT_OUT_USAGE
+    usage BLOT_OUT_Usage
     return $NOT_SUCCESS
 }
 

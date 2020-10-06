@@ -14,32 +14,32 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A MKDIRF_USAGE=(
-    [USAGE_TOOL]="mkdirf"
-    [USAGE_ARG1]="[DIRPATH] Directory path"
-    [USAGE_EX-PRE]="# Example creating directory"
-    [USAGE_EX]="mkdirf /opt/test/"
+declare -A MKDIRF_Usage=(
+    [Usage_TOOL]="mkdirf"
+    [Usage_ARG1]="[DIRPATH] Directory path"
+    [Usage_EX-PRE]="# Example creating directory"
+    [Usage_EX]="mkdirf /opt/test/"
 )
 
-declare -A DIRNAME_USAGE=(
-    [USAGE_TOOL]="get_dir_name"
-    [USAGE_ARG1]="[DIRPATH] Directory path"
-    [USAGE_EX-PRE]="# Example get name directory"
-    [USAGE_EX]="get_dir_name /opt/test/"
+declare -A DIRNAME_Usage=(
+    [Usage_TOOL]="get_dir_name"
+    [Usage_ARG1]="[DIRPATH] Directory path"
+    [Usage_EX-PRE]="# Example get name directory"
+    [Usage_EX]="get_dir_name /opt/test/"
 )
 
-declare -A BASENAME_USAGE=(
-    [USAGE_TOOL]="getbasename"
-    [USAGE_ARG1]="[DIRPATH] Directory path"
-    [USAGE_EX-PRE]="# Example get base directory"
-    [USAGE_EX]="getbasename /opt/test/"
+declare -A BASENAME_Usage=(
+    [Usage_TOOL]="getbasename"
+    [Usage_ARG1]="[DIRPATH] Directory path"
+    [Usage_EX-PRE]="# Example get base directory"
+    [Usage_EX]="getbasename /opt/test/"
 )
 
-declare -A CLEANDIR_USAGE=(
-    [USAGE_TOOL]="clean"
-    [USAGE_ARG1]="[DIRPATH] Directory path"
-    [USAGE_EX-PRE]="# Example clean directory"
-    [USAGE_EX]="clean /opt/test/"
+declare -A CLEANDIR_Usage=(
+    [Usage_TOOL]="clean"
+    [Usage_ARG1]="[DIRPATH] Directory path"
+    [Usage_EX-PRE]="# Example clean directory"
+    [Usage_EX]="clean /opt/test/"
 )
 
 #
@@ -87,7 +87,7 @@ function mkdirf {
         info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
         return $SUCCESS
     fi
-    usage TOOL_MKDIR_USAGE
+    usage TOOL_MKDIR_Usage
     return $NOT_SUCCESS
 }
 
@@ -113,7 +113,7 @@ function get_dir_name {
         info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
         echo "$_dir"
     fi
-    usage DIRNAME_USAGE
+    usage DIRNAME_Usage
 }
 
 #
@@ -135,7 +135,7 @@ function getbasename {
         info_debug_message_end "Done" "$FUNC" "$UTIL_DIR_UTILS"
         echo "${_name%$2}"
     fi
-    usage BASENAME_USAGE
+    usage BASENAME_Usage
 }
 
 #
@@ -181,7 +181,7 @@ function clean {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_DIR_UTILS"
         return $NOT_SUCCESS
     fi
-    usage CLEANDIR_USAGE
+    usage CLEANDIR_Usage
     return $NOT_SUCCESS
 }
 

@@ -16,25 +16,25 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A IT_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_it_user_profile"
-    [USAGE_ARG1]="[USR] Employee username"
-    [USAGE_EX_PRE]="# Example generating IT profile"
-    [USAGE_EX]="create_it_user_profile vroncevic"
+declare -A IT_PROFILE_Usage=(
+    [Usage_TOOL]="create_it_user_profile"
+    [Usage_ARG1]="[USR] Employee username"
+    [Usage_EX_PRE]="# Example generating IT profile"
+    [Usage_EX]="create_it_user_profile vroncevic"
 )
 
-declare -A USR_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_share_user_profile"
-    [USAGE_ARG1]="[SHARE_STRUCT] System username and groip"
-    [USAGE_EX_PRE]="# Example generating user profile"
-    [USAGE_EX]="create_share_user_profile \$SHARE_STRUCT"
+declare -A USR_PROFILE_Usage=(
+    [Usage_TOOL]="create_share_user_profile"
+    [Usage_ARG1]="[SHARE_STRUCT] System username and groip"
+    [Usage_EX_PRE]="# Example generating user profile"
+    [Usage_EX]="create_share_user_profile \$SHARE_STRUCT"
 )
 
-declare -A SHARE_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_home_user_profile"
-    [USAGE_ARG1]="[HOME_STRUCT] System username and group"
-    [USAGE_EX_PRE]="# Example generatingshare profile"
-    [USAGE_EX]="create_home_user_profile \$HOME_STRUCT"
+declare -A SHARE_PROFILE_Usage=(
+    [Usage_TOOL]="create_home_user_profile"
+    [Usage_ARG1]="[HOME_STRUCT] System username and group"
+    [Usage_EX_PRE]="# Example generatingshare profile"
+    [Usage_EX]="create_home_user_profile \$HOME_STRUCT"
 )
 
 #
@@ -111,7 +111,7 @@ function create_it_user_profile {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
     fi
-    usage IT_PROFILE_USAGE
+    usage IT_PROFILE_Usage
     return $NOT_SUCCESS
 }
 
@@ -192,7 +192,7 @@ function create_share_user_profile {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
     fi
-    usage USR_PROFILE_USAGE
+    usage USR_PROFILE_Usage
     return $NOT_SUCCESS
 }
 
@@ -260,7 +260,7 @@ function create_home_user_profile {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
     fi
-    usage SHARE_PROFILE_USAGE
+    usage SHARE_PROFILE_Usage
     return $NOT_SUCCESS
 }
 

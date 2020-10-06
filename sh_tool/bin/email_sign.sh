@@ -16,16 +16,16 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A EMAIL_SIGN_USAGE=(
-    [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
-    [USAGE_ARG1]="[NAME] Full name"
-    [USAGE_ARG2]="[WP] Work position"
-    [USAGE_ARG3]="[DN] Department"
-    [USAGE_ARG4]="[IP] IP phone number"
-    [USAGE_ARG5]="[MOB] Mobile number"
-    [USAGE_ARG6]="[EMAIL] Email address"
-    [USAGE_EX_PRE]="# Example generating email signature"
-    [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
+declare -A EMAIL_SIGN_Usage=(
+    [Usage_TOOL]="${UTIL_EMAIl_SIGN}"
+    [Usage_ARG1]="[NAME] Full name"
+    [Usage_ARG2]="[WP] Work position"
+    [Usage_ARG3]="[DN] Department"
+    [Usage_ARG4]="[IP] IP phone number"
+    [Usage_ARG5]="[MOB] Mobile number"
+    [Usage_ARG6]="[EMAIL] Email address"
+    [Usage_EX_PRE]="# Example generating email signature"
+    [Usage_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
 )
 
 #
@@ -91,7 +91,7 @@ function email_sign {
         check_status STATUS_STRUCT
         STATUS=$?
         if [ $STATUS -eq $NOT_SUCCESS ]; then
-            usage EMAIL_SIGN_USAGE
+            usage EMAIL_SIGN_Usage
             return $NOT_SUCCESS
         fi
         declare -A config_email_sign=()
@@ -131,7 +131,7 @@ function email_sign {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMAIl_SIGN"
         return $NOT_SUCCESS
     fi
-    usage EMAIL_SIGN_USAGE
+    usage EMAIL_SIGN_Usage
     return $NOT_SUCCESS
 }
 

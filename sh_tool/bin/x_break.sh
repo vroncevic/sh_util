@@ -18,11 +18,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A X_BREAK_USAGE=(
-    [USAGE_TOOL]="${UTIL_X_BREAK}"
-    [USAGE_ARG1]="[TIME] Life time"
-    [USAGE_EX_PRE]="# Example running tool"
-    [USAGE_EX]="${UTIL_X_BREAK} 5s"
+declare -A X_BREAK_Usage=(
+    [Usage_TOOL]="${UTIL_X_BREAK}"
+    [Usage_ARG1]="[TIME] Life time"
+    [Usage_EX_PRE]="# Example running tool"
+    [Usage_EX]="${UTIL_X_BREAK} 5s"
 )
 
 #
@@ -74,7 +74,7 @@ function x_break {
                     return $SUCCESS
                     ;;
                 *) 
-                    usage X_BREAK_USAGE
+                    usage X_BREAK_Usage
                     ;;
             esac
             MSG="Force exit!"
@@ -85,7 +85,7 @@ function x_break {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_X_BREAK"
         return $NOT_SUCCESS
     fi
-    usage X_BREAK_USAGE
+    usage X_BREAK_Usage
     return $NOT_SUCCESS
 }
 

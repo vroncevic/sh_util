@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A BYTE_TRAFFIC_USAGE=(
-    [USAGE_TOOL]="${UTIL_BYTE_TRAFFIC}"
-    [USAGE_ARG1]="[TEST_STRUCT] Time and name of interface"
-    [USAGE_EX_PRE]="# Display network traffic on an interface"
-    [USAGE_EX]="${UTIL_BYTE_TRAFFIC} \$TEST_STRUCT"
+declare -A BYTE_TRAFFIC_Usage=(
+    [Usage_TOOL]="${UTIL_BYTE_TRAFFIC}"
+    [Usage_ARG1]="[TEST_STRUCT] Time and name of interface"
+    [Usage_EX_PRE]="# Display network traffic on an interface"
+    [Usage_EX]="${UTIL_BYTE_TRAFFIC} \$TEST_STRUCT"
 )
 
 #
@@ -190,7 +190,7 @@ function byte_traffic {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_BYTE_TRAFFIC"
         return $NOT_SUCCESS
     fi
-    usage BYTE_TRAFFIC_USAGE
+    usage BYTE_TRAFFIC_Usage
     return $NOT_SUCCESS
 }
 

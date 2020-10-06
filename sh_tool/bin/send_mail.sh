@@ -17,12 +17,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A SEND_MAIL_USAGE=(
-    [USAGE_TOOL]="${UTIL_SEND_MAIL}"
-    [USAGE_ARG1]="[MSG] Email text body"
-    [USAGE_ARG2]="[EMAIL2ADMIN] Full email address"
-    [USAGE_EX_PRE]="# Example sending simple message"
-    [USAGE_EX]="${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
+declare -A SEND_MAIL_Usage=(
+    [Usage_TOOL]="${UTIL_SEND_MAIL}"
+    [Usage_ARG1]="[MSG] Email text body"
+    [Usage_ARG2]="[EMAIL2ADMIN] Full email address"
+    [Usage_EX_PRE]="# Example sending simple message"
+    [Usage_EX]="${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
 )
 
 #
@@ -83,7 +83,7 @@ function send_mail {
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
             return $NOT_SUCCESS
         fi
-        usage SEND_MAIL_USAGE
+        usage SEND_MAIL_Usage
         return $NOT_SUCCESS
     fi
     return $SUCCESS

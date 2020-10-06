@@ -16,12 +16,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/check_cfg.sh
 
-declare -A LOAD_UTIL_CONF_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOAD_UTIL_CONF}"
-    [USAGE_ARG1]="[FILE] Path to config file"
-    [USAGE_ARG2]="[CONFIG] Hash structure for config"
-    [USAGE_EX_PRE]="# Example load configuration"
-    [USAGE_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
+declare -A LOAD_UTIL_CONF_Usage=(
+    [Usage_TOOL]="${UTIL_LOAD_UTIL_CONF}"
+    [Usage_ARG1]="[FILE] Path to config file"
+    [Usage_ARG2]="[CONFIG] Hash structure for config"
+    [Usage_EX_PRE]="# Example load configuration"
+    [Usage_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
 )
 
 #
@@ -69,7 +69,7 @@ function load_util_conf {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
         return $NOT_SUCCESS
     fi
-    usage LOAD_UTIL_CONF_USAGE
+    usage LOAD_UTIL_CONF_Usage
     return $NOT_SUCCESS
 }
 

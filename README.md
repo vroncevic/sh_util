@@ -2,14 +2,15 @@
 
 **sh_util** modules are build blocks for bash applications/tools/scripts.
 
-Developed in [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) code: **100%**.
+Developed in **[bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))** code: **100%**.
+
+[![sh_util shell checker](https://github.com/vroncevic/sh_util/workflows/sh_util%20shell%20checker/badge.svg)](https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+shell+checker%22)
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-[![GitHub issues open](https://img.shields.io/github/issues/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/issues)
- [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/graphs/contributors)
+[![GitHub issues open](https://img.shields.io/github/issues/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/sh_util.svg)](https://github.com/vroncevic/sh_util/graphs/contributors)
 
 <!-- START doctoc -->
 **Table of Contents**
@@ -21,9 +22,9 @@ other information that should be provided before the modules are installed.
 - [Copyright and Licence](#copyright-and-licence)
 <!-- END doctoc -->
 
-### INSTALLATION
+### Installation
 
-Navigate to release [page](https://github.com/vroncevic/sh_util/releases) download and extract release archive.
+Navigate to release **[page](https://github.com/vroncevic/sh_util/releases)** download and extract release archive.
 
 To install **sh_util** type the following:
 
@@ -190,7 +191,9 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 
 Or You can use docker to create image/container.
 
-### DEPENDENCIES
+[![sh_util docker checker](https://github.com/vroncevic/sh_util/workflows/sh_util%20docker%20checker/badge.svg)](https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+docker+checker%22)
+
+### Dependencies
 
 **sh_util** requires next modules and libraries:
 
@@ -344,7 +347,7 @@ None
     └── sh_util.log
 ```
 
-### DOCS
+### Docs
 
 [![Documentation Status](https://readthedocs.org/projects/sh_util/badge/?version=latest)](https://sh_util.readthedocs.io/projects/sh_util/en/latest/?badge=latest)
 
@@ -358,7 +361,7 @@ More documentation and info at:
 
 Copyright (C) 2015 by [vroncevic.github.io/sh_util](https://vroncevic.github.io/sh_util)
 
-This tool is free software; you can redistribute it and/or modify
+**sh_util** is free software; you can redistribute it and/or modify
 it under the same terms as Bash itself, either Bash version 4.2.47 or,
 at your option, any later version of Bash 4 you may have available.
 

@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A VPN_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_VPN_CONFIG}"
-    [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
-    [USAGE_EX_PRE]="# Generate openVPN configuration"
-    [USAGE_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
+declare -A VPN_CONFIG_Usage=(
+    [Usage_TOOL]="${UTIL_VPN_CONFIG}"
+    [Usage_ARG1]="[VPN_STRUCT] Username, group, first and last name"
+    [Usage_EX_PRE]="# Generate openVPN configuration"
+    [Usage_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
 )
 
 #
@@ -120,7 +120,7 @@ function vpn_config {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
         return $NOT_SUCCESS
     fi
-    usage VPN_CONFIG_USAGE
+    usage VPN_CONFIG_Usage
     return $NOT_SUCCESS
 }
 

@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A ONLINE_CONNECT_USAGE=(
-    [USAGE_TOOL]="${UTIL_ON_CONNECT}"
-    [USAGE_ARG1]="[TIME] Sleep time"
-    [USAGE_EX_PRE]="# Example running __$TOOL"
-    [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
+declare -A ONLINE_CONNECT_Usage=(
+    [Usage_TOOL]="${UTIL_ON_CONNECT}"
+    [Usage_ARG1]="[TIME] Sleep time"
+    [Usage_EX_PRE]="# Example running __$TOOL"
+    [Usage_EX]="${UTIL_ON_CONNECT} 5s"
 )
 
 #
@@ -87,7 +87,7 @@ function on_connect {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_ON_CONNECT"
         return $NOT_SUCCESS
     fi
-    usage ONLINE_CONNECT_USAGE
+    usage ONLINE_CONNECT_Usage
     return $NOT_SUCCESS
 }
 

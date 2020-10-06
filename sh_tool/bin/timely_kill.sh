@@ -14,12 +14,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A TIMELY_KILL_USAGE=(
-    [USAGE_TOOL]="${UTIL_TIMELY_KILL}"
-    [USAGE_ARG1]="[PID]  Process ID"
-    [USAGE_ARG2]="[TIME] Time <n>s|m|h|d"
-    [USAGE_EX_PRE]="# Destroy process in <n>s|m|h|d"
-    [USAGE_EX]="${UTIL_TIMELY_KILL} freshtool 5s"
+declare -A TIMELY_KILL_Usage=(
+    [Usage_TOOL]="${UTIL_TIMELY_KILL}"
+    [Usage_ARG1]="[PID]  Process ID"
+    [Usage_ARG2]="[TIME] Time <n>s|m|h|d"
+    [Usage_EX_PRE]="# Destroy process in <n>s|m|h|d"
+    [Usage_EX]="${UTIL_TIMELY_KILL} freshtool 5s"
 )
 
 #
@@ -147,7 +147,7 @@ function timely_kill {
                 time_validate_sleep ${TIME}
                 STATUS=$?
                 if [ $STATUS -eq $NOT_SUCCESS ]; then
-                    usage TIMELY_KILL_USAGE
+                    usage TIMELY_KILL_Usage
                     return $NOT_SUCCESS
                 fi
                 sleep ${TIME}
@@ -186,7 +186,7 @@ function timely_kill {
         info_debug_message "Done" "$FUNC" "$UTIL_TIMELY_KILL"
         return $SUCCESS
     fi
-    usage TIMELY_KILL_USAGE
+    usage TIMELY_KILL_Usage
     return $NOT_SUCCESS
 }
 

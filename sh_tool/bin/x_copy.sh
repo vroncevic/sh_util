@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A X_COPY_USAGE=(
-    [USAGE_TOOL]="${UTIL_X_COPY}"
-    [USAGE_ARG1]="[XCOPY_STRUCT] Tool name, version, path and dev-path"
-    [USAGE_EX_PRE]="# Copy tool to folder destination"
-    [USAGE_EX]="${UTIL_X_COPY} \$XCOPY_STRUCT"
+declare -A X_COPY_Usage=(
+    [Usage_TOOL]="${UTIL_X_COPY}"
+    [Usage_ARG1]="[XCOPY_STRUCT] Tool name, version, path and dev-path"
+    [Usage_EX_PRE]="# Copy tool to folder destination"
+    [Usage_EX]="${UTIL_X_COPY} \$XCOPY_STRUCT"
 )
 
 #
@@ -100,7 +100,7 @@ function x_copy {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_X_COPY"
         return $NOT_SUCCESS
     fi
-    usage X_COPY_USAGE
+    usage X_COPY_Usage
     return $NOT_SUCCESS
 }
 

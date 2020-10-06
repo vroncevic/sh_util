@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_PROCESS_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_PROCESS}"
-    [USAGE_ARG1]="[PROCESS_NAME] Process name"
-    [USAGE_EX_PRE]="# Example check ddclient process"
-    [USAGE_EX]="${UTIL_CHECK_PROCESS} ddclient"
+declare -A CHECK_PROCESS_Usage=(
+    [Usage_TOOL]="${UTIL_CHECK_PROCESS}"
+    [Usage_ARG1]="[PROCESS_NAME] Process name"
+    [Usage_EX_PRE]="# Example check ddclient process"
+    [Usage_EX]="${UTIL_CHECK_PROCESS} ddclient"
 )
 
 #
@@ -64,7 +64,7 @@ function check_process {
         info_debug_message_end "Done" "$FUNC" "$UTIL_CHECK_PROCESS"
         return $NOT_SUCCESS
     fi
-    usage CHECK_PROCESS_USAGE
+    usage CHECK_PROCESS_Usage
     return $NOT_SUCCESS
 }
 

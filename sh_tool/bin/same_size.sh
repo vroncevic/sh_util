@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SAME_SIZE_USAGE=(
-    [USAGE_TOOL]="${UTIL_SAME_SIZE}"
-    [USAGE_ARG1]="[DIR] Directory path"
-    [USAGE_EX_PRE]="# List files of same size in dir"
-    [USAGE_EX]="${UTIL_SAME_SIZE} /data/"
+declare -A SAME_SIZE_Usage=(
+    [Usage_TOOL]="${UTIL_SAME_SIZE}"
+    [Usage_ARG1]="[DIR] Directory path"
+    [Usage_EX_PRE]="# List files of same size in dir"
+    [Usage_EX]="${UTIL_SAME_SIZE} /data/"
 )
 
 #
@@ -76,7 +76,7 @@ function same_size {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SAME_SIZE"
         return $NOT_SUCCESS
     fi
-    usage SAME_SIZE_USAGE
+    usage SAME_SIZE_Usage
     return $NOT_SUCCESS
 }
 

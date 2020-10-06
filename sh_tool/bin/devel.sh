@@ -224,8 +224,8 @@ function info_debug_message_que {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -248,8 +248,8 @@ function info_debug_message_ans {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -272,8 +272,8 @@ function info_debug_message {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 
 #
@@ -296,7 +296,7 @@ function info_debug_message_end {
         fi
         return
     fi
-    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
+    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
 }
 

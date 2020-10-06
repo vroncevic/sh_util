@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CPU_USAGE=(
-    [USAGE_TOOL]="${UTIL_CPU}"
-    [USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
-    [USAGE_EX_PRE]="# Example show in GHz CPU speed"
-    [USAGE_EX]="${UTIL_CPU} ghz"
+declare -A CPU_Usage=(
+    [Usage_TOOL]="${UTIL_CPU}"
+    [Usage_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
+    [Usage_EX_PRE]="# Example show in GHz CPU speed"
+    [Usage_EX]="${UTIL_CPU} ghz"
 )
 
 #
@@ -70,7 +70,7 @@ function cpu {
         info_debug_message_end "Done" "$FUNC" "$UTIL_CPU"
         return $SUCCESS
     fi
-    usage CPU_USAGE
+    usage CPU_Usage
     return $NOT_SUCCESS
 }
 

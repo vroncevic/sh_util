@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CREATE_FILE_NSIZE_USAGE=(
-    [USAGE_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
-    [USAGE_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
-    [USAGE_EX_PRE]="# Example creating a file n bytes large"
-    [USAGE_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
+declare -A CREATE_FILE_NSIZE_Usage=(
+    [Usage_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
+    [Usage_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
+    [Usage_EX_PRE]="# Example creating a file n bytes large"
+    [Usage_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
 )
 
 #
@@ -58,7 +58,7 @@ function create_file_nsize {
         info_debug_message "$MSG" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
         case ${NBYTES} in
             *[!0-9]*)
-                usage CREATE_FILE_NSIZE_USAGE
+                usage CREATE_FILE_NSIZE_Usage
                 return $NOT_SUCCESS
                 ;;
                 *)
@@ -78,7 +78,7 @@ function create_file_nsize {
         info_debug_message_end "Done" "$FUNC" "$UTIL_CREATE_FILE_NSIZE"
         return $SUCCESS
     fi
-    usage CREATE_FILE_NSIZE_USAGE
+    usage CREATE_FILE_NSIZE_Usage
     return $NOT_SUCCESS
 }
 

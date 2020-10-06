@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A LABEL_USAGE=(
-    [USAGE_TOOL]="${UTIL_LABEL}"
-    [USAGE_ARG1]="[DISK_STRUCT] Disk drive and disk label"
-    [USAGE_EX_PRE]="# Set label name for mounted disk"
-    [USAGE_EX]="${UTIL_LABEL} \$DISK_STRUCT"
+declare -A LABEL_Usage=(
+    [Usage_TOOL]="${UTIL_LABEL}"
+    [Usage_ARG1]="[DISK_STRUCT] Disk drive and disk label"
+    [Usage_EX_PRE]="# Set label name for mounted disk"
+    [Usage_EX]="${UTIL_LABEL} \$DISK_STRUCT"
 )
 
 #
@@ -92,7 +92,7 @@ function disk_label {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_LABEL"
         return $NOT_SUCCESS
     fi
-    usage LABEL_USAGE
+    usage LABEL_Usage
     return $NOT_SUCCESS
 }
 

@@ -14,12 +14,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A GET_IPV6_USAGE=(
-    [USAGE_TOOL]="${UTIL_GET_IPV6}"
-    [USAGE_ARG1]="[INTERFACE] Interface name"
-    [USAGE_ARG2]="[IPV6_ADDRESS] Variable for storing"
-    [USAGE_EX_PRE]="# Example checking IPV6 logic address"
-    [USAGE_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
+declare -A GET_IPV6_Usage=(
+    [Usage_TOOL]="${UTIL_GET_IPV6}"
+    [Usage_ARG1]="[INTERFACE] Interface name"
+    [Usage_ARG2]="[IPV6_ADDRESS] Variable for storing"
+    [Usage_EX_PRE]="# Example checking IPV6 logic address"
+    [Usage_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
 )
 
 #
@@ -65,7 +65,7 @@ function get_ipv6 {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV6"
         return $NOT_SUCCESS
     fi
-    usage GET_IPV6_USAGE
+    usage GET_IPV6_Usage
     return $NOT_SUCCESS
 }
 

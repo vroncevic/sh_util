@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A UUDECODES_USAGE=(
-    [USAGE_TOOL]="${UTIL_UUDECODES}"
-    [USAGE_ARG1]="[FILE_NAME] Path to binary file"
-    [USAGE_EX_PRE]="# Example decode thunderbird binary"
-    [USAGE_EX]="${UTIL_UUDECODES} thunderbird-bin"
+declare -A UUDECODES_Usage=(
+    [Usage_TOOL]="${UTIL_UUDECODES}"
+    [Usage_ARG1]="[FILE_NAME] Path to binary file"
+    [Usage_EX_PRE]="# Example decode thunderbird binary"
+    [Usage_EX]="${UTIL_UUDECODES} thunderbird-bin"
 )
 
 #
@@ -85,7 +85,7 @@ function uudecodes {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
     fi
-    usage UUDECODES_USAGE
+    usage UUDECODES_Usage
     return $NOT_SUCCESS
 }
 
@@ -139,7 +139,7 @@ function uudecodes_all {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
     fi
-    usage UUDECODES_USAGE
+    usage UUDECODES_Usage
     return $NOT_SUCCESS
 }
 

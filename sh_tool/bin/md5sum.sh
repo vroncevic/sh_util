@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A MD5SUM_USAGE=(
-    [USAGE_TOOL]="${UTIL_MD5SUM}"
-    [USAGE_ARG1]="[INSTRING] input string"
-    [USAGE_EX_PRE]="# Calculate md5sum from an input string"
-    [USAGE_EX]="${UTIL_MD5SUM} simpletest"
+declare -A MD5SUM_Usage=(
+    [Usage_TOOL]="${UTIL_MD5SUM}"
+    [Usage_ARG1]="[INSTRING] input string"
+    [Usage_EX_PRE]="# Calculate md5sum from an input string"
+    [Usage_EX]="${UTIL_MD5SUM} simpletest"
 )
 
 #
@@ -72,7 +72,7 @@ function md5sum {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_MD5SUM"
         return $NOT_SUCCESS
     fi
-    usage MD5SUM_USAGE
+    usage MD5SUM_Usage
     return $NOT_SUCCESS
 }
 

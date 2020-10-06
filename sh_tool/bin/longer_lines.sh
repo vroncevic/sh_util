@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LONGER_LINES_USAGE=(
-    [USAGE_TOOL]="${UTIL_LONGER_LINES}"
-    [USAGE_ARG1]="[NUMCHARS] an integer referring to min characters per line"
-    [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
-    [USAGE_EX]="${UTIL_LONGER_LINES} 45"
+declare -A LONGER_LINES_Usage=(
+    [Usage_TOOL]="${UTIL_LONGER_LINES}"
+    [Usage_ARG1]="[NUMCHARS] an integer referring to min characters per line"
+    [Usage_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
+    [Usage_EX]="${UTIL_LONGER_LINES} 45"
 )
 
 #
@@ -80,7 +80,7 @@ function longer_lines {
         info_debug_message_end "Done" "$FUNC" "$UTIL_LONGER_LINES"
         return $SUCCESS
     fi
-    usage LONGER_LINES_USAGE
+    usage LONGER_LINES_Usage
     return $NOT_SUCCESS
 }
 

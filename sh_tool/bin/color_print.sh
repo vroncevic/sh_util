@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A COL_PRINT_USAGE=(
-    [USAGE_TOOL]="${UTIL_COL_PRINT}"
-    [USAGE_ARG1]="[MSG] Message to text"
-    [USAGE_ARG2]="[COL] Color for text"
-    [USAGE_EX_PRE]="# Example printing color text"
-    [USAGE_EX]="${UTIL_COL_PRINT} \$MSG \$BLUE"
+declare -A COL_PRINT_Usage=(
+    [Usage_TOOL]="${UTIL_COL_PRINT}"
+    [Usage_ARG1]="[MSG] Message to text"
+    [Usage_ARG2]="[COL] Color for text"
+    [Usage_EX_PRE]="# Example printing color text"
+    [Usage_EX]="${UTIL_COL_PRINT} \$MSG \$BLUE"
 )
 
 BLACK='\E[30;47m'
@@ -68,7 +68,7 @@ function color_print {
         echo "${MSG}"
         return $SUCCESS
     fi
-    usage COL_PRINT_USAGE
+    usage COL_PRINT_Usage
     return $NOT_SUCCESS
 }
 

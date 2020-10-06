@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/send_mail.sh
 
-declare -A LOW_SWAP_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
-    [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
-    [USAGE_ARG2]="[EMAIL] Administrator email address"
-    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+declare -A LOW_SWAP_Usage=(
+    [Usage_TOOL]="${UTIL_LOW_SWAP}"
+    [Usage_ARG1]="[LOW_LIMIT] An integer referring to MB"
+    [Usage_ARG2]="[EMAIL] Administrator email address"
+    [Usage_EX_PRE]="# Checking swap memory, is under 12 MB"
+    [Usage_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
 )
 
 #
@@ -80,7 +80,7 @@ function low_swap {
                 ;;
         esac
     fi
-    usage LOW_SWAP_USAGE
+    usage LOW_SWAP_Usage
     return $NOT_SUCCESS
 }
 

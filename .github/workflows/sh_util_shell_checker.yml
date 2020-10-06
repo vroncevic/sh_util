@@ -1,0 +1,207 @@
+name: sh_util shell checker
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check syntax script
+        id: syntax_checker
+        run: |
+          bash -n sh_tool/bin/add_new_tool.sh && script_1=0 || script_1=1
+          bash -n sh_tool/bin/create_file_nsize.sh && script_2=0 || script_2=1
+          bash -n sh_tool/bin/insert_text.sh && script_3=0 || script_3=1
+          bash -n sh_tool/bin/open_terminals.sh && script_4=0 || script_4=1
+          bash -n sh_tool/bin/timely_kill.sh && script_5=0 || script_5=1
+          bash -n sh_tool/bin/app_shortcut.sh && script_6=0 || script_6=1
+          bash -n sh_tool/bin/create_ram_disk.sh && script_7=0 || script_7=1
+          bash -n sh_tool/bin/is_spammer.sh && script_8=0 || script_8=1
+          bash -n sh_tool/bin/path_proc.sh && script_9=0 || script_9=1
+          bash -n sh_tool/bin/unpack_to_dir.sh && script_10=0 || script_10=1
+          bash -n sh_tool/bin/app_to_user.sh && script_11=0 || script_11=1
+          bash -n sh_tool/bin/cut_operations.sh && script_12=0 || script_12=1
+          bash -n sh_tool/bin/java_heap_dump.sh && script_13=0 || script_13=1
+          bash -n sh_tool/bin/progress_bar.sh && script_14=0 || script_14=1
+          bash -n sh_tool/bin/usage.sh && script_15=0 || script_15=1
+          bash -n sh_tool/bin/archiving.sh && script_16=0 || script_16=1
+          bash -n sh_tool/bin/cut_pdf.sh && script_17=0 || script_17=1
+          bash -n sh_tool/bin/list_open_files.sh && script_18=0 || script_18=1
+          bash -n sh_tool/bin/record_mic.sh && script_19=0 || script_19=1
+          bash -n sh_tool/bin/uudecodes.sh && script_20=0 || script_20=1
+          bash -n sh_tool/bin/array_utils.sh && script_21=0 || script_21=1
+          bash -n sh_tool/bin/date_to_iso8601.sh && script_22=0 || script_22=1
+          bash -n sh_tool/bin/list_ports.sh && script_23=0 || script_23=1
+          bash -n sh_tool/bin/rm_blanks.sh && script_24=0 || script_24=1
+          bash -n sh_tool/bin/vbox_config.sh && script_25=0 || script_25=1
+          bash -n sh_tool/bin/avi_to_mp4.sh && script_26=0 || script_26=1
+          bash -n sh_tool/bin/dep_to_group.sh && script_27=0 || script_27=1
+          bash -n sh_tool/bin/list_ssh.sh && script_28=0 || script_28=1
+          bash -n sh_tool/bin/rm_dups.sh && script_29=0 || script_29=1
+          bash -n sh_tool/bin/vdeploy.sh && script_30=0 || script_30=1
+          bash -n sh_tool/bin/blot_out.sh && script_31=0 || script_31=1
+          bash -n sh_tool/bin/devel.sh && script_32=0 || script_32=1
+          bash -n sh_tool/bin/list_users.sh && script_33=0 || script_33=1
+          bash -n sh_tool/bin/rm_leads.sh && script_34=0 || script_34=1
+          bash -n sh_tool/bin/vnc_config.sh && script_35=0 || script_35=1
+          bash -n sh_tool/bin/broadcast_message.sh && script_36=0 || script_36=1
+          bash -n sh_tool/bin/dir_utils.sh && script_37=0 || script_37=1
+          bash -n sh_tool/bin/load_conf.sh && script_38=0 || script_38=1
+          bash -n sh_tool/bin/rm_lines.sh && script_39=0 || script_39=1
+          bash -n sh_tool/bin/voffice_list.sh && script_40=0 || script_40=1
+          bash -n sh_tool/bin/byte_traffic.sh && script_41=0 || script_41=1
+          bash -n sh_tool/bin/disk_label.sh && script_42=0 || script_42=1
+          bash -n sh_tool/bin/load_util_conf.sh && script_43=0 || script_43=1
+          bash -n sh_tool/bin/rm_old.sh && script_44=0 || script_44=1
+          bash -n sh_tool/bin/vpn_config.sh && script_45=0 || script_45=1
+          bash -n sh_tool/bin/cal_utils.sh && script_46=0 || script_46=1
+          bash -n sh_tool/bin/email_sign.sh && script_47=0 || script_47=1
+          bash -n sh_tool/bin/logged_in.sh && script_48=0 || script_48=1
+          bash -n sh_tool/bin/same_size.sh && script_49=0 || script_49=1
+          bash -n sh_tool/bin/which_bin.sh && script_50=0 || script_50=1
+          bash -n sh_tool/bin/check_cfg.sh && script_51=0 || script_51=1
+          bash -n sh_tool/bin/employee.sh && script_52=0 || script_52=1
+          bash -n sh_tool/bin/logged_out.sh && script_53=0 || script_53=1
+          bash -n sh_tool/bin/send_mail.sh && script_54=0 || script_54=1
+          bash -n sh_tool/bin/word_to_txt.sh && script_55=0 || script_55=1
+          bash -n sh_tool/bin/check_ipv4.sh && script_56=0 || script_56=1
+          bash -n sh_tool/bin/file_integrity.sh && script_57=0 || script_57=1
+          bash -n sh_tool/bin/logging.sh && script_58=0 || script_58=1
+          bash -n sh_tool/bin/slof.sh && script_59=0 || script_59=1
+          bash -n sh_tool/bin/wrap_text.sh && script_60=0 || script_60=1
+          bash -n sh_tool/bin/check_op.sh && script_61=0 || script_61=1
+          bash -n sh_tool/bin/gen_from_template.sh && script_62=0 || script_62=1
+          bash -n sh_tool/bin/longer_lines.sh && script_63=0 || script_63=1
+          bash -n sh_tool/bin/sort_copy.sh && script_64=0 || script_64=1
+          bash -n sh_tool/bin/x_break.sh && script_65=0 || script_65=1
+          bash -n sh_tool/bin/check_process.sh && script_66=0 || script_66=1
+          bash -n sh_tool/bin/get_ipv4.sh && script_67=0 || script_67=1
+          bash -n sh_tool/bin/low_swap.sh && script_68=0 || script_68=1
+          bash -n sh_tool/bin/spam_lookup.sh && script_69=0 || script_69=1
+          bash -n sh_tool/bin/x_copy.sh && script_70=0 || script_70=1
+          bash -n sh_tool/bin/check_root.sh && script_71=0 || script_71=1
+          bash -n sh_tool/bin/get_ipv6.sh && script_72=0 || script_72=1
+          bash -n sh_tool/bin/make_iso.sh && script_73=0 || script_73=1
+          bash -n sh_tool/bin/ssh_cmd.sh && script_74=0 || script_74=1
+          bash -n sh_tool/bin/zip_file.sh && script_75=0 || script_75=1
+          bash -n sh_tool/bin/check_tool.sh && script_76=0 || script_76=1
+          bash -n sh_tool/bin/gz_to_bz2.sh && script_77=0 || script_77=1
+          bash -n sh_tool/bin/md5sum.sh && script_78=0 || script_78=1
+          bash -n sh_tool/bin/ssh_config.sh && script_79=0 || script_79=1
+          bash -n sh_tool/bin/check_x.sh && script_80=0 || script_80=1
+          bash -n sh_tool/bin/hash.sh && script_81=0 || script_81=1
+          bash -n sh_tool/bin/named_pipe_reader.sh && script_82=0 || script_82=1
+          bash -n sh_tool/bin/strip_comment.sh && script_83=0 || script_83=1
+          bash -n sh_tool/bin/color_print.sh && script_84=0 || script_84=1
+          bash -n sh_tool/bin/id_to_branch.sh && script_85=0 || script_85=1
+          bash -n sh_tool/bin/named_pipe_writer.sh && script_86=0 || script_86=1
+          bash -n sh_tool/bin/sym_links.sh && script_87=0 || script_87=1
+          bash -n sh_tool/bin/cpu.sh && script_88=0 || script_88=1
+          bash -n sh_tool/bin/inserting_passwd.sh && script_89=0 || script_89=1
+          bash -n sh_tool/bin/on_connect.sh && script_90=0 || script_90=1
+          bash -n sh_tool/bin/test_hdd.sh && script_91=0 || script_91=1
+          [[ $script_1 -eq 0 && $script_2 -eq 0 && $script_3 -eq 0 && $script_4 -eq 0 && $script_5 -eq 0 && $script_6 -eq 0 && $script_7 -eq 0 && $script_8 -eq 0 && $script_9 -eq 0 && $script_10 -eq 0 && $script_11 -eq 0 && $script_12 -eq 0 && $script_13 -eq 0 && $script_14 -eq 0 && $script_15 -eq 0 && $script_16 -eq 0 && $script_17 -eq 0 && $script_18 -eq 0 && $script_19 -eq 0 && $script_20 -eq 0 && $script_21 -eq 0 && $script_22 -eq 0 && $script_23 -eq 0 && $script_24 -eq 0 && $script_25 -eq 0 && $script_26 -eq 0 && $script_27 -eq 0 && $script_28 -eq 0 && $script_29 -eq 0 && $script_30 -eq 0 && $script_31 -eq 0 && $script_32 -eq 0 && $script_33 -eq 0 && $script_34 -eq 0 && $script_35 -eq 0 && $script_36 -eq 0 && $script_37 -eq 0 && $script_38 -eq 0 && $script_39 -eq 0 && $script_40 -eq 0 && $script_41 -eq 0 && $script_42 -eq 0 && $script_43 -eq 0 && $script_44 -eq 0 && $script_45 -eq 0 && $script_46 -eq 0 && $script_47 -eq 0 && $script_48 -eq 0 && $script_49 -eq 0 && $script_50 -eq 0 && $script_51 -eq 0 && $script_52 -eq 0 && $script_53 -eq 0 && $script_54 -eq 0 && $script_55 -eq 0 && $script_56 -eq 0 && $script_57 -eq 0 && $script_58 -eq 0 && $script_59 -eq 0 && $script_60 -eq 0 && $script_61 -eq 0 && $script_62 -eq 0 && $script_63 -eq 0 && $script_64 -eq 0 && $script_65 -eq 0 && $script_66 -eq 0 && $script_67 -eq 0 && $script_68 -eq 0 && $script_69 -eq 0 && $script_70 -eq 0 && $script_71 -eq 0 && $script_72 -eq 0 && $script_73 -eq 0 && $script_74 -eq 0 && $script_75 -eq 0 && $script_76 -eq 0 && $script_77 -eq 0 && $script_78 -eq 0 && $script_79 -eq 0 && $script_80 -eq 0 && $script_81 -eq 0 && $script_82 -eq 0 && $script_83 -eq 0 && $script_84 -eq 0 && $script_85 -eq 0 && $script_86 -eq 0 && $script_87 -eq 0 && $script_88 -eq 0 && $script_89 -eq 0 && $script_90 -eq 0 && $script_91 -eq 0 ]] && echo ::set-output name=status::success || echo ::set-output name=status::failure
+      - name: Check size script
+        id: size_checker
+        run: |
+          echo Checking size
+          code_line_number_1=$(wc -l < sh_tool/bin/add_new_tool.sh)
+          code_line_number_2=$(wc -l < sh_tool/bin/create_file_nsize.sh)
+          code_line_number_3=$(wc -l < sh_tool/bin/insert_text.sh)
+          code_line_number_4=$(wc -l < sh_tool/bin/open_terminals.sh)
+          code_line_number_5=$(wc -l < sh_tool/bin/timely_kill.sh)
+          code_line_number_6=$(wc -l < sh_tool/bin/app_shortcut.sh)
+          code_line_number_7=$(wc -l < sh_tool/bin/create_ram_disk.sh)
+          code_line_number_8=$(wc -l < sh_tool/bin/is_spammer.sh)
+          code_line_number_9=$(wc -l < sh_tool/bin/path_proc.sh)
+          code_line_number_10=$(wc -l < sh_tool/bin/unpack_to_dir.sh)
+          code_line_number_11=$(wc -l < sh_tool/bin/app_to_user.sh)
+          code_line_number_12=$(wc -l < sh_tool/bin/cut_operations.sh)
+          code_line_number_13=$(wc -l < sh_tool/bin/java_heap_dump.sh)
+          code_line_number_14=$(wc -l < sh_tool/bin/progress_bar.sh)
+          code_line_number_15=$(wc -l < sh_tool/bin/usage.sh)
+          code_line_number_16=$(wc -l < sh_tool/bin/archiving.sh)
+          code_line_number_17=$(wc -l < sh_tool/bin/cut_pdf.sh)
+          code_line_number_18=$(wc -l < sh_tool/bin/list_open_files.sh)
+          code_line_number_19=$(wc -l < sh_tool/bin/record_mic.sh)
+          code_line_number_20=$(wc -l < sh_tool/bin/uudecodes.sh)
+          code_line_number_21=$(wc -l < sh_tool/bin/array_utils.sh)
+          code_line_number_22=$(wc -l < sh_tool/bin/date_to_iso8601.sh)
+          code_line_number_23=$(wc -l < sh_tool/bin/list_ports.sh)
+          code_line_number_24=$(wc -l < sh_tool/bin/rm_blanks.sh)
+          code_line_number_25=$(wc -l < sh_tool/bin/vbox_config.sh)
+          code_line_number_26=$(wc -l < sh_tool/bin/avi_to_mp4.sh)
+          code_line_number_27=$(wc -l < sh_tool/bin/dep_to_group.sh)
+          code_line_number_28=$(wc -l < sh_tool/bin/list_ssh.sh)
+          code_line_number_29=$(wc -l < sh_tool/bin/rm_dups.sh)
+          code_line_number_30=$(wc -l < sh_tool/bin/vdeploy.sh)
+          code_line_number_31=$(wc -l < sh_tool/bin/blot_out.sh)
+          code_line_number_32=$(wc -l < sh_tool/bin/devel.sh)
+          code_line_number_33=$(wc -l < sh_tool/bin/list_users.sh)
+          code_line_number_34=$(wc -l < sh_tool/bin/rm_leads.sh)
+          code_line_number_35=$(wc -l < sh_tool/bin/vnc_config.sh)
+          code_line_number_36=$(wc -l < sh_tool/bin/broadcast_message.sh)
+          code_line_number_37=$(wc -l < sh_tool/bin/dir_utils.sh)
+          code_line_number_38=$(wc -l < sh_tool/bin/load_conf.sh)
+          code_line_number_39=$(wc -l < sh_tool/bin/rm_lines.sh)
+          code_line_number_40=$(wc -l < sh_tool/bin/voffice_list.sh)
+          code_line_number_41=$(wc -l < sh_tool/bin/byte_traffic.sh)
+          code_line_number_42=$(wc -l < sh_tool/bin/disk_label.sh)
+          code_line_number_43=$(wc -l < sh_tool/bin/load_util_conf.sh)
+          code_line_number_44=$(wc -l < sh_tool/bin/rm_old.sh)
+          code_line_number_45=$(wc -l < sh_tool/bin/vpn_config.sh)
+          code_line_number_46=$(wc -l < sh_tool/bin/cal_utils.sh)
+          code_line_number_47=$(wc -l < sh_tool/bin/email_sign.sh)
+          code_line_number_48=$(wc -l < sh_tool/bin/logged_in.sh)
+          code_line_number_49=$(wc -l < sh_tool/bin/same_size.sh)
+          code_line_number_50=$(wc -l < sh_tool/bin/which_bin.sh)
+          code_line_number_51=$(wc -l < sh_tool/bin/check_cfg.sh)
+          code_line_number_52=$(wc -l < sh_tool/bin/employee.sh)
+          code_line_number_53=$(wc -l < sh_tool/bin/logged_out.sh)
+          code_line_number_54=$(wc -l < sh_tool/bin/send_mail.sh)
+          code_line_number_55=$(wc -l < sh_tool/bin/word_to_txt.sh)
+          code_line_number_56=$(wc -l < sh_tool/bin/check_ipv4.sh)
+          code_line_number_57=$(wc -l < sh_tool/bin/file_integrity.sh)
+          code_line_number_58=$(wc -l < sh_tool/bin/logging.sh)
+          code_line_number_59=$(wc -l < sh_tool/bin/slof.sh)
+          code_line_number_60=$(wc -l < sh_tool/bin/wrap_text.sh)
+          code_line_number_61=$(wc -l < sh_tool/bin/check_op.sh)
+          code_line_number_62=$(wc -l < sh_tool/bin/gen_from_template.sh)
+          code_line_number_63=$(wc -l < sh_tool/bin/longer_lines.sh)
+          code_line_number_64=$(wc -l < sh_tool/bin/sort_copy.sh)
+          code_line_number_65=$(wc -l < sh_tool/bin/x_break.sh)
+          code_line_number_66=$(wc -l < sh_tool/bin/check_process.sh)
+          code_line_number_67=$(wc -l < sh_tool/bin/get_ipv4.sh)
+          code_line_number_68=$(wc -l < sh_tool/bin/low_swap.sh)
+          code_line_number_69=$(wc -l < sh_tool/bin/spam_lookup.sh)
+          code_line_number_70=$(wc -l < sh_tool/bin/x_copy.sh)
+          code_line_number_71=$(wc -l < sh_tool/bin/check_root.sh)
+          code_line_number_72=$(wc -l < sh_tool/bin/get_ipv6.sh)
+          code_line_number_73=$(wc -l < sh_tool/bin/make_iso.sh)
+          code_line_number_74=$(wc -l < sh_tool/bin/ssh_cmd.sh)
+          code_line_number_75=$(wc -l < sh_tool/bin/zip_file.sh)
+          code_line_number_76=$(wc -l < sh_tool/bin/check_tool.sh)
+          code_line_number_77=$(wc -l < sh_tool/bin/gz_to_bz2.sh)
+          code_line_number_78=$(wc -l < sh_tool/bin/md5sum.sh)
+          code_line_number_79=$(wc -l < sh_tool/bin/ssh_config.sh)
+          code_line_number_80=$(wc -l < sh_tool/bin/check_x.sh)
+          code_line_number_81=$(wc -l < sh_tool/bin/hash.sh)
+          code_line_number_82=$(wc -l < sh_tool/bin/named_pipe_reader.sh)
+          code_line_number_83=$(wc -l < sh_tool/bin/strip_comment.sh)
+          code_line_number_84=$(wc -l < sh_tool/bin/color_print.sh)
+          code_line_number_85=$(wc -l < sh_tool/bin/id_to_branch.sh)
+          code_line_number_86=$(wc -l < sh_tool/bin/named_pipe_writer.sh)
+          code_line_number_87=$(wc -l < sh_tool/bin/sym_links.sh)
+          code_line_number_88=$(wc -l < sh_tool/bin/cpu.sh)
+          code_line_number_89=$(wc -l < sh_tool/bin/inserting_passwd.sh)
+          code_line_number_90=$(wc -l < sh_tool/bin/on_connect.sh)
+          code_line_number_91=$(wc -l < sh_tool/bin/test_hdd.sh)
+          [[ $code_line_number_1 -gt 300 || $code_line_number_2 -gt 300 || $code_line_number_3 -gt 300 || $code_line_number_4 -gt 300 || $code_line_number_5 -gt 300 || $code_line_number_6 -gt 300 || $code_line_number_7 -gt 300 || $code_line_number_8 -gt 300 || $code_line_number_9 -gt 300 || $code_line_number_10 -gt 300 || $code_line_number_11 -gt 300 || $code_line_number_12 -gt 300 || $code_line_number_13 -gt 300 || $code_line_number_14 -gt 300 || $code_line_number_15 -gt 300 || $code_line_number_16 -gt 300 || $code_line_number_17 -gt 300 || $code_line_number_18 -gt 300 || $code_line_number_19 -gt 300 || $code_line_number_20 -gt 300 || $code_line_number_21 -gt 300 || $code_line_number_22 -gt 300 || $code_line_number_23 -gt 300 || $code_line_number_24 -gt 300 || $code_line_number_25 -gt 300 || $code_line_number_26 -gt 300 || $code_line_number_27 -gt 300 || $code_line_number_28 -gt 300 || $code_line_number_29 -gt 300 || $code_line_number_30 -gt 300 || $code_line_number_31 -gt 300 || $code_line_number_32 -gt 300 || $code_line_number_33 -gt 300 || $code_line_number_34 -gt 300 || $code_line_number_35 -gt 300 || $code_line_number_36 -gt 300 || $code_line_number_37 -gt 300 || $code_line_number_38 -gt 300 || $code_line_number_39 -gt 300 || $code_line_number_40 -gt 300 || $code_line_number_41 -gt 300 || $code_line_number_42 -gt 300 || $code_line_number_43 -gt 300 || $code_line_number_44 -gt 300 || $code_line_number_45 -gt 300 || $code_line_number_46 -gt 300 || $code_line_number_47 -gt 300 || $code_line_number_48 -gt 300 || $code_line_number_49 -gt 300 || $code_line_number_50 -gt 300 || $code_line_number_51 -gt 300 || $code_line_number_52 -gt 300 || $code_line_number_53 -gt 300 || $code_line_number_54 -gt 300 || $code_line_number_55 -gt 300 || $code_line_number_56 -gt 300 || $code_line_number_57 -gt 300 || $code_line_number_58 -gt 300 || $code_line_number_59 -gt 300 || $code_line_number_60 -gt 300 || $code_line_number_61 -gt 300 || $code_line_number_62 -gt 300 || $code_line_number_63 -gt 300 || $code_line_number_64 -gt 300 || $code_line_number_65 -gt 300 || $code_line_number_66 -gt 300 || $code_line_number_67 -gt 300 || $code_line_number_68 -gt 300 || $code_line_number_69 -gt 300 || $code_line_number_70 -gt 300 || $code_line_number_71 -gt 300 || $code_line_number_72 -gt 300 || $code_line_number_73 -gt 300 || $code_line_number_74 -gt 300 || $code_line_number_75 -gt 300 || $code_line_number_76 -gt 300 || $code_line_number_77 -gt 300 || $code_line_number_78 -gt 300 || $code_line_number_79 -gt 300 || $code_line_number_80 -gt 300 || $code_line_number_81 -gt 300 || $code_line_number_82 -gt 300 || $code_line_number_83 -gt 300 || $code_line_number_84 -gt 300 || $code_line_number_85 -gt 300 || $code_line_number_86 -gt 300 || $code_line_number_87 -gt 300 || $code_line_number_88 -gt 300 || $code_line_number_89 -gt 300 || $code_line_number_90 -gt 300 || $code_line_number_91 -gt 300 ]] && echo ::set-output name=status::failure || echo ::set-output name=status::success
+      - name: Check on failures
+        if: steps.syntax_checker.outputs.status == 'failure' || steps.size_checker.outputs.status == 'failure'
+        run: exit 1
