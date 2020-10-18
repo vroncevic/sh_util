@@ -18,9 +18,9 @@ other information that should be provided before the modules are installed.
 
 - [Installation](#installation)
 - [Dependencies](#dependencies)
-- [LIBRARY STRUCTURE](#library-structure)
+- [Library structure](#library-structure)
 - [Docs](#docs)
-- [COPYRIGHT AND LICENSE](#copyright-and-license)
+- [Copyright and license](#copyright-and-license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -203,7 +203,7 @@ Or You can use docker to create image/container.
 None
 ```
 
-### LIBRARY STRUCTURE
+### Library structure
 
 **sh_util** is based on MOP.
 
@@ -357,7 +357,7 @@ More documentation and info at:
 * [https://sh_util.readthedocs.io/en/latest/](https://sh_util.readthedocs.io/en/latest/)
 * [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/)
 
-### COPYRIGHT AND LICENSE
+### Copyright and license
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
