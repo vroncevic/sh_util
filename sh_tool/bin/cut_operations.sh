@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CUT_OPERATIONS=cut_operations
-UTIL_CUT_OPERATIONS_VERSION=ver.1.0
+UTIL_CUT_OPERATIONS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CUT_OPERATIONS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,17 +15,17 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A COLUMN_Usage=(
-    [Usage_TOOL]="cut_columns"
-    [Usage_ARG1]="[CUT_STRUCT] Columns for cuting and path"
-    [Usage_EX_PRE]="# Example for cuting columns from file"
-    [Usage_EX]="cut_columns \$CUT_STRUCT"
+    [USAGE_TOOL]="cut_columns"
+    [USAGE_ARG1]="[CUT_STRUCT] Columns for cuting and path"
+    [USAGE_EX_PRE]="# Example for cuting columns from file"
+    [USAGE_EX]="cut_columns \$CUT_STRUCT"
 )
 
 declare -A CHARACTER_Usage=(
-    [Usage_TOOL]="cut_chars"
-    [Usage_ARG1]="[CUT_STRUCT] Characters and path"
-    [Usage_EX_PRE]="# Example for cuting characters from file"
-    [Usage_EX]="cut_chars \$CUT_STRUCT"
+    [USAGE_TOOL]="cut_chars"
+    [USAGE_ARG1]="[CUT_STRUCT] Characters and path"
+    [USAGE_EX_PRE]="# Example for cuting characters from file"
+    [USAGE_EX]="cut_chars \$CUT_STRUCT"
 )
 
 #

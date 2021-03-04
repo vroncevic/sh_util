@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 # 
 UTIL_EMAIl_SIGN=email_sign
-UTIL_EMAIl_SIGN_VERSION=ver.1.0
+UTIL_EMAIl_SIGN_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_EMAIl_SIGN_VERSION}
 UTIL_CFG_ESIGNATURE=${UTIL}/conf/${UTIL_EMAIl_SIGN}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,15 +17,15 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A EMAIL_SIGN_Usage=(
-    [Usage_TOOL]="${UTIL_EMAIl_SIGN}"
-    [Usage_ARG1]="[NAME] Full name"
+    [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
+    [USAGE_ARG1]="[NAME] Full name"
     [Usage_ARG2]="[WP] Work position"
     [Usage_ARG3]="[DN] Department"
     [Usage_ARG4]="[IP] IP phone number"
     [Usage_ARG5]="[MOB] Mobile number"
     [Usage_ARG6]="[EMAIL] Email address"
-    [Usage_EX_PRE]="# Example generating email signature"
-    [Usage_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
+    [USAGE_EX_PRE]="# Example generating email signature"
+    [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
 )
 
 #

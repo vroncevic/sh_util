@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_OP=check_op
-UTIL_CHECK_OP_VERSION=ver.1.0
+UTIL_CHECK_OP_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_OP_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_OP_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_OP}"
-    [Usage_ARG1]="[OP] Operation to be done"
+    [USAGE_TOOL]="${UTIL_CHECK_OP}"
+    [USAGE_ARG1]="[OP] Operation to be done"
     [Usage_ARG2]="[OPLIST] List of operations"
-    [Usage_EX_PRE]="# Example checking operation"
-    [Usage_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
+    [USAGE_EX_PRE]="# Example checking operation"
+    [USAGE_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
 )
 
 #

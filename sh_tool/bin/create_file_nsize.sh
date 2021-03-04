@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CREATE_FILE_NSIZE=create_file_nsize
-UTIL_CREATE_FILE_NSIZE_VERSION=ver.1.0
+UTIL_CREATE_FILE_NSIZE_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CREATE_FILE_NSIZE_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CREATE_FILE_NSIZE_Usage=(
-    [Usage_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
-    [Usage_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
-    [Usage_EX_PRE]="# Example creating a file n bytes large"
-    [Usage_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
+    [USAGE_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
+    [USAGE_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
+    [USAGE_EX_PRE]="# Example creating a file n bytes large"
+    [USAGE_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
 )
 
 #

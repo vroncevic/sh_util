@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 # 
 UTIL_PROGRESS_BAR=progress_bar
-UTIL_PROGRESS_BAR_VERSION=ver.1.0
+UTIL_PROGRESS_BAR_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_PROGRESS_BAR_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A PROGRESS_BAR_Usage=(
-    [Usage_TOOL]="${UTIL_PROGRESS_BAR}"
-    [Usage_ARG1]="[BW] Width of bar"
+    [USAGE_TOOL]="${UTIL_PROGRESS_BAR}"
+    [USAGE_ARG1]="[BW] Width of bar"
     [Usage_ARG2]="[MP] Maximal percent"
-    [Usage_EX_PRE]="# Example drawing progress_bar"
-    [Usage_EX]="${UTIL_PROGRESS_BAR} \$PB_STRUCT"
+    [USAGE_EX_PRE]="# Example drawing progress_bar"
+    [USAGE_EX]="${UTIL_PROGRESS_BAR} \$PB_STRUCT"
 )
 
 #

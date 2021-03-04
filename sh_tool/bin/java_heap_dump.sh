@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_JAVA_HEAP_DUMP=java_heap_dump
-UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0
+UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_JAVA_HEAP_DUMP_VERSION}
 UTIL_JAVA_HEAP_DUMP_CFG=${UTIL}/conf/${UTIL_JAVA_HEAP_DUMP}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A JAVA_HEAP_DUMP_Usage=(
-    [Usage_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
-    [Usage_ARG1]="[PIDJVM] PID of JVM"
-    [Usage_EX_PRE]="# Create a heap dump of a Java process"
-    [Usage_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
+    [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
+    [USAGE_ARG1]="[PIDJVM] PID of JVM"
+    [USAGE_EX_PRE]="# Create a heap dump of a Java process"
+    [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
 )
 
 #

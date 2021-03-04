@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_GZ_TO_BZ2=gz_to_bz2
-UTIL_GZ_TO_BZ2_VERSION=ver.1.0
+UTIL_GZ_TO_BZ2_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_GZ_TO_BZ2_VERSION}
 UTIL_GZ_TO_BZ2_CFG=${UTIL}/conf/${UTIL_GZ_TO_BZ2}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A GZ_TO_BZ2_Usage=(
-    [Usage_TOOL]="${UTIL_GZ_TO_BZ2}"
-    [Usage_ARG1]="[FILE] Name of gzip archive"
-    [Usage_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
-    [Usage_EX]="${UTIL_GZ_TO_BZ2} test.tar.gz"
+    [USAGE_TOOL]="${UTIL_GZ_TO_BZ2}"
+    [USAGE_ARG1]="[FILE] Name of gzip archive"
+    [USAGE_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
+    [USAGE_EX]="${UTIL_GZ_TO_BZ2} test.tar.gz"
 )
 
 #

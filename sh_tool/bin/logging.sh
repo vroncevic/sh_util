@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGING=logging
-UTIL_LOGGING_VERSION=ver.1.0
+UTIL_LOGGING_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGING_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGING_Usage=(
-    [Usage_TOOL]="${UTIL_LOGGING}"
-    [Usage_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
-    [Usage_EX_PRE]="# Example write LOG line structure to file"
-    [Usage_EX]="${UTIL_LOGGING} \$LOG_STRUCTURE"
+    [USAGE_TOOL]="${UTIL_LOGGING}"
+    [USAGE_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
+    [USAGE_EX_PRE]="# Example write LOG line structure to file"
+    [USAGE_EX]="${UTIL_LOGGING} \$LOG_STRUCTURE"
 )
 
 #

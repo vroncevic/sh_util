@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VOFFICE_LIST=voffice_check
-UTIL_VOFFICE_LIST_VERSION=ver.1.0
+UTIL_VOFFICE_LIST_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VOFFICE_LIST_VERSION}
 UTIL_VOFFICE_LIST_CFG=${UTIL}/conf/${UTIL_VOFFICE_LIST}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VOFFICE_LIST_Usage=(
-    [Usage_TOOL]="${UTIL_VOFFICE_LIST}"
-    [Usage_ARG1]="[VM_DISK]  Path to lock file"
-    [Usage_EX_PRE]="# Example running tool"
-    [Usage_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
+    [USAGE_TOOL]="${UTIL_VOFFICE_LIST}"
+    [USAGE_ARG1]="[VM_DISK]  Path to lock file"
+    [USAGE_EX_PRE]="# Example running tool"
+    [USAGE_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
 )
 
 #

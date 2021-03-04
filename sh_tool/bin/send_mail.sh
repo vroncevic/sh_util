@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SEND_MAIL=send_mail
-UTIL_SEND_MAIL_VERSION=ver.1.0
+UTIL_SEND_MAIL_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SEND_MAIL_VERSION}
 UTIL_SEND_MAIL_CFG=${UTIL}/conf/${UTIL_SEND_MAIL}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,12 +17,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A SEND_MAIL_Usage=(
-    [Usage_TOOL]="${UTIL_SEND_MAIL}"
-    [Usage_ARG1]="[MSG] Email text body"
+declare -A SEND_MAIL_USAGE=(
+    [USAGE_TOOL]="${UTIL_SEND_MAIL}"
+    [USAGE_ARG1]="[MSG] Email text body"
     [Usage_ARG2]="[EMAIL2ADMIN] Full email address"
-    [Usage_EX_PRE]="# Example sending simple message"
-    [Usage_EX]="${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
+    [USAGE_EX_PRE]="# Example sending simple message"
+    [USAGE_EX]="${UTIL_SEND_MAIL} \"test\" \"vladimir.roncevic@frobas.com\""
 )
 
 #
@@ -52,18 +52,18 @@ function send_mail {
     if [ "${TOOL_NOTIFY}" == "true" ]; then
         if [[ -n "${EMSG}" && -n "${EMAIL}" ]]; then
             local FUNC=${FUNCNAME[0]} MSG="None" STATUS HOST=$(hostname)
-            declare -A config_send_mail=()
-            load_util_conf "$UTIL_SEND_MAIL_CFG" config_send_mail
+            declare -A CONFIG_SEND_MAIL=()
+            load_util_conf "$UTIL_SEND_MAIL_CFG" CONFIG_SEND_MAIL
             STATUS=$?
             if [ $STATUS -eq $SUCCESS ]; then
-                local SENDMAIL=${config_send_mail[SENDMAIL]}
+                local SENDMAIL=${CONFIG_SEND_MAIL[SENDMAIL]}
                 MSG="Send an email to Administrator!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
                 check_tool "${SENDMAIL}"
                 STATUS=$?
                 if [ $STATUS -eq $SUCCESS ]; then
-                    local MLINE FMSG=${config_send_mail[SENDMAIL_MSG]}
-                    local SMTEMPLATE=${config_send_mail[SENDMAIL_TEMPLATE]}
+                    local MLINE FMSG=${CONFIG_SEND_MAIL[SENDMAIL_MSG]}
+                    local SMTEMPLATE=${CONFIG_SEND_MAIL[SENDMAIL_TEMPLATE]}
                     while read MLINE
                     do
                         eval echo -e "${MLINE}" >> ${FMSG}
@@ -83,7 +83,7 @@ function send_mail {
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_SEND_MAIL"
             return $NOT_SUCCESS
         fi
-        usage SEND_MAIL_Usage
+        usage SEND_MAIL_USAGE
         return $NOT_SUCCESS
     fi
     return $SUCCESS

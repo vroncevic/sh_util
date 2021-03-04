@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ARRAY_UTILS=array_utils
-UTIL_VERSION_ARRAY_UTILS=ver.1.0
+UTIL_VERSION_ARRAY_UTILS=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VERSION_ARRAY_UTILS}
 UTIL_LOG=${UTIL}/log
 

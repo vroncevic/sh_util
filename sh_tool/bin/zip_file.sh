@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ZIP_FILE=zip_file
-UTIL_ZIP_FILE_VERSION=ver.1.0
+UTIL_ZIP_FILE_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_ZIP_FILE_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A ZIP_FILE_Usage=(
-    [Usage_TOOL]="${UTIL_ZIP_FILE}"
-    [Usage_ARG1]="[FILE] Name of file"
-    [Usage_EX-PRE]="# Example zipping a file"
-    [Usage_EX]="${UTIL_ZIP_FILE} freshtool.txt"
+    [USAGE_TOOL]="${UTIL_ZIP_FILE}"
+    [USAGE_ARG1]="[FILE] Name of file"
+    [USAGE_EX-PRE]="# Example zipping a file"
+    [USAGE_EX]="${UTIL_ZIP_FILE} freshtool.txt"
 )
 
 #

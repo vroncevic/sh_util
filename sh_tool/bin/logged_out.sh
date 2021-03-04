@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGED_OUT=logged_out
-UTIL_LOGGED_OUT_VERSION=ver.1.0
+UTIL_LOGGED_OUT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGED_OUT_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGED_OUT_Usage=(
-    [Usage_TOOL]="${UTIL_LOGGED_OUT}"
-    [Usage_ARG1]="[LOGOUT_STRUCT] System username and time"
-    [Usage_EX_PRE]="# Checking user to log out"
-    [Usage_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
+    [USAGE_TOOL]="${UTIL_LOGGED_OUT}"
+    [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
+    [USAGE_EX_PRE]="# Checking user to log out"
+    [USAGE_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
 )
 
 #

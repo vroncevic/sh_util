@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VPN_CONFIG=vpn_config
-UTIL_VPN_CONFIG_VERSION=ver.1.0
+UTIL_VPN_CONFIG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VPN_CONFIG_VERSION}
 UTIL_VPN_CONFIG_CFG=${UTIL}/conf/${UTIL_VPN_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VPN_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_VPN_CONFIG}"
-    [Usage_ARG1]="[VPN_STRUCT] Username, group, first and last name"
-    [Usage_EX_PRE]="# Generate openVPN configuration"
-    [Usage_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
+    [USAGE_TOOL]="${UTIL_VPN_CONFIG}"
+    [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
+    [USAGE_EX_PRE]="# Generate openVPN configuration"
+    [USAGE_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
 )
 
 #

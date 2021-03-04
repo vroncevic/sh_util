@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_USERS=list_users
-UTIL_LIST_USERS_VERSION=ver.1.0
+UTIL_LIST_USERS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_USERS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LIST_USERS_Usage=(
-    [Usage_TOOL]="${UTIL_LIST_USERS}"
-    [Usage_ARG1]="[ID] Minimal user id"
-    [Usage_EX_PRE]="# Example print all common user names"
-    [Usage_EX]="${UTIL_LIST_USERS} 500"
+    [USAGE_TOOL]="${UTIL_LIST_USERS}"
+    [USAGE_ARG1]="[ID] Minimal user id"
+    [USAGE_EX_PRE]="# Example print all common user names"
+    [USAGE_EX]="${UTIL_LIST_USERS} 500"
 )
 
 #

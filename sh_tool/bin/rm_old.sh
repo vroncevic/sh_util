@@ -8,7 +8,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_OLD=rm_old
-UTIL_RM_OLD_VERSION=ver.1.0
+UTIL_RM_OLD_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_OLD_VERSION}
 UTIL_LOG=${UTIL}/log
 

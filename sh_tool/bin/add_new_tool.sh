@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ADD_NEW_TOOL=add_new_tool
-UTIL_ADD_NEW_TOOL_VERSION=ver.1.0
+UTIL_ADD_NEW_TOOL_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_ADD_NEW_TOOL_VERSION}
 UTIL_ADD_NEW_TOOL_CFG=${UTIL}/conf/${UTIL_ADD_NEW_TOOL}.cfg
 UTIL_LOG=${UTIL}/log
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A ADD_NEW_TOOL_Usage=(
-    [Usage_TOOL]="${UTIL_ADD_NEW_TOOL}"
-    [Usage_ARG1]="[TOOL_NAME] Name of App/Tool/Script"
-    [Usage_EX_PRE]="# Example adding files for Thunderbird"
-    [Usage_EX]="${UTIL_ADD_NEW_TOOL} thunderbird"
+declare -A ADD_NEW_TOOL_USAGE=(
+    [USAGE_TOOL]="${UTIL_ADD_NEW_TOOL}"
+    [USAGE_ARG1]="[TOOL_NAME] Name of App/Tool/Script"
+    [USAGE_EX_PRE]="# Example adding files for Thunderbird"
+    [USAGE_EX]="${UTIL_ADD_NEW_TOOL} thunderbird"
 )
 
 #
@@ -121,7 +121,7 @@ function add_new_tool {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_ADD_NEW_TOOL"
         return $NOT_SUCCESS
     fi
-    usage ADD_NEW_TOOL_Usage
+    usage ADD_NEW_TOOL_USAGE
     return $NOT_SUCCESS
 }
 

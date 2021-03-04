@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_PORTS=list_ports
-UTIL_LIST_PORTS_VERSION=ver.1.0
+UTIL_LIST_PORTS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_PORTS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LIST_PORT_Usage=(
-    [Usage_TOOL]="${UTIL_LIST_PORTS}"
-    [Usage_ARG1]="[PORT] Which you need to check"
-    [Usage_EX-PRE]="# Example check port 1734"
-    [Usage_EX]="${UTIL_LIST_PORTS} 1734"
+    [USAGE_TOOL]="${UTIL_LIST_PORTS}"
+    [USAGE_ARG1]="[PORT] Which you need to check"
+    [USAGE_EX-PRE]="# Example check port 1734"
+    [USAGE_EX]="${UTIL_LIST_PORTS} 1734"
 )
 
 #

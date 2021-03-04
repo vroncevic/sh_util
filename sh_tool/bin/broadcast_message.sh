@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 # 
 UTIL_BROADCAST_BMSG=broadcast_message
-UTIL_BROADCAST_BMSG_VERSION=ver.1.0
+UTIL_BROADCAST_BMSG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_BROADCAST_BMSG_VERSION}
 UTIL_BROADCAST_BMSG_CFG=${UTIL}/conf/${UTIL_BROADCAST_BMSG}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,12 +17,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A BROADCAST_BMSG_Usage=(
-    [Usage_TOOL]="${UTIL_BROADCAST_BMSG}"
-    [Usage_ARG1]="[BMSG] Main message for broadcast"
+declare -A BROADCAST_BMSG_USAGE=(
+    [USAGE_TOOL]="${UTIL_BROADCAST_BMSG}"
+    [USAGE_ARG1]="[BMSG] Main message for broadcast"
     [Usage_ARG2]="[NOTE] Short note with fullname"
-    [Usage_EX_PRE]="# Example sending broadcast message"
-    [Usage_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
+    [USAGE_EX_PRE]="# Example sending broadcast message"
+    [USAGE_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
 )
 
 #
@@ -88,7 +88,7 @@ function broadcast_message {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_BROADCAST_BMSG"
         return $NOT_SUCCESS
     fi
-    usage BROADCAST_BMSG_Usage
+    usage BROADCAST_BMSG_USAGE
     return $NOT_SUCCESS
 }
 

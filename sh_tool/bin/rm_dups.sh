@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_DUPS=rm_dups
-UTIL_RM_DUPS_VERSION=ver.1.0
+UTIL_RM_DUPS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_DUPS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_DUPS_Usage=(
-    [Usage_TOOL]="${UTIL_RM_DUPS}"
-    [Usage_ARG1]="[STREAM] stdin or file path"
-    [Usage_EX_PRE]="# Remove duplicate lines from file or stdin"
-    [Usage_EX]="${UTIL_RM_DUPS} /data/test.txt"
+    [USAGE_TOOL]="${UTIL_RM_DUPS}"
+    [USAGE_ARG1]="[STREAM] stdin or file path"
+    [USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
+    [USAGE_EX]="${UTIL_RM_DUPS} /data/test.txt"
 )
 
 #

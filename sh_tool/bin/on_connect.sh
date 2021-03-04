@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ON_CONNECT=on_connect
-UTIL_ON_CONNECT_VERSION=ver.1.0
+UTIL_ON_CONNECT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_ON_CONNECT_VERSION}
 UTIL_ON_CONNECT_CFG=${UTIL}/conf/${UTIL_ON_CONNECT}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ONLINE_CONNECT_Usage=(
-    [Usage_TOOL]="${UTIL_ON_CONNECT}"
-    [Usage_ARG1]="[TIME] Sleep time"
-    [Usage_EX_PRE]="# Example running __$TOOL"
-    [Usage_EX]="${UTIL_ON_CONNECT} 5s"
+    [USAGE_TOOL]="${UTIL_ON_CONNECT}"
+    [USAGE_ARG1]="[TIME] Sleep time"
+    [USAGE_EX_PRE]="# Example running __$TOOL"
+    [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
 )
 
 #

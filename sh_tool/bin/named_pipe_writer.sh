@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_NAMED_PIPE_WRITER=named_pipe_writer
-UTIL_NAMED_PIPE_WRITER_VERSION=ver.1.0
+UTIL_NAMED_PIPE_WRITER_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_NAMED_PIPE_WRITER_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A NAMED_PIPE_WRITER_Usage=(
-    [Usage_TOOL]="${UTIL_NAMED_PIPE_WRITER}"
-    [Usage_ARG1]="[PIPE_PATH] Absolute path of named pipe"
+    [USAGE_TOOL]="${UTIL_NAMED_PIPE_WRITER}"
+    [USAGE_ARG1]="[PIPE_PATH] Absolute path of named pipe"
     [Usage_ARG2]="[MESSAGE]   Message for pipe"
-    [Usage_EX_PRE]="# Write message to named pipe"
-    [Usage_EX]="${UTIL_NAMED_PIPE_WRITER} /tmp/testpipe 'Simple test'"
+    [USAGE_EX_PRE]="# Write message to named pipe"
+    [USAGE_EX]="${UTIL_NAMED_PIPE_WRITER} /tmp/testpipe 'Simple test'"
 )
 
 #

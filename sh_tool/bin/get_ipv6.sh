@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_GET_IPV6=get_ipv6
-UTIL_GET_IPV6_VERSION=ver.1.0
+UTIL_GET_IPV6_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_GET_IPV6_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A GET_IPV6_Usage=(
-    [Usage_TOOL]="${UTIL_GET_IPV6}"
-    [Usage_ARG1]="[INTERFACE] Interface name"
+    [USAGE_TOOL]="${UTIL_GET_IPV6}"
+    [USAGE_ARG1]="[INTERFACE] Interface name"
     [Usage_ARG2]="[IPV6_ADDRESS] Variable for storing"
-    [Usage_EX_PRE]="# Example checking IPV6 logic address"
-    [Usage_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
+    [USAGE_EX_PRE]="# Example checking IPV6 logic address"
+    [USAGE_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
 )
 
 #

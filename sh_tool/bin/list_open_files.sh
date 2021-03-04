@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_OPEN_FILES=list_open_files
-UTIL_LIST_OPEN_FILES_VERSION=ver.1.0
+UTIL_LIST_OPEN_FILES_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_OPEN_FILES_VERSION}
 UTIL_LIST_OPEN_FILES_CFG=${UTIL}/conf/${UTIL_LIST_OPEN_FILES}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LIST_OPEN_FILES_Usage=(
-    [Usage_TOOL]="${UTIL_LIST_OPEN_FILES}"
-    [Usage_ARG1]="[USR] System username"
-    [Usage_EX_PRE]="# Example list all opened files by user"
-    [Usage_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
+    [USAGE_TOOL]="${UTIL_LIST_OPEN_FILES}"
+    [USAGE_ARG1]="[USR] System username"
+    [USAGE_EX_PRE]="# Example list all opened files by user"
+    [USAGE_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
 )
 
 #

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_INSERTING_PASSWD=inserting_passwd
-UTIL_INSERTING_PASSWD_VERSION=ver.1.0
+UTIL_INSERTING_PASSWD_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_INSERTING_PASSWD_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CREATE_RAM_DISK=create_ram_disk
-UTIL_CREATE_RAM_DISK_VERSION=ver.1.0
+UTIL_CREATE_RAM_DISK_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CREATE_RAM_DISK_VERSION}
 UTIL_CREATE_RAM_DISK_CFG=${UTIL}/conf/${UTIL_CREATE_RAM_DISK}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CREATE_RAM_DISK_Usage=(
-    [Usage_TOOL]="${UTIL_CREATE_RAM_DISK}"
-    [Usage_ARG1]="[MOUNTPT] Mount point"
-    [Usage_EX_PRE]="# Example creating RAM disk"
-    [Usage_EX]="${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
+    [USAGE_TOOL]="${UTIL_CREATE_RAM_DISK}"
+    [USAGE_ARG1]="[MOUNTPT] Mount point"
+    [USAGE_EX_PRE]="# Example creating RAM disk"
+    [USAGE_EX]="${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
 )
 
 #

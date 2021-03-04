@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RECORD_MIC=record_mic
-UTIL_RECORD_MIC_VERSION=ver.1.0
+UTIL_RECORD_MIC_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_RECORD_MIC_VERSION}
 UTIL_RECORD_MIC_CFG=${UTIL}/conf/${UTIL_RECORD_MIC}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A RECORD_MIC_Usage=(
-    [Usage_TOOL]="${UTIL_RECORD_MIC}"
-    [Usage_ARG1]="[FILE] Name of media file"
-    [Usage_EX_PRE]="# Recording from microfon to test.mp3"
-    [Usage_EX]="${UTIL_RECORD_MIC} test.mp3"
+    [USAGE_TOOL]="${UTIL_RECORD_MIC}"
+    [USAGE_ARG1]="[FILE] Name of media file"
+    [USAGE_EX_PRE]="# Recording from microfon to test.mp3"
+    [USAGE_EX]="${UTIL_RECORD_MIC} test.mp3"
 )
 
 #

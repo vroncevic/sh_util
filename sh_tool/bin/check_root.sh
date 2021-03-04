@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_ROOT=check_root
-UTIL_CHECK_ROOT_VERSION=ver.1.0
+UTIL_CHECK_ROOT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_ROOT_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SSH_CONFIG=ssh_config
-UTIL_SSH_CONFIG_VERSION=ver.1.0
+UTIL_SSH_CONFIG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SSH_CONFIG_VERSION}
 UTIL_SSH_CONFIG_CFG=${UTIL}/conf/${UTIL_SSH_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log
@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A MAKE_SSH_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_SSH_CONFIG}"
-    [Usage_ARG1]="[USR] System username"
+declare -A MAKE_SSH_CONFIG_USAGE=(
+    [USAGE_TOOL]="${UTIL_SSH_CONFIG}"
+    [USAGE_ARG1]="[USR] System username"
     [Usage_ARG2]="[DEP] System group"
-    [Usage_EX_PRE]="# Generate SSH configuration"
-    [Usage_EX]="${UTIL_SSH_CONFIG} vroncevic users"
+    [USAGE_EX_PRE]="# Generate SSH configuration"
+    [USAGE_EX]="${UTIL_SSH_CONFIG} vroncevic users"
 )
 
 #
@@ -49,8 +49,8 @@ function ssh_config {
     local USR=$1 DEP=$2
     if [[ -n "${USR}" && -n "${DEP}" ]]; then
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
-        declare -A config_ssh_config=()
-        load_util_conf "$UTIL_SSH_CONFIG_CFG" config_ssh_config
+        declare -A CONFIG_SSH_CONFIG=()
+        load_util_conf "$UTIL_SSH_CONFIG_CFG" CONFIG_SSH_CONFIG
         STATUS=$?
         if [ $STATUS -eq $SUCCESS ]; then
             MSG="Generating SSH client config file at ${USR} home!"
@@ -77,7 +77,7 @@ function ssh_config {
                 while read SLINE
                 do
                     eval echo -e "$SLINE" >> "${UHOME}/.ssh/config"
-                done < ${config_ssh_config[SSH_TEMPLATE]}
+                done < ${CONFIG_SSH_CONFIG[SSH_TEMPLATE]}
                 MSG="Set owner!"
                 info_debug_message "$MSG" "$FUNC" "$UTIL_SSH_CONFIG"
                 eval "chown -R ${USR}.${DEP} ${UHOME}/.ssh/"
@@ -99,7 +99,7 @@ function ssh_config {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SSH_CONFIG"
         return $NOT_SUCCESS
     fi
-    usage MAKE_SSH_CONFIG_Usage
+    usage MAKE_SSH_CONFIG_USAGE
     return $NOT_SUCCESS
 }
 

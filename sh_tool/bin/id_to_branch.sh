@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ID_TO_BRANCH=id_to_branch
-UTIL_ID_TO_BRANCH_VERSION=ver.1.0
+UTIL_ID_TO_BRANCH_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_ID_TO_BRANCH_VERSION}
 UTIL_ID_TO_BRANCH_CFG=${UTIL}/conf/${UTIL_ID_TO_BRANCH}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ID_TO_BRANCH_Usage=(
-    [Usage_TOOL]="${UTIL_ID_TO_BRANCH}"
-    [Usage_ARG1]="[ID] Name of town or country"
-    [Usage_EX_PRE]="# Example convert ns to ns-frobas-employee"
-    [Usage_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
+    [USAGE_TOOL]="${UTIL_ID_TO_BRANCH}"
+    [USAGE_ARG1]="[ID] Name of town or country"
+    [USAGE_EX_PRE]="# Example convert ns to ns-frobas-employee"
+    [USAGE_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
 )
 
 #

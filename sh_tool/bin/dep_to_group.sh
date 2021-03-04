@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_DEP_TO_GROUP=dep_to_group
-UTIL_DEP_TO_GROUP_VERSION=ver.1.0
+UTIL_DEP_TO_GROUP_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_DEP_TO_GROUP_VERSION}
 UTIL_DEP_TO_GROUP_CFG=${UTIL}/conf/${UTIL_DEP_TO_GROUP}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A DEP_TO_GROUP_Usage=(
-    [Usage_TOOL]="${UTIL_DEP_TO_GROUP}"
-    [Usage_ARG1]="[DEP] Department name"
-    [Usage_EX_PRE]="# Example converting \"Management\" to \"me\""
-    [Usage_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
+    [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
+    [USAGE_ARG1]="[DEP] Department name"
+    [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
+    [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
 )
 
 #

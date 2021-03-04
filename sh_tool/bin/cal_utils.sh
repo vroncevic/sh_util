@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CAL_UTILS=cal_utils
-UTIL_CAL_UTILS_VERSION=ver.1.0
+UTIL_CAL_UTILS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CAL_UTILS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CAL_UTILS_Usage=(
-    [Usage_TOOL]="${UTIL_CAL_UTILS}"
-    [Usage_ARG1]="[CAL_STRUCT] Target month and year"
-    [Usage_EX_PRE]="# Example geting last working day in May 1987"
-    [Usage_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
+    [USAGE_TOOL]="${UTIL_CAL_UTILS}"
+    [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
+    [USAGE_EX_PRE]="# Example geting last working day in May 1987"
+    [USAGE_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
 )
 
 #

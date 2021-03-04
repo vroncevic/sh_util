@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LONGER_LINES=longer_lines
-UTIL_LONGER_LINES_VERSION=ver.1.0
+UTIL_LONGER_LINES_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LONGER_LINES_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LONGER_LINES_Usage=(
-    [Usage_TOOL]="${UTIL_LONGER_LINES}"
-    [Usage_ARG1]="[NUMCHARS] an integer referring to min characters per line"
-    [Usage_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
-    [Usage_EX]="${UTIL_LONGER_LINES} 45"
+    [USAGE_TOOL]="${UTIL_LONGER_LINES}"
+    [USAGE_ARG1]="[NUMCHARS] an integer referring to min characters per line"
+    [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
+    [USAGE_EX]="${UTIL_LONGER_LINES} 45"
 )
 
 #

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_BLOT_OUT=blot_out
-UTIL_BLOT_OUT_VERSION=ver.1.0
+UTIL_BLOT_OUT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_BLOT_OUT_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A BLOT_OUT_Usage=(
-    [Usage_TOOL]="${UTIL_BLOT_OUT}"
-    [Usage_ARG1]="[FILE_NAME] Name of file"
-    [Usage_EX_PRE]="# Example delete file with high security"
-    [Usage_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
+    [USAGE_TOOL]="${UTIL_BLOT_OUT}"
+    [USAGE_ARG1]="[FILE_NAME] Name of file"
+    [USAGE_EX_PRE]="# Example delete file with high security"
+    [USAGE_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
 )
 
 #

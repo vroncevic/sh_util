@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SORT_COPY=sort_copy
-UTIL_SORT_COPY_VERSION=ver.1.0
+UTIL_SORT_COPY_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SORT_COPY_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,18 +15,18 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LCP_Usage=(
-    [Usage_TOOL]="lcp"
-    [Usage_ARG1]="[EXT]  File extension"
+    [USAGE_TOOL]="lcp"
+    [USAGE_ARG1]="[EXT]  File extension"
     [Usage_ARG2]="[DST] Final destination for copy process"
-    [Usage_EX_PRE]="# Copy all *.jpg files to directory /opt/"
-    [Usage_EX]="lcp jpg /opt/"
+    [USAGE_EX_PRE]="# Copy all *.jpg files to directory /opt/"
+    [USAGE_EX]="lcp jpg /opt/"
 )
 
 declare -A DUP_Usage=(
-    [Usage_TOOL]="duplicates_counter"
-    [Usage_ARG1]="[FILE] Sort and count duplicates"
-    [Usage_EX_PRE]="# Sort and count duplicates"
-    [Usage_EX]="duplicates_counter /opt/test.txt"
+    [USAGE_TOOL]="duplicates_counter"
+    [USAGE_ARG1]="[FILE] Sort and count duplicates"
+    [USAGE_EX_PRE]="# Sort and count duplicates"
+    [USAGE_EX]="duplicates_counter /opt/test.txt"
 )
 
 #

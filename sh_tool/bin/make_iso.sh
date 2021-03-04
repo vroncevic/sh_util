@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_MAKE_ISO=make_iso
-UTIL_MAKE_ISO_VERSION=ver.1.0
+UTIL_MAKE_ISO_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_MAKE_ISO_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A MAKE_ISO_Usage=(
-    [Usage_TOOL]="${UTIL_MAKE_ISO}"
-    [Usage_ARG1]="[SRC] Target media for cloning or restoring"
+    [USAGE_TOOL]="${UTIL_MAKE_ISO}"
+    [USAGE_ARG1]="[SRC] Target media for cloning or restoring"
     [Usage_ARG2]="[DST]  Final destination"
-    [Usage_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
-    [Usage_EX]="${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
+    [USAGE_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
+    [USAGE_EX]="${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
 )
 
 #

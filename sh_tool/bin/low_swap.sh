@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOW_SWAP=low_swap
-UTIL_LOW_SWAP_VERSION=ver.1.0
+UTIL_LOW_SWAP_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LOW_SWAP_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/send_mail.sh
 
 declare -A LOW_SWAP_Usage=(
-    [Usage_TOOL]="${UTIL_LOW_SWAP}"
-    [Usage_ARG1]="[LOW_LIMIT] An integer referring to MB"
+    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
+    [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
     [Usage_ARG2]="[EMAIL] Administrator email address"
-    [Usage_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [Usage_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
+    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
 )
 
 #

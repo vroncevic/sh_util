@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VBOX_CONFIG=vbox_config
-UTIL_VBOX_CONFIG_VERSION=ver.1.0
+UTIL_VBOX_CONFIG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VBOX_CONFIG_VERSION}
 UTIL_CFG_VBOXCFG=${UTIL}/conf/${UTIL_VBOX_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VBOX_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_VBOX_CONFIG}"
-    [Usage_ARG1]="[USR] System username"
-    [Usage_EX_PRE]="# Example generating VBOX config files"
-    [Usage_EX]="${UTIL_VBOX_CONFIG} vroncevic"
+    [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
+    [USAGE_ARG1]="[USR] System username"
+    [USAGE_EX_PRE]="# Example generating VBOX config files"
+    [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
 )
 
 #

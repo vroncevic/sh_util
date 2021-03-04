@@ -8,7 +8,7 @@
 #
 #
 UTIL_LOAD_UTIL_CONF=load_util_conf
-UTIL_LOAD_UTIL_CONF_VERSION=ver.1.0
+UTIL_LOAD_UTIL_CONF_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LOAD_UTIL_CONF_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_cfg.sh
 
 declare -A LOAD_UTIL_CONF_Usage=(
-    [Usage_TOOL]="${UTIL_LOAD_UTIL_CONF}"
-    [Usage_ARG1]="[FILE] Path to config file"
+    [USAGE_TOOL]="${UTIL_LOAD_UTIL_CONF}"
+    [USAGE_ARG1]="[FILE] Path to config file"
     [Usage_ARG2]="[CONFIG] Hash structure for config"
-    [Usage_EX_PRE]="# Example load configuration"
-    [Usage_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
 )
 
 #

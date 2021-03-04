@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_UUDECODES=uudecodes
-UTIL_UUDECODES_VERSION=ver.1.0
+UTIL_UUDECODES_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_UUDECODES_VERSION}
 UTIL_UUDECODES_CFG=${UTIL}/conf/${UTIL_UUDECODES}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A UUDECODES_Usage=(
-    [Usage_TOOL]="${UTIL_UUDECODES}"
-    [Usage_ARG1]="[FILE_NAME] Path to binary file"
-    [Usage_EX_PRE]="# Example decode thunderbird binary"
-    [Usage_EX]="${UTIL_UUDECODES} thunderbird-bin"
+declare -A UUDECODES_USAGE=(
+    [USAGE_TOOL]="${UTIL_UUDECODES}"
+    [USAGE_ARG1]="[FILE_NAME] Path to binary file"
+    [USAGE_EX_PRE]="# Example decode thunderbird binary"
+    [USAGE_EX]="${UTIL_UUDECODES} thunderbird-bin"
 )
 
 #
@@ -50,11 +50,11 @@ function uudecodes {
     local FILE=$1
     if [ -n "${FILE}" ]; then
         local FUNC=${FUNCNAME[0]} MSG="" STATUS
-        declare -A config_uudecodes=()
-        load_util_conf "$UTIL_UUDECODES_CFG" config_uudecodes
+        declare -A CONFIG_UUDECODES=()
+        load_util_conf "$UTIL_UUDECODES_CFG" CONFIG_UUDECODES
         STATUS=$?
         if [ $STATUS -eq $SUCCESS ]; then
-            local UUDEC=${config_uudecodes[UUDEC]}
+            local UUDEC=${CONFIG_UUDECODES[UUDEC]}
             check_tool "${UUDEC}"
             STATUS=$?
             if [ $STATUS -eq $SUCCESS ]; then
@@ -85,7 +85,7 @@ function uudecodes {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
     fi
-    usage UUDECODES_Usage
+    usage UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 
@@ -139,7 +139,7 @@ function uudecodes_all {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
     fi
-    usage UUDECODES_Usage
+    usage UUDECODES_USAGE
     return $NOT_SUCCESS
 }
 

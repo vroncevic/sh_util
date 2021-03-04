@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_WRAP_TEXT=wrap_text
-UTIL_WRAP_TEXT_VERSION=ver.1.0
+UTIL_WRAP_TEXT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_WRAP_TEXT_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A WRAP_TEXT_Usage=(
-    [Usage_TOOL]="${UTIL_WRAP_TEXT}"
-    [Usage_ARG1]="[PATH] Path to the target(s)"
-    [Usage_EX_PRE]="# Example running tool"
-    [Usage_EX]="${UTIL_WRAP_TEXT} /data/"
+declare -A WRAP_TEXT_USAGE=(
+    [USAGE_TOOL]="${UTIL_WRAP_TEXT}"
+    [USAGE_ARG1]="[PATH] Path to the target(s)"
+    [USAGE_EX_PRE]="# Example running tool"
+    [USAGE_EX]="${UTIL_WRAP_TEXT} /data/"
 )
 
 #
@@ -62,7 +62,7 @@ function wrap_text {
         info_debug_message_end "Done" "$FUNC" "$UTIL_WRAP_TEXT"
         return $SUCCESS
     fi
-    usage WRAP_TEXT_Usage
+    usage WRAP_TEXT_USAGE
     return $NOT_SUCCESS
 }
 

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_CHECK_IPV4=check_ipv4
-UTIL_CHECK_IPV4_VERSION=ver.1.0
+UTIL_CHECK_IPV4_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_IPV4_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_IPV4_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_IPV4}"
-    [Usage_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
-    [Usage_EX_PRE]="# Example checking IPV4 Address"
-    [Usage_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
+    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
+    [USAGE_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
+    [USAGE_EX_PRE]="# Example checking IPV4 Address"
+    [USAGE_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
 )
 
 #

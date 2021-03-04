@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_OPEN_TERMINALS=open_terminals
-UTIL_OPEN_TERMINALS_VERSION=ver.1.0
+UTIL_OPEN_TERMINALS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_OPEN_TERMINALS_VERSION}
 UTIL_OPEN_TERMINALS_CFG=${UTIL}/conf/${UTIL_OPEN_TERMINALS}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A OPEN_TERMINALS_Usage=(
-    [Usage_TOOL]="${UTIL_OPEN_TERMINALS}"
-    [Usage_ARG1]="[TERMS] number of terminal windows"
-    [Usage_EX_PRE]="# Open 4 terminal windows"
-    [Usage_EX]="${UTIL_OPEN_TERMINALS} 4"
+    [USAGE_TOOL]="${UTIL_OPEN_TERMINALS}"
+    [USAGE_ARG1]="[TERMS] number of terminal windows"
+    [USAGE_EX_PRE]="# Open 4 terminal windows"
+    [USAGE_EX]="${UTIL_OPEN_TERMINALS} 4"
 )
 
 #

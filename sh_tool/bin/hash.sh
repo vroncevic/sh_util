@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_HASH=hash
-UTIL_VERSION=ver.1.0
+UTIL_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SLOF=slof
-UTIL_SLOF_VERSION=ver.1.0
+UTIL_SLOF_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SLOF_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SLOF_Usage=(
-    [Usage_TOOL]="${UTIL_SLOF}"
-    [Usage_ARG1]="[SIZE] LIst in GB/MB"
-    [Usage_EX_PRE]="# Show 10 Largest Open Files in GB"
-    [Usage_EX]="${UTIL_SLOF} large"
+declare -A SLOF_USAGE=(
+    [USAGE_TOOL]="${UTIL_SLOF}"
+    [USAGE_ARG1]="[SIZE] LIst in GB/MB"
+    [USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
+    [USAGE_EX]="${UTIL_SLOF} large"
 )
 
 #
@@ -59,7 +59,7 @@ function slof {
         info_debug_message_end "Done" "$FUNC" "$UTIL_SLOF"
         return $SUCCESS
     fi
-    usage SLOF_Usage
+    usage SLOF_USAGE
     return $NOT_SUCCESS
 }
 

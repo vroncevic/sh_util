@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_CFG=check_cfg
-UTIL_CHECK_CFG_VERSION=ver.1.0
+UTIL_CHECK_CFG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_CFG_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_CFG_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_CFG}"
-    [Usage_ARG1]="[TOOL_CFG] Path to config file"
-    [Usage_EX_PRE]="# Example checking config file"
-    [Usage_EX]="${UTIL_CHECK_CFG} /etc/sometool.cfg"
+    [USAGE_TOOL]="${UTIL_CHECK_CFG}"
+    [USAGE_ARG1]="[TOOL_CFG] Path to config file"
+    [USAGE_EX_PRE]="# Example checking config file"
+    [USAGE_EX]="${UTIL_CHECK_CFG} /etc/sometool.cfg"
 )
 
 #

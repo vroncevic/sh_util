@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VNC_CONFIG=vnc_config
-UTIL_VNC_CONFIG_VERSION=ver.1.0
+UTIL_VNC_CONFIG_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VNC_CONFIG_VERSION}
 UTIL_VNC_CONFIG_CFG=${UTIL}/conf/${UTIL_VNC_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VNC_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_VNC_CONFIG}"
-    [Usage_ARG1]="[VNC_STRUCT] System username and group"
-    [Usage_EX_PRE]="# Example generating VNC config file"
-    [Usage_EX]="${UTIL_VNC_CONFIG} rmuller ds"
+    [USAGE_TOOL]="${UTIL_VNC_CONFIG}"
+    [USAGE_ARG1]="[VNC_STRUCT] System username and group"
+    [USAGE_EX_PRE]="# Example generating VNC config file"
+    [USAGE_EX]="${UTIL_VNC_CONFIG} rmuller ds"
 )
 
 #

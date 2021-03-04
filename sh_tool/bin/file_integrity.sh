@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_FILE_INTEGRITY=file_integrity
-UTIL_FILE_INTEGRITY_VERSION=ver.1.0
+UTIL_FILE_INTEGRITY_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_FILE_INTEGRITY_VERSION}
 UTIL_FILE_INTEGRITY_CFG=${UTIL}/conf/${UTIL_FILE_INTEGRITY}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,17 +18,17 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SET_DB_Usage=(
-    [Usage_TOOL]="setup_db"
-    [Usage_ARG1]="[DB_STRUCT] DB file and path"
-    [Usage_EX_PRE]="# Example set database"
-    [Usage_EX]="setup_db \$DB_STRUCT"
+    [USAGE_TOOL]="setup_db"
+    [USAGE_ARG1]="[DB_STRUCT] DB file and path"
+    [USAGE_EX_PRE]="# Example set database"
+    [USAGE_EX]="setup_db \$DB_STRUCT"
 )
 
 declare -A CHECK_DB_Usage=(
-    [Usage_TOOL]="check_db"
-    [Usage_ARG1]="[FILE] Database file"
-    [Usage_EX_PRE]="# Example checking database"
-    [Usage_EX]="check_db test.db"
+    [USAGE_TOOL]="check_db"
+    [USAGE_ARG1]="[FILE] Database file"
+    [USAGE_EX_PRE]="# Example checking database"
+    [USAGE_EX]="check_db test.db"
 )
 
 #

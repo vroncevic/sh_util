@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 # 
 UTIL_APP_SHORTCUT=app_shortcut
-UTIL_APP_SHORTCUT_VERSION=ver.1.0
+UTIL_APP_SHORTCUT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_APP_SHORTCUT_VERSION}
 UTIL_APP_SHORTCUT_CFG=${UTIL}/conf/${UTIL_APP_SHORTCUT}.cfg
 UTIL_LOG=${UTIL}/log
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A APP_SHORTCUT_Usage=(
-    [Usage_TOOL]="${UTIL_APP_SHORTCUT}"
-    [Usage_ARG1]="[APP_STRUCT] App name and description"
-    [Usage_EX_PRE]="# Example generating WoLAN shortcut"
-    [Usage_EX]="${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
+declare -A APP_SHORTCUT_USAGE=(
+    [USAGE_TOOL]="${UTIL_APP_SHORTCUT}"
+    [USAGE_ARG1]="[APP_STRUCT] App name and description"
+    [USAGE_EX_PRE]="# Example generating WoLAN shortcut"
+    [USAGE_EX]="${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
 )
 
 #
@@ -101,7 +101,7 @@ function app_shortcut {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_SHORTCUT"
         return $NOT_SUCCESS
     fi
-    usage APP_SHORTCUT_Usage
+    usage APP_SHORTCUT_USAGE
     return $NOT_SUCCESS
 }
 

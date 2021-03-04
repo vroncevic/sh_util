@@ -43,9 +43,9 @@ To install **sh_util** type the following:
 
    tar xvzf sh_util-x.y.z.tar.gz
    cd sh_util-x.y.z
-   cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
-   cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
-   cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
+   cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0.0/
+   cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0.0/
+   cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0.0/
 
 Or You can use Docker to create image/container.
 

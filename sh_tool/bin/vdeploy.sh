@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VDEPLOY=vdeploy
-UTIL_VDEPLOY_VER=ver.1.0
+UTIL_VDEPLOY_VER=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_VDEPLOY_VER}
 UTIL_VDEPLOY_CFG=${UTIL}/conf/${UTIL_VDEPLOY}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VDEPLOY_Usage=(
-    [Usage_TOOL]="${UTIL_VDEPLOY}"
-    [Usage_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
-    [Usage_EX_PRE]="# Copy tool to deployment zone"
-    [Usage_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
+    [USAGE_TOOL]="${UTIL_VDEPLOY}"
+    [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
+    [USAGE_EX_PRE]="# Copy tool to deployment zone"
+    [USAGE_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
 )
 
 #
@@ -32,7 +32,7 @@ declare -A VDEPLOY_Usage=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VDEPLOY_STRUCT=(
-#    [TV]="ver.1.0"
+#    [TV]="ver.1.0.0"
 #    [DP]="/opt/new_tool/"
 # )
 #

@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SAME_SIZE=same_size
-UTIL_SAME_SIZE_VERSION=ver.1.0
+UTIL_SAME_SIZE_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SAME_SIZE_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SAME_SIZE_Usage=(
-    [Usage_TOOL]="${UTIL_SAME_SIZE}"
-    [Usage_ARG1]="[DIR] Directory path"
-    [Usage_EX_PRE]="# List files of same size in dir"
-    [Usage_EX]="${UTIL_SAME_SIZE} /data/"
+    [USAGE_TOOL]="${UTIL_SAME_SIZE}"
+    [USAGE_ARG1]="[DIR] Directory path"
+    [USAGE_EX_PRE]="# List files of same size in dir"
+    [USAGE_EX]="${UTIL_SAME_SIZE} /data/"
 )
 
 #

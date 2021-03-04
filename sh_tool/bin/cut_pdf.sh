@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CUT_PDF=cut_pdf
-UTIL_CUT_PDF_VERSION=ver.1.0
+UTIL_CUT_PDF_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CUT_PDF_VERSION}
 UTIL_CUT_PDF_CFG=${UTIL}/conf/${UTIL_CUT_PDF}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CUT_PDF_Usage=(
-    [Usage_TOOL]="${UTIL_CUT_PDF}"
-    [Usage_ARG1]="[TIME] Life time"
-    [Usage_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-    [Usage_EX]="${UTIL_CUT_PDF} 5s"
+    [USAGE_TOOL]="${UTIL_CUT_PDF}"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
+    [USAGE_EX]="${UTIL_CUT_PDF} 5s"
 )
 
 #

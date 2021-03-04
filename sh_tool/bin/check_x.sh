@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_X=check_x
-UTIL_CHECK_X_VERSION=ver.1.0
+UTIL_CHECK_X_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_X_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_X_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_X}"
-    [Usage_ARG1]="[XINIT] Instance of tool for running X session"
-    [Usage_EX_PRE]="# Example checking X Server"
-    [Usage_EX]="${UTIL_CHECK_X} \"xinit\""
+    [USAGE_TOOL]="${UTIL_CHECK_X}"
+    [USAGE_ARG1]="[XINIT] Instance of tool for running X session"
+    [USAGE_EX_PRE]="# Example checking X Server"
+    [USAGE_EX]="${UTIL_CHECK_X} \"xinit\""
 )
 
 #

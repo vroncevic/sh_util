@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_MD5SUM=md5sum
-UTIL_MD5SUM_VERSION=ver.1.0
+UTIL_MD5SUM_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_MD5SUM_VERSION}
 UTIL_MD5SUM_CFG=${UTIL}/conf/${UTIL_MD5SUM}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A MD5SUM_Usage=(
-    [Usage_TOOL]="${UTIL_MD5SUM}"
-    [Usage_ARG1]="[INSTRING] input string"
-    [Usage_EX_PRE]="# Calculate md5sum from an input string"
-    [Usage_EX]="${UTIL_MD5SUM} simpletest"
+    [USAGE_TOOL]="${UTIL_MD5SUM}"
+    [USAGE_ARG1]="[INSTRING] input string"
+    [USAGE_EX_PRE]="# Calculate md5sum from an input string"
+    [USAGE_EX]="${UTIL_MD5SUM} simpletest"
 )
 
 #

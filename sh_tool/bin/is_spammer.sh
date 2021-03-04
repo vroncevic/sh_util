@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_IS_SPAMMER=is_spammer
-UTIL_IS_SPAMMER_VERSION=ver.1.0
+UTIL_IS_SPAMMER_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_IS_SPAMMER_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A IS_SPAMMER_Usage=(
-    [Usage_TOOL]="${UTIL_IS_SPAMMER}"
-    [Usage_ARG1]="[DOMAIN] Domain name"
-    [Usage_EX_PRE]="# Example checking domain"
-    [Usage_EX]="${UTIL_IS_SPAMMER} domain.cc"
+    [USAGE_TOOL]="${UTIL_IS_SPAMMER}"
+    [USAGE_ARG1]="[DOMAIN] Domain name"
+    [USAGE_EX_PRE]="# Example checking domain"
+    [USAGE_EX]="${UTIL_IS_SPAMMER} domain.cc"
 )
 
 # Whitespace == :Space:Tab:Line Feed:Carriage Return

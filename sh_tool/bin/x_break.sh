@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_X_BREAK=x_break
-UTIL_X_BREAK_VERSION=ver.1.0
+UTIL_X_BREAK_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_X_BREAK_VERSION}
 UTIL_X_BREAK_CFG=${UTIL}/conf/${UTIL_X_BREAK}.cfg
 UTIL_LOG=${UTIL}/log
@@ -18,11 +18,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A X_BREAK_Usage=(
-    [Usage_TOOL]="${UTIL_X_BREAK}"
-    [Usage_ARG1]="[TIME] Life time"
-    [Usage_EX_PRE]="# Example running tool"
-    [Usage_EX]="${UTIL_X_BREAK} 5s"
+declare -A X_BREAK_USAGE=(
+    [USAGE_TOOL]="${UTIL_X_BREAK}"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running tool"
+    [USAGE_EX]="${UTIL_X_BREAK} 5s"
 )
 
 #
@@ -72,7 +72,7 @@ function x_break {
                 info_debug_message_end "Done" "$FUNC" "$UTIL_X_BREAK"
                 return $SUCCESS
             else
-                usage X_BREAK_Usage
+                usage X_BREAK_USAGE
             fi
             MSG="Force exit!"
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_X_BREAK"
@@ -82,7 +82,7 @@ function x_break {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_X_BREAK"
         return $NOT_SUCCESS
     fi
-    usage X_BREAK_Usage
+    usage X_BREAK_USAGE
     return $NOT_SUCCESS
 }
 

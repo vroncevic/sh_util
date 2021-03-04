@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_APP_TO_USER=app_to_user
-UTIL_APP_TO_USER_VERSION=ver.1.0
+UTIL_APP_TO_USER_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_APP_TO_USER_VERSION}
 UTIL_APP_TO_USER_CFG=${UTIL}/conf/${UTIL_APP_TO_USER}.cfg
 UTIL_LOG=${UTIL}/log
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 .    ${UTIL}/bin/devel.sh
 
-declare -A APP_TO_USER_Usage=(
-    [Usage_TOOL]="${UTIL_APP_TO_USER}"
-    [Usage_ARG1]="[APP_STRUCT] username, group, app"
-    [Usage_EX_PRE]="# Copy Application shortcut to user configuration"
-    [Usage_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
+declare -A APP_TO_USER_USAGE=(
+    [USAGE_TOOL]="${UTIL_APP_TO_USER}"
+    [USAGE_ARG1]="[APP_STRUCT] username, group, app"
+    [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
+    [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
 )
 
 #
@@ -121,7 +121,7 @@ function app_to_user {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_TO_USER"
         return $NOT_SUCCESS
     fi
-    usage APP_TO_USER_Usage
+    usage APP_TO_USER_USAGE
     return $NOT_SUCCESS
 }
 

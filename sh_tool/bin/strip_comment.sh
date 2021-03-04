@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_STRIP_COMMENT=strip_comment
-UTIL_STRIP_COMMENT_VERSION=ver.1.0
+UTIL_STRIP_COMMENT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_STRIP_COMMENT_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A STRIP_COMMENT_Usage=(
-    [Usage_TOOL]="${UTIL_STRIP_COMMENT}"
-    [Usage_ARG1]="[FILE] Path to C file code"
-    [Usage_EX_PRE]="# Strips comments from C code"
-    [Usage_EX]="${UTIL_STRIP_COMMENT} /opt/test.c"
+declare -A STRIP_COMMENT_USAGE=(
+    [USAGE_TOOL]="${UTIL_STRIP_COMMENT}"
+    [USAGE_ARG1]="[FILE] Path to C file code"
+    [USAGE_EX_PRE]="# Strips comments from C code"
+    [USAGE_EX]="${UTIL_STRIP_COMMENT} /opt/test.c"
 )
 
 #
@@ -79,7 +79,7 @@ function strip_comment {
         info_debug_message "$MSG" "$FUNC" "$UTIL_STRIP_COMMENT"
         return $NOT_SUCCESS
     fi
-    usage STRIP_COMMENT_Usage
+    usage STRIP_COMMENT_USAGE
     return $NOT_SUCCESS
 }
 

@@ -8,7 +8,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_LEADS=rm_leads
-UTIL_RM_LEADS_VERSION=ver.1.0
+UTIL_RM_LEADS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_LEADS_VERSION}
 UTIL_LOG=${UTIL}/log
 
@@ -16,10 +16,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A RM_LEADS_Usage=(
-    [Usage_TOOL]="${UTIL_RM_LEADS}"
-    [Usage_ARG1]="[FILES] Name of file"
-    [Usage_EX_PRE]="# Remove empty leading spaces from an ascii file"
-    [Usage_EX]="${UTIL_RM_LEADS} /data/test.txt"
+    [USAGE_TOOL]="${UTIL_RM_LEADS}"
+    [USAGE_ARG1]="[FILES] Name of file"
+    [USAGE_EX_PRE]="# Remove empty leading spaces from an ascii file"
+    [USAGE_EX]="${UTIL_RM_LEADS} /data/test.txt"
 )
 
 #

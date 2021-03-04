@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_TOOL=check_tool
-UTIL_CHECK_TOOL_VERSION=ver.1.0
+UTIL_CHECK_TOOL_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_TOOL_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_TOOL_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_TOOL}"
-    [Usage_ARG1]="[TOOL] Path to App/Tool/Script"
-    [Usage_EX_PRE]="# Example checking java tool"
-    [Usage_EX]="${UTIL_CHECK_TOOL} /usr/share/java"
+declare -A CHECK_TOOL_USAGE=(
+    [USAGE_TOOL]="${UTIL_CHECK_TOOL}"
+    [USAGE_ARG1]="[TOOL] Path to App/Tool/Script"
+    [USAGE_EX_PRE]="# Example checking java tool"
+    [USAGE_EX]="${UTIL_CHECK_TOOL} /usr/share/java"
 )
 
 #
@@ -63,7 +63,7 @@ function check_tool {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_TOOL"
         return $NOT_SUCCESS
     fi
-    usage CHECK_TOOL_Usage
+    usage CHECK_TOOL_USAGE
     return $NOT_SUCCESS
 }
 

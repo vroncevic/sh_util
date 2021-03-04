@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_SSH=list_ssh
-UTIL_LIST_SSH_VERSION=ver.1.0
+UTIL_LIST_SSH_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_SSH_VERSION}
 UTIL_LOG=${UTIL}/log
 

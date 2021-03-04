@@ -7,7 +7,7 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_WORD_TO_TXT=word_to_txt
-UTIL_WORD_TO_TXT_VERSION=ver.1.0
+UTIL_WORD_TO_TXT_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_WORD_TO_TXT_VERSION}
 UTIL_WORD_TO_TXT_CFG=${UTIL}/conf/${UTIL_WORD_TO_TXT}.cfg
 UTIL_LOG=${UTIL}/log
@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A WORD_TO_TXT_Usage=(
-    [Usage_TOOL]="${UTIL_WORD_TO_TXT}"
-    [Usage_ARG1]="[DOC_FILE] Name of Document to be extracted"
-    [Usage_EX_PRE]="# Display ms word doc file in ascii format"
-    [Usage_EX]="${UTIL_WORD_TO_TXT} test.doc"
+declare -A WORD_TO_TXT_USAGE=(
+    [USAGE_TOOL]="${UTIL_WORD_TO_TXT}"
+    [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
+    [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
+    [USAGE_EX]="${UTIL_WORD_TO_TXT} test.doc"
 )
 
 #
@@ -80,7 +80,7 @@ function word_to_txt {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_WORD_TO_TXT"
         return $NOT_SUCCESS
     fi
-    usage WORD_TO_TXT_Usage
+    usage WORD_TO_TXT_USAGE
     return $NOT_SUCCESS
 }
 

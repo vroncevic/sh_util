@@ -7,19 +7,19 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_LINES=rm_lines
-UTIL_RM_LINES_VERSION=ver.1.0
+UTIL_RM_LINES_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_LINES_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A RM_LINES_Usage=(
-    [Usage_TOOL]="${UTIL_RM_LINES}"
-    [Usage_ARG1]="[IFILE]  Name of file for operation"
+declare -A RM_LINES_USAGE=(
+    [USAGE_TOOL]="${UTIL_RM_LINES}"
+    [USAGE_ARG1]="[IFILE]  Name of file for operation"
     [Usage_ARG2]="[OFILE] Name of the resulting file"
-    [Usage_EX_PRE]="# Create a file n bytes large"
-    [Usage_EX]="${UTIL_RM_LINES} /opt/test.txt /opt/result.txt"
+    [USAGE_EX_PRE]="# Create a file n bytes large"
+    [USAGE_EX]="${UTIL_RM_LINES} /opt/test.txt /opt/result.txt"
 )
 
 #
@@ -69,7 +69,7 @@ function rm_lines {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_RM_LINES"
         return $NOT_SUCCESS
     fi
-    usage RM_LINES_Usage
+    usage RM_LINES_USAGE
     return $NOT_SUCCESS
 }
 

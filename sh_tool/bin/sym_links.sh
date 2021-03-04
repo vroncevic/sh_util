@@ -7,18 +7,18 @@
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SYM_LINKS=sym_links
-UTIL_SYM_LINKS_VERSION=ver.1.0
+UTIL_SYM_LINKS_VERSION=ver.1.0.0
 UTIL=/root/scripts/sh_util/${UTIL_SYM_LINKS_VERSION}
 UTIL_LOG=${UTIL}/log
 
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SYM_LINKS_Usage=(
-    [Usage_TOOL]="${UTIL_SYM_LINKS}"
-    [Usage_ARG1]="[DIR] Directory path"
-    [Usage_EX_PRE]="# Example listing sym_links"
-    [Usage_EX]="${UTIL_SYM_LINKS} /etc"
+declare -A SYM_LINKS_USAGE=(
+    [USAGE_TOOL]="${UTIL_SYM_LINKS}"
+    [USAGE_ARG1]="[DIR] Directory path"
+    [USAGE_EX_PRE]="# Example listing sym_links"
+    [USAGE_EX]="${UTIL_SYM_LINKS} /etc"
 )
 
 #
@@ -76,7 +76,7 @@ function sym_links {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SYM_LINKS"
         return $NOT_SUCCESS
     fi
-    usage SYM_LINKS_Usage
+    usage SYM_LINKS_USAGE
     return $NOT_SUCCESS
 }
 
