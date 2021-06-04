@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Generating file by template
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Mar  6 19:25:19 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A GEN_FROM_TEMPLATE_Usage=(
-    [Usage_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
-    [Usage_ARG1]="[INPUT FILE] Template file"
+    [USAGE_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
+    [USAGE_ARG1]="[INPUT FILE] Template file"
     [Usage_ARG2]="[OUTPUT FILE] Final result file"
-    [Usage_EX_PRE]="# Example generating from template file"
-    [Usage_EX]="${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
+    [USAGE_EX_PRE]="# Example generating from template file"
+    [USAGE_EX]="${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
 )
 
 #

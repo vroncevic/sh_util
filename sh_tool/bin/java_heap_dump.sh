@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Create a heap dump of a Java process
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A JAVA_HEAP_DUMP_Usage=(
-    [Usage_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
-    [Usage_ARG1]="[PIDJVM] PID of JVM"
-    [Usage_EX_PRE]="# Create a heap dump of a Java process"
-    [Usage_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
+    [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
+    [USAGE_ARG1]="[PIDJVM] PID of JVM"
+    [USAGE_EX_PRE]="# Create a heap dump of a Java process"
+    [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
 )
 
 #

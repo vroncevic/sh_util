@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Blot out some file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Oct 13 16:14:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A BLOT_OUT_Usage=(
-    [Usage_TOOL]="${UTIL_BLOT_OUT}"
-    [Usage_ARG1]="[FILE_NAME] Name of file"
-    [Usage_EX_PRE]="# Example delete file with high security"
-    [Usage_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
+    [USAGE_TOOL]="${UTIL_BLOT_OUT}"
+    [USAGE_ARG1]="[FILE_NAME] Name of file"
+    [USAGE_EX_PRE]="# Example delete file with high security"
+    [USAGE_EX]="${UTIL_BLOT_OUT} /opt/test.ini"
 )
 
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Convert name of department to group short name
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 08 15:14:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A DEP_TO_GROUP_Usage=(
-    [Usage_TOOL]="${UTIL_DEP_TO_GROUP}"
-    [Usage_ARG1]="[DEP] Department name"
-    [Usage_EX_PRE]="# Example converting \"Management\" to \"me\""
-    [Usage_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
+    [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
+    [USAGE_ARG1]="[DEP] Department name"
+    [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
+    [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
 )
 
 #

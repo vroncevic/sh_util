@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Gives complete path name of process associated with pid
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:02:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A PATH_PROC_Usage=(
-    [Usage_TOOL]="${UTIL_PATH_PROC}"
-    [Usage_ARG1]="[PROCESS] Process ID"
-    [Usage_EX_PRE]="# Example Gives complete path name of process"
-    [Usage_EX]="${UTIL_PATH_PROC} 1356"
+    [USAGE_TOOL]="${UTIL_PATH_PROC}"
+    [USAGE_ARG1]="[PROCESS] Process ID"
+    [USAGE_EX_PRE]="# Example Gives complete path name of process"
+    [USAGE_EX]="${UTIL_PATH_PROC} 1356"
 )
 
 #

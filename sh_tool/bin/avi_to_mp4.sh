@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Converting avi to mp4 media format file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 17:56:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,11 +17,11 @@ UTIL_LOG=$UTIL/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A AVI_TO_MP4_Usage=(
-    [Usage_TOOL]="${UTIL_AVI_TO_MP4}"
-    [Usage_ARG1]="[FILE] Path to AVI file"
-    [Usage_EX_PRE]="# Example converting AVI file"
-    [Usage_EX]="${UTIL_AVI_TO_MP4} test.avi"
+declare -A AVI_TO_MP4_USAGE=(
+    [USAGE_TOOL]="${UTIL_AVI_TO_MP4}"
+    [USAGE_ARG1]="[FILE] Path to AVI file"
+    [USAGE_EX_PRE]="# Example converting AVI file"
+    [USAGE_EX]="${UTIL_AVI_TO_MP4} test.avi"
 )
 
 #
@@ -86,7 +86,7 @@ function avi_to_mp4 {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_AVI_TO_MP4"
         return $NOT_SUCCESS
     fi
-    usage AVI_TO_MP4_Usage
+    usage AVI_TO_MP4_USAGE
     return $NOT_SUCCESS
 }
 

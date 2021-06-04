@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Print all common user names
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 16 20:11:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LIST_USERS_Usage=(
-    [Usage_TOOL]="${UTIL_LIST_USERS}"
-    [Usage_ARG1]="[ID] Minimal user id"
-    [Usage_EX_PRE]="# Example print all common user names"
-    [Usage_EX]="${UTIL_LIST_USERS} 500"
+    [USAGE_TOOL]="${UTIL_LIST_USERS}"
+    [USAGE_ARG1]="[ID] Minimal user id"
+    [USAGE_EX_PRE]="# Example print all common user names"
+    [USAGE_EX]="${UTIL_LIST_USERS} 500"
 )
 
 #

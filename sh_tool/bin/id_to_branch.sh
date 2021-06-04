@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Convert id to branch
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:22:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ID_TO_BRANCH_Usage=(
-    [Usage_TOOL]="${UTIL_ID_TO_BRANCH}"
-    [Usage_ARG1]="[ID] Name of town or country"
-    [Usage_EX_PRE]="# Example convert ns to ns-frobas-employee"
-    [Usage_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
+    [USAGE_TOOL]="${UTIL_ID_TO_BRANCH}"
+    [USAGE_ARG1]="[ID] Name of town or country"
+    [USAGE_EX_PRE]="# Example convert ns to ns-frobas-employee"
+    [USAGE_EX]="${UTIL_ID_TO_BRANCH} \"ns\" BRANCH"
 )
 
 #

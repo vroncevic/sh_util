@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Re-compress a gzip (.gz) file to a bzip2 (.bz2) file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 15 19:18:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A GZ_TO_BZ2_Usage=(
-    [Usage_TOOL]="${UTIL_GZ_TO_BZ2}"
-    [Usage_ARG1]="[FILE] Name of gzip archive"
-    [Usage_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
-    [Usage_EX]="${UTIL_GZ_TO_BZ2} test.tar.gz"
+    [USAGE_TOOL]="${UTIL_GZ_TO_BZ2}"
+    [USAGE_ARG1]="[FILE] Name of gzip archive"
+    [USAGE_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
+    [USAGE_EX]="${UTIL_GZ_TO_BZ2} test.tar.gz"
 )
 
 #

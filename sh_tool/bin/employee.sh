@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Creating employee directory structure
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 04 12:38:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,24 +17,24 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A IT_PROFILE_Usage=(
-    [Usage_TOOL]="create_it_user_profile"
-    [Usage_ARG1]="[USR] Employee username"
-    [Usage_EX_PRE]="# Example generating IT profile"
-    [Usage_EX]="create_it_user_profile vroncevic"
+    [USAGE_TOOL]="create_it_user_profile"
+    [USAGE_ARG1]="[USR] Employee username"
+    [USAGE_EX_PRE]="# Example generating IT profile"
+    [USAGE_EX]="create_it_user_profile vroncevic"
 )
 
 declare -A USR_PROFILE_Usage=(
-    [Usage_TOOL]="create_share_user_profile"
-    [Usage_ARG1]="[SHARE_STRUCT] System username and groip"
-    [Usage_EX_PRE]="# Example generating user profile"
-    [Usage_EX]="create_share_user_profile \$SHARE_STRUCT"
+    [USAGE_TOOL]="create_share_user_profile"
+    [USAGE_ARG1]="[SHARE_STRUCT] System username and groip"
+    [USAGE_EX_PRE]="# Example generating user profile"
+    [USAGE_EX]="create_share_user_profile \$SHARE_STRUCT"
 )
 
 declare -A SHARE_PROFILE_Usage=(
-    [Usage_TOOL]="create_home_user_profile"
-    [Usage_ARG1]="[HOME_STRUCT] System username and group"
-    [Usage_EX_PRE]="# Example generatingshare profile"
-    [Usage_EX]="create_home_user_profile \$HOME_STRUCT"
+    [USAGE_TOOL]="create_home_user_profile"
+    [USAGE_ARG1]="[HOME_STRUCT] System username and group"
+    [USAGE_EX_PRE]="# Example generatingshare profile"
+    [USAGE_EX]="create_home_user_profile \$HOME_STRUCT"
 )
 
 #

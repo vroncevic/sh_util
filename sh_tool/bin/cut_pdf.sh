@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Cut select pages from a pdf file, and create a new file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CUT_PDF_Usage=(
-    [Usage_TOOL]="${UTIL_CUT_PDF}"
-    [Usage_ARG1]="[TIME] Life time"
-    [Usage_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-    [Usage_EX]="${UTIL_CUT_PDF} 5s"
+    [USAGE_TOOL]="${UTIL_CUT_PDF}"
+    [USAGE_ARG1]="[TIME] Life time"
+    [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
+    [USAGE_EX]="${UTIL_CUT_PDF} 5s"
 )
 
 #

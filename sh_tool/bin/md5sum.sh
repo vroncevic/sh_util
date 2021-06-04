@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Calculate md5sum from an input string
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 15 16:35:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A MD5SUM_Usage=(
-    [Usage_TOOL]="${UTIL_MD5SUM}"
-    [Usage_ARG1]="[INSTRING] input string"
-    [Usage_EX_PRE]="# Calculate md5sum from an input string"
-    [Usage_EX]="${UTIL_MD5SUM} simpletest"
+    [USAGE_TOOL]="${UTIL_MD5SUM}"
+    [USAGE_ARG1]="[INSTRING] input string"
+    [USAGE_EX_PRE]="# Calculate md5sum from an input string"
+    [USAGE_EX]="${UTIL_MD5SUM} simpletest"
 )
 
 #

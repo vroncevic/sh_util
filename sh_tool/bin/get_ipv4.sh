@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Get IPV4 logic address
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sat Jan 28 13:29:22 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A GET_IPV4_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_IPV4}"
-    [Usage_ARG1]="[INTERFACE] Interface name"
+    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
+    [USAGE_ARG1]="[INTERFACE] Interface name"
     [Usage_ARG2]="[IPV4_ADDRESS] Variabel for storing address"
-    [Usage_EX_PRE]="# Example get IPV4 logic address"
-    [Usage_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
+    [USAGE_EX_PRE]="# Example get IPV4 logic address"
+    [USAGE_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
 )
 
 #

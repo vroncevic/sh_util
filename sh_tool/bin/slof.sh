@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Show 10 Largest Open Files
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SLOF_Usage=(
-    [Usage_TOOL]="${UTIL_SLOF}"
-    [Usage_ARG1]="[SIZE] LIst in GB/MB"
-    [Usage_EX_PRE]="# Show 10 Largest Open Files in GB"
-    [Usage_EX]="${UTIL_SLOF} large"
+declare -A SLOF_USAGE=(
+    [USAGE_TOOL]="${UTIL_SLOF}"
+    [USAGE_ARG1]="[SIZE] LIst in GB/MB"
+    [USAGE_EX_PRE]="# Show 10 Largest Open Files in GB"
+    [USAGE_EX]="${UTIL_SLOF} large"
 )
 
 #
@@ -59,7 +59,7 @@ function slof {
         info_debug_message_end "Done" "$FUNC" "$UTIL_SLOF"
         return $SUCCESS
     fi
-    usage SLOF_Usage
+    usage SLOF_USAGE
     return $NOT_SUCCESS
 }
 

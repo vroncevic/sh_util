@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Look up abuse contact to report a spammer
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:11:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SPAM_LOOKUP_Usage=(
-    [Usage_TOOL]="${UTIL_SPAM_LOOKUP}"
-    [Usage_ARG1]="[DOMAIN] Domain name"
-    [Usage_EX_PRE]="# Example check www.domain.cc"
-    [Usage_EX]="${UTIL_SPAM_LOOKUP} www.domain.cc"
+    [USAGE_TOOL]="${UTIL_SPAM_LOOKUP}"
+    [USAGE_ARG1]="[DOMAIN] Domain name"
+    [USAGE_EX_PRE]="# Example check www.domain.cc"
+    [USAGE_EX]="${UTIL_SPAM_LOOKUP} www.domain.cc"
 )
 
 #

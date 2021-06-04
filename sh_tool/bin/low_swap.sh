@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Detecting low swap
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Sep 30 22:49:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/send_mail.sh
 
 declare -A LOW_SWAP_Usage=(
-    [Usage_TOOL]="${UTIL_LOW_SWAP}"
-    [Usage_ARG1]="[LOW_LIMIT] An integer referring to MB"
+    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
+    [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
     [Usage_ARG2]="[EMAIL] Administrator email address"
-    [Usage_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [Usage_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
+    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
 )
 
 #

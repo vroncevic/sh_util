@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Test hard drive speed
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Mar 03 15:06:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A TEST_HDD_Usage=(
-    [Usage_TOOL]="${UTIL_TEST_HDD}"
-    [Usage_ARG1]="[TIME_COUNT] Time count"
-    [Usage_EX_PRE]="# Creating zerofile and test hdd"
-    [Usage_EX]="${UTIL_TEST_HDD} 500"
+declare -A TEST_HDD_USAGE=(
+    [USAGE_TOOL]="${UTIL_TEST_HDD}"
+    [USAGE_ARG1]="[TIME_COUNT] Time count"
+    [USAGE_EX_PRE]="# Creating zerofile and test hdd"
+    [USAGE_EX]="${UTIL_TEST_HDD} 500"
 )
 
 #
@@ -53,7 +53,7 @@ function test_hdd {
         info_debug_message_end "Done" "$FUNC" "$UTIL_TEST_HDD"
         return $SUCCESS
     fi
-    usage TEST_HDD_Usage
+    usage TEST_HDD_USAGE
     return $NOT_SUCCESS
 }
 

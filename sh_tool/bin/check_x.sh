@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking X Server instance
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 04 17:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_X_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_X}"
-    [Usage_ARG1]="[XINIT] Instance of tool for running X session"
-    [Usage_EX_PRE]="# Example checking X Server"
-    [Usage_EX]="${UTIL_CHECK_X} \"xinit\""
+    [USAGE_TOOL]="${UTIL_CHECK_X}"
+    [USAGE_ARG1]="[XINIT] Instance of tool for running X session"
+    [USAGE_EX_PRE]="# Example checking X Server"
+    [USAGE_EX]="${UTIL_CHECK_X} \"xinit\""
 )
 
 #

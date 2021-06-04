@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking operation to be done
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Apr 28 20:40:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_OP_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_OP}"
-    [Usage_ARG1]="[OP] Operation to be done"
+    [USAGE_TOOL]="${UTIL_CHECK_OP}"
+    [USAGE_ARG1]="[OP] Operation to be done"
     [Usage_ARG2]="[OPLIST] List of operations"
-    [Usage_EX_PRE]="# Example checking operation"
-    [Usage_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
+    [USAGE_EX_PRE]="# Example checking operation"
+    [USAGE_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
 )
 
 #

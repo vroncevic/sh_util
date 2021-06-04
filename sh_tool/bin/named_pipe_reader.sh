@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Read message from named pipe and send to function-handler
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 22 19:52:32 2018
 # @company None, free  software to use 2018
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A NAMED_PIPE_READER_Usage=(
-    [Usage_TOOL]="${UTIL_NAMED_PIPE_READER}"
-    [Usage_ARG1]="[PIPE_PATH]    Absolute path of named pipe"
+    [USAGE_TOOL]="${UTIL_NAMED_PIPE_READER}"
+    [USAGE_ARG1]="[PIPE_PATH]    Absolute path of named pipe"
     [Usage_ARG2]="[MESSAGE_STOP] Message for pipe"
     [Usage_ARG3]="[HANDLER]      Function to be executed"
-    [Usage_EX_PRE]="# Read message from named pipe and provide to process_func"
-    [Usage_EX]="${UTIL_NAMED_PIPE_READER} /tmp/testpipe 'QUIT' process_func"
+    [USAGE_EX_PRE]="# Read message from named pipe and provide to process_func"
+    [USAGE_EX]="${UTIL_NAMED_PIPE_READER} /tmp/testpipe 'QUIT' process_func"
 )
 
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Generating email signature
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Jun  06 01:25:41 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,15 +17,15 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A EMAIL_SIGN_Usage=(
-    [Usage_TOOL]="${UTIL_EMAIl_SIGN}"
-    [Usage_ARG1]="[NAME] Full name"
+    [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
+    [USAGE_ARG1]="[NAME] Full name"
     [Usage_ARG2]="[WP] Work position"
     [Usage_ARG3]="[DN] Department"
     [Usage_ARG4]="[IP] IP phone number"
     [Usage_ARG5]="[MOB] Mobile number"
     [Usage_ARG6]="[EMAIL] Email address"
-    [Usage_EX_PRE]="# Example generating email signature"
-    [Usage_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
+    [USAGE_EX_PRE]="# Example generating email signature"
+    [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
 )
 
 #

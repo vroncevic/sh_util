@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Load App/Tool/Script Configuration
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Sep 20 21:00:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>

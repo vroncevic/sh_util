@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Record audio from microphone or sound input from the console
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 16:11:32 2016
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A RECORD_MIC_Usage=(
-    [Usage_TOOL]="${UTIL_RECORD_MIC}"
-    [Usage_ARG1]="[FILE] Name of media file"
-    [Usage_EX_PRE]="# Recording from microfon to test.mp3"
-    [Usage_EX]="${UTIL_RECORD_MIC} test.mp3"
+    [USAGE_TOOL]="${UTIL_RECORD_MIC}"
+    [USAGE_ARG1]="[FILE] Name of media file"
+    [USAGE_EX_PRE]="# Recording from microfon to test.mp3"
+    [USAGE_EX]="${UTIL_RECORD_MIC} test.mp3"
 )
 
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Load module configuration
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu May 19 08:58:48 CEST 2016
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_cfg.sh
 
 declare -A LOAD_UTIL_CONF_Usage=(
-    [Usage_TOOL]="${UTIL_LOAD_UTIL_CONF}"
-    [Usage_ARG1]="[FILE] Path to config file"
+    [USAGE_TOOL]="${UTIL_LOAD_UTIL_CONF}"
+    [USAGE_ARG1]="[FILE] Path to config file"
     [Usage_ARG2]="[CONFIG] Hash structure for config"
-    [Usage_EX_PRE]="# Example load configuration"
-    [Usage_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
+    [USAGE_EX_PRE]="# Example load configuration"
+    [USAGE_EX]="${UTIL_LOAD_UTIL_CONF} \$UTIL_CFG configuration"
 )
 
 #

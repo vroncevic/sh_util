@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Create a file n bytes size
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CREATE_FILE_NSIZE_Usage=(
-    [Usage_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
-    [Usage_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
-    [Usage_EX_PRE]="# Example creating a file n bytes large"
-    [Usage_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
+    [USAGE_TOOL]="${UTIL_CREATE_FILE_NSIZE}"
+    [USAGE_ARG1]="[F_STRUCT] Number of bytes, file name and Character"
+    [USAGE_EX_PRE]="# Example creating a file n bytes large"
+    [USAGE_EX]="${UTIL_CREATE_FILE_NSIZE} \$F_STRUCT"
 )
 
 #

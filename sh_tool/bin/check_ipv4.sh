@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking IPV4 Address
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sat Jan 28 13:29:22 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_IPV4_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_IPV4}"
-    [Usage_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
-    [Usage_EX_PRE]="# Example checking IPV4 Address"
-    [Usage_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
+    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
+    [USAGE_ARG1]="[IPV4_ADDRESS] Logic IPV4 Address"
+    [USAGE_EX_PRE]="# Example checking IPV4 Address"
+    [USAGE_EX]="${UTIL_CHECK_IPV4} 192.168.0.1"
 )
 
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Kill process pid after n time
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,12 +14,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A TIMELY_KILL_Usage=(
-    [Usage_TOOL]="${UTIL_TIMELY_KILL}"
-    [Usage_ARG1]="[PID]  Process ID"
+declare -A TIMELY_KILL_USAGE=(
+    [USAGE_TOOL]="${UTIL_TIMELY_KILL}"
+    [USAGE_ARG1]="[PID]  Process ID"
     [Usage_ARG2]="[TIME] Time <n>s|m|h|d"
-    [Usage_EX_PRE]="# Destroy process in <n>s|m|h|d"
-    [Usage_EX]="${UTIL_TIMELY_KILL} freshtool 5s"
+    [USAGE_EX_PRE]="# Destroy process in <n>s|m|h|d"
+    [USAGE_EX]="${UTIL_TIMELY_KILL} freshtool 5s"
 )
 
 #
@@ -143,7 +143,7 @@ function timely_kill {
             time_validate_sleep ${TIME}
             STATUS=$?
             if [ $STATUS -eq $NOT_SUCCESS ]; then
-                usage TIMELY_KILL_Usage
+                usage TIMELY_KILL_USAGE
                 return $NOT_SUCCESS
             fi
             sleep ${TIME}
@@ -180,7 +180,7 @@ function timely_kill {
         info_debug_message "Done" "$FUNC" "$UTIL_TIMELY_KILL"
         return $SUCCESS
     fi
-    usage TIMELY_KILL_Usage
+    usage TIMELY_KILL_USAGE
     return $NOT_SUCCESS
 }
 

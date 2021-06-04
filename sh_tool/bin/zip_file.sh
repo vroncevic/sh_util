@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Make a zip archive with single target file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A ZIP_FILE_Usage=(
-    [Usage_TOOL]="${UTIL_ZIP_FILE}"
-    [Usage_ARG1]="[FILE] Name of file"
-    [Usage_EX-PRE]="# Example zipping a file"
-    [Usage_EX]="${UTIL_ZIP_FILE} freshtool.txt"
+    [USAGE_TOOL]="${UTIL_ZIP_FILE}"
+    [USAGE_ARG1]="[FILE] Name of file"
+    [USAGE_EX-PRE]="# Example zipping a file"
+    [USAGE_EX]="${UTIL_ZIP_FILE} freshtool.txt"
 )
 
 #

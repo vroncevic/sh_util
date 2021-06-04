@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Array Utilities
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sun Oct 11 02:08:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>

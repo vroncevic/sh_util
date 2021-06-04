@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Opens n terminal windows
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 16:58:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A OPEN_TERMINALS_Usage=(
-    [Usage_TOOL]="${UTIL_OPEN_TERMINALS}"
-    [Usage_ARG1]="[TERMS] number of terminal windows"
-    [Usage_EX_PRE]="# Open 4 terminal windows"
-    [Usage_EX]="${UTIL_OPEN_TERMINALS} 4"
+    [USAGE_TOOL]="${UTIL_OPEN_TERMINALS}"
+    [USAGE_ARG1]="[TERMS] number of terminal windows"
+    [USAGE_EX_PRE]="# Open 4 terminal windows"
+    [USAGE_EX]="${UTIL_OPEN_TERMINALS} 4"
 )
 
 #

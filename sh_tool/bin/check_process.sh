@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking process, is running or not
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Sep 16 17:41:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_PROCESS_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_PROCESS}"
-    [Usage_ARG1]="[PROCESS_NAME] Process name"
-    [Usage_EX_PRE]="# Example check ddclient process"
-    [Usage_EX]="${UTIL_CHECK_PROCESS} ddclient"
+    [USAGE_TOOL]="${UTIL_CHECK_PROCESS}"
+    [USAGE_ARG1]="[PROCESS_NAME] Process name"
+    [USAGE_EX_PRE]="# Example check ddclient process"
+    [USAGE_EX]="${UTIL_CHECK_PROCESS} ddclient"
 )
 
 #

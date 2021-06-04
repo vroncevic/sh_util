@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Generate Client VNC config file at /home/<username>/.vnc/
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sun Jun 14 16:08:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VNC_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_VNC_CONFIG}"
-    [Usage_ARG1]="[VNC_STRUCT] System username and group"
-    [Usage_EX_PRE]="# Example generating VNC config file"
-    [Usage_EX]="${UTIL_VNC_CONFIG} rmuller ds"
+    [USAGE_TOOL]="${UTIL_VNC_CONFIG}"
+    [USAGE_ARG1]="[VNC_STRUCT] System username and group"
+    [USAGE_EX_PRE]="# Example generating VNC config file"
+    [USAGE_EX]="${UTIL_VNC_CONFIG} rmuller ds"
 )
 
 #

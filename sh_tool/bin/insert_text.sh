@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Insert text file into another file at line n
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 01 08:41:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,12 +15,12 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A INSERT_TEXT_Usage=(
-    [Usage_TOOL]="${UTIL_INSERT_TEXT}"
-    [Usage_ARG1]="[LINE] A line number at which to insert the text file"
+    [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
+    [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
     [Usage_ARG2]="[TEXT] The text file to insert"
     [Usage_ARG3]="[FILES] The text file to insert into"
-    [Usage_EX_PRE]="# Example put text into file"
-    [Usage_EX]="${UTIL_INSERT_TEXT} 3 test file"
+    [USAGE_EX_PRE]="# Example put text into file"
+    [USAGE_EX]="${UTIL_INSERT_TEXT} 3 test file"
 )
 
 #

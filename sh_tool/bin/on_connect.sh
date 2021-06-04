@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Test point po point connection
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sun Oct 11 02:08:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A ONLINE_CONNECT_Usage=(
-    [Usage_TOOL]="${UTIL_ON_CONNECT}"
-    [Usage_ARG1]="[TIME] Sleep time"
-    [Usage_EX_PRE]="# Example running __$TOOL"
-    [Usage_EX]="${UTIL_ON_CONNECT} 5s"
+    [USAGE_TOOL]="${UTIL_ON_CONNECT}"
+    [USAGE_ARG1]="[TIME] Sleep time"
+    [USAGE_EX_PRE]="# Example running __$TOOL"
+    [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
 )
 
 #

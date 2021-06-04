@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Generating progress bar in parent module
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Nov 28 18:44:21 CET 2016
 # @company None, free  software to use 2016
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
@@ -15,11 +15,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A PROGRESS_BAR_Usage=(
-    [Usage_TOOL]="${UTIL_PROGRESS_BAR}"
-    [Usage_ARG1]="[BW] Width of bar"
+    [USAGE_TOOL]="${UTIL_PROGRESS_BAR}"
+    [USAGE_ARG1]="[BW] Width of bar"
     [Usage_ARG2]="[MP] Maximal percent"
-    [Usage_EX_PRE]="# Example drawing progress_bar"
-    [Usage_EX]="${UTIL_PROGRESS_BAR} \$PB_STRUCT"
+    [USAGE_EX_PRE]="# Example drawing progress_bar"
+    [USAGE_EX]="${UTIL_PROGRESS_BAR} \$PB_STRUCT"
 )
 
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking configuration file of App/Tool/Script
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Sep 16 10:22:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CHECK_CFG_Usage=(
-    [Usage_TOOL]="${UTIL_CHECK_CFG}"
-    [Usage_ARG1]="[TOOL_CFG] Path to config file"
-    [Usage_EX_PRE]="# Example checking config file"
-    [Usage_EX]="${UTIL_CHECK_CFG} /etc/sometool.cfg"
+    [USAGE_TOOL]="${UTIL_CHECK_CFG}"
+    [USAGE_ARG1]="[TOOL_CFG] Path to config file"
+    [USAGE_EX_PRE]="# Example checking config file"
+    [USAGE_EX]="${UTIL_CHECK_CFG} /etc/sometool.cfg"
 )
 
 #

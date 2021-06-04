@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Get CPU speed
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CPU_Usage=(
-    [Usage_TOOL]="${UTIL_CPU}"
-    [Usage_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
-    [Usage_EX_PRE]="# Example show in GHz CPU speed"
-    [Usage_EX]="${UTIL_CPU} ghz"
+declare -A CPU_USAGE=(
+    [USAGE_TOOL]="${UTIL_CPU}"
+    [USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
+    [USAGE_EX_PRE]="# Example show in GHz CPU speed"
+    [USAGE_EX]="${UTIL_CPU} ghz"
 )
 
 #
@@ -70,7 +70,7 @@ function cpu {
         info_debug_message_end "Done" "$FUNC" "$UTIL_CPU"
         return $SUCCESS
     fi
-    usage CPU_Usage
+    usage CPU_USAGE
     return $NOT_SUCCESS
 }
 

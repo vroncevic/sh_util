@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Write line message to log file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Oct 08 18:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGING_Usage=(
-    [Usage_TOOL]="${UTIL_LOGGING}"
-    [Usage_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
-    [Usage_EX_PRE]="# Example write LOG line structure to file"
-    [Usage_EX]="${UTIL_LOGGING} \$LOG_STRUCTURE"
+    [USAGE_TOOL]="${UTIL_LOGGING}"
+    [USAGE_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
+    [USAGE_EX_PRE]="# Example write LOG line structure to file"
+    [USAGE_EX]="${UTIL_LOGGING} \$LOG_STRUCTURE"
 )
 
 #

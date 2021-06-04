@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Debug/Info/Question options, print function formats
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -222,8 +222,8 @@ function info_debug_message_que {
         fi
         return
     fi
-    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -246,8 +246,8 @@ function info_debug_message_ans {
         fi
         return
     fi
-    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -270,8 +270,8 @@ function info_debug_message {
         fi
         return
     fi
-    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 
 #
@@ -294,7 +294,7 @@ function info_debug_message_end {
         fi
         return
     fi
-    local Usage_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
-    printf "$SEND" "devel" "$FUNC" "$Usage_MSG"
+    local USAGE_MSG="Missing argument(s) [MSG] || [PFUNC] || [TOOL]"
+    printf "$SEND" "devel" "$FUNC" "$USAGE_MSG"
 }
 

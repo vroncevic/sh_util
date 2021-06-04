@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Display ms word doc file in ascii format
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,11 +17,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A WORD_TO_TXT_Usage=(
-    [Usage_TOOL]="${UTIL_WORD_TO_TXT}"
-    [Usage_ARG1]="[DOC_FILE] Name of Document to be extracted"
-    [Usage_EX_PRE]="# Display ms word doc file in ascii format"
-    [Usage_EX]="${UTIL_WORD_TO_TXT} test.doc"
+declare -A WORD_TO_TXT_USAGE=(
+    [USAGE_TOOL]="${UTIL_WORD_TO_TXT}"
+    [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
+    [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
+    [USAGE_EX]="${UTIL_WORD_TO_TXT} test.doc"
 )
 
 #
@@ -80,7 +80,7 @@ function word_to_txt {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_WORD_TO_TXT"
         return $NOT_SUCCESS
     fi
-    usage WORD_TO_TXT_Usage
+    usage WORD_TO_TXT_USAGE
     return $NOT_SUCCESS
 }
 

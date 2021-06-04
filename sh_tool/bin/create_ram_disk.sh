@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Creating RAM disk at location
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A CREATE_RAM_DISK_Usage=(
-    [Usage_TOOL]="${UTIL_CREATE_RAM_DISK}"
-    [Usage_ARG1]="[MOUNTPT] Mount point"
-    [Usage_EX_PRE]="# Example creating RAM disk"
-    [Usage_EX]="${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
+    [USAGE_TOOL]="${UTIL_CREATE_RAM_DISK}"
+    [USAGE_ARG1]="[MOUNTPT] Mount point"
+    [USAGE_EX_PRE]="# Example creating RAM disk"
+    [USAGE_EX]="${UTIL_CREATE_RAM_DISK} \"/mnt/test/\""
 )
 
 #

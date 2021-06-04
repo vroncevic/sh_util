@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   List SSH sessions
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>

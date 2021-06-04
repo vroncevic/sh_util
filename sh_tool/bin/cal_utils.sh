@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Calculate last working day of month in year
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A CAL_UTILS_Usage=(
-    [Usage_TOOL]="${UTIL_CAL_UTILS}"
-    [Usage_ARG1]="[CAL_STRUCT] Target month and year"
-    [Usage_EX_PRE]="# Example geting last working day in May 1987"
-    [Usage_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
+    [USAGE_TOOL]="${UTIL_CAL_UTILS}"
+    [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
+    [USAGE_EX_PRE]="# Example geting last working day in May 1987"
+    [USAGE_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
 )
 
 #

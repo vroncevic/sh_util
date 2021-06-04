@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Notify when a particular user has logged in
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 16 20:47:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LOGGED_IN_Usage=(
-    [Usage_TOOL]="${UTIL_LOGGED_IN}"
-    [Usage_ARG1]="[LOGIN_STRUCT] System username and time"
-    [Usage_EX_PRE]="# Create a file n bytes large"
-    [Usage_EX]="${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
+declare -A LOGGED_IN_USAGE=(
+    [USAGE_TOOL]="${UTIL_LOGGED_IN}"
+    [USAGE_ARG1]="[LOGIN_STRUCT] System username and time"
+    [USAGE_EX_PRE]="# Create a file n bytes large"
+    [USAGE_EX]="${UTIL_LOGGED_IN} \$LOGIN_STRUCT"
 )
 
 #
@@ -71,7 +71,7 @@ function logged_in {
         info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_IN"
         return $SUCCESS
     fi
-    usage LOGGED_IN_Usage
+    usage LOGGED_IN_USAGE
     return $NOT_SUCCESS
 }
 

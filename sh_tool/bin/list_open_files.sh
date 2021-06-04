@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   List opened files by specific user
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:04:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,10 +18,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LIST_OPEN_FILES_Usage=(
-    [Usage_TOOL]="${UTIL_LIST_OPEN_FILES}"
-    [Usage_ARG1]="[USR] System username"
-    [Usage_EX_PRE]="# Example list all opened files by user"
-    [Usage_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
+    [USAGE_TOOL]="${UTIL_LIST_OPEN_FILES}"
+    [USAGE_ARG1]="[USR] System username"
+    [USAGE_EX_PRE]="# Example list all opened files by user"
+    [USAGE_EX]="${UTIL_LIST_OPEN_FILES} vroncevic"
 )
 
 #

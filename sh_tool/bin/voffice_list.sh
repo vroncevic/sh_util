@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   List VirtualOffice 
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VOFFICE_LIST_Usage=(
-    [Usage_TOOL]="${UTIL_VOFFICE_LIST}"
-    [Usage_ARG1]="[VM_DISK]  Path to lock file"
-    [Usage_EX_PRE]="# Example running tool"
-    [Usage_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
+    [USAGE_TOOL]="${UTIL_VOFFICE_LIST}"
+    [USAGE_ARG1]="[VM_DISK]  Path to lock file"
+    [USAGE_EX_PRE]="# Example running tool"
+    [USAGE_EX]="${UTIL_VOFFICE_LIST} \$VM_DISK"
 )
 
 #

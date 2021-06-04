@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A DATE_TO_ISO8601_Usage=(
-    [Usage_TOOL]="${UTIL_DATE_TO_ISO8601}"
-    [Usage_ARG1]="[TOOL] Name of App/Tool/Script"
-    [Usage_EX_PRE]="# Converting time to iso8601"
-    [Usage_EX]="${UTIL_DATE_TO_ISO8601} \"tester.log\""
+    [USAGE_TOOL]="${UTIL_DATE_TO_ISO8601}"
+    [USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
+    [USAGE_EX_PRE]="# Converting time to iso8601"
+    [USAGE_EX]="${UTIL_DATE_TO_ISO8601} \"tester.log\""
 )
 #
 # @brief  Converts DD/MM/YYYY date format to ISO-8601 (YYYY-MM-DD)

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   List symbolic links in a directory
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:23:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -14,11 +14,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A SYM_LINKS_Usage=(
-    [Usage_TOOL]="${UTIL_SYM_LINKS}"
-    [Usage_ARG1]="[DIR] Directory path"
-    [Usage_EX_PRE]="# Example listing sym_links"
-    [Usage_EX]="${UTIL_SYM_LINKS} /etc"
+declare -A SYM_LINKS_USAGE=(
+    [USAGE_TOOL]="${UTIL_SYM_LINKS}"
+    [USAGE_ARG1]="[DIR] Directory path"
+    [USAGE_EX_PRE]="# Example listing sym_links"
+    [USAGE_EX]="${UTIL_SYM_LINKS} /etc"
 )
 
 #
@@ -76,7 +76,7 @@ function sym_links {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SYM_LINKS"
         return $NOT_SUCCESS
     fi
-    usage SYM_LINKS_Usage
+    usage SYM_LINKS_USAGE
     return $NOT_SUCCESS
 }
 

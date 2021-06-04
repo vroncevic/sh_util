@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Checking whether files in a given directory have been tampered
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 15:20:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -18,17 +18,17 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A SET_DB_Usage=(
-    [Usage_TOOL]="setup_db"
-    [Usage_ARG1]="[DB_STRUCT] DB file and path"
-    [Usage_EX_PRE]="# Example set database"
-    [Usage_EX]="setup_db \$DB_STRUCT"
+    [USAGE_TOOL]="setup_db"
+    [USAGE_ARG1]="[DB_STRUCT] DB file and path"
+    [USAGE_EX_PRE]="# Example set database"
+    [USAGE_EX]="setup_db \$DB_STRUCT"
 )
 
 declare -A CHECK_DB_Usage=(
-    [Usage_TOOL]="check_db"
-    [Usage_ARG1]="[FILE] Database file"
-    [Usage_EX_PRE]="# Example checking database"
-    [Usage_EX]="check_db test.db"
+    [USAGE_TOOL]="check_db"
+    [USAGE_ARG1]="[FILE] Database file"
+    [USAGE_EX_PRE]="# Example checking database"
+    [USAGE_EX]="check_db test.db"
 )
 
 #

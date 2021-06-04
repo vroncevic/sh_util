@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Copy new App shortcut to user configuration spot
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 17:43:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -16,11 +16,11 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 .    ${UTIL}/bin/devel.sh
 
-declare -A APP_TO_USER_Usage=(
-    [Usage_TOOL]="${UTIL_APP_TO_USER}"
-    [Usage_ARG1]="[APP_STRUCT] username, group, app"
-    [Usage_EX_PRE]="# Copy Application shortcut to user configuration"
-    [Usage_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
+declare -A APP_TO_USER_USAGE=(
+    [USAGE_TOOL]="${UTIL_APP_TO_USER}"
+    [USAGE_ARG1]="[APP_STRUCT] username, group, app"
+    [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
+    [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
 )
 
 #
@@ -121,7 +121,7 @@ function app_to_user {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_TO_USER"
         return $NOT_SUCCESS
     fi
-    usage APP_TO_USER_Usage
+    usage APP_TO_USER_USAGE
     return $NOT_SUCCESS
 }
 

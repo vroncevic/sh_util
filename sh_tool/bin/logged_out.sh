@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Notify when a particular user has logged out
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 16 20:46:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A LOGGED_OUT_Usage=(
-    [Usage_TOOL]="${UTIL_LOGGED_OUT}"
-    [Usage_ARG1]="[LOGOUT_STRUCT] System username and time"
-    [Usage_EX_PRE]="# Checking user to log out"
-    [Usage_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
+    [USAGE_TOOL]="${UTIL_LOGGED_OUT}"
+    [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
+    [USAGE_EX_PRE]="# Checking user to log out"
+    [USAGE_EX]="${UTIL_LOGGED_OUT} \$LOGOUT_STRUCT"
 )
 
 #

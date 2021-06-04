@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Set label name for mounted disk
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 16 19:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A LABEL_Usage=(
-    [Usage_TOOL]="${UTIL_LABEL}"
-    [Usage_ARG1]="[DISK_STRUCT] Disk drive and disk label"
-    [Usage_EX_PRE]="# Set label name for mounted disk"
-    [Usage_EX]="${UTIL_LABEL} \$DISK_STRUCT"
+    [USAGE_TOOL]="${UTIL_LABEL}"
+    [USAGE_ARG1]="[DISK_STRUCT] Disk drive and disk label"
+    [USAGE_EX_PRE]="# Set label name for mounted disk"
+    [USAGE_EX]="${UTIL_LABEL} \$DISK_STRUCT"
 )
 
 #

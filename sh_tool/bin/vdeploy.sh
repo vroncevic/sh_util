@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Copy new version of tool to deployment zone
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VDEPLOY_Usage=(
-    [Usage_TOOL]="${UTIL_VDEPLOY}"
-    [Usage_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
-    [Usage_EX_PRE]="# Copy tool to deployment zone"
-    [Usage_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
+    [USAGE_TOOL]="${UTIL_VDEPLOY}"
+    [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
+    [USAGE_EX_PRE]="# Copy tool to deployment zone"
+    [USAGE_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
 )
 
 #

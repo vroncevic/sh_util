@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   List files of same size in current dir
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -15,10 +15,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 
 declare -A SAME_SIZE_Usage=(
-    [Usage_TOOL]="${UTIL_SAME_SIZE}"
-    [Usage_ARG1]="[DIR] Directory path"
-    [Usage_EX_PRE]="# List files of same size in dir"
-    [Usage_EX]="${UTIL_SAME_SIZE} /data/"
+    [USAGE_TOOL]="${UTIL_SAME_SIZE}"
+    [USAGE_ARG1]="[DIR] Directory path"
+    [USAGE_EX_PRE]="# List files of same size in dir"
+    [USAGE_EX]="${UTIL_SAME_SIZE} /data/"
 )
 
 #

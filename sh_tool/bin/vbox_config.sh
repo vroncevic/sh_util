@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Generate VBOX config files at /data/vm/vboxusers/<username>/
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Jun 5 13:58:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
@@ -17,10 +17,10 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/load_util_conf.sh
 
 declare -A VBOX_CONFIG_Usage=(
-    [Usage_TOOL]="${UTIL_VBOX_CONFIG}"
-    [Usage_ARG1]="[USR] System username"
-    [Usage_EX_PRE]="# Example generating VBOX config files"
-    [Usage_EX]="${UTIL_VBOX_CONFIG} vroncevic"
+    [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
+    [USAGE_ARG1]="[USR] System username"
+    [USAGE_EX_PRE]="# Example generating VBOX config files"
+    [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
 )
 
 #
