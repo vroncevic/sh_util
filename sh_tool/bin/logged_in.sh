@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Notify when a particular user has logged in
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 16 20:47:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGED_IN=logged_in
-UTIL_LOGGED_IN_VERSION=ver.1.0.0
+UTIL_LOGGED_IN_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGED_IN_VERSION}
 UTIL_LOG=${UTIL}/log
 

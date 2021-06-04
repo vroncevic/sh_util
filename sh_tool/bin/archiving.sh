@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Archiving target files
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:48:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ARCHIVING=archiving
-UTIL_ARCHIVING_VERSION=ver.1.0.0
+UTIL_ARCHIVING_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_ARCHIVING_VERSION}
 UTIL_LOG=${UTIL}/log
 

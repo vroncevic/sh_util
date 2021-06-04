@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Test point po point connection
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sun Oct 11 02:08:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ON_CONNECT=on_connect
-UTIL_ON_CONNECT_VERSION=ver.1.0.0
+UTIL_ON_CONNECT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_ON_CONNECT_VERSION}
 UTIL_ON_CONNECT_CFG=${UTIL}/conf/${UTIL_ON_CONNECT}.cfg
 UTIL_LOG=${UTIL}/log

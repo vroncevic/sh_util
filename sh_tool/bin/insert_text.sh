@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Insert text file into another file at line n
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 01 08:41:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_INSERT_TEXT=insert_text
-UTIL_INSERT_TEXT_VERSION=ver.1.0.0
+UTIL_INSERT_TEXT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_INSERT_TEXT_VERSION}
 UTIL_LOG=${UTIL}/log
 

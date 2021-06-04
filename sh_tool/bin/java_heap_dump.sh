@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Create a heap dump of a Java process
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_JAVA_HEAP_DUMP=java_heap_dump
-UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0.0
+UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_JAVA_HEAP_DUMP_VERSION}
 UTIL_JAVA_HEAP_DUMP_CFG=${UTIL}/conf/${UTIL_JAVA_HEAP_DUMP}.cfg
 UTIL_LOG=${UTIL}/log

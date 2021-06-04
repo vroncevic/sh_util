@@ -1,14 +1,14 @@
 #!/bin/bash
 #
 # @brief   Load App/Tool/Script configuration
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Sep 20 21:00:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 #
 UTIL_LOAD_CONF=load_conf
-UTIL_LOAD_CONF_VERSION=ver.1.0.0
+UTIL_LOAD_CONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOAD_CONF_VERSION}
 UTIL_LOG=${UTIL}/log
 

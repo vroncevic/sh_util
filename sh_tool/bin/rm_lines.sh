@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Remove lines that contain words stored in a list
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_LINES=rm_lines
-UTIL_RM_LINES_VERSION=ver.1.0.0
+UTIL_RM_LINES_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_LINES_VERSION}
 UTIL_LOG=${UTIL}/log
 

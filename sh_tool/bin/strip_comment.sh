@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Strips out the comments (/* COMMENT */) in a C program
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_STRIP_COMMENT=strip_comment
-UTIL_STRIP_COMMENT_VERSION=ver.1.0.0
+UTIL_STRIP_COMMENT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_STRIP_COMMENT_VERSION}
 UTIL_LOG=${UTIL}/log
 

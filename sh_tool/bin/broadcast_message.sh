@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Broadcast messanger
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Nov 28 19:02:41 CET 2016
 # @company None, free  software to use 2016
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 # 
 UTIL_BROADCAST_BMSG=broadcast_message
-UTIL_BROADCAST_BMSG_VERSION=ver.1.0.0
+UTIL_BROADCAST_BMSG_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_BROADCAST_BMSG_VERSION}
 UTIL_BROADCAST_BMSG_CFG=${UTIL}/conf/${UTIL_BROADCAST_BMSG}.cfg
 UTIL_LOG=${UTIL}/log

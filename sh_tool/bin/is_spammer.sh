@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Identifying spam domains
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_IS_SPAMMER=is_spammer
-UTIL_IS_SPAMMER_VERSION=ver.1.0.0
+UTIL_IS_SPAMMER_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_IS_SPAMMER_VERSION}
 UTIL_LOG=${UTIL}/log
 

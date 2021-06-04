@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generating file by template
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Mar  6 19:25:19 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_GEN_FROM_TEMPLATE=gen_from_template
-UTIL_GEN_FROM_TEMPLATE_VERSION=ver.1.0.0
+UTIL_GEN_FROM_TEMPLATE_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_GEN_FROM_TEMPLATE_VERSION}
 UTIL_LOG=${UTIL}/log
 

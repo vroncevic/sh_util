@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Print name of the file that contains lines longer then n chars
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LONGER_LINES=longer_lines
-UTIL_LONGER_LINES_VERSION=ver.1.0.0
+UTIL_LONGER_LINES_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LONGER_LINES_VERSION}
 UTIL_LOG=${UTIL}/log
 

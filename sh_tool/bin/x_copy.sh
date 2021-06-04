@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Copy tool to folder destination
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_X_COPY=x_copy
-UTIL_X_COPY_VER=ver.1.0.0
+UTIL_X_COPY_VER=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_X_COPY_VER}
 UTIL_LOG=${UTIL}/log
 
@@ -31,7 +31,7 @@ declare -A X_COPY_USAGE=(
 #
 # declare -A XCOPY_STRUCT=(
 #    [TN]="new_tool"
-#    [TV]="ver.1.0.0"
+#    [TV]="ver.1.0"
 #    [AP]="/usr/bin/local/"
 #    [DP]="/opt/new_tool/"
 # )

@@ -2,13 +2,13 @@
 #
 # @brief   Unpack zip, tar, tgz, tar.gz, tar.bz2, tar.z to 
 #          a DIR of the same name as archive prefix
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_UNPACK_TO_DIR=unpack_to_dir
-UTIL_UNPACK_TO_DIR_VERSION=ver.1.0.0
+UTIL_UNPACK_TO_DIR_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_UNPACK_TO_DIR_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Checking operation to be done
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Apr 28 20:40:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_OP=check_op
-UTIL_CHECK_OP_VERSION=ver.1.0.0
+UTIL_CHECK_OP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_OP_VERSION}
 UTIL_LOG=${UTIL}/log
 

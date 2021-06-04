@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Write message to named pipe
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 22 19:52:32 2018
 # @company None, free  software to use 2018
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_NAMED_PIPE_WRITER=named_pipe_writer
-UTIL_NAMED_PIPE_WRITER_VERSION=ver.1.0.0
+UTIL_NAMED_PIPE_WRITER_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_NAMED_PIPE_WRITER_VERSION}
 UTIL_LOG=${UTIL}/log
 

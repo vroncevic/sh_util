@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Display an X window message when it's time to take a break
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_X_BREAK=x_break
-UTIL_X_BREAK_VERSION=ver.1.0.0
+UTIL_X_BREAK_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_X_BREAK_VERSION}
 UTIL_X_BREAK_CFG=${UTIL}/conf/${UTIL_X_BREAK}.cfg
 UTIL_LOG=${UTIL}/log

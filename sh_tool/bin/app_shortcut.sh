@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generating App shortcut for KDE
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Aug  11 09:58:41 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 # 
 UTIL_APP_SHORTCUT=app_shortcut
-UTIL_APP_SHORTCUT_VERSION=ver.1.0.0
+UTIL_APP_SHORTCUT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_APP_SHORTCUT_VERSION}
 UTIL_APP_SHORTCUT_CFG=${UTIL}/conf/${UTIL_APP_SHORTCUT}.cfg
 UTIL_LOG=${UTIL}/log

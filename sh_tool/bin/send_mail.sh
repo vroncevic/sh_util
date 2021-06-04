@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Sending an email to admin
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 20:57:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SEND_MAIL=send_mail
-UTIL_SEND_MAIL_VERSION=ver.1.0.0
+UTIL_SEND_MAIL_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_SEND_MAIL_VERSION}
 UTIL_SEND_MAIL_CFG=${UTIL}/conf/${UTIL_SEND_MAIL}.cfg
 UTIL_LOG=${UTIL}/log

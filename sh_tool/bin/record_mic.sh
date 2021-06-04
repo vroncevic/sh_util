@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Record audio from microphone or sound input from the console
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 16:11:32 2016
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RECORD_MIC=record_mic
-UTIL_RECORD_MIC_VERSION=ver.1.0.0
+UTIL_RECORD_MIC_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RECORD_MIC_VERSION}
 UTIL_RECORD_MIC_CFG=${UTIL}/conf/${UTIL_RECORD_MIC}.cfg
 UTIL_LOG=${UTIL}/log

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Copy new version of tool to deployment zone
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VDEPLOY=vdeploy
-UTIL_VDEPLOY_VER=ver.1.0.0
+UTIL_VDEPLOY_VER=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_VDEPLOY_VER}
 UTIL_VDEPLOY_CFG=${UTIL}/conf/${UTIL_VDEPLOY}.cfg
 UTIL_LOG=${UTIL}/log
@@ -32,7 +32,7 @@ declare -A VDEPLOY_Usage=(
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #
 # declare -A VDEPLOY_STRUCT=(
-#    [TV]="ver.1.0.0"
+#    [TV]="ver.1.0"
 #    [DP]="/opt/new_tool/"
 # )
 #

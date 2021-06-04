@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Check root permission from parent module
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_ROOT=check_root
-UTIL_CHECK_ROOT_VERSION=ver.1.0.0
+UTIL_CHECK_ROOT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_ROOT_VERSION}
 UTIL_LOG=${UTIL}/log
 

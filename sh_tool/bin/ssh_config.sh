@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generate client SSH config file at home
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 07 21:12:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SSH_CONFIG=ssh_config
-UTIL_SSH_CONFIG_VERSION=ver.1.0.0
+UTIL_SSH_CONFIG_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_SSH_CONFIG_VERSION}
 UTIL_SSH_CONFIG_CFG=${UTIL}/conf/${UTIL_SSH_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log

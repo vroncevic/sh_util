@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Set label name for mounted disk
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 16 19:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LABEL=disk_label
-UTIL_LABEL_VERSION=ver.1.0.0
+UTIL_LABEL_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LABEL_VERSION}
 UTIL_LABEL_CFG=${UTIL}/conf/${UTIL_LABEL}.cfg
 UTIL_LOG=${UTIL}/log

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Display network traffic on an interface
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wen Oct 07 23:27:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_BYTE_TRAFFIC=byte_traffic
-UTIL_BYTE_TRAFFIC_VERSION=ver.1.0.0
+UTIL_BYTE_TRAFFIC_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_BYTE_TRAFFIC_VERSION}
 UTIL_LOG=${UTIL}/log
 

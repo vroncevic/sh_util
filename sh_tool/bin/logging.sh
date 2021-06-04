@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Write line message to log file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Oct 08 18:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOGGING=logging
-UTIL_LOGGING_VERSION=ver.1.0.0
+UTIL_LOGGING_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOGGING_VERSION}
 UTIL_LOG=${UTIL}/log
 

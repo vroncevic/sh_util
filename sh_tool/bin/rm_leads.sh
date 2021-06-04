@@ -2,13 +2,13 @@
 #
 # @brief   Remove empty leading spaces from an ascii file
 #          and replace input file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sun Oct 04 22:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_LEADS=rm_leads
-UTIL_RM_LEADS_VERSION=ver.1.0.0
+UTIL_RM_LEADS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_LEADS_VERSION}
 UTIL_LOG=${UTIL}/log
 

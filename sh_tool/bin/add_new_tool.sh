@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Create info/manual/xtools files for new App/Tool/Script
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ADD_NEW_TOOL=add_new_tool
-UTIL_ADD_NEW_TOOL_VERSION=ver.1.0.0
+UTIL_ADD_NEW_TOOL_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_ADD_NEW_TOOL_VERSION}
 UTIL_ADD_NEW_TOOL_CFG=${UTIL}/conf/${UTIL_ADD_NEW_TOOL}.cfg
 UTIL_LOG=${UTIL}/log

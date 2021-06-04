@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Checking whether files in a given directory have been tampered
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 15:20:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_FILE_INTEGRITY=file_integrity
-UTIL_FILE_INTEGRITY_VERSION=ver.1.0.0
+UTIL_FILE_INTEGRITY_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_FILE_INTEGRITY_VERSION}
 UTIL_FILE_INTEGRITY_CFG=${UTIL}/conf/${UTIL_FILE_INTEGRITY}.cfg
 UTIL_LOG=${UTIL}/log

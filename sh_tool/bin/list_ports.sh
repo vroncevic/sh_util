@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   List target port
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 02 21:36:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_PORTS=list_ports
-UTIL_LIST_PORTS_VERSION=ver.1.0.0
+UTIL_LIST_PORTS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_PORTS_VERSION}
 UTIL_LOG=${UTIL}/log
 

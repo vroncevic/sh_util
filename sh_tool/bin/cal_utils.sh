@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Calculate last working day of month in year
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CAL_UTILS=cal_utils
-UTIL_CAL_UTILS_VERSION=ver.1.0.0
+UTIL_CAL_UTILS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CAL_UTILS_VERSION}
 UTIL_LOG=${UTIL}/log
 

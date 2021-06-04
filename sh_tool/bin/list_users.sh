@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Print all common user names
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 16 20:11:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_USERS=list_users
-UTIL_LIST_USERS_VERSION=ver.1.0.0
+UTIL_LIST_USERS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_USERS_VERSION}
 UTIL_LOG=${UTIL}/log
 

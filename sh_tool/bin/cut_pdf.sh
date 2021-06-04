@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Cut select pages from a pdf file, and create a new file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CUT_PDF=cut_pdf
-UTIL_CUT_PDF_VERSION=ver.1.0.0
+UTIL_CUT_PDF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CUT_PDF_VERSION}
 UTIL_CUT_PDF_CFG=${UTIL}/conf/${UTIL_CUT_PDF}.cfg
 UTIL_LOG=${UTIL}/log

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Calculate md5sum from an input string
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 15 16:35:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_MD5SUM=md5sum
-UTIL_MD5SUM_VERSION=ver.1.0.0
+UTIL_MD5SUM_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_MD5SUM_VERSION}
 UTIL_MD5SUM_CFG=${UTIL}/conf/${UTIL_MD5SUM}.cfg
 UTIL_LOG=${UTIL}/log

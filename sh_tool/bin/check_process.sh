@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Checking process, is running or not
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Sep 16 17:41:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #  
 UTIL_CHECK_PROCESS=check_process
-UTIL_CHECK_PROCESS_VERSION=ver.1.0.0
+UTIL_CHECK_PROCESS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_PROCESS_VERSION}
 UTIL_LOG=${UTIL}/log
 

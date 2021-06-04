@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Get IPV6 logic address
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Jan 31 13:57:19 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_GET_IPV6=get_ipv6
-UTIL_GET_IPV6_VERSION=ver.1.0.0
+UTIL_GET_IPV6_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_GET_IPV6_VERSION}
 UTIL_LOG=${UTIL}/log
 

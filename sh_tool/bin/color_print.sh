@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Print color text
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Nov 28 19:54:27 CET 2016
 # @company None, free  software to use 2016
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 # 
 UTIL_COL_PRINT=color_print
-UTIL_COL_PRINT_VERSION=ver.1.0.0
+UTIL_COL_PRINT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_COL_PRINT_VERSION}
 UTIL_COL_PRINT_CFG=${UTIL}/conf/${UTIL_COL_PRINT}.cfg
 UTIL_LOG=${UTIL}/log

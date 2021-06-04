@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Opens n terminal windows
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 16:58:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_OPEN_TERMINALS=open_terminals
-UTIL_OPEN_TERMINALS_VERSION=ver.1.0.0
+UTIL_OPEN_TERMINALS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_OPEN_TERMINALS_VERSION}
 UTIL_OPEN_TERMINALS_CFG=${UTIL}/conf/${UTIL_OPEN_TERMINALS}.cfg
 UTIL_LOG=${UTIL}/log

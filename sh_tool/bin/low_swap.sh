@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Detecting low swap
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Sep 30 22:49:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LOW_SWAP=low_swap
-UTIL_LOW_SWAP_VERSION=ver.1.0.0
+UTIL_LOW_SWAP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOW_SWAP_VERSION}
 UTIL_LOG=${UTIL}/log
 

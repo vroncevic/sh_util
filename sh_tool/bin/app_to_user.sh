@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Copy new App shortcut to user configuration spot
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 17:43:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_APP_TO_USER=app_to_user
-UTIL_APP_TO_USER_VERSION=ver.1.0.0
+UTIL_APP_TO_USER_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_APP_TO_USER_VERSION}
 UTIL_APP_TO_USER_CFG=${UTIL}/conf/${UTIL_APP_TO_USER}.cfg
 UTIL_LOG=${UTIL}/log

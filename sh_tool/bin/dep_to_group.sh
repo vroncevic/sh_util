@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Convert name of department to group short name
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 08 15:14:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_DEP_TO_GROUP=dep_to_group
-UTIL_DEP_TO_GROUP_VERSION=ver.1.0.0
+UTIL_DEP_TO_GROUP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_DEP_TO_GROUP_VERSION}
 UTIL_DEP_TO_GROUP_CFG=${UTIL}/conf/${UTIL_DEP_TO_GROUP}.cfg
 UTIL_LOG=${UTIL}/log

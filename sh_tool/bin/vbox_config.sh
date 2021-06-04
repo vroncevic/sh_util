@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generate VBOX config files at /data/vm/vboxusers/<username>/
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Wed Jun 5 13:58:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_VBOX_CONFIG=vbox_config
-UTIL_VBOX_CONFIG_VERSION=ver.1.0.0
+UTIL_VBOX_CONFIG_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_VBOX_CONFIG_VERSION}
 UTIL_CFG_VBOXCFG=${UTIL}/conf/${UTIL_VBOX_CONFIG}.cfg
 UTIL_LOG=${UTIL}/log

@@ -1,14 +1,14 @@
 #!/bin/bash
 #
 # @brief   Load module configuration
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu May 19 08:58:48 CEST 2016
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 #
 UTIL_LOAD_UTIL_CONF=load_util_conf
-UTIL_LOAD_UTIL_CONF_VERSION=ver.1.0.0
+UTIL_LOAD_UTIL_CONF_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LOAD_UTIL_CONF_VERSION}
 UTIL_LOG=${UTIL}/log
 

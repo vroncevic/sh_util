@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Create a file n bytes size
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CREATE_FILE_NSIZE=create_file_nsize
-UTIL_CREATE_FILE_NSIZE_VERSION=ver.1.0.0
+UTIL_CREATE_FILE_NSIZE_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CREATE_FILE_NSIZE_VERSION}
 UTIL_LOG=${UTIL}/log
 

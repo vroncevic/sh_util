@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Checking IPV4 Address
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Sat Jan 28 13:29:22 CET 2017
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 UTIL_CHECK_IPV4=check_ipv4
-UTIL_CHECK_IPV4_VERSION=ver.1.0.0
+UTIL_CHECK_IPV4_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_IPV4_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Cut operations on files
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CUT_OPERATIONS=cut_operations
-UTIL_CUT_OPERATIONS_VERSION=ver.1.0.0
+UTIL_CUT_OPERATIONS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CUT_OPERATIONS_VERSION}
 UTIL_LOG=${UTIL}/log
 

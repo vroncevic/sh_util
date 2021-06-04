@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generating email signature
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Jun  06 01:25:41 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 # 
 UTIL_EMAIl_SIGN=email_sign
-UTIL_EMAIl_SIGN_VERSION=ver.1.0.0
+UTIL_EMAIl_SIGN_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_EMAIl_SIGN_VERSION}
 UTIL_CFG_ESIGNATURE=${UTIL}/conf/${UTIL_EMAIl_SIGN}.cfg
 UTIL_LOG=${UTIL}/log

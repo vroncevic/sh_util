@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Blot out some file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Oct 13 16:14:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_BLOT_OUT=blot_out
-UTIL_BLOT_OUT_VERSION=ver.1.0.0
+UTIL_BLOT_OUT_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_BLOT_OUT_VERSION}
 UTIL_LOG=${UTIL}/log
 

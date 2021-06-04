@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Gives complete path name of process associated with pid
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:02:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_PATH_PROC=path_proc
-UTIL_PATH_PROC_VERSION=ver.1.0.0
+UTIL_PATH_PROC_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_PATH_PROC_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Look up abuse contact to report a spammer
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:11:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SPAM_LOOKUP=spam_lookup
-UTIL_SPAM_LOOKUP_VERSION=ver.1.0.0
+UTIL_SPAM_LOOKUP_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_SPAM_LOOKUP_VERSION}
 UTIL_SPAM_LOOKUP_CFG=${UTIL}/conf/${UTIL_SPAM_LOOKUP}.cfg
 UTIL_LOG=${UTIL}/log

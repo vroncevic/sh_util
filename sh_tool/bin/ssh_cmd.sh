@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Run shell script on remote server without copying
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 21:44:32 2016
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_SSH_CMD=ssh_cmd
-UTIL_SSH_CMD_VERSION=ver.1.0.0
+UTIL_SSH_CMD_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_SSH_CMD_VERSION}
 UTIL_LOG=${UTIL}/log
 

@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Usage mechanism for Tool/Script/Application
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon May 18 11:17:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_USAGE=usage
-UTIL_USAGE_VERSION=ver.1.0.0
+UTIL_USAGE_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_USAGE_VERSION}
 UTIL_LOG=${UTIL}/log
 

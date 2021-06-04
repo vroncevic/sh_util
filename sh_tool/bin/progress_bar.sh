@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Generating progress bar in parent module
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Nov 28 18:44:21 CET 2016
 # @company None, free  software to use 2016
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 # 
 UTIL_PROGRESS_BAR=progress_bar
-UTIL_PROGRESS_BAR_VERSION=ver.1.0.0
+UTIL_PROGRESS_BAR_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_PROGRESS_BAR_VERSION}
 UTIL_LOG=${UTIL}/log
 

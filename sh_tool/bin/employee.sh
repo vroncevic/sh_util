@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Creating employee directory structure
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jun 04 12:38:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_EMPLOYEE=employee
-UTIL_EMPLOYEE_VERSION=ver.1.0.0
+UTIL_EMPLOYEE_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_EMPLOYEE_VERSION}
 UTIL_EMPLOYEE_CFG=${UTIL}/conf/${UTIL_EMPLOYEE}.cfg
 UTIL_LOG=${UTIL}/log

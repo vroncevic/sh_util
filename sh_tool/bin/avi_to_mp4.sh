@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Converting avi to mp4 media format file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 03 17:56:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_AVI_TO_MP4=avi_to_mp4
-UTIL_AVI_TO_MP4_VERSION=ver.1.0.0
+UTIL_AVI_TO_MP4_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_AVI_TO_MP4_VERSION}
 UTIL_AVI_TO_MP4_CFG=${UTIL}/conf/${UTIL_AVI_TO_MP4}.cfg
 UTIL_LOG=$UTIL/log

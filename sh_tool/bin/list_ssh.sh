@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   List SSH sessions
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_SSH=list_ssh
-UTIL_LIST_SSH_VERSION=ver.1.0.0
+UTIL_LIST_SSH_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_SSH_VERSION}
 UTIL_LOG=${UTIL}/log
 

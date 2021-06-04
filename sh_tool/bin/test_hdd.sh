@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Test hard drive speed
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Thu Mar 03 15:06:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_TEST_HDD=test_hdd
-UTIL_TEST_HDD_VERSION=ver.1.0.0
+UTIL_TEST_HDD_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_TEST_HDD_VERSION}
 UTIL_LOG=${UTIL}/log
 

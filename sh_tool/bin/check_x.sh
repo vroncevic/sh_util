@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Checking X Server instance
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Okt 04 17:55:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_CHECK_X=check_x
-UTIL_CHECK_X_VERSION=ver.1.0.0
+UTIL_CHECK_X_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_CHECK_X_VERSION}
 UTIL_LOG=${UTIL}/log
 

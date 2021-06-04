@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Convert id to branch
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Jul 15 21:22:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_ID_TO_BRANCH=id_to_branch
-UTIL_ID_TO_BRANCH_VERSION=ver.1.0.0
+UTIL_ID_TO_BRANCH_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_ID_TO_BRANCH_VERSION}
 UTIL_ID_TO_BRANCH_CFG=${UTIL}/conf/${UTIL_ID_TO_BRANCH}.cfg
 UTIL_LOG=${UTIL}/log

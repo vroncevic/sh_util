@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Remove blank lines from an ascii file and replace the original file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_RM_BLANKS=rm_blanks
-UTIL_RM_BLANKS_VERSION=ver.1.0.0
+UTIL_RM_BLANKS_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_RM_BLANKS_VERSION}
 UTIL_LOG=${UTIL}/log
 

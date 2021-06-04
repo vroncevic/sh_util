@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   List opened files by specific user
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Mon Oct 12 22:04:32 2015
 # @company Frobas IT Department, www.frobas.com 2015
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_LIST_OPEN_FILES=list_open_files
-UTIL_LIST_OPEN_FILES_VERSION=ver.1.0.0
+UTIL_LIST_OPEN_FILES_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_LIST_OPEN_FILES_VERSION}
 UTIL_LIST_OPEN_FILES_CFG=${UTIL}/conf/${UTIL_LIST_OPEN_FILES}.cfg
 UTIL_LOG=${UTIL}/log

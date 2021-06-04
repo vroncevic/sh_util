@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # @brief   Re-compress a gzip (.gz) file to a bzip2 (.bz2) file
-# @version ver.1.0.0
+# @version ver.1.0
 # @date    Tue Mar 15 19:18:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
 # @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
 #
 UTIL_GZ_TO_BZ2=gz_to_bz2
-UTIL_GZ_TO_BZ2_VERSION=ver.1.0.0
+UTIL_GZ_TO_BZ2_VERSION=ver.1.0
 UTIL=/root/scripts/sh_util/${UTIL_GZ_TO_BZ2_VERSION}
 UTIL_GZ_TO_BZ2_CFG=${UTIL}/conf/${UTIL_GZ_TO_BZ2}.cfg
 UTIL_LOG=${UTIL}/log
