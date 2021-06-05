@@ -1,3 +1,5 @@
+<img align="right" src="https://raw.githubusercontent.com/vroncevic/sh_util/dev/docs/sh_util_logo.png" width="25%">
+
 # Shell Utilities
 
 **sh_util** modules are build blocks for bash applications/tools/scripts.
