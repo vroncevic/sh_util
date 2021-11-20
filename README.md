@@ -28,9 +28,11 @@ other information that should be provided before the modules are installed.
 
 ### Installation
 
+![Debian Linux OS](https://raw.githubusercontent.com/vroncevic/sh_util/dev/docs/debtux.png)
+
 Navigate to release **[page](https://github.com/vroncevic/sh_util/releases)** download and extract release archive.
 
-To install **sh_util** type the following:
+To install **sh_util** type the following
 
 ```
 tar xvzf sh_util-x.y.z.tar.gz
@@ -43,17 +45,17 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 <details>
   <summary>Click to expand!</summary>
 
-    root@debtux:/data/dev/bash/3_tools/sh_util# ./sh_util_setup.sh 
+    ./sh_util_setup.sh 
 
-    [Setup] Installing App/Tool/Script sh_util
+    [setup] installing App/Tool/Script sh_util
         Mon 08 Jun 2020 09:13:28 PM CEST
-    [Setup] Copy App/Tool/Script structure
-    [Setup] Remove github editor configuration files
-    [Setup] Set App/Tool/Script permission
-    [Setup] Done
+    [setup] copy App/Tool/Script structure
+    [setup] remove github editor configuration files
+    [setup] set App/Tool/Script permission
+    [setup] done
 
     /root/scripts/sh_util/ver.1.0/
-    ├── bin
+    ├── bin/
     │   ├── add_new_tool.sh
     │   ├── app_shortcut.sh
     │   ├── app_to_user.sh
@@ -145,7 +147,7 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
     │   ├── x_break.sh
     │   ├── x_copy.sh
     │   └── zip_file.sh
-    ├── conf
+    ├── conf/
     │   ├── add_new_tool.cfg
     │   ├── app_shortcut.cfg
     │   ├── app_to_user.cfg
@@ -170,7 +172,7 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
     │   ├── sh_util.cfg
     │   ├── spam_lookup.cfg
     │   ├── ssh_config.cfg
-    │   ├── template
+    │   ├── template/
     │   │   ├── app_shortcut.template
     │   │   ├── broadcast_message.template
     │   │   ├── create_esignature.template
@@ -189,7 +191,7 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
     │   ├── vpn_config.cfg
     │   ├── word_to_txt.cfg
     │   └── x_break.cfg
-    └── log
+    └── log/
         └── sh_util.log
 </details>
 
@@ -199,7 +201,7 @@ Or You can use docker to create image/container.
 
 ### Dependencies
 
-**sh_util** requires next modules and libraries:
+**sh_util** requires next modules and libraries
 
 ```
 None
@@ -210,7 +212,7 @@ None
 **sh_util** is based on MOP.
 
 ```
-.
+sh_util/
 ├── bin/
 │   ├── add_new_tool.sh
 │   ├── app_shortcut.sh
@@ -355,7 +357,7 @@ None
 
 [![Documentation Status](https://readthedocs.org/projects/sh_util/badge/?version=latest)](https://sh_util.readthedocs.io/projects/sh_util/en/latest/?badge=latest)
 
-More documentation and info at:
+More documentation and info at
 * [https://sh_util.readthedocs.io/en/latest/](https://sh_util.readthedocs.io/en/latest/)
 * [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/)
 
