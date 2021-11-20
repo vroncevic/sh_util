@@ -16,9 +16,9 @@
 FROM debian:10
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
- apt-get install -yq --no-install-recommends \
- tree \
- htop
+    apt-get install -yq --no-install-recommends \
+    tree \
+    htop
 
 RUN mkdir /sh_tool/
 COPY sh_tool /sh_tool/

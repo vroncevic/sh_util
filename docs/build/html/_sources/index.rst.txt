@@ -1,5 +1,5 @@
 sh_util
---------
+-------
 
 **sh_util** modules are build blocks for bash applications/tools/scripts.
 
@@ -31,21 +31,26 @@ other information that should be provided before the modules are installed.
     self
 
 Installation
--------------
+------------
+
+|Debian Linux OS|
+
+.. |Debian Linux OS| image:: https://raw.githubusercontent.com/vroncevic/sh_util/dev/docs/debtux.png
+   :target: https://www.debian.org
 
 Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/sh_util/releases
 
-To install **sh_util** type the following:
+To install **sh_util** type the following
 
 .. code-block:: bash
 
    tar xvzf sh_util-x.y.z.tar.gz
    cd sh_util-x.y.z
-   cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0.0/
-   cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0.0/
-   cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0.0/
+   cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
+   cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
+   cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 
 Or You can use Docker to create image/container.
 
@@ -55,22 +60,22 @@ Or You can use Docker to create image/container.
    :target: https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+docker+checker%22
 
 Dependencies
--------------
+------------
 
-**sh_util** requires next modules and libraries:
+**sh_util** requires next modules and libraries
 
 * None
 
 Library structure
----------------------
+-----------------
 
 **sh_util** is based on MOP.
 
-Code structure:
+Library structure
 
 .. code-block:: bash
 
-   .
+   sh_util/
    ├── bin/
    │   ├── add_new_tool.sh
    │   ├── app_shortcut.sh
@@ -211,7 +216,7 @@ Code structure:
         └── sh_util.log
 
 Copyright and licence
-----------------------
+---------------------
 
 |License: GPL v3| |License: Apache 2.0|
 
