@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A LIST_OPEN_FILES_Usage=(
+declare -A LIST_OPEN_FILES_USAGE=(
     [USAGE_TOOL]="${UTIL_LIST_OPEN_FILES}"
     [USAGE_ARG1]="[USR] System username"
     [USAGE_EX_PRE]="# Example list all opened files by user"
@@ -73,7 +73,7 @@ function list_open_files {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_LIST_OPEN_FILES"
         return $NOT_SUCCESS
     fi
-    usage LIST_OPEN_FILES_Usage
+    usage LIST_OPEN_FILES_USAGE
     return $NOT_SUCCESS
 }
 

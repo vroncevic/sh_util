@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A CREATE_RAM_DISK_Usage=(
+declare -A CREATE_RAM_DISK_USAGE=(
     [USAGE_TOOL]="${UTIL_CREATE_RAM_DISK}"
     [USAGE_ARG1]="[MOUNTPT] Mount point"
     [USAGE_EX_PRE]="# Example creating RAM disk"
@@ -93,7 +93,7 @@ function create_ram_disk {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CREATE_RAM_DISK"
         return $NOT_SUCCESS
     fi
-    usage CREATE_RAM_DISK_Usage
+    usage CREATE_RAM_DISK_USAGE
     return $NOT_SUCCESS
 }
 

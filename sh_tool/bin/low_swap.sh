@@ -15,7 +15,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/send_mail.sh
 
-declare -A LOW_SWAP_Usage=(
+declare -A LOW_SWAP_USAGE=(
     [USAGE_TOOL]="${UTIL_LOW_SWAP}"
     [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
     [Usage_ARG2]="[EMAIL] Administrator email address"
@@ -77,7 +77,7 @@ function low_swap {
             return $NOT_SUCCESS
         fi
     fi
-    usage LOW_SWAP_Usage
+    usage LOW_SWAP_USAGE
     return $NOT_SUCCESS
 }
 

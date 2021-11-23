@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A RECORD_MIC_Usage=(
+declare -A RECORD_MIC_USAGE=(
     [USAGE_TOOL]="${UTIL_RECORD_MIC}"
     [USAGE_ARG1]="[FILE] Name of media file"
     [USAGE_EX_PRE]="# Recording from microfon to test.mp3"
@@ -82,7 +82,7 @@ function record_mic {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_RECORD_MIC"
         return $NOT_SUCCESS
     fi
-    usage RECORD_MIC_Usage
+    usage RECORD_MIC_USAGE
     return $NOT_SUCCESS
 }
 

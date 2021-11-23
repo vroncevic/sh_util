@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A MAKE_ISO_Usage=(
+declare -A MAKE_ISO_USAGE=(
     [USAGE_TOOL]="${UTIL_MAKE_ISO}"
     [USAGE_ARG1]="[SRC] Target media for cloning or restoring"
     [Usage_ARG2]="[DST]  Final destination"
@@ -104,7 +104,7 @@ function make_iso {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
         return $NOT_SUCCESS
     fi
-    usage MAKE_ISO_Usage
+    usage MAKE_ISO_USAGE
     return $NOT_SUCCESS
 }
 

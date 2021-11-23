@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_CFG_Usage=(
+declare -A CHECK_CFG_USAGE=(
     [USAGE_TOOL]="${UTIL_CHECK_CFG}"
     [USAGE_ARG1]="[TOOL_CFG] Path to config file"
     [USAGE_EX_PRE]="# Example checking config file"
@@ -64,7 +64,7 @@ function check_cfg {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_CFG"
         return $NOT_SUCCESS
     fi
-    usage CHECK_CFG_Usage
+    usage CHECK_CFG_USAGE
     return $NOT_SUCCESS
 }
 

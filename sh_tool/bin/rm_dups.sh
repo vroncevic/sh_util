@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A RM_DUPS_Usage=(
+declare -A RM_DUPS_USAGE=(
     [USAGE_TOOL]="${UTIL_RM_DUPS}"
     [USAGE_ARG1]="[STREAM] stdin or file path"
     [USAGE_EX_PRE]="# Remove duplicate lines from file or stdin"
@@ -62,7 +62,7 @@ function rm_dups {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_RM_DUPS"
         return $NOT_SUCCESS
     fi
-    usage RM_DUPS_Usage
+    usage RM_DUPS_USAGE
     return $NOT_SUCCESS
 }
 

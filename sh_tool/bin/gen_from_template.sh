@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A GEN_FROM_TEMPLATE_Usage=(
+declare -A GEN_FROM_TEMPLATE_USAGE=(
     [USAGE_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
     [USAGE_ARG1]="[INPUT FILE] Template file"
     [Usage_ARG2]="[OUTPUT FILE] Final result file"
@@ -67,7 +67,7 @@ function gen_from_template {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GEN_FROM_TEMPLATE"
         return $NOT_SUCCESS
     fi
-    usage GEN_FROM_TEMPLATE_Usage
+    usage GEN_FROM_TEMPLATE_USAGE
     return $NOT_SUCCESS
 }
 

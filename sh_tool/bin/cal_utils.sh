@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CAL_UTILS_Usage=(
+declare -A CAL_UTILS_USAGE=(
     [USAGE_TOOL]="${UTIL_CAL_UTILS}"
     [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
     [USAGE_EX_PRE]="# Example geting last working day in May 1987"
@@ -72,7 +72,7 @@ function cal_utils {
         info_debug_message_end "Done" "$FUNC" "$UTIL_CAL_UTILS"
         return $SUCCESS
     fi
-    usage CAL_UTILS_Usage
+    usage CAL_UTILS_USAGE
     return $NOT_SUCCESS
 }
 

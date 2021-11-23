@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A JAVA_HEAP_DUMP_Usage=(
+declare -A JAVA_HEAP_DUMP_USAGE=(
     [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
     [USAGE_ARG1]="[PIDJVM] PID of JVM"
     [USAGE_EX_PRE]="# Create a heap dump of a Java process"
@@ -75,7 +75,7 @@ function java_heap_dump {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
         return $NOT_SUCCESS
     fi
-    usage JAVA_HEAP_DUMP_Usage
+    usage JAVA_HEAP_DUMP_USAGE
     return $NOT_SUCCESS
 }
 
