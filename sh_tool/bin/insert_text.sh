@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A INSERT_TEXT_Usage=(
+declare -A INSERT_TEXT_USAGE=(
     [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
     [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
     [Usage_ARG2]="[TEXT] The text file to insert"
@@ -87,7 +87,7 @@ function insert_text {
         info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
         return $SUCCESS
     fi
-    usage INSERT_TEXT_Usage
+    usage INSERT_TEXT_USAGE
     return $NOT_SUCCESS
 }
 

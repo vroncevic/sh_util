@@ -16,7 +16,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A VNC_CONFIG_Usage=(
+declare -A VNC_CONFIG_USAGE=(
     [USAGE_TOOL]="${UTIL_VNC_CONFIG}"
     [USAGE_ARG1]="[VNC_STRUCT] System username and group"
     [USAGE_EX_PRE]="# Example generating VNC config file"
@@ -106,7 +106,7 @@ function vnc_config {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VNC_CONFIG"
         return $NOT_SUCCESS
     fi
-    usage VNC_CONFIG_Usage
+    usage VNC_CONFIG_USAGE
     return $NOT_SUCCESS
 }
 

@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A NAMED_PIPE_READER_Usage=(
+declare -A NAMED_PIPE_READER_USAGE=(
     [USAGE_TOOL]="${UTIL_NAMED_PIPE_READER}"
     [USAGE_ARG1]="[PIPE_PATH]    Absolute path of named pipe"
     [Usage_ARG2]="[MESSAGE_STOP] Message for pipe"
@@ -92,7 +92,7 @@ function named_pipe_reader {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_NAMED_PIPE_READER"
         return $NOT_SUCCESS
     fi
-    usage NAMED_PIPE_READER_Usage
+    usage NAMED_PIPE_READER_USAGE
     return $NOT_SUCCESS
 }
 

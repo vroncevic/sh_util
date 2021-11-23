@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LOGGED_OUT_Usage=(
+declare -A LOGGED_OUT_USAGE=(
     [USAGE_TOOL]="${UTIL_LOGGED_OUT}"
     [USAGE_ARG1]="[LOGOUT_STRUCT] System username and time"
     [USAGE_EX_PRE]="# Checking user to log out"
@@ -70,7 +70,7 @@ function logged_out {
         info_debug_message_end "Done" "$FUNC" "$UTIL_LOGGED_OUT"
         return $SUCCESS
     fi
-    usage LOGGED_OUT_Usage
+    usage LOGGED_OUT_USAGE
     return $NOT_SUCCESS
 }
 

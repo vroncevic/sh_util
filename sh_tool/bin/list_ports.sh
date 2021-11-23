@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LIST_PORT_Usage=(
+declare -A LIST_PORT_USAGE=(
     [USAGE_TOOL]="${UTIL_LIST_PORTS}"
     [USAGE_ARG1]="[PORT] Which you need to check"
     [USAGE_EX-PRE]="# Example check port 1734"
@@ -53,7 +53,7 @@ function list_ports {
         info_debug_message "Done" "$FUNC" "$UTIL_LIST_PORTS"
         return $SUCCESS
     fi 
-    usage LIST_PORT_Usage
+    usage LIST_PORT_USAGE
     return $NOT_SUCCESS
 }
 

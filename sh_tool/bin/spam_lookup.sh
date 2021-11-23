@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A SPAM_LOOKUP_Usage=(
+declare -A SPAM_LOOKUP_USAGE=(
     [USAGE_TOOL]="${UTIL_SPAM_LOOKUP}"
     [USAGE_ARG1]="[DOMAIN] Domain name"
     [USAGE_EX_PRE]="# Example check www.domain.cc"
@@ -72,7 +72,7 @@ function spam_lookup {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SPAM_LOOKUP"
         return $NOT_SUCCESS
     fi
-    usage SPAM_LOOKUP_Usage
+    usage SPAM_LOOKUP_USAGE
     return $NOT_SUCCESS
 }
 

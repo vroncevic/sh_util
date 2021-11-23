@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A PROGRESS_BAR_Usage=(
+declare -A PROGRESS_BAR_USAGE=(
     [USAGE_TOOL]="${UTIL_PROGRESS_BAR}"
     [USAGE_ARG1]="[BW] Width of bar"
     [Usage_ARG2]="[MP] Maximal percent"
@@ -109,7 +109,7 @@ function progress_bar {
         printf "%s\n\n" ""
         return $SUCCESS
     fi
-    usage PROGRESS_BAR_Usage
+    usage PROGRESS_BAR_USAGE
     return $NOT_SUCCESS
 }
 

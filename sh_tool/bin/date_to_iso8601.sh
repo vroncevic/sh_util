@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A DATE_TO_ISO8601_Usage=(
+declare -A DATE_TO_ISO8601_USAGE=(
     [USAGE_TOOL]="${UTIL_DATE_TO_ISO8601}"
     [USAGE_ARG1]="[TOOL] Name of App/Tool/Script"
     [USAGE_EX_PRE]="# Converting time to iso8601"
@@ -54,7 +54,7 @@ function date_to_iso8601 {
         info_debug_message_end "Done" "$FUNC" "$UTIL_DATE_TO_ISO8601"
         return $SUCCESS
     fi
-    usage DATE_TO_ISO8601_Usage
+    usage DATE_TO_ISO8601_USAGE
     return $NOT_SUCCESS
 }
 

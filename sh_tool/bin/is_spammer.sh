@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A IS_SPAMMER_Usage=(
+declare -A IS_SPAMMER_USAGE=(
     [USAGE_TOOL]="${UTIL_IS_SPAMMER}"
     [USAGE_ARG1]="[DOMAIN] Domain name"
     [USAGE_EX_PRE]="# Example checking domain"
@@ -146,7 +146,7 @@ function is_spammer(){
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_IS_SPAMMER"
         return $NOT_SUCCESS
     fi
-    usage IS_SPAMMER_Usage
+    usage IS_SPAMMER_USAGE
     return $NOT_SUCCESS
 }
 

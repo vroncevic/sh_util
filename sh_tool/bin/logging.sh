@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A LOGGING_Usage=(
+declare -A LOGGING_USAGE=(
     [USAGE_TOOL]="${UTIL_LOGGING}"
     [USAGE_ARG1]="[LOG] Name of App/Tool/Script, flag, path and message"
     [USAGE_EX_PRE]="# Example write LOG line structure to file"
@@ -78,7 +78,7 @@ function logging {
                     info_debug_message "$MSG" "$FUNC" "$UTIL_LOGGING"
                     LOG_LINE="[`date`] ERROR ${LTM} [host: `hostname`]"
                 else
-                    usage LOGGING_Usage
+                    usage LOGGING_USAGE
                     return $NOT_SUCCESS
                 fi
                 echo "${LOG_LINE}" >> "${LTP}/${LTN}.log"
@@ -91,7 +91,7 @@ function logging {
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOGGING"
             return $NOT_SUCCESS
         fi
-        usage LOGGING_Usage
+        usage LOGGING_USAGE
         return $NOT_SUCCESS
     fi
     return $SUCCESS

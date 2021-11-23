@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A GZ_TO_BZ2_Usage=(
+declare -A GZ_TO_BZ2_USAGE=(
     [USAGE_TOOL]="${UTIL_GZ_TO_BZ2}"
     [USAGE_ARG1]="[FILE] Name of gzip archive"
     [USAGE_EX_PRE]="# Re-compress a gzip (.gz) file to a bzip2 (.bz2) file"
@@ -83,7 +83,7 @@ function gz_to_bz2 {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GZ_TO_BZ2"
         return $NOT_SUCCESS
     fi
-    usage GZ_TO_BZ2_Usage
+    usage GZ_TO_BZ2_USAGE
     return $NOT_SUCCESS
 }
 

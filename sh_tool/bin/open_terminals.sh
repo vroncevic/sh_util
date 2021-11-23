@@ -17,7 +17,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/chec_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A OPEN_TERMINALS_Usage=(
+declare -A OPEN_TERMINALS_USAGE=(
     [USAGE_TOOL]="${UTIL_OPEN_TERMINALS}"
     [USAGE_ARG1]="[TERMS] number of terminal windows"
     [USAGE_EX_PRE]="# Open 4 terminal windows"
@@ -77,7 +77,7 @@ function open_terminals {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_OPEN_TERMINALS"
         return $NOT_SUCCESS
     fi
-    usage OPEN_TERMINALS_Usage
+    usage OPEN_TERMINALS_USAGE
     return $NOT_SUCCESS
 }
 

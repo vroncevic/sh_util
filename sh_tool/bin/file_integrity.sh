@@ -17,14 +17,14 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/check_tool.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A SET_DB_Usage=(
+declare -A SET_DB_USAGE=(
     [USAGE_TOOL]="setup_db"
     [USAGE_ARG1]="[DB_STRUCT] DB file and path"
     [USAGE_EX_PRE]="# Example set database"
     [USAGE_EX]="setup_db \$DB_STRUCT"
 )
 
-declare -A CHECK_DB_Usage=(
+declare -A CHECK_DB_USAGE=(
     [USAGE_TOOL]="check_db"
     [USAGE_ARG1]="[FILE] Database file"
     [USAGE_EX_PRE]="# Example checking database"
@@ -88,7 +88,7 @@ function setup_db {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_FILE_INTEGRITY"
         return $NOT_SUCCESS
     fi
-    usage SET_DB_Usage
+    usage SET_DB_USAGE
     return $NOT_SUCCESS
 }
 
@@ -158,7 +158,7 @@ function check_db {
         info_debug_message_end "Done" "$FUNC" "$UTIL_FILE_INTEGRITY"
         return $SUCCESS
     fi
-    usage CHECK_DB_Usage
+    usage CHECK_DB_USAGE
     return $NOT_SUCCESS
 }
 

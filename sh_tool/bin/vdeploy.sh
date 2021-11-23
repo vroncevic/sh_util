@@ -16,7 +16,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/usage.sh
 .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A VDEPLOY_Usage=(
+declare -A VDEPLOY_USAGE=(
     [USAGE_TOOL]="${UTIL_VDEPLOY}"
     [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
     [USAGE_EX_PRE]="# Copy tool to deployment zone"
@@ -90,7 +90,7 @@ function vdeploy {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VDEPLOY"
         return $NOT_SUCCESS
     fi
-    usage VDEPLOY_Usage
+    usage VDEPLOY_USAGE
     return $NOT_SUCCESS
 }
 

@@ -15,7 +15,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A RM_LEADS_Usage=(
+declare -A RM_LEADS_USAGE=(
     [USAGE_TOOL]="${UTIL_RM_LEADS}"
     [USAGE_ARG1]="[FILES] Name of file"
     [USAGE_EX_PRE]="# Remove empty leading spaces from an ascii file"
@@ -79,7 +79,7 @@ function rm_leads {
         info_debug_message_end "Done" "$FUNC" "$UTIL_RM_LEADS"
         return $SUCCESS
     fi
-    usage RM_LEADS_Usage
+    usage RM_LEADS_USAGE
     return $NOT_SUCCESS
 }
 

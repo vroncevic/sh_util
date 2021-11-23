@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A ZIP_FILE_Usage=(
+declare -A ZIP_FILE_USAGE=(
     [USAGE_TOOL]="${UTIL_ZIP_FILE}"
     [USAGE_ARG1]="[FILE] Name of file"
     [USAGE_EX-PRE]="# Example zipping a file"
@@ -83,7 +83,7 @@ function zip_file {
         info_debug_message_end "Done" "$FUNC" "$UTIL_ZIP_FILE"
         return $SUCCESS
     fi
-    usage ZIP_FILE_Usage
+    usage ZIP_FILE_USAGE
     return $NOT_SUCCESS
 }
 

@@ -14,7 +14,7 @@ UTIL_LOG=${UTIL}/log
 .    ${UTIL}/bin/devel.sh
 .    ${UTIL}/bin/usage.sh
 
-declare -A CHECK_OP_Usage=(
+declare -A CHECK_OP_USAGE=(
     [USAGE_TOOL]="${UTIL_CHECK_OP}"
     [USAGE_ARG1]="[OP] Operation to be done"
     [Usage_ARG2]="[OPLIST] List of operations"
@@ -69,7 +69,7 @@ function check_op {
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_OP"
         return $NOT_SUCCESS
     fi
-    usage CHECK_OP_Usage
+    usage CHECK_OP_USAGE
     return $NOT_SUCCESS
 }
 
