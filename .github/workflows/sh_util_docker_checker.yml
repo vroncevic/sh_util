@@ -2,8 +2,12 @@ name: sh_util docker checker
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'sh_tool/**'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'sh_tool/**'
 jobs:
   build:
     runs-on: ubuntu-latest

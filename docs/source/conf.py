@@ -3,7 +3,7 @@
 project = u'sh_util'
 copyright = u'2015, Vladimir Roncevic <elektron.ronca@gmail.com>'
 author = u'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version = u'ver.1.0.0'
+version = u'1.0'
 release = u'https://github.com/vroncevic/sh_util/releases'
 extensions = []
 templates_path = ['_templates']
