@@ -1,5 +1,9 @@
 name: sh_util toc
-on: push
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.md'
 jobs:
   generateTOC:
     name: TOC Generator
