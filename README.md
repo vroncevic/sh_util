@@ -353,10 +353,10 @@ sh_util/
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/sh_util/badge/?version=latest)](https://sh_util.readthedocs.io/projects/sh_util/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/sh_util/badge/?version=latest)](https://sh-util.readthedocs.io/projects/sh_util/en/latest/?badge=latest)
 
 More documentation and info at
-* [https://sh_util.readthedocs.io/en/latest/](https://sh_util.readthedocs.io/en/latest/)
+* [https://sh_util.readthedocs.io/en/latest/](https://sh-util.readthedocs.io/en/latest/)
 * [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/)
 
 ### Copyright and license
