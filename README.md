@@ -197,8 +197,6 @@ cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 
 Or You can use docker to create image/container.
 
-[![sh_util docker checker](https://github.com/vroncevic/sh_util/workflows/sh_util%20docker%20checker/badge.svg)](https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+docker+checker%22)
-
 ### Dependencies
 
 **sh_util** requires next modules and libraries
