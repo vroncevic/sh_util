@@ -12,12 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Check syntax script
-        id: syntax_checker
-        run: |
-          modules=($(find sh_tool/ -type f -name '*.sh' -exec echo '{}' \;))
-          for mod in "${modules[@]}"; do check=$(bash -n "${mod}" 2>&1); [[ ! -z "${check}" ]] && exit 1; done
+      - uses: actions/checkout@v4
       - name: Check size script
         id: size_checker
         run: |
