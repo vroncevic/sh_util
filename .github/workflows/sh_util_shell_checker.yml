@@ -16,5 +16,7 @@ jobs:
       - name: Check size script
         id: size_checker
         run: |
+          modules_ok=0
           modules=($(find sh_tool/ -type f -name '*.sh' -exec echo '{}' \;))
-          for mod in "${modules[@]}"; do line_numbers=$(wc -l < "${mod}"); [[ $line_numbers -gt 300 ]] && exit 1; done
+          for mod in "${modules[@]}"; do line_numbers=$(wc -l < "${mod}"); [[ $line_numbers -gt 300 ]]  && modules_ok=1; done
+          [[ $modules_ok -eq 0 ]] && echo ok || exit 1
