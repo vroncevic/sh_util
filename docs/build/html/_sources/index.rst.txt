@@ -23,7 +23,7 @@ other information that should be provided before the modules are installed.
    :target: https://github.com/vroncevic/sh_util/graphs/contributors
 
 .. |Documentation Status| image:: https://readthedocs.org/projects/sh_util/badge/?version=latest
-   :target: https://sh_util.readthedocs.io/projects/sh_util/en/latest/?badge=latest
+   :target: https://sh-util.readthedocs.io/projects/sh_util/en/latest/?badge=latest
 
 .. toctree::
     :hidden:
