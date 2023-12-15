@@ -54,11 +54,6 @@ To install **sh_util** type the following
 
 Or You can use Docker to create image/container.
 
-|GitHub docker checker|
-
-.. |GitHub docker checker| image:: https://github.com/vroncevic/sh_util/workflows/sh_util%20docker%20checker/badge.svg
-   :target: https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+docker+checker%22
-
 Dependencies
 ------------
 
