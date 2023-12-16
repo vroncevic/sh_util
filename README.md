@@ -6,7 +6,7 @@
 
 Developed in **[bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell))** code: **100%**.
 
-[![sh_util shell checker](https://github.com/vroncevic/sh_util/workflows/sh_util%20shell%20checker/badge.svg)](https://github.com/vroncevic/sh_util/actions?query=workflow%3A%22sh_util+shell+checker%22)
+[![sh_util_shell_checker](https://github.com/vroncevic/sh_util/actions/workflows/sh_util_shell_checker.yml/badge.svg)](https://github.com/vroncevic/sh_util/actions/workflows/sh_util_shell_checker.yml)
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any

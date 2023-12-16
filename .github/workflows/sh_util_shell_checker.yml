@@ -1,4 +1,4 @@
-name: sh_util shell checker
+name: sh_util_shell_checker
 on:
   push:
     branches: [ master ]

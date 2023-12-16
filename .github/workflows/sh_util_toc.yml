@@ -1,4 +1,4 @@
-name: sh_util toc
+name: sh_util_toc
 on:
   push:
     branches: [ master ]
