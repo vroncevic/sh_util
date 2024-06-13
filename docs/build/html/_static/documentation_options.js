@@ -1,5 +1,4 @@
-var DOCUMENTATION_OPTIONS = {
-    URL_ROOT: document.getElementById("documentation_options").getAttribute('data-url_root'),
+const DOCUMENTATION_OPTIONS = {
     VERSION: 'https://github.com/vroncevic/sh_util/releases',
     LANGUAGE: 'en',
     COLLAPSE_INDEX: false,
