@@ -221,7 +221,7 @@ Copyright and licence
 .. |License: Apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2015 by `vroncevic.github.io/sh_util <https://vroncevic.github.io/sh_util>`_
+Copyright (C) 2015 - 2024 by `vroncevic.github.io/sh_util <https://vroncevic.github.io/sh_util>`_
 
 **sh_util** is free software; you can redistribute it and/or modify it
 under the same terms as Bash itself, either Bash version 4.2.47 or,
