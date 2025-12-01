@@ -35,11 +35,12 @@ Navigate to release **[page](https://github.com/vroncevic/sh_util/releases)** do
 To install **sh_util** type the following
 
 ```bash
-tar xvzf sh_util-x.y.z.tar.gz
-cd sh_util-x.y.z
-cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
-cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
-cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
+tar xvzf sh_util-1.0.tar.gz
+cd sh_util-1.0
+sudo mkdir -p /root/scripts/sh_util/ver.1.0/
+sudo cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
+sudo cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
+sudo cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 ```
 
 Or You can use docker to create image/container.
@@ -57,7 +58,7 @@ None
 **sh_util** is based on MOP.
 
 ```bash
-sh_util/
+sh_tool/
 ├── bin/
 │   ├── add_new_tool.sh
 │   ├── app_shortcut.sh
@@ -69,6 +70,7 @@ sh_util/
 │   ├── broadcast_message.sh
 │   ├── byte_traffic.sh
 │   ├── cal_utils.sh
+│   ├── center.sh
 │   ├── check_cfg.sh
 │   ├── check_ipv4.sh
 │   ├── check_op.sh
@@ -87,6 +89,7 @@ sh_util/
 │   ├── devel.sh
 │   ├── dir_utils.sh
 │   ├── disk_label.sh
+│   ├── display_logo.sh
 │   ├── email_sign.sh
 │   ├── employee.sh
 │   ├── file_integrity.sh
@@ -196,6 +199,8 @@ sh_util/
 │   └── x_break.cfg
 └── log/
     └── sh_util.log
+
+5 directories, 136 files
 ```
 
 ### Docs
@@ -210,7 +215,7 @@ More documentation and info at
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2015 - 2024 by [vroncevic.github.io/sh_util](https://vroncevic.github.io/sh_util)
+Copyright (C) 2015 - 2026 by [vroncevic.github.io/sh_util](https://vroncevic.github.io/sh_util)
 
 **sh_util** is free software; you can redistribute it and/or modify
 it under the same terms as Bash itself, either Bash version 4.2.47 or,
