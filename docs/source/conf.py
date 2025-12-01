@@ -4,7 +4,7 @@
 Module
     conf.py
 Copyright
-    Copyright (C) 2015 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2015 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     sh_util is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -27,9 +27,9 @@ from typing import Any, List, Dict, Tuple
 sys.path.insert(0, os.path.abspath('../../'))
 
 project: str = 'sh_util'
-project_copyright: str = '2024, Vladimir Roncevic <elektron.ronca@gmail.com>'
+project_copyright: str = '2026, Vladimir Roncevic <elektron.ronca@gmail.com>'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '1.8.4'
+version: str = '1.0'
 release: str = 'https://github.com/vroncevic/sh_util/releases'
 extensions: List[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
 templates_path: List[str] = ['_templates']

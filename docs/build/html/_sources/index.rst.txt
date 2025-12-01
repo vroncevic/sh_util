@@ -46,11 +46,12 @@ To install **sh_util** type the following
 
 .. code-block:: bash
 
-   tar xvzf sh_util-x.y.z.tar.gz
-   cd sh_util-x.y.z
-   cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
-   cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
-   cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
+    tar xvzf sh_util-1.0.tar.gz
+    cd sh_util-1.0
+    sudo mkdir -p /root/scripts/sh_util/ver.1.0/
+    sudo cp -R ~/sh_tool/bin/   /root/scripts/sh_util/ver.1.0/
+    sudo cp -R ~/sh_tool/conf/  /root/scripts/sh_util/ver.1.0/
+    sudo cp -R ~/sh_tool/log/   /root/scripts/sh_util/ver.1.0/
 
 Or You can use Docker to create image/container.
 
@@ -70,7 +71,7 @@ Library structure
 
 .. code-block:: bash
 
-   sh_util/
+   sh_tool/
    ├── bin/
    │   ├── add_new_tool.sh
    │   ├── app_shortcut.sh
@@ -82,6 +83,7 @@ Library structure
    │   ├── broadcast_message.sh
    │   ├── byte_traffic.sh
    │   ├── cal_utils.sh
+   │   ├── center.sh
    │   ├── check_cfg.sh
    │   ├── check_ipv4.sh
    │   ├── check_op.sh
@@ -100,6 +102,7 @@ Library structure
    │   ├── devel.sh
    │   ├── dir_utils.sh
    │   ├── disk_label.sh
+   │   ├── display_logo.sh
    │   ├── email_sign.sh
    │   ├── employee.sh
    │   ├── file_integrity.sh
@@ -208,7 +211,9 @@ Library structure
    │   ├── word_to_txt.cfg
    │   └── x_break.cfg
    └── log/
-        └── sh_util.log
+       └── sh_util.log
+   
+   5 directories, 136 files
 
 Copyright and licence
 ---------------------
@@ -221,7 +226,7 @@ Copyright and licence
 .. |License: Apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2015 - 2024 by `vroncevic.github.io/sh_util <https://vroncevic.github.io/sh_util>`_
+Copyright (C) 2015 - 2026 by `vroncevic.github.io/sh_util <https://vroncevic.github.io/sh_util>`_
 
 **sh_util** is free software; you can redistribute it and/or modify it
 under the same terms as Bash itself, either Bash version 4.2.47 or,
