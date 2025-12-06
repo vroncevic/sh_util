@@ -3,51 +3,56 @@
 # @brief   Print name of the file that contains lines longer then n chars
 # @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_LONGER_LINES=longer_lines
-UTIL_LONGER_LINES_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_LONGER_LINES_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_LONGER_LINES" ]; then
+    readonly __SH_UTIL_LONGER_LINES=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_LONGER_LINES=longer_lines
+    UTIL_LONGER_LINES_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_LONGER_LINES_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A LONGER_LINES_USAGE=(
-    [USAGE_TOOL]="${UTIL_LONGER_LINES}"
-    [USAGE_ARG1]="[NUMCHARS] an integer referring to min characters per line"
-    [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
-    [USAGE_EX]="${UTIL_LONGER_LINES} 45"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Print name of the file that contains lines longer then n chars
-# @params Values required number of characters and files
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# longer_lines $NUMCHARS ${FILES[@]}
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | wrong argument(s)
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function longer_lines {
-    local NUMCHARS=$1 FILES
-    shift
-    FILES=$@
-    if [[ -n "${NUMCHARS}" && -n "${FILES}" ]]; then
+    declare -A LONGER_LINES_USAGE=(
+        [USAGE_TOOL]="${UTIL_LONGER_LINES}"
+        [USAGE_ARG1]="[NUMCHARS] an integer referring to min characters per line"
+        [USAGE_EX_PRE]="# Print file name, that contain lines longer then 45 chars"
+        [USAGE_EX]="${UTIL_LONGER_LINES} 45"
+    )
+
+    #
+    # @brief  Print name of the file that contains lines longer then n chars
+    # @params Values required number of characters and files
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # longer_lines $NUMCHARS ${FILES[@]}
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | wrong argument(s)
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function longer_lines {
+        local NUMCHARS=$1 FILES
+        shift
+        FILES=$@
+        if [[ -z "${NUMCHARS}" || -z "${FILES}" ]]; then
+            usage LONGER_LINES_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" A COUNTER LINE
         MSG="Print file name that contains lines longer then n chars!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_LONGER_LINES"
@@ -76,8 +81,5 @@ function longer_lines {
         fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_LONGER_LINES"
         return $SUCCESS
-    fi
-    usage LONGER_LINES_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

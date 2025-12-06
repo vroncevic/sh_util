@@ -3,52 +3,56 @@
 # @brief   Create a heap dump of a Java process
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_JAVA_HEAP_DUMP=java_heap_dump
-UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_JAVA_HEAP_DUMP_VERSION}
-UTIL_JAVA_HEAP_DUMP_CFG=${UTIL}/conf/${UTIL_JAVA_HEAP_DUMP}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_JAVA_HEAP_DUMP" ]; then
+    readonly __SH_UTIL_JAVA_HEAP_DUMP=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/check_tool.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_JAVA_HEAP_DUMP=java_heap_dump
+    UTIL_JAVA_HEAP_DUMP_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_JAVA_HEAP_DUMP_VERSION}
+    UTIL_JAVA_HEAP_DUMP_CFG=${UTIL}/conf/${UTIL_JAVA_HEAP_DUMP}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A JAVA_HEAP_DUMP_USAGE=(
-    [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
-    [USAGE_ARG1]="[PIDJVM] PID of JVM"
-    [USAGE_EX_PRE]="# Create a heap dump of a Java process"
-    [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
-)
+    .    ${UTIL}/bin/check_tool.sh
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Create a heap dump of a Java process
-# @param  Value required pid of java app
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# java_heap_dump "$PIDJVM"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function java_heap_dump {
-    local PIDJVM=$1
-    if [ -n "${PIDJVM}" ]; then
+    declare -A JAVA_HEAP_DUMP_USAGE=(
+        [USAGE_TOOL]="${UTIL_JAVA_HEAP_DUMP}"
+        [USAGE_ARG1]="[PIDJVM] PID of JVM"
+        [USAGE_EX_PRE]="# Create a heap dump of a Java process"
+        [USAGE_EX]="${UTIL_JAVA_HEAP_DUMP} 2334"
+    )
+
+    #
+    # @brief  Create a heap dump of a Java process
+    # @param  Value required pid of java app
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # java_heap_dump "$PIDJVM"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function java_heap_dump {
+        local PIDJVM=$1
+        if [ -z "${PIDJVM}" ]; then
+            usage JAVA_HEAP_DUMP_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_java_heap_dump=()
         load_util_conf "$UTIL_JAVA_HEAP_DUMP_CFG" config_java_heap_dump
@@ -74,8 +78,5 @@ function java_heap_dump {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_JAVA_HEAP_DUMP"
         return $NOT_SUCCESS
-    fi
-    usage JAVA_HEAP_DUMP_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

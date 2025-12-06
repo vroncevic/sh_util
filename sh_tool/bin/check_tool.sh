@@ -3,50 +3,55 @@
 # @brief   Checking tool (does exist and, is executable)
 # @version ver.1.0
 # @date    Mon Jul 15 20:57:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CHECK_TOOL=check_tool
-UTIL_CHECK_TOOL_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CHECK_TOOL_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CHECK_TOOL" ]; then
+    readonly __SH_UTIL_CHECK_TOOL=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CHECK_TOOL=check_tool
+    UTIL_CHECK_TOOL_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CHECK_TOOL_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A CHECK_TOOL_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_TOOL}"
-    [USAGE_ARG1]="[TOOL] Path to App/Tool/Script"
-    [USAGE_EX_PRE]="# Example checking java tool"
-    [USAGE_EX]="${UTIL_CHECK_TOOL} /usr/share/java"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Checking tool (does exist and, is executable)
-# @param  Value required path to App/Tool/Script file
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local TOOL="/usr/bin/java" STATUS
-# check_tool "$TOOL"
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | tool doesn't exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function check_tool {
-    local TOOL=$1
-    if [ -n "${TOOL}" ]; then
+    declare -A CHECK_TOOL_USAGE=(
+        [USAGE_TOOL]="${UTIL_CHECK_TOOL}"
+        [USAGE_ARG1]="[TOOL] Path to App/Tool/Script"
+        [USAGE_EX_PRE]="# Example checking java tool"
+        [USAGE_EX]="${UTIL_CHECK_TOOL} /usr/share/java"
+    )
+
+    #
+    # @brief  Checking tool (does exist and, is executable)
+    # @param  Value required path to App/Tool/Script file
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local TOOL="/usr/bin/java" STATUS
+    # check_tool "$TOOL"
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | tool doesn't exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function check_tool {
+        local TOOL=$1
+        if [ -z "${TOOL}" ]; then
+            usage CHECK_TOOL_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Checking tool [${TOOL}]?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_TOOL"
@@ -62,8 +67,5 @@ function check_tool {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_TOOL"
         return $NOT_SUCCESS
-    fi
-    usage CHECK_TOOL_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

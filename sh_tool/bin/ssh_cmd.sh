@@ -3,56 +3,61 @@
 # @brief   Run shell script on remote server without copying
 # @version ver.1.0
 # @date    Tue Mar 03 21:44:32 2016
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_SSH_CMD=ssh_cmd
-UTIL_SSH_CMD_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_SSH_CMD_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_LOGGING" ]; then
+    readonly __SH_UTIL_LOGGING=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_SSH_CMD=ssh_cmd
+    UTIL_SSH_CMD_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_SSH_CMD_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A SSH_CMD_USAGE=(
-    [USAGE_TOOL]="${UTIL_SSH_CMD}"
-    [USAGE_ARG1]="[SSH_STRUCT] Username, server name and path to script"
-    [USAGE_EX_PRE]="# Example running script on remote server"
-    [USAGE_EX]="${UTIL_SSH_CMD} \$SSH_STRUCT"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Run shell script on remote server without copying
-# @param  Value required SSH_STRUCT
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A SSH_STRUCT=(
-#    [UN]="vroncevic"
-#    [SN]="host1"
-#    [SC]="test.sh"
-# )
-#
-# ssh_cmd SSH_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing script file
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function ssh_cmd {
-    local -n SSH_STRUCT=$1
-    local USR=${SSH_STRUCT[UN]} SRV=${SSH_STRUCT[SN]} SCR=${SSH_STRUCT[SC]}
-    if [[ -n "${USR}" && -n "${SRV}" && -n "${SCR}" ]]; then
+    declare -A SSH_CMD_USAGE=(
+        [USAGE_TOOL]="${UTIL_SSH_CMD}"
+        [USAGE_ARG1]="[SSH_STRUCT] Username, server name and path to script"
+        [USAGE_EX_PRE]="# Example running script on remote server"
+        [USAGE_EX]="${UTIL_SSH_CMD} \$SSH_STRUCT"
+    )
+
+    #
+    # @brief  Run shell script on remote server without copying
+    # @param  Value required SSH_STRUCT
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A SSH_STRUCT=(
+    #    [UN]="vroncevic"
+    #    [SN]="host1"
+    #    [SC]="test.sh"
+    # )
+    #
+    # ssh_cmd SSH_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing script file
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function ssh_cmd {
+        local -n SSH_STRUCT=$1
+        local USR=${SSH_STRUCT[UN]} SRV=${SSH_STRUCT[SN]} SCR=${SSH_STRUCT[SC]}
+        if [[ -z "${USR}" || -z "${SRV}" || -z "${SCR}" ]]; then
+            usage SSH_CMD_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Checking script file [${SCR}]?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_SSH_CMD"
@@ -70,8 +75,5 @@ function ssh_cmd {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SSH_CMD"
         return $NOT_SUCCESS
-    fi
-    usage SSH_CMD_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

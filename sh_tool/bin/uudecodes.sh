@@ -3,52 +3,56 @@
 # @brief   Decode a binary representation
 # @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_UUDECODES=uudecodes
-UTIL_UUDECODES_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_UUDECODES_VERSION}
-UTIL_UUDECODES_CFG=${UTIL}/conf/${UTIL_UUDECODES}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_UUDECODES" ]; then
+    readonly __SH_UTIL_UUDECODES=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/check_tool.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_UUDECODES=uudecodes
+    UTIL_UUDECODES_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_UUDECODES_VERSION}
+    UTIL_UUDECODES_CFG=${UTIL}/conf/${UTIL_UUDECODES}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A UUDECODES_USAGE=(
-    [USAGE_TOOL]="${UTIL_UUDECODES}"
-    [USAGE_ARG1]="[FILE_NAME] Path to binary file"
-    [USAGE_EX_PRE]="# Example decode thunderbird binary"
-    [USAGE_EX]="${UTIL_UUDECODES} thunderbird-bin"
-)
+    .    ${UTIL}/bin/check_tool.sh
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Decode a binary representation
-# @param  Value required path to file 
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# uudecodes $FILE
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing file | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function uudecodes {
-    local FILE=$1
-    if [ -n "${FILE}" ]; then
+    declare -A UUDECODES_USAGE=(
+        [USAGE_TOOL]="${UTIL_UUDECODES}"
+        [USAGE_ARG1]="[FILE_NAME] Path to binary file"
+        [USAGE_EX_PRE]="# Example decode thunderbird binary"
+        [USAGE_EX]="${UTIL_UUDECODES} thunderbird-bin"
+    )
+
+    #
+    # @brief  Decode a binary representation
+    # @param  Value required path to file 
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # uudecodes $FILE
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing file | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function uudecodes {
+        local FILE=$1
+        if [ -z "${FILE}" ]; then
+            usage UUDECODES_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="" STATUS
         declare -A CONFIG_UUDECODES=()
         load_util_conf "$UTIL_UUDECODES_CFG" CONFIG_UUDECODES
@@ -84,36 +88,36 @@ function uudecodes {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
-    fi
-    usage UUDECODES_USAGE
-    return $NOT_SUCCESS
-}
+    }
 
-#
-# @brief  Decode a binary representations in folder
-# @param  Value required path to file 
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# uudecodes_all "$FILE"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing file | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function uudecodes_all {
-    local FILE=$1 LINES=$2
-    if [ -n "${FILE}" && -n "$LINES" ]; then
+    #
+    # @brief  Decode a binary representations in folder
+    # @param  Value required path to file 
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # uudecodes_all "$FILE"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing file | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function uudecodes_all {
+        local FILE=$1 LINES=$2
+        if [ -z "${FILE}" || -z "$LINES" ]; then
+            usage UUDECODES_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" UUDEC=${config_uudecodes[UUDEC]}
         check_tool "${UUDEC}"
         local STATUS=$?
@@ -138,8 +142,5 @@ function uudecodes_all {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_UUDECODES"
         return $NOT_SUCCESS
-    fi
-    usage UUDECODES_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

@@ -3,51 +3,55 @@
 # @brief   Detecting low swap
 # @version ver.1.0
 # @date    Wed Sep 30 22:49:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_LOW_SWAP=low_swap
-UTIL_LOW_SWAP_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_LOW_SWAP_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_LOW_SWAP" ]; then
+    readonly __SH_UTIL_LOW_SWAP=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/send_mail.sh
+    UTIL_LOW_SWAP=low_swap
+    UTIL_LOW_SWAP_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_LOW_SWAP_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A LOW_SWAP_USAGE=(
-    [USAGE_TOOL]="${UTIL_LOW_SWAP}"
-    [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
-    [Usage_ARG2]="[EMAIL] Administrator email address"
-    [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
-    [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
-)
+    .    ${UTIL}/bin/send_mail.sh
 
-#
-# @brief  Notify when free swap memory is less then n Megabytes
-# @params Values required count of MB and Admin email
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# low_swap "$MEM_LIMIT" "$EMAIL"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | wrong argument(s) | failed to send email
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function low_swap {
-    local SWAPLIMIT=$1 EMAIL=$2
-    if [[ -n "${SWAPLIMIT}" && -n "${EMAIL}" ]]; then
+    declare -A LOW_SWAP_USAGE=(
+        [USAGE_TOOL]="${UTIL_LOW_SWAP}"
+        [USAGE_ARG1]="[LOW_LIMIT] An integer referring to MB"
+        [Usage_ARG2]="[EMAIL] Administrator email address"
+        [USAGE_EX_PRE]="# Checking swap memory, is under 12 MB"
+        [USAGE_EX]="${UTIL_LOW_SWAP} 12 vladimir.roncevic@frobas.com"
+    )
+
+    #
+    # @brief  Notify when free swap memory is less then n Megabytes
+    # @params Values required count of MB and Admin email
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # low_swap "$MEM_LIMIT" "$EMAIL"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | wrong argument(s) | failed to send email
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function low_swap {
+        local SWAPLIMIT=$1 EMAIL=$2
+        if [[ -z "${SWAPLIMIT}" || -z "${EMAIL}" ]]; then
+            usage LOW_SWAP_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Checking swap memory, limit [${SWAPLIMIT}]!" STATUS SWAP_FREE
         info_debug_message "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
@@ -76,8 +80,5 @@ function low_swap {
             info_debug_message_end "$MSG" "$FUNC" "$UTIL_LOW_SWAP"
             return $NOT_SUCCESS
         fi
-    fi
-    usage LOW_SWAP_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

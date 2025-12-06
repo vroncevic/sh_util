@@ -6,48 +6,53 @@
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_GET_IPV6=get_ipv6
-UTIL_GET_IPV6_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_GET_IPV6_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_GET_IPV6" ]; then
+    readonly __SH_UTIL_GET_IPV6=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_GET_IPV6=get_ipv6
+    UTIL_GET_IPV6_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_GET_IPV6_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A GET_IPV6_USAGE=(
-    [USAGE_TOOL]="${UTIL_GET_IPV6}"
-    [USAGE_ARG1]="[INTERFACE] Interface name"
-    [Usage_ARG2]="[IPV6_ADDRESS] Variable for storing"
-    [USAGE_EX_PRE]="# Example checking IPV6 logic address"
-    [USAGE_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Get IPV6 logic address
-# @params Values required interface name and variable for storing
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local INTERFACE="eth0" STATUS
-# get_ipv6 $INTERFACE IPADDR
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | config file doesn't exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function get_ipv6 {
-    local INTER=$1
-    if [ -n "${INTER}" ]; then
+    declare -A GET_IPV6_USAGE=(
+        [USAGE_TOOL]="${UTIL_GET_IPV6}"
+        [USAGE_ARG1]="[INTERFACE] Interface name"
+        [Usage_ARG2]="[IPV6_ADDRESS] Variable for storing"
+        [USAGE_EX_PRE]="# Example checking IPV6 logic address"
+        [USAGE_EX]="${UTIL_GET_IPV6} \$INTERFACE IPADDR"
+    )
+
+    #
+    # @brief  Get IPV6 logic address
+    # @params Values required interface name and variable for storing
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local INTERFACE="eth0" STATUS
+    # get_ipv6 $INTERFACE IPADDR
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | config file doesn't exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function get_ipv6 {
+        local INTER=$1
+        if [ -z "${INTER}" ]; then
+            usage GET_IPV6_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" SHOWIP SEDCMD IP
         MSG="Get IPV6 logic address!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV6"
@@ -64,8 +69,5 @@ function get_ipv6 {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV6"
         return $NOT_SUCCESS
-    fi
-    usage GET_IPV6_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

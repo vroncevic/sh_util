@@ -6,48 +6,53 @@
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CHECK_IPV4=check_ipv4
-UTIL_CHECK_IPV4_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CHECK_IPV4_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_GET_IPV4" ]; then
+    readonly __SH_UTIL_GET_IPV4=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CHECK_IPV4=check_ipv4
+    UTIL_CHECK_IPV4_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CHECK_IPV4_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A GET_IPV4_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
-    [USAGE_ARG1]="[INTERFACE] Interface name"
-    [Usage_ARG2]="[IPV4_ADDRESS] Variabel for storing address"
-    [USAGE_EX_PRE]="# Example get IPV4 logic address"
-    [USAGE_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Get IPV4 logic address
-# @params Values required interface name and variable for storing
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local INTERFACE="eth0" IPADDR
-# get_ipv4 $INTERFACE IPADDR
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | config file doesn't exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function get_ipv4 {
-    local INTER=$1
-    if [ -n "${INTER}" ]; then
+    declare -A GET_IPV4_USAGE=(
+        [USAGE_TOOL]="${UTIL_CHECK_IPV4}"
+        [USAGE_ARG1]="[INTERFACE] Interface name"
+        [Usage_ARG2]="[IPV4_ADDRESS] Variabel for storing address"
+        [USAGE_EX_PRE]="# Example get IPV4 logic address"
+        [USAGE_EX]="${UTIL_CHECK_IPV4} \$INTERFACE IPADDR"
+    )
+
+    #
+    # @brief  Get IPV4 logic address
+    # @params Values required interface name and variable for storing
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local INTERFACE="eth0" IPADDR
+    # get_ipv4 $INTERFACE IPADDR
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | config file doesn't exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function get_ipv4 {
+        local INTER=$1
+        if [ -z "${INTER}" ]; then
+            usage GET_IPV4_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" SHOWIP SEDCMD IP
         MSG="Get IPV4 logic address!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_GET_IPV4"
@@ -64,8 +69,5 @@ function get_ipv4 {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GET_IPV4"
         return $NOT_SUCCESS
-    fi
-    usage GET_IPV4_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

@@ -3,62 +3,67 @@
 # @brief   Archiving target files
 # @version ver.1.0
 # @date    Mon Jul 15 21:48:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_ARCHIVING=archiving
-UTIL_ARCHIVING_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_ARCHIVING_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_ARCHIVING" ]; then
+    readonly __SH_UTIL_ARCHIVING=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_ARCHIVING=archiving
+    UTIL_ARCHIVING_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_ARCHIVING_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A TAR_ARCHIVING_USAGE=(
-    [USAGE_TOOL]="make_archive_tar"
-    [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path and file extension"
-    [USAGE_EX_PRE]="# Example create tar archive with png files"
-    [USAGE_EX]="make_archive_tar \$ARCH_STRUCT"
-)
+    .    ${UTIL}/bin/usage.sh
 
-declare -A GZ_ARCHIVING_USAGE=(
-    [USAGE_TOOL]="make_archive_tar_gz"
-    [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
-    [USAGE_EX_PRE]="# Example create tar gz archive with gif images"
-    [USAGE_EX]="make_archive_tar_gz \$ARCH_STRUCT"
-)
+    declare -A TAR_ARCHIVING_USAGE=(
+        [USAGE_TOOL]="make_archive_tar"
+        [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path and file extension"
+        [USAGE_EX_PRE]="# Example create tar archive with png files"
+        [USAGE_EX]="make_archive_tar \$ARCH_STRUCT"
+    )
 
-#
-# @brief  Find files by name and archive in *.tar format
-# @param  Value required structure (location and file name)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A AR_STRUCT=(
-#    [PATH]="/some-path/"
-#    [FILE]="*.png"
-# )
-#
-# make_archive_tar AR_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing agrument(s) | failed to generate archive
-#    # return $NOT_SUCCESS
-#    # or 
-#    # exit 128
-# fi
-#
-function make_archive_tar {
-    local -n AR_STRUCT=$1
-    local LOC=${AR_STRUCT[PATH]} FILE=${AR_STRUCT[FILE]}
-    if [[ -n "${LOC}" && -n "${FILE}" ]]; then
+    declare -A GZ_ARCHIVING_USAGE=(
+        [USAGE_TOOL]="make_archive_tar_gz"
+        [USAGE_ARG1]="[ARCHIVE_STRUCTURE]  Path, file extension and archive name"
+        [USAGE_EX_PRE]="# Example create tar gz archive with gif images"
+        [USAGE_EX]="make_archive_tar_gz \$ARCH_STRUCT"
+    )
+
+    #
+    # @brief  Find files by name and archive in *.tar format
+    # @param  Value required structure (location and file name)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A AR_STRUCT=(
+    #    [PATH]="/some-path/"
+    #    [FILE]="*.png"
+    # )
+    #
+    # make_archive_tar AR_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing agrument(s) | failed to generate archive
+    #    # return $NOT_SUCCESS
+    #    # or 
+    #    # exit 128
+    # fi
+    #
+    function make_archive_tar {
+        local -n AR_STRUCT=$1
+        local LOC=${AR_STRUCT[PATH]} FILE=${AR_STRUCT[FILE]}
+        if [[ -z "${LOC}" || -z "${FILE}" ]]; then
+            usage TAR_ARCHIVING_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" XARGS="xargs tar -cvf"
         local FIND="find ${LOC} -type f -name ${FILE}"
         local ARCHIVE="${LOC}/`date '+%d%m%Y'_archive.tar`"
@@ -67,43 +72,43 @@ function make_archive_tar {
         eval "${FIND} | ${XARGS} ${ARCHIVE}"
         info_debug_message_end "Done" "$FUNC" "$UTIL_ARCHIVING"
         return $SUCCESS
-    fi
-    usage TAR_ARCHIVING_USAGE
-    return $NOT_SUCCESS
-}
+    }
 
-#
-# @brief  Find files by name and archive in *.tar 
-# @param  Value required structure path, file name and archive
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A AR_STRUCT=(
-#    [PATH]="/some-path/"
-#    [FILE]="*.png"
-#    [ARCH]="pngimages"
-# )
-#
-# make_archive_tar_gz AR_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing agrument(s) | failed to generate archive
-#    # return $NOT_SUCCESS
-#    # or 
-#    # exit 128
-# fi
-#
-function make_archive_tar_gz {
-    local -n AR_STRUCT=$1
-    local LOC=${AR_STRUCT[PATH]} FILE=${AR_STRUCT[FILE]} ARC=${AR_STRUCT[ARCH]}
-    if [[ -n "${LOC}" && -n "${FILE}" && -n "${ARC}" ]]; then
+    #
+    # @brief  Find files by name and archive in *.tar 
+    # @param  Value required structure path, file name and archive
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A AR_STRUCT=(
+    #    [PATH]="/some-path/"
+    #    [FILE]="*.png"
+    #    [ARCH]="pngimages"
+    # )
+    #
+    # make_archive_tar_gz AR_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing agrument(s) | failed to generate archive
+    #    # return $NOT_SUCCESS
+    #    # or 
+    #    # exit 128
+    # fi
+    #
+    function make_archive_tar_gz {
+        local -n AR_STRUCT=$1
+        local LOC=${AR_STRUCT[PATH]} FILE=${AR_STRUCT[FILE]} ARC=${AR_STRUCT[ARCH]}
+        if [[ -z "${LOC}" || -z "${FILE}" || -z "${ARC}" ]]; then
+            usage GZ_ARCHIVING_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" XARGS="xargs tar -cvzf"
         local FIND="find ${LOC} -name ${FILE} -type f -print"
         local ARCHIVE="${LOC}/${ARC}.tar.gz"
@@ -112,8 +117,5 @@ function make_archive_tar_gz {
         eval "${FIND} | ${XARGS} ${ARCHIVE}"
         info_debug_message_end "Done" "$FUNC" "$UTIL_ARCHIVING"
         return $SUCCESS
-    fi
-    usage GZ_ARCHIVING_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

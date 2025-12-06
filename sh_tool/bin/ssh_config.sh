@@ -3,51 +3,56 @@
 # @brief   Generate client SSH config file at home
 # @version ver.1.0
 # @date    Mon Jun 07 21:12:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_SSH_CONFIG=ssh_config
-UTIL_SSH_CONFIG_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_SSH_CONFIG_VERSION}
-UTIL_SSH_CONFIG_CFG=${UTIL}/conf/${UTIL_SSH_CONFIG}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_SSH_CONFIG" ]; then
+    readonly __SH_UTIL_SSH_CONFIG=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_SSH_CONFIG=ssh_config
+    UTIL_SSH_CONFIG_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_SSH_CONFIG_VERSION}
+    UTIL_SSH_CONFIG_CFG=${UTIL}/conf/${UTIL_SSH_CONFIG}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A MAKE_SSH_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_SSH_CONFIG}"
-    [USAGE_ARG1]="[USR] System username"
-    [Usage_ARG2]="[DEP] System group"
-    [USAGE_EX_PRE]="# Generate SSH configuration"
-    [USAGE_EX]="${UTIL_SSH_CONFIG} vroncevic users"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Generating SSH client config file at home
-# @params Values required username and department
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# ssh_config "vroncevic" "vroncevic"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | check home dir
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function ssh_config {
-    local USR=$1 DEP=$2
-    if [[ -n "${USR}" && -n "${DEP}" ]]; then
+    declare -A MAKE_SSH_CONFIG_USAGE=(
+        [USAGE_TOOL]="${UTIL_SSH_CONFIG}"
+        [USAGE_ARG1]="[USR] System username"
+        [Usage_ARG2]="[DEP] System group"
+        [USAGE_EX_PRE]="# Generate SSH configuration"
+        [USAGE_EX]="${UTIL_SSH_CONFIG} vroncevic users"
+    )
+
+    #
+    # @brief  Generating SSH client config file at home
+    # @params Values required username and department
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # ssh_config "vroncevic" "vroncevic"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | check home dir
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function ssh_config {
+        local USR=$1 DEP=$2
+        if [[ -z "${USR}" || -z "${DEP}" ]]; then
+            usage MAKE_SSH_CONFIG_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A CONFIG_SSH_CONFIG=()
         load_util_conf "$UTIL_SSH_CONFIG_CFG" CONFIG_SSH_CONFIG
@@ -98,8 +103,5 @@ function ssh_config {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_SSH_CONFIG"
         return $NOT_SUCCESS
-    fi
-    usage MAKE_SSH_CONFIG_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

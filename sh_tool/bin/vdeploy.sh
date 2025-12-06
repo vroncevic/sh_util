@@ -3,57 +3,61 @@
 # @brief   Copy new version of tool to deployment zone
 # @version ver.1.0
 # @date    Mon Jun 01 18:36:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_VDEPLOY=vdeploy
-UTIL_VDEPLOY_VER=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_VDEPLOY_VER}
-UTIL_VDEPLOY_CFG=${UTIL}/conf/${UTIL_VDEPLOY}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_VDEPLOY" ]; then
+    readonly __SH_UTIL_VDEPLOY=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_VDEPLOY=vdeploy
+    UTIL_VDEPLOY_VER=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_VDEPLOY_VER}
+    UTIL_VDEPLOY_CFG=${UTIL}/conf/${UTIL_VDEPLOY}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A VDEPLOY_USAGE=(
-    [USAGE_TOOL]="${UTIL_VDEPLOY}"
-    [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
-    [USAGE_EX_PRE]="# Copy tool to deployment zone"
-    [USAGE_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Copy new version of tool to deployment zone 
-# @param  Value required, structure VDEPLOY_STRUCT
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A VDEPLOY_STRUCT=(
-#    [TV]="ver.1.0"
-#    [DP]="/opt/new_tool/"
-# )
-#
-# vdeploy VDEPLOY_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | check dirs
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function vdeploy {
-    local -n VDEPLOY_STRUCT=$1
-    local VER=${VDEPLOY_STRUCT[TV]} DPATH=${VDEPLOY_STRUCT[DP]}
-    if [[ -n "${VER}" && -n "${DPATH}" ]]; then
+    declare -A VDEPLOY_USAGE=(
+        [USAGE_TOOL]="${UTIL_VDEPLOY}"
+        [USAGE_ARG1]="[VDEPLOY_STRUCT] Version number and path to dev-dir"
+        [USAGE_EX_PRE]="# Copy tool to deployment zone"
+        [USAGE_EX]="${UTIL_VDEPLOY} \$VDEPLOY_STRUCT"
+    )
+
+    #
+    # @brief  Copy new version of tool to deployment zone 
+    # @param  Value required, structure VDEPLOY_STRUCT
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A VDEPLOY_STRUCT=(
+    #    [TV]="ver.1.0"
+    #    [DP]="/opt/new_tool/"
+    # )
+    #
+    # vdeploy VDEPLOY_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | check dirs
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function vdeploy {
+        local -n VDEPLOY_STRUCT=$1
+        local VER=${VDEPLOY_STRUCT[TV]} DPATH=${VDEPLOY_STRUCT[DP]}
+        if [[ -z "${VER}" || -z "${DPATH}" ]]; then
+            usage VDEPLOY_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_vdeploy=()
         load_util_conf "$UTIL_VDEPLOY_CFG" config_vdeploy
@@ -89,8 +93,5 @@ function vdeploy {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VDEPLOY"
         return $NOT_SUCCESS
-    fi
-    usage VDEPLOY_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

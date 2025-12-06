@@ -5,57 +5,61 @@
 # @date    Mon Nov 28 19:02:41 CET 2016
 # @company None, free  software to use 2016
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
-# 
-UTIL_BROADCAST_BMSG=broadcast_message
-UTIL_BROADCAST_BMSG_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_BROADCAST_BMSG_VERSION}
-UTIL_BROADCAST_BMSG_CFG=${UTIL}/conf/${UTIL_BROADCAST_BMSG}.cfg
-UTIL_LOG=${UTIL}/log
+#
+if [ -z "$__SH_UTIL_BROADCAST_MESSAGE" ]; then
+    readonly __SH_UTIL_BROADCAST_MESSAGE=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/check_tool.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_BROADCAST_BMSG=broadcast_message
+    UTIL_BROADCAST_BMSG_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_BROADCAST_BMSG_VERSION}
+    UTIL_BROADCAST_BMSG_CFG=${UTIL}/conf/${UTIL_BROADCAST_BMSG}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A BROADCAST_BMSG_USAGE=(
-    [USAGE_TOOL]="${UTIL_BROADCAST_BMSG}"
-    [USAGE_ARG1]="[BMSG] Main message for broadcast"
-    [Usage_ARG2]="[NOTE] Short note with fullname"
-    [USAGE_EX_PRE]="# Example sending broadcast message"
-    [USAGE_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
-)
+    .    ${UTIL}/bin/check_tool.sh
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Sending broadcast message
-# @param  Value required broadcast_message structure (message and NOTE)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A BM_STRUCTURE=(
-#    [BMSG]="Hi all, new git repository is up and running!"
-#    [NOTE]="Best Regards, Vladimir Roncevic"
-# )
-#
-# broadcast_message BM_STRUCTURE
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s)
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function broadcast_message {
-    local -n BM_STRUCT=$1
-    local BMSG=${BM_STRUCT[BMSG]} NOTE=${BM_STRUCT[NOTE]}
-    if [[ -n "${BMSG}" && -n "${NOTE}" ]]; then
+    declare -A BROADCAST_BMSG_USAGE=(
+        [USAGE_TOOL]="${UTIL_BROADCAST_BMSG}"
+        [USAGE_ARG1]="[BMSG] Main message for broadcast"
+        [Usage_ARG2]="[NOTE] Short note with fullname"
+        [USAGE_EX_PRE]="# Example sending broadcast message"
+        [USAGE_EX]="${UTIL_BROADCAST_BMSG} \$BM_STRUCTURE"
+    )
+
+    #
+    # @brief  Sending broadcast message
+    # @param  Value required broadcast_message structure (message and NOTE)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A BM_STRUCTURE=(
+    #    [BMSG]="Hi all, new git repository is up and running!"
+    #    [NOTE]="Best Regards, Vladimir Roncevic"
+    # )
+    #
+    # broadcast_message BM_STRUCTURE
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s)
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function broadcast_message {
+        local -n BM_STRUCT=$1
+        local BMSG=${BM_STRUCT[BMSG]} NOTE=${BM_STRUCT[NOTE]}
+        if [[ -z "${BMSG}" || -z "${NOTE}" ]]; then
+            usage BROADCAST_BMSG_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         MSG="Sending broadcast message!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_BROADCAST_BMSG"
@@ -87,8 +91,5 @@ function broadcast_message {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_BROADCAST_BMSG"
         return $NOT_SUCCESS
-    fi
-    usage BROADCAST_BMSG_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

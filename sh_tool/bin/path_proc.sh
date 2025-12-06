@@ -3,50 +3,55 @@
 # @brief   Gives complete path name of process associated with pid
 # @version ver.1.0
 # @date    Mon Oct 12 22:02:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_PATH_PROC=path_proc
-UTIL_PATH_PROC_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_PATH_PROC_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_PATH_PROC" ]; then
+    readonly __SH_UTIL_PATH_PROC=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_PATH_PROC=path_proc
+    UTIL_PATH_PROC_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_PATH_PROC_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A PATH_PROC_USAGE=(
-    [USAGE_TOOL]="${UTIL_PATH_PROC}"
-    [USAGE_ARG1]="[PROCESS] Process ID"
-    [USAGE_EX_PRE]="# Example Gives complete path name of process"
-    [USAGE_EX]="${UTIL_PATH_PROC} 1356"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Gives complete path name of process associated with pid
-# @param  Value required process id
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local PROCESS="1356" STATUS
-# path_proc "$PROCESS"
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | no such process
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function path_proc {
-    local PROCESS=$1
-    if [ -n "${PROCESS}" ]; then
+    declare -A PATH_PROC_USAGE=(
+        [USAGE_TOOL]="${UTIL_PATH_PROC}"
+        [USAGE_ARG1]="[PROCESS] Process ID"
+        [USAGE_EX_PRE]="# Example Gives complete path name of process"
+        [USAGE_EX]="${UTIL_PATH_PROC} 1356"
+    )
+
+    #
+    # @brief  Gives complete path name of process associated with pid
+    # @param  Value required process id
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local PROCESS="1356" STATUS
+    # path_proc "$PROCESS"
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | no such process
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function path_proc {
+        local PROCESS=$1
+        if [ -z "${PROCESS}" ]; then
+            usage PATH_PROC_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" PROCFILE=exe PIDNO EXE_FILE
         MSG="Gives complete path name of process associated with pid!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_PATH_PROC"
@@ -80,8 +85,5 @@ function path_proc {
         fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_PATH_PROC"
         return $SUCCESS
-    fi
-    usage PATH_PROC_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

@@ -3,57 +3,61 @@
 # @brief   Generating App shortcut for KDE
 # @version ver.1.0
 # @date    Thu Aug  11 09:58:41 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
-# 
-UTIL_APP_SHORTCUT=app_shortcut
-UTIL_APP_SHORTCUT_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_APP_SHORTCUT_VERSION}
-UTIL_APP_SHORTCUT_CFG=${UTIL}/conf/${UTIL_APP_SHORTCUT}.cfg
-UTIL_LOG=${UTIL}/log
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
+#
+if [ -z "$__SH_UTIL_APP_SHORTCUT" ]; then
+    readonly __SH_UTIL_APP_SHORTCUT=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_APP_SHORTCUT=app_shortcut
+    UTIL_APP_SHORTCUT_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_APP_SHORTCUT_VERSION}
+    UTIL_APP_SHORTCUT_CFG=${UTIL}/conf/${UTIL_APP_SHORTCUT}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A APP_SHORTCUT_USAGE=(
-    [USAGE_TOOL]="${UTIL_APP_SHORTCUT}"
-    [USAGE_ARG1]="[APP_STRUCT] App name and description"
-    [USAGE_EX_PRE]="# Example generating WoLAN shortcut"
-    [USAGE_EX]="${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Generating App shortcut for KDE
-# @param  Value required app structure (name and description)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A APP_STRUCT=(
-#    [AN]="WoLAN"
-#    [AD]="WOL Software System"
-# )
-#
-# app_shortcut APP_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user 
-# else
-#    # false
-#    # missing argument(s) | missing config file | failed to create shortcut
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function app_shortcut {
-    local -n APP_STRUCT=$1
-    local APPNAME=${APP_STRUCT[AN]} APPDESCRIPT=${APP_STRUCT[AD]}
-    if [[ -n "${APPNAME}" && -n "${APPDESCRIPT}" ]]; then
+    declare -A APP_SHORTCUT_USAGE=(
+        [USAGE_TOOL]="${UTIL_APP_SHORTCUT}"
+        [USAGE_ARG1]="[APP_STRUCT] App name and description"
+        [USAGE_EX_PRE]="# Example generating WoLAN shortcut"
+        [USAGE_EX]="${UTIL_APP_SHORTCUT} wolan \"WOL Software System\""
+    )
+
+    #
+    # @brief  Generating App shortcut for KDE
+    # @param  Value required app structure (name and description)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A APP_STRUCT=(
+    #    [AN]="WoLAN"
+    #    [AD]="WOL Software System"
+    # )
+    #
+    # app_shortcut APP_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user 
+    # else
+    #    # false
+    #    # missing argument(s) | missing config file | failed to create shortcut
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function app_shortcut {
+        local -n APP_STRUCT=$1
+        local APPNAME=${APP_STRUCT[AN]} APPDESCRIPT=${APP_STRUCT[AD]}
+        if [[ -z "${APPNAME}" || -z "${APPDESCRIPT}" ]]; then
+            usage APP_SHORTCUT_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_app_shortcut=()
         load_util_conf "$UTIL_APP_SHORTCUT_CFG" config_app_shortcut
@@ -100,8 +104,5 @@ function app_shortcut {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_SHORTCUT"
         return $NOT_SUCCESS
-    fi
-    usage APP_SHORTCUT_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi
