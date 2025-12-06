@@ -3,53 +3,58 @@
 # @brief   Insert text file into another file at line n
 # @version ver.1.0
 # @date    Mon Oct 01 08:41:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_INSERT_TEXT=insert_text
-UTIL_INSERT_TEXT_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_INSERT_TEXT_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_INSERT_TEXT" ]; then
+    readonly __SH_UTIL_INSERT_TEXT=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_INSERT_TEXT=insert_text
+    UTIL_INSERT_TEXT_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_INSERT_TEXT_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A INSERT_TEXT_USAGE=(
-    [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
-    [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
-    [Usage_ARG2]="[TEXT] The text file to insert"
-    [Usage_ARG3]="[FILES] The text file to insert into"
-    [USAGE_EX_PRE]="# Example put text into file"
-    [USAGE_EX]="${UTIL_INSERT_TEXT} 3 test file"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Insert text file into another file at line n
-# @params Values required line, text and files
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# insert_text $LINE $TEXT ${FILES[@]}
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | wrong argument
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function insert_text {
-    local LINE=$1 TEXT=$2 FILES A N TMP1 TMP2
-    shift 2
-    FILES=$@
-    if [[ -n "${LINE}" && -n "${TEXT}" && -n "${FILES}" ]]; then
+    declare -A INSERT_TEXT_USAGE=(
+        [USAGE_TOOL]="${UTIL_INSERT_TEXT}"
+        [USAGE_ARG1]="[LINE] A line number at which to insert the text file"
+        [Usage_ARG2]="[TEXT] The text file to insert"
+        [Usage_ARG3]="[FILES] The text file to insert into"
+        [USAGE_EX_PRE]="# Example put text into file"
+        [USAGE_EX]="${UTIL_INSERT_TEXT} 3 test file"
+    )
+
+    #
+    # @brief  Insert text file into another file at line n
+    # @params Values required line, text and files
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # insert_text $LINE $TEXT ${FILES[@]}
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | wrong argument
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function insert_text {
+        local LINE=$1 TEXT=$2 FILES A N TMP1 TMP2
+        shift 2
+        FILES=$@
+        if [[ -z "${LINE}" || -z "${TEXT}" || -z "${FILES}" ]]; then
+            usage INSERT_TEXT_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Insert text file into another file at line n!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_INSERT_TEXT"
@@ -86,8 +91,5 @@ function insert_text {
         fi
         info_debug_message_end "Done" "$FUNC" "$UTIL_INSERT_TEXT"
         return $SUCCESS
-    fi
-    usage INSERT_TEXT_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

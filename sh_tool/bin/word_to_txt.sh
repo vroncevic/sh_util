@@ -3,52 +3,56 @@
 # @brief   Display ms word doc file in ascii format
 # @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_WORD_TO_TXT=word_to_txt
-UTIL_WORD_TO_TXT_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_WORD_TO_TXT_VERSION}
-UTIL_WORD_TO_TXT_CFG=${UTIL}/conf/${UTIL_WORD_TO_TXT}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_WORD_TO_TEXT" ]; then
+    readonly __SH_UTIL_WORD_TO_TEXT=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/check_tool.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_WORD_TO_TXT=word_to_txt
+    UTIL_WORD_TO_TXT_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_WORD_TO_TXT_VERSION}
+    UTIL_WORD_TO_TXT_CFG=${UTIL}/conf/${UTIL_WORD_TO_TXT}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A WORD_TO_TXT_USAGE=(
-    [USAGE_TOOL]="${UTIL_WORD_TO_TXT}"
-    [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
-    [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
-    [USAGE_EX]="${UTIL_WORD_TO_TXT} test.doc"
-)
+    .    ${UTIL}/bin/check_tool.sh
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Display ms word doc file in ascii format
-# @param  Value required name of document file
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# word_to_txt "$DOC_FILE"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function word_to_txt {
-    local DOCFILES=$@
-    if [ -n "${DOCFILES}" ]; then
+    declare -A WORD_TO_TXT_USAGE=(
+        [USAGE_TOOL]="${UTIL_WORD_TO_TXT}"
+        [USAGE_ARG1]="[DOC_FILE] Name of Document to be extracted"
+        [USAGE_EX_PRE]="# Display ms word doc file in ascii format"
+        [USAGE_EX]="${UTIL_WORD_TO_TXT} test.doc"
+    )
+
+    #
+    # @brief  Display ms word doc file in ascii format
+    # @param  Value required name of document file
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # word_to_txt "$DOC_FILE"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function word_to_txt {
+        local DOCFILES=$@
+        if [ -z "${DOCFILES}" ]; then
+            usage WORD_TO_TXT_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS A
         declare -A config_word_to_txt=()
         load_util_conf "$UTIL_WORD_TO_TXT_CFG" config_word_to_txt
@@ -79,8 +83,5 @@ function word_to_txt {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_WORD_TO_TXT"
         return $NOT_SUCCESS
-    fi
-    usage WORD_TO_TXT_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

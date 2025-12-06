@@ -3,88 +3,93 @@
 # @brief   Make ISO file
 # @version ver.1.0
 # @date    Mon Jun 02 18:36:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_MAKE_ISO=make_iso
-UTIL_MAKE_ISO_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_MAKE_ISO_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_MAKE_ISO" ]; then
+    readonly __SH_UTIL_MAKE_ISO=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_MAKE_ISO=make_iso
+    UTIL_MAKE_ISO_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_MAKE_ISO_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A MAKE_ISO_USAGE=(
-    [USAGE_TOOL]="${UTIL_MAKE_ISO}"
-    [USAGE_ARG1]="[SRC] Target media for cloning or restoring"
-    [Usage_ARG2]="[DST]  Final destination"
-    [USAGE_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
-    [USAGE_EX]="${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Check is media disk in disk reader
-# @param  None
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# check_rom
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # expected iso9660 format
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function check_rom {
-    local STATUS=$(blkid /dev/sr0) MATCH_SUBSTRING="TYPE=\"iso9660\""
-    local FUNC=${FUNCNAME[0]} MSG="None"
-    MSG="Check is media disk in disk reader /dev/sr0 !"
-    info_debug_message "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
-    if [ $STATUS == *"$MATCH_SUBSTRING"* ]; then
-        info_debug_message_end "Done" "$FUNC" "$UTIL_MAKE_ISO"
-        return $SUCCESS
-    fi
-    MSG="Please check type of disk, expected iso9660"
-    info_debug_message "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
-    MSG="Force exit!"
-    info_debug_message_end "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
-    return $NOT_SUCCESS
-}
+    declare -A MAKE_ISO_USAGE=(
+        [USAGE_TOOL]="${UTIL_MAKE_ISO}"
+        [USAGE_ARG1]="[SRC] Target media for cloning or restoring"
+        [Usage_ARG2]="[DST]  Final destination"
+        [USAGE_EX_PRE]="# Creates an ISO disk image from a CD-ROM"
+        [USAGE_EX]="${UTIL_MAKE_ISO} /dev/sr0 myCD.iso"
+    )
 
-#
-# @brief  Create ISO disk from direcotry source 
-# @params Values required source and destination
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# make_iso "/dev/sr0" "myCD.iso"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | media is empty
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function make_iso {
-    local SRC=$1 DST=$2
-    if [[ -n "${DST}" && -n "${SRC}" ]]; then
+    #
+    # @brief  Check is media disk in disk reader
+    # @param  None
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # check_rom
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # expected iso9660 format
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function check_rom {
+        local STATUS=$(blkid /dev/sr0) MATCH_SUBSTRING="TYPE=\"iso9660\""
+        local FUNC=${FUNCNAME[0]} MSG="None"
+        MSG="Check is media disk in disk reader /dev/sr0 !"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
+        if [ $STATUS == *"$MATCH_SUBSTRING"* ]; then
+            info_debug_message_end "Done" "$FUNC" "$UTIL_MAKE_ISO"
+            return $SUCCESS
+        fi
+        MSG="Please check type of disk, expected iso9660"
+        info_debug_message "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
+        MSG="Force exit!"
+        info_debug_message_end "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
+        return $NOT_SUCCESS
+    }
+
+    #
+    # @brief  Create ISO disk from direcotry source 
+    # @params Values required source and destination
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # make_iso "/dev/sr0" "myCD.iso"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | media is empty
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function make_iso {
+        local SRC=$1 DST=$2
+        if [[ -z "${DST}" || -z "${SRC}" ]]; then
+            usage MAKE_ISO_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         MSG="Checking media disk?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
@@ -103,8 +108,5 @@ function make_iso {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_MAKE_ISO"
         return $NOT_SUCCESS
-    fi
-    usage MAKE_ISO_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

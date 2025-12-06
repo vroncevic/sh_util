@@ -3,49 +3,54 @@
 # @brief   Strips out the comments (/* COMMENT */) in a C program
 # @version ver.1.0
 # @date    Fri Oct 02 09:59:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_STRIP_COMMENT=strip_comment
-UTIL_STRIP_COMMENT_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_STRIP_COMMENT_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_STRIP_COMMENT" ]; then
+    readonly __SH_UTIL_STRIP_COMMENT=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_STRIP_COMMENT=strip_comment
+    UTIL_STRIP_COMMENT_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_STRIP_COMMENT_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A STRIP_COMMENT_USAGE=(
-    [USAGE_TOOL]="${UTIL_STRIP_COMMENT}"
-    [USAGE_ARG1]="[FILE] Path to C file code"
-    [USAGE_EX_PRE]="# Strips comments from C code"
-    [USAGE_EX]="${UTIL_STRIP_COMMENT} /opt/test.c"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Strips out the comments (/* COMMENT */) in a C program
-# @param  Value required path to C code
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# strip_comment "$FILE"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | not ascii TYPE of file
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function strip_comment {
-    local FILE=$1
-    if [ -n "${FILE}" ]; then
+    declare -A STRIP_COMMENT_USAGE=(
+        [USAGE_TOOL]="${UTIL_STRIP_COMMENT}"
+        [USAGE_ARG1]="[FILE] Path to C file code"
+        [USAGE_EX_PRE]="# Strips comments from C code"
+        [USAGE_EX]="${UTIL_STRIP_COMMENT} /opt/test.c"
+    )
+
+    #
+    # @brief  Strips out the comments (/* COMMENT */) in a C program
+    # @param  Value required path to C code
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # strip_comment "$FILE"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | not ascii TYPE of file
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function strip_comment {
+        local FILE=$1
+        if [ -z "${FILE}" ]; then
+            usage STRIP_COMMENT_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Checking Code File [${FILE}]?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_STRIP_COMMENT"
@@ -78,8 +83,5 @@ function strip_comment {
         MSG="Force exit!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_STRIP_COMMENT"
         return $NOT_SUCCESS
-    fi
-    usage STRIP_COMMENT_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

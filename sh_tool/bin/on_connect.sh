@@ -3,51 +3,55 @@
 # @brief   Test point po point connection
 # @version ver.1.0
 # @date    Sun Oct 11 02:08:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_ON_CONNECT=on_connect
-UTIL_ON_CONNECT_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_ON_CONNECT_VERSION}
-UTIL_ON_CONNECT_CFG=${UTIL}/conf/${UTIL_ON_CONNECT}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_ON_CONNECT" ]; then
+    readonly __SH_UTIL_ON_CONNECT=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_ON_CONNECT=on_connect
+    UTIL_ON_CONNECT_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_ON_CONNECT_VERSION}
+    UTIL_ON_CONNECT_CFG=${UTIL}/conf/${UTIL_ON_CONNECT}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A ONLINE_CONNECT_USAGE=(
-    [USAGE_TOOL]="${UTIL_ON_CONNECT}"
-    [USAGE_ARG1]="[TIME] Sleep time"
-    [USAGE_EX_PRE]="# Example running __$TOOL"
-    [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Test point po point connection
-# @param  None
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# on_connect
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # not connected | disconnected
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function on_connect {
-    local INTERVAL=$1
-    if [ -n "${INTERVAL}" ]; then
+    declare -A ONLINE_CONNECT_USAGE=(
+        [USAGE_TOOL]="${UTIL_ON_CONNECT}"
+        [USAGE_ARG1]="[TIME] Sleep time"
+        [USAGE_EX_PRE]="# Example running __$TOOL"
+        [USAGE_EX]="${UTIL_ON_CONNECT} 5s"
+    )
+
+    #
+    # @brief  Test point po point connection
+    # @param  None
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # on_connect
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # not connected | disconnected
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function on_connect {
+        local INTERVAL=$1
+        if [ -z "${INTERVAL}" ]; then
+            usage ONLINE_CONNECT_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" PIDNUM="None" STATUS
         declare -A config_on_connect=()
         load_util_conf "$UTIL_ON_CONNECT_CFG" config_on_connect
@@ -86,8 +90,5 @@ function on_connect {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_ON_CONNECT"
         return $NOT_SUCCESS
-    fi
-    usage ONLINE_CONNECT_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

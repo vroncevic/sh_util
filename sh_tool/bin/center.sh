@@ -6,66 +6,63 @@
 # @company None, free software to use 2025
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CENTER=center
-UTIL_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CENTER" ]; then
+    readonly __SH_UTIL_CENTER=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CENTER=center
+    UTIL_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A CENTER_USAGE=(
-    [USAGE_TOOL]="${UTIL_CENTER}"
-    [USAGE_ARG1]="[ADDITIONAL_SHIFTER] An additional number of tabs to shift"
-    [USAGE_EX_PRE]="# Example of centering logo in terminal"
-    [USAGE_EX]="${UTIL_CENTER} 5"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Display logo centered in the terminal.
-# @param  ADDITIONAL_SHIFTER (int): An additional number of tabs to shift 
-#         the logo to the right. Use 0 for no additional shift.
-# @retval None
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# center 0
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing additional shifter argument
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function center {
-    tabs 4
-    local ADDITIONAL_SHIFTER=${1}
-    if [ -n "${ADDITIONAL_SHIFTER}" ]; then
-        local CONSOLE_WIDTH=$(stty size 2>/dev/null | awk '{print $2}')
-        if [ -z "${CONSOLE_WIDTH}" ] || [ "${CONSOLE_WIDTH}" -eq 0 ]; then
+    declare -A CENTER_USAGE=(
+        [USAGE_TOOL]="${UTIL_CENTER}"
+        [USAGE_ARG1]="[ADDITIONAL_SHIFTER] An additional number of tabs to shift"
+        [USAGE_EX_PRE]="# Example of centering logo in terminal"
+        [USAGE_EX]="${UTIL_CENTER} 5"
+    )
+
+    #
+    # @brief  Display logo centered in the terminal.
+    # @param  ADDITIONAL_SHIFTER (int): An additional number of tabs to shift 
+    #         the logo to the right. Use 0 for no additional shift.
+    # @retval Success 0, else 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # center 0
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing additional shifter argument
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function center {
+        local ADDITIONAL_SHIFTER=$1
+        if [ -z "${ADDITIONAL_SHIFTER}" ]; then
+            usage CENTER_USAGE
+            return $NOT_SUCCESS
+        fi
+        local CONSOLE_WIDTH=$(tput cols 2>/dev/null)
+        if [[ -z "${CONSOLE_WIDTH}" || "${CONSOLE_WIDTH}" -eq 0 ]]; then
             CONSOLE_WIDTH=80
         fi
-        local START_POSITION=$((${CONSOLE_WIDTH} / 2 - 21))
-        local NUMBER_OF_TABS=$((
-            ${START_POSITION} / 4 - 1 + ${ADDITIONAL_SHIFTER}
-        ))
-        if [ "${NUMBER_OF_TABS}" -lt 0 ]; then
-            NUMBER_OF_TABS=0
+        local SHIFTER=$((10#${ADDITIONAL_SHIFTER:-0}))
+        local REFERENCE_LENGTH=42
+        local PADDING_SPACES=$(( (CONSOLE_WIDTH - REFERENCE_LENGTH) / 2 + SHIFTER ))
+        if [[ "${PADDING_SPACES}" -lt 0 ]]; then
+            PADDING_SPACES=0
         fi
-        local TAB="$(printf '\011')"
-        for ((I = 0; I <= ${NUMBER_OF_TABS}; I++))
-        do
-            printf "${TAB}"
-        done
+        printf "%*s" "${PADDING_SPACES}" ""
         return $SUCCESS
-    fi
-    usage CENTER_USAGE
-    return $NOT_SUCCESS
-}
+    }
+fi

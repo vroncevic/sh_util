@@ -3,55 +3,60 @@
 # @brief   Calculate last working day of month in year
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CAL_UTILS=cal_utils
-UTIL_CAL_UTILS_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CAL_UTILS_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CAL_UTILS" ]; then
+    readonly __SH_UTIL_CAL_UTILS=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CAL_UTILS=cal_utils
+    UTIL_CAL_UTILS_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CAL_UTILS_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A CAL_UTILS_USAGE=(
-    [USAGE_TOOL]="${UTIL_CAL_UTILS}"
-    [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
-    [USAGE_EX_PRE]="# Example geting last working day in May 1987"
-    [USAGE_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Calculate last working day of month in year
-# @param  Value required structure target month and Year
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A CAL_STRUCT=(
-#    [MONTH]=$month
-#    [YEAR]=$year
-# )
-#
-# cal_utils CAL_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # print last working day of month in year
-# else
-#    # false
-#    # missing argument | wrong argument
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function cal_utils {
-    local -n CAL_STRUCT=$1
-    local MONTH=${CAL_STRUCT[MONTH]} YEAR=${CAL_STRUCT[YEAR]}
-    if [[ -n "${MONTH}" && -n "${YEAR}" ]]; then
+    declare -A CAL_UTILS_USAGE=(
+        [USAGE_TOOL]="${UTIL_CAL_UTILS}"
+        [USAGE_ARG1]="[CAL_STRUCT] Target month and year"
+        [USAGE_EX_PRE]="# Example geting last working day in May 1987"
+        [USAGE_EX]="${UTIL_CAL_UTILS} \$CAL_STRUCT"
+    )
+
+    #
+    # @brief  Calculate last working day of month in year
+    # @param  Value required structure target month and Year
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A CAL_STRUCT=(
+    #    [MONTH]=$month
+    #    [YEAR]=$year
+    # )
+    #
+    # cal_utils CAL_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # print last working day of month in year
+    # else
+    #    # false
+    #    # missing argument | wrong argument
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function cal_utils {
+        local -n CAL_STRUCT=$1
+        local MONTH=${CAL_STRUCT[MONTH]} YEAR=${CAL_STRUCT[YEAR]}
+        if [[ -z "${MONTH}" || -z "${YEAR}" ]]; then
+            usage CAL_UTILS_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Calculate last working day of month in year!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_CAL_UTILS"
@@ -71,8 +76,5 @@ function cal_utils {
         eval "${CALCMD} | ${EGREPCMD} | ${TAILCMD} | ${AWKCMD}"
         info_debug_message_end "Done" "$FUNC" "$UTIL_CAL_UTILS"
         return $SUCCESS
-    fi
-    usage CAL_UTILS_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

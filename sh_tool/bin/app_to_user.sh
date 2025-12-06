@@ -3,58 +3,62 @@
 # @brief   Copy new App shortcut to user configuration spot
 # @version ver.1.0
 # @date    Mon Jul 15 17:43:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_APP_TO_USER=app_to_user
-UTIL_APP_TO_USER_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_APP_TO_USER_VERSION}
-UTIL_APP_TO_USER_CFG=${UTIL}/conf/${UTIL_APP_TO_USER}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_APP_TO_USER" ]; then
+    readonly __SH_UTIL_APP_TO_USER=1
 
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
-.    ${UTIL}/bin/devel.sh
+    UTIL_APP_TO_USER=app_to_user
+    UTIL_APP_TO_USER_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_APP_TO_USER_VERSION}
+    UTIL_APP_TO_USER_CFG=${UTIL}/conf/${UTIL_APP_TO_USER}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A APP_TO_USER_USAGE=(
-    [USAGE_TOOL]="${UTIL_APP_TO_USER}"
-    [USAGE_ARG1]="[APP_STRUCT] username, group, app"
-    [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
-    [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Copy new App shortcut to user configuration spot
-# @param  Value required structure (username, group, app)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A APP_STRUCT=(
-#    [UN]="vroncevic"
-#    [DN]="vroncevic"
-#    [AN]="wolan"
-# )
-#
-# app_to_user APP_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | check dir | already exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function app_to_user {
-    local -n APP_STRUCT=$1
-    local USER=${APP_STRUCT[UN]} DEP=${APP_STRUCT[DN]} ANAME=${APP_STRUCT[AN]}
-    if [[ -n "${USER}" && -n "${DEP}" && -n "${ANAME}" ]]; then
+    declare -A APP_TO_USER_USAGE=(
+        [USAGE_TOOL]="${UTIL_APP_TO_USER}"
+        [USAGE_ARG1]="[APP_STRUCT] username, group, app"
+        [USAGE_EX_PRE]="# Copy Application shortcut to user configuration"
+        [USAGE_EX]="${UTIL_APP_TO_USER} \$APP_STRUCT"
+    )
+
+    #
+    # @brief  Copy new App shortcut to user configuration spot
+    # @param  Value required structure (username, group, app)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A APP_STRUCT=(
+    #    [UN]="vroncevic"
+    #    [DN]="vroncevic"
+    #    [AN]="wolan"
+    # )
+    #
+    # app_to_user APP_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | check dir | already exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function app_to_user {
+        local -n APP_STRUCT=$1
+        local USER=${APP_STRUCT[UN]} DEP=${APP_STRUCT[DN]} ANAME=${APP_STRUCT[AN]}
+        if [[ -z "${USER}" || -z "${DEP}" || -z "${ANAME}" ]]; then
+            usage APP_TO_USER_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_app_to_user=()
         load_util_conf "$UTIL_APP_TO_USER_CFG" config_app_to_user
@@ -120,8 +124,5 @@ function app_to_user {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_APP_TO_USER"
         return $NOT_SUCCESS
-    fi
-    usage APP_TO_USER_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

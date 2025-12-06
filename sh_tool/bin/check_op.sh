@@ -4,52 +4,57 @@
 # @version ver.1.0
 # @date    Thu Apr 28 20:40:32 2016
 # @company Frobas IT Department, www.frobas.com 2016
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CHECK_OP=check_op
-UTIL_CHECK_OP_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CHECK_OP_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CHECK_OP" ]; then
+    readonly __SH_UTIL_CHECK_OP=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CHECK_OP=check_op
+    UTIL_CHECK_OP_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CHECK_OP_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A CHECK_OP_USAGE=(
-    [USAGE_TOOL]="${UTIL_CHECK_OP}"
-    [USAGE_ARG1]="[OP] Operation to be done"
-    [Usage_ARG2]="[OPLIST] List of operations"
-    [USAGE_EX_PRE]="# Example checking operation"
-    [USAGE_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Checking operation to be done
-# @params Values required operation and list of operations
-# @retval Success return 0, else 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local OP="restart" OPLIST=( start stop restart version )
-#
-# check_op "$OP" "${OPLIST[*]}"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function check_op {
-    local OP=$1
-    OPLIST=($2)
-    if [[ -n "${OP}" && -n "${OPLIST}" ]]; then
+    declare -A CHECK_OP_USAGE=(
+        [USAGE_TOOL]="${UTIL_CHECK_OP}"
+        [USAGE_ARG1]="[OP] Operation to be done"
+        [Usage_ARG2]="[OPLIST] List of operations"
+        [USAGE_EX_PRE]="# Example checking operation"
+        [USAGE_EX]="${UTIL_CHECK_OP} \"restart\" \"\${OPLIST[*]\""
+    )
+
+    #
+    # @brief  Checking operation to be done
+    # @params Values required operation and list of operations
+    # @retval Success return 0, else 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local OP="restart" OPLIST=( start stop restart version )
+    #
+    # check_op "$OP" "${OPLIST[*]}"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function check_op {
+        local OP=$1
+        OPLIST=($2)
+        if [[ -z "${OP}" || -z "${OPLIST}" ]]; then
+            usage CHECK_OP_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" I
         MSG="Checking operation [${OP}]?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_CHECK_OP"
@@ -68,8 +73,5 @@ function check_op {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CHECK_OP"
         return $NOT_SUCCESS
-    fi
-    usage CHECK_OP_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

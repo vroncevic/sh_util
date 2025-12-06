@@ -3,65 +3,69 @@
 # @brief   Generating email signature
 # @version ver.1.0
 # @date    Thu Jun  06 01:25:41 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
-# 
-UTIL_EMAIl_SIGN=email_sign
-UTIL_EMAIl_SIGN_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_EMAIl_SIGN_VERSION}
-UTIL_CFG_ESIGNATURE=${UTIL}/conf/${UTIL_EMAIl_SIGN}.cfg
-UTIL_LOG=${UTIL}/log
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
+#
+if [ -z "$__SH_UTIL_EMAIL_SIGN" ]; then
+    readonly __SH_UTIL_EMAIL_SIGN=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_EMAIl_SIGN=email_sign
+    UTIL_EMAIl_SIGN_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_EMAIl_SIGN_VERSION}
+    UTIL_CFG_ESIGNATURE=${UTIL}/conf/${UTIL_EMAIl_SIGN}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A EMAIL_SIGN_USAGE=(
-    [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
-    [USAGE_ARG1]="[NAME] Full name"
-    [Usage_ARG2]="[WP] Work position"
-    [Usage_ARG3]="[DN] Department"
-    [Usage_ARG4]="[IP] IP phone number"
-    [Usage_ARG5]="[MOB] Mobile number"
-    [Usage_ARG6]="[EMAIL] Email address"
-    [USAGE_EX_PRE]="# Example generating email signature"
-    [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Generate email signature for employee
-# @param  Value required structure
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A SIGN_STRUCT=(
-#    [NAME]=$name # Full name
-#    [WP]=$wp # Work position as engineer, developer
-#    [DN]=$dn # Electronic, Design Service
-#    [IP]=$ip # IP phone number
-#    [MOB]=$mobile # Mobile phone number
-#    [EMAIL]=$email # Email address
-# )
-#
-# email_sign SIGN_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | missing config file | failed to load config
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function email_sign {
-    local -n SIGN_STRUCT=$1
-    if [ ${#SIGN_STRUCT[@]} -eq 6 ] ; then
+    declare -A EMAIL_SIGN_USAGE=(
+        [USAGE_TOOL]="${UTIL_EMAIl_SIGN}"
+        [USAGE_ARG1]="[NAME] Full name"
+        [Usage_ARG2]="[WP] Work position"
+        [Usage_ARG3]="[DN] Department"
+        [Usage_ARG4]="[IP] IP phone number"
+        [Usage_ARG5]="[MOB] Mobile number"
+        [Usage_ARG6]="[EMAIL] Email address"
+        [USAGE_EX_PRE]="# Example generating email signature"
+        [USAGE_EX]="${UTIL_EMAIl_SIGN} SIGN_STRUCT"
+    )
+
+    #
+    # @brief  Generate email signature for employee
+    # @param  Value required structure
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A SIGN_STRUCT=(
+    #    [NAME]=$name # Full name
+    #    [WP]=$wp # Work position as engineer, developer
+    #    [DN]=$dn # Electronic, Design Service
+    #    [IP]=$ip # IP phone number
+    #    [MOB]=$mobile # Mobile phone number
+    #    [EMAIL]=$email # Email address
+    # )
+    #
+    # email_sign SIGN_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | missing config file | failed to load config
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function email_sign {
+        local -n SIGN_STRUCT=$1
+        if [ ${#SIGN_STRUCT[@]} -ne 6 ] ; then
+            usage EMAIL_SIGN_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         local NAME=${SIGN_STRUCT[NAME]} WP=${SIGN_STRUCT[WP]}
         local DN=${SIGN_STRUCT[DN]} IP=${SIGN_STRUCT[IP]}
@@ -130,8 +134,5 @@ function email_sign {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMAIl_SIGN"
         return $NOT_SUCCESS
-    fi
-    usage EMAIL_SIGN_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

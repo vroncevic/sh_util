@@ -3,61 +3,65 @@
 # @brief   Cut select pages from a pdf file, and create a new file
 # @version ver.1.0
 # @date    Fri Okt 02 09:59:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CUT_PDF=cut_pdf
-UTIL_CUT_PDF_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CUT_PDF_VERSION}
-UTIL_CUT_PDF_CFG=${UTIL}/conf/${UTIL_CUT_PDF}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CUT_PDF" ]; then
+    readonly __SH_UTIL_CUT_PDF=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/check_tool.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_CUT_PDF=cut_pdf
+    UTIL_CUT_PDF_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CUT_PDF_VERSION}
+    UTIL_CUT_PDF_CFG=${UTIL}/conf/${UTIL_CUT_PDF}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A CUT_PDF_USAGE=(
-    [USAGE_TOOL]="${UTIL_CUT_PDF}"
-    [USAGE_ARG1]="[TIME] Life time"
-    [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
-    [USAGE_EX]="${UTIL_CUT_PDF} 5s"
-)
+    .    ${UTIL}/bin/check_tool.sh
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Cut select pages from a pdf file, and create a new file
-# @param  Value required pdf structure
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A PDF_STRUCT=(
-#    [INPUT]="/opt/green.pdf"
-#    [OUTPUT]="/opt/green_stripped.pdf"
-#    [FP]="12"
-#    [LP]="23"
-# )
-#
-# cut_pdf PDF_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing tool
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function cut_pdf {
-    local -n PDF_STRUCT=$1
-    local IPDF=${PDF_STRUCT[INPUT]} OPDF=${PDF_STRUCT[OUTPUT]}
-    local FPAG=${PDF_STRUCT[FP]} LPAG=${PDF_STRUCT[LP]}
-    if [[ -n "${IPDF}" && -n "${OPDF}" && -n "${FPAG}" && -n "${LPAG}" ]]; then
+    declare -A CUT_PDF_USAGE=(
+        [USAGE_TOOL]="${UTIL_CUT_PDF}"
+        [USAGE_ARG1]="[TIME] Life time"
+        [USAGE_EX_PRE]="# Example running __${UTIL_CUT_PDF}"
+        [USAGE_EX]="${UTIL_CUT_PDF} 5s"
+    )
+
+    #
+    # @brief  Cut select pages from a pdf file, and create a new file
+    # @param  Value required pdf structure
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A PDF_STRUCT=(
+    #    [INPUT]="/opt/green.pdf"
+    #    [OUTPUT]="/opt/green_stripped.pdf"
+    #    [FP]="12"
+    #    [LP]="23"
+    # )
+    #
+    # cut_pdf PDF_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing tool
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function cut_pdf {
+        local -n PDF_STRUCT=$1
+        local IPDF=${PDF_STRUCT[INPUT]} OPDF=${PDF_STRUCT[OUTPUT]}
+        local FPAG=${PDF_STRUCT[FP]} LPAG=${PDF_STRUCT[LP]}
+        if [[ -z "${IPDF}" || -z "${OPDF}" || -z "${FPAG}" || -z "${LPAG}" ]]; then
+            usage CUT_PDF_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_cut_pdf=()
         load_util_conf "$UTIL_CUT_PDF_CFG" config_cut_pdf
@@ -94,8 +98,5 @@ function cut_pdf {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_CUT_PDF"
         return $NOT_SUCCESS
-    fi
-    usage CUT_PDF_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

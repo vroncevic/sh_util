@@ -86,6 +86,8 @@ sh_tool/
 │   ├── cut_pdf.sh
 │   ├── date_to_iso8601.sh
 │   ├── dep_to_group.sh
+│   ├── devel_check.sh
+│   ├── devel_const.sh
 │   ├── devel.sh
 │   ├── dir_utils.sh
 │   ├── disk_label.sh
@@ -200,7 +202,7 @@ sh_tool/
 └── log/
     └── sh_util.log
 
-5 directories, 136 files
+5 directories, 138 files
 ```
 
 ### Docs

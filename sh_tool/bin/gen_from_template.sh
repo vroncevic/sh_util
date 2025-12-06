@@ -6,47 +6,52 @@
 # @company None, free software to use 2017
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_GEN_FROM_TEMPLATE=gen_from_template
-UTIL_GEN_FROM_TEMPLATE_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_GEN_FROM_TEMPLATE_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_GEN_FROM_TEMPLATE" ]; then
+    readonly __SH_UTIL_GEN_FROM_TEMPLATE=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_GEN_FROM_TEMPLATE=gen_from_template
+    UTIL_GEN_FROM_TEMPLATE_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_GEN_FROM_TEMPLATE_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A GEN_FROM_TEMPLATE_USAGE=(
-    [USAGE_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
-    [USAGE_ARG1]="[INPUT FILE] Template file"
-    [Usage_ARG2]="[OUTPUT FILE] Final result file"
-    [USAGE_EX_PRE]="# Example generating from template file"
-    [USAGE_EX]="${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Generating file by template
-# @params Values required input (template) and output (result) file
-# @retval Success return 0, else 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# gen_from_template "${INF}" "${OUTF}"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s)
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function gen_from_template {
-    local INF=$1 OUTF=$2
-    if [[ -n "${INF}" && -n "${OUTF}" ]]; then
+    declare -A GEN_FROM_TEMPLATE_USAGE=(
+        [USAGE_TOOL]="${UTIL_GEN_FROM_TEMPLATE}"
+        [USAGE_ARG1]="[INPUT FILE] Template file"
+        [Usage_ARG2]="[OUTPUT FILE] Final result file"
+        [USAGE_EX_PRE]="# Example generating from template file"
+        [USAGE_EX]="${UTIL_GEN_FROM_TEMPLATE} \"\$INF\" \"\$OUTF\""
+    )
+
+    #
+    # @brief  Generating file by template
+    # @params Values required input (template) and output (result) file
+    # @retval Success return 0, else 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # gen_from_template "${INF}" "${OUTF}"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s)
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function gen_from_template {
+        local INF=$1 OUTF=$2
+        if [[ -z "${INF}" || -z "${OUTF}" ]]; then
+            usage GEN_FROM_TEMPLATE_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" LINE
         MSG="Checking template file [${INF}]?"
         info_debug_message_que "$MSG" "$FUNC" "$UTIL_GEN_FROM_TEMPLATE"
@@ -66,8 +71,5 @@ function gen_from_template {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_GEN_FROM_TEMPLATE"
         return $NOT_SUCCESS
-    fi
-    usage GEN_FROM_TEMPLATE_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

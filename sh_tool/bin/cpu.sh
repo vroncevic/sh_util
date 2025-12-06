@@ -3,50 +3,55 @@
 # @brief   Get CPU speed
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_CPU=cpu
-UTIL_CPU_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_CPU_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_CPU" ]; then
+    readonly __SH_UTIL_CPU=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_CPU=cpu
+    UTIL_CPU_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_CPU_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A CPU_USAGE=(
-    [USAGE_TOOL]="${UTIL_CPU}"
-    [USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
-    [USAGE_EX_PRE]="# Example show in GHz CPU speed"
-    [USAGE_EX]="${UTIL_CPU} ghz"
-)
+    .    ${UTIL}/bin/usage.sh
 
-#
-# @brief  Get CPU speed
-# @param  Value required show in GHz | MHz CPU speed
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local PSPEED="ghz" STATUS
-# cpu $PSPEED
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | wrong argument
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function cpu {
-    local PSPEED=$1
-    if [ -n "${PSPEED}" ]; then
+    declare -A CPU_USAGE=(
+        [USAGE_TOOL]="${UTIL_CPU}"
+        [USAGE_ARG1]="[PSPEED] Show in GHz | MHz CPU speed"
+        [USAGE_EX_PRE]="# Example show in GHz CPU speed"
+        [USAGE_EX]="${UTIL_CPU} ghz"
+    )
+
+    #
+    # @brief  Get CPU speed
+    # @param  Value required show in GHz | MHz CPU speed
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local PSPEED="ghz" STATUS
+    # cpu $PSPEED
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | wrong argument
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function cpu {
+        local PSPEED=$1
+        if [ -z "${PSPEED}" ]; then
+            usage CPU_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" CPUS
         MSG="Checking CPU speed [${PSPEED}]!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_CPU"
@@ -69,8 +74,5 @@ function cpu {
         info_debug_message "${CPUS}" "$FUNC" "$UTIL_CPU"
         info_debug_message_end "Done" "$FUNC" "$UTIL_CPU"
         return $SUCCESS
-    fi
-    usage CPU_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

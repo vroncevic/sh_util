@@ -3,66 +3,70 @@
 # @brief   Creating employee directory structure
 # @version ver.1.0
 # @date    Mon Jun 04 12:38:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_EMPLOYEE=employee
-UTIL_EMPLOYEE_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_EMPLOYEE_VERSION}
-UTIL_EMPLOYEE_CFG=${UTIL}/conf/${UTIL_EMPLOYEE}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_EMPLOYEE" ]; then
+    readonly __SH_UTIL_EMPLOYEE=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_EMPLOYEE=employee
+    UTIL_EMPLOYEE_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_EMPLOYEE_VERSION}
+    UTIL_EMPLOYEE_CFG=${UTIL}/conf/${UTIL_EMPLOYEE}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A IT_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_it_user_profile"
-    [USAGE_ARG1]="[USR] Employee username"
-    [USAGE_EX_PRE]="# Example generating IT profile"
-    [USAGE_EX]="create_it_user_profile vroncevic"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-declare -A USR_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_share_user_profile"
-    [USAGE_ARG1]="[SHARE_STRUCT] System username and groip"
-    [USAGE_EX_PRE]="# Example generating user profile"
-    [USAGE_EX]="create_share_user_profile \$SHARE_STRUCT"
-)
+    declare -A IT_PROFILE_USAGE=(
+        [USAGE_TOOL]="create_it_user_profile"
+        [USAGE_ARG1]="[USR] Employee username"
+        [USAGE_EX_PRE]="# Example generating IT profile"
+        [USAGE_EX]="create_it_user_profile vroncevic"
+    )
 
-declare -A SHARE_PROFILE_USAGE=(
-    [USAGE_TOOL]="create_home_user_profile"
-    [USAGE_ARG1]="[HOME_STRUCT] System username and group"
-    [USAGE_EX_PRE]="# Example generatingshare profile"
-    [USAGE_EX]="create_home_user_profile \$HOME_STRUCT"
-)
+    declare -A USR_PROFILE_USAGE=(
+        [USAGE_TOOL]="create_share_user_profile"
+        [USAGE_ARG1]="[SHARE_STRUCT] System username and groip"
+        [USAGE_EX_PRE]="# Example generating user profile"
+        [USAGE_EX]="create_share_user_profile \$SHARE_STRUCT"
+    )
 
-#
-# @brief  Create employee profile directory at IT disk
-# @param  Value required username (system username)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local UNAME="vroncevic" STATUS
-# create_it_user_profile "$UNAME"
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | failed to load config file | user profile already exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function create_it_user_profile {
-    local USR=$1
-    if [[ -n "${USR}" ]]; then
+    declare -A SHARE_PROFILE_USAGE=(
+        [USAGE_TOOL]="create_home_user_profile"
+        [USAGE_ARG1]="[HOME_STRUCT] System username and group"
+        [USAGE_EX_PRE]="# Example generatingshare profile"
+        [USAGE_EX]="create_home_user_profile \$HOME_STRUCT"
+    )
+
+    #
+    # @brief  Create employee profile directory at IT disk
+    # @param  Value required username (system username)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local UNAME="vroncevic" STATUS
+    # create_it_user_profile "$UNAME"
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | failed to load config file | user profile already exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function create_it_user_profile {
+        local USR=$1
+        if [[ -z "${USR}" ]]; then
+            usage IT_PROFILE_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS CURRYEAR=$(date +'%Y')
         declare -A config_it_user_profile=()
         load_util_conf "$UTIL_EMPLOYEE_CFG" config_it_user_profile
@@ -109,42 +113,42 @@ function create_it_user_profile {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
-    fi
-    usage IT_PROFILE_USAGE
-    return $NOT_SUCCESS
-}
+    }
 
-#
-# @brief  Create Employee Profile Directory SHARE
-# @params Values required username (system username) and department
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A SHARE_STRUCT=(
-#    [USR]="vroncevic"
-#    [DEP]="users"
-# )
-#
-# create_share_user_profile SHARE_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missing config file | user profile already exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function create_share_user_profile {
-    local -n SHARE_STRUCT=$1
-    local USR=${SHARE_STRUCT[USR]} DEP=${SHARE_STRUCT[DEP]}
-    if [[ -n "${USR}" && -n "${DEP}" ]]; then
+    #
+    # @brief  Create Employee Profile Directory SHARE
+    # @params Values required username (system username) and department
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A SHARE_STRUCT=(
+    #    [USR]="vroncevic"
+    #    [DEP]="users"
+    # )
+    #
+    # create_share_user_profile SHARE_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missing config file | user profile already exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function create_share_user_profile {
+        local -n SHARE_STRUCT=$1
+        local USR=${SHARE_STRUCT[USR]} DEP=${SHARE_STRUCT[DEP]}
+        if [[ -z "${USR}" || -z "${DEP}" ]]; then
+            usage USR_PROFILE_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_it_user_profile=()
         load_util_conf "$UTIL_EMPLOYEE_CFG" config_it_user_profile
@@ -190,42 +194,42 @@ function create_share_user_profile {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
-    fi
-    usage USR_PROFILE_USAGE
-    return $NOT_SUCCESS
-}
+    }
 
-#
-# @brief  Create frobas support directory at user HOME directory
-# @params Values required structure username and department
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A HOME_STRUCT=(
-#    [USR]="vroncevic"
-#    [DEP]="users"
-# )
-#
-# create_home_user_profile HOME_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | user profile already exist
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function create_home_user_profile {
-    local -n HOME_STRUCT=$1
-    local USR=${HOME_STRUCT[USR]} DEP=${HOME_STRUCT[DEP]}
-    if [[ -n "${USR}" && -n "${DEP}" ]]; then
+    #
+    # @brief  Create frobas support directory at user HOME directory
+    # @params Values required structure username and department
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A HOME_STRUCT=(
+    #    [USR]="vroncevic"
+    #    [DEP]="users"
+    # )
+    #
+    # create_home_user_profile HOME_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | user profile already exist
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function create_home_user_profile {
+        local -n HOME_STRUCT=$1
+        local USR=${HOME_STRUCT[USR]} DEP=${HOME_STRUCT[DEP]}
+        if [[ -z "${USR}" || -z "${DEP}" ]]; then
+            usage SHARE_PROFILE_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" 
         local RDIR="/home/${USR}/${UTIL_FROM_COMPANY}"
         MSG="Checking directory [${RDIR}/]?"
@@ -258,8 +262,5 @@ function create_home_user_profile {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_EMPLOYEE"
         return $NOT_SUCCESS
-    fi
-    usage SHARE_PROFILE_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

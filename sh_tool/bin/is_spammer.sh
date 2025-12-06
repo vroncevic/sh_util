@@ -3,111 +3,116 @@
 # @brief   Identifying spam domains
 # @version ver.1.0
 # @date    Mon Jul 15 21:44:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_IS_SPAMMER=is_spammer
-UTIL_IS_SPAMMER_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_IS_SPAMMER_VERSION}
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_IS_SPAMMER" ]; then
+    readonly __SH_UTIL_IS_SPAMMER=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
+    UTIL_IS_SPAMMER=is_spammer
+    UTIL_IS_SPAMMER_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_IS_SPAMMER_VERSION}
+    UTIL_LOG=${UTIL}/log
 
-declare -A IS_SPAMMER_USAGE=(
-    [USAGE_TOOL]="${UTIL_IS_SPAMMER}"
-    [USAGE_ARG1]="[DOMAIN] Domain name"
-    [USAGE_EX_PRE]="# Example checking domain"
-    [USAGE_EX]="${UTIL_IS_SPAMMER} domain.cc"
-)
+    .    ${UTIL}/bin/usage.sh
 
-# Whitespace == :Space:Tab:Line Feed:Carriage Return
-WSP_IFS=$'\x20'$'\x09'$'\x0A'$'\x0D'
+    declare -A IS_SPAMMER_USAGE=(
+        [USAGE_TOOL]="${UTIL_IS_SPAMMER}"
+        [USAGE_ARG1]="[DOMAIN] Domain name"
+        [USAGE_EX_PRE]="# Example checking domain"
+        [USAGE_EX]="${UTIL_IS_SPAMMER} domain.cc"
+    )
 
-# No Whitespace == Line Feed:Carriage Return
-No_WSP=$'\x0A'$'\x0D'
+    # Whitespace == :Space:Tab:Line Feed:Carriage Return
+    WSP_IFS=$'\x20'$'\x09'$'\x0A'$'\x0D'
 
-# Field separator for dotted decimal ip addresses
-ADR_IFS=${No_WSP}'.'
+    # No Whitespace == Line Feed:Carriage Return
+    No_WSP=$'\x0A'$'\x0D'
 
-#
-# @brief  Get the dns text resource record
-# @params Values required error_code and list_query
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local TXT=$(get_txt $ERRCODE $LISTQUERY)
-#
-function get_txt {
-    local ERRCODE=$1 LISTQUERY=$2
-    declare -a dns
-    IFS=${ADR_IFS}
-    dns=(${ERRCODE})
-    IFS=${WSP_IFS}
-    if [ "${dns[0]}" == "127" ]; then
-        echo $(dig +short ${LISTQUERY} -t txt)
-    fi
-}
+    # Field separator for dotted decimal ip addresses
+    ADR_IFS=${No_WSP}'.'
 
-#
-# @brief  Get the dns address resource record
-# @params Values required rev_dns and list_server
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# check_address "$REVDNS" "$LISTSERVER"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#   # false
-# fi
-#
-function check_address {
-    local REVDNS=$1 LISTSERVER=$2 REPLY SERVER REASON
-    if [[ -n "${REVDNS}" && -n "${LISTSERVER}" ]]; then
-        SERVER=${REVDNS}${LISTSERVER}
-        REPLY=$(dig +short ${SERVER})
-        if [ ${#reply} -gt 6 ]; then
-            REASON=$(get_txt ${REPLY} ${SERVER})
-            REASON=${REASON:-${REPLY}}
+    #
+    # @brief  Get the dns text resource record
+    # @params Values required error_code and list_query
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local TXT=$(get_txt $ERRCODE $LISTQUERY)
+    #
+    function get_txt {
+        local ERRCODE=$1 LISTQUERY=$2
+        declare -a dns
+        IFS=${ADR_IFS}
+        dns=(${ERRCODE})
+        IFS=${WSP_IFS}
+        if [ "${dns[0]}" == "127" ]; then
+            echo $(dig +short ${LISTQUERY} -t txt)
         fi
-        echo ${REASON:-' not blacklisted.'}
-    fi
-    echo "nothing"
-}
+    }
 
-#
-# @brief  Identifying spam domains
-# @param  Value required domain name
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# is_spammer "$DOMAIN"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | wrong argument
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function is_spammer(){
-    local DOMAIN=$1
-    if [ -n "${DOMAIN}" ]; then
+    #
+    # @brief  Get the dns address resource record
+    # @params Values required rev_dns and list_server
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # check_address "$REVDNS" "$LISTSERVER"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #   # false
+    # fi
+    #
+    function check_address {
+        local REVDNS=$1 LISTSERVER=$2 REPLY SERVER REASON
+        if [[ -n "${REVDNS}" && -n "${LISTSERVER}" ]]; then
+            SERVER=${REVDNS}${LISTSERVER}
+            REPLY=$(dig +short ${SERVER})
+            if [ ${#reply} -gt 6 ]; then
+                REASON=$(get_txt ${REPLY} ${SERVER})
+                REASON=${REASON:-${REPLY}}
+            fi
+            echo ${REASON:-' not blacklisted.'}
+        fi
+        echo "nothing"
+    }
+
+    #
+    # @brief  Identifying spam domains
+    # @param  Value required domain name
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # is_spammer "$DOMAIN"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | wrong argument
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function is_spammer(){
+        local DOMAIN=$1
+        if [ -z "${DOMAIN}" ]; then
+            usage IS_SPAMMER_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None"
         MSG="Get address of [${DOMAIN}]!"
         info_debug_message "$MSG" "$FUNC" "$UTIL_IS_SPAMMER"
@@ -145,8 +150,5 @@ function is_spammer(){
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_IS_SPAMMER"
         return $NOT_SUCCESS
-    fi
-    usage IS_SPAMMER_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

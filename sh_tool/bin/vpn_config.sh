@@ -3,60 +3,64 @@
 # @brief   Generate Client VPN CFG file at /home/<username>/<company>/openvpn/
 # @version ver.1.0
 # @date    Mon Jun 07 21:12:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_VPN_CONFIG=vpn_config
-UTIL_VPN_CONFIG_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_VPN_CONFIG_VERSION}
-UTIL_VPN_CONFIG_CFG=${UTIL}/conf/${UTIL_VPN_CONFIG}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_VPN_CONFIG" ]; then
+    readonly __SH_UTIL_VPN_CONFIG=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_VPN_CONFIG=vpn_config
+    UTIL_VPN_CONFIG_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_VPN_CONFIG_VERSION}
+    UTIL_VPN_CONFIG_CFG=${UTIL}/conf/${UTIL_VPN_CONFIG}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A VPN_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_VPN_CONFIG}"
-    [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
-    [USAGE_EX_PRE]="# Generate openVPN configuration"
-    [USAGE_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Generating VPN client config file at home dir
-# @param  Value required structure (username, department, first and last name)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# declare -A VPN_STRUCT=(
-#    [UN]="vroncevic"
-#    [DN]="vroncevic"
-#    [FN]="Vladimir"
-#    [LN]="Roncevic"
-# )
-#
-# vpn_config VPN_STRUCT
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument(s) | missing home structure
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function vpn_config {
-    local -n VPN_STRUCT=$1
-    local USR=${VPN_STRUCT[UN]} DEP=${VPN_STRUCT[DN]}
-    local FNAME=${VPN_STRUCT[FN]} LNAME=${VPN_STRUCT[LN]}
-    if [[ -n "${USR}" && -n "${DEP}" && -n "${FNAME}" && -n "${LNAME}" ]]; then
+    declare -A VPN_CONFIG_USAGE=(
+        [USAGE_TOOL]="${UTIL_VPN_CONFIG}"
+        [USAGE_ARG1]="[VPN_STRUCT] Username, group, first and last name"
+        [USAGE_EX_PRE]="# Generate openVPN configuration"
+        [USAGE_EX]="${UTIL_VPN_CONFIG} \$VPN_STRUCT"
+    )
+
+    #
+    # @brief  Generating VPN client config file at home dir
+    # @param  Value required structure (username, department, first and last name)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # declare -A VPN_STRUCT=(
+    #    [UN]="vroncevic"
+    #    [DN]="vroncevic"
+    #    [FN]="Vladimir"
+    #    [LN]="Roncevic"
+    # )
+    #
+    # vpn_config VPN_STRUCT
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument(s) | missing home structure
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function vpn_config {
+        local -n VPN_STRUCT=$1
+        local USR=${VPN_STRUCT[UN]} DEP=${VPN_STRUCT[DN]}
+        local FNAME=${VPN_STRUCT[FN]} LNAME=${VPN_STRUCT[LN]}
+        if [[ -z "${USR}" || -z "${DEP}" || -z "${FNAME}" || -z "${LNAME}" ]]; then
+            usage VPN_CONFIG_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_vpn_config=()
         load_util_conf "$UTIL_VPN_CONFIG_CFG" config_vpn_config
@@ -119,8 +123,5 @@ function vpn_config {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VPN_CONFIG"
         return $NOT_SUCCESS
-    fi
-    usage VPN_CONFIG_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

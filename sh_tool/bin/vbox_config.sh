@@ -3,51 +3,55 @@
 # @brief   Generate VBOX config files at /data/vm/vboxusers/<username>/
 # @version ver.1.0
 # @date    Wed Jun 5 13:58:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_VBOX_CONFIG=vbox_config
-UTIL_VBOX_CONFIG_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_VBOX_CONFIG_VERSION}
-UTIL_CFG_VBOXCFG=${UTIL}/conf/${UTIL_VBOX_CONFIG}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_VBOX_CONFIG" ]; then
+    readonly __SH_UTIL_VBOX_CONFIG=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_VBOX_CONFIG=vbox_config
+    UTIL_VBOX_CONFIG_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_VBOX_CONFIG_VERSION}
+    UTIL_CFG_VBOXCFG=${UTIL}/conf/${UTIL_VBOX_CONFIG}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A VBOX_CONFIG_USAGE=(
-    [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
-    [USAGE_ARG1]="[USR] System username"
-    [USAGE_EX_PRE]="# Example generating VBOX config files"
-    [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Generating VBOX client config files
-# @param  Value required username (system username)
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# vbox_config "vroncevic"
-# local STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | check dirs
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function vbox_config {
-    local USR=$1
-    if [ -n "${USR}" ]; then
+    declare -A VBOX_CONFIG_USAGE=(
+        [USAGE_TOOL]="${UTIL_VBOX_CONFIG}"
+        [USAGE_ARG1]="[USR] System username"
+        [USAGE_EX_PRE]="# Example generating VBOX config files"
+        [USAGE_EX]="${UTIL_VBOX_CONFIG} vroncevic"
+    )
+
+    #
+    # @brief  Generating VBOX client config files
+    # @param  Value required username (system username)
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # vbox_config "vroncevic"
+    # local STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | check dirs
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function vbox_config {
+        local USR=$1
+        if [ -z "${USR}" ]; then
+            usage VBOX_CONFIG_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_vbox_config=()
         load_util_conf "$UTIL_CFG_VBOXCFG" config_vbox_config
@@ -104,8 +108,5 @@ function vbox_config {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_VBOX_CONFIG"
         return $NOT_SUCCESS
-    fi
-    usage VBOX_CONFIG_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi

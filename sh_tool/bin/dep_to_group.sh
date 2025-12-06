@@ -3,52 +3,56 @@
 # @brief   Convert name of department to group short name
 # @version ver.1.0
 # @date    Mon Jun 08 15:14:32 2015
-# @company Frobas IT Department, www.frobas.com 2015
-# @author  Vladimir Roncevic <vladimir.roncevic@frobas.com>
+# @company None, free software to use 2015
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
-UTIL_DEP_TO_GROUP=dep_to_group
-UTIL_DEP_TO_GROUP_VERSION=ver.1.0
-UTIL=/root/scripts/sh_util/${UTIL_DEP_TO_GROUP_VERSION}
-UTIL_DEP_TO_GROUP_CFG=${UTIL}/conf/${UTIL_DEP_TO_GROUP}.cfg
-UTIL_LOG=${UTIL}/log
+if [ -z "$__SH_UTIL_DEP_TO_GROUP" ]; then
+    readonly __SH_UTIL_DEP_TO_GROUP=1
 
-.    ${UTIL}/bin/devel.sh
-.    ${UTIL}/bin/usage.sh
-.    ${UTIL}/bin/load_util_conf.sh
+    UTIL_DEP_TO_GROUP=dep_to_group
+    UTIL_DEP_TO_GROUP_VERSION=ver.1.0
+    UTIL=/root/scripts/sh_util/${UTIL_DEP_TO_GROUP_VERSION}
+    UTIL_DEP_TO_GROUP_CFG=${UTIL}/conf/${UTIL_DEP_TO_GROUP}.cfg
+    UTIL_LOG=${UTIL}/log
 
-declare -A DEP_TO_GROUP_USAGE=(
-    [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
-    [USAGE_ARG1]="[DEP] Department name"
-    [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
-    [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
-)
+    .    ${UTIL}/bin/load_util_conf.sh
 
-#
-# @brief  Convert name of department to group
-# @params Values required department name and group
-# @retval Success return 0, else return 1
-#
-# @usage
-# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#
-# local DEP="Management" GROUP="" STATUS
-# dep_to_group $DEP GROUP
-# STATUS=$?
-#
-# if [ $STATUS -eq $SUCCESS ]; then
-#    # true
-#    # notify admin | user
-# else
-#    # false
-#    # missing argument | missinf config file | failed to load config file
-#    # return $NOT_SUCCESS
-#    # or
-#    # exit 128
-# fi
-#
-function dep_to_group {
-    local DEP=$1
-    if [ -n "${DEP}" ]; then
+    declare -A DEP_TO_GROUP_USAGE=(
+        [USAGE_TOOL]="${UTIL_DEP_TO_GROUP}"
+        [USAGE_ARG1]="[DEP] Department name"
+        [USAGE_EX_PRE]="# Example converting \"Management\" to \"me\""
+        [USAGE_EX]="${UTIL_DEP_TO_GROUP} \"Management\""
+    )
+
+    #
+    # @brief  Convert name of department to group
+    # @params Values required department name and group
+    # @retval Success return 0, else return 1
+    #
+    # @usage
+    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    #
+    # local DEP="Management" GROUP="" STATUS
+    # dep_to_group $DEP GROUP
+    # STATUS=$?
+    #
+    # if [ $STATUS -eq $SUCCESS ]; then
+    #    # true
+    #    # notify admin | user
+    # else
+    #    # false
+    #    # missing argument | missinf config file | failed to load config file
+    #    # return $NOT_SUCCESS
+    #    # or
+    #    # exit 128
+    # fi
+    #
+    function dep_to_group {
+        local DEP=$1
+        if [ -z "${DEP}" ]; then
+            usage DEP_TO_GROUP_USAGE
+            return $NOT_SUCCESS
+        fi
         local FUNC=${FUNCNAME[0]} MSG="None" STATUS
         declare -A config_dep_to_group=()
         load_util_conf "$UTIL_DEP_TO_GROUP_CFG" config_dep_to_group
@@ -68,8 +72,5 @@ function dep_to_group {
         MSG="Force exit!"
         info_debug_message_end "$MSG" "$FUNC" "$UTIL_DEP_TO_GROUP"
         return $NOT_SUCCESS
-    fi
-    usage DEP_TO_GROUP_USAGE
-    return $NOT_SUCCESS
-}
-
+    }
+fi
