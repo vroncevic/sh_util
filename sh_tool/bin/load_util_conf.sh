@@ -60,11 +60,14 @@ if [ -z "$__SH_UTIL_LOAD_UTIL_CONF" ]; then
         check_cfg "${FILE}"
         STATUS=$?
         if [ $STATUS -eq $SUCCESS ]; then
-            IFS="="
-            while read -r KEY VALUE
-            do
-                eval "$CONFIG[${KEY}]=$(printf "'%s' " "${VALUE}")"
-            done < ${FILE}
+            while IFS="=" read -r KEY VALUE || [ -n "$KEY" ]; do
+                KEY=$(echo "$KEY" | xargs)
+                VALUE=$(echo "$VALUE" | xargs)
+
+                [[ -z "$KEY" || "$KEY" =~ ^# ]] && continue
+
+                eval "${CONFIG}[$(printf '%q' "$KEY")]=$(printf '%q' "$VALUE")"
+            done < "${FILE}"
             info_debug_message_end "Done" "$FUNC" "$UTIL_LOAD_UTIL_CONF"
             return $SUCCESS
         fi
